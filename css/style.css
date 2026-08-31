@@ -1,0 +1,209 @@
+/* Merve Samak Akademi - Modern Özel Tema ve Animasyon Stilleri */
+
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap');
+
+:root {
+  --font-heading: 'Outfit', sans-serif;
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  
+  /* Dark Mode (Default) */
+  --bg-primary: #0f0716;
+  --bg-secondary: #1a0c27;
+  --bg-card: rgba(26, 12, 39, 0.75);
+  --bg-card-hover: rgba(46, 16, 71, 0.85);
+  --border-color: rgba(168, 85, 247, 0.2);
+  --border-highlight: rgba(236, 72, 153, 0.4);
+  --text-main: #f8fafc;
+  --text-muted: #94a3b8;
+  --text-accent: #f472b6;
+  --nav-bg: rgba(15, 7, 22, 0.85);
+  --glow-pink: rgba(236, 72, 153, 0.25);
+  --glow-purple: rgba(168, 85, 247, 0.25);
+  --badge-bg: rgba(236, 72, 153, 0.15);
+  --badge-text: #f472b6;
+  --input-bg: rgba(20, 10, 32, 0.8);
+}
+
+html.light {
+  --bg-primary: #faf5ff;
+  --bg-secondary: #ffffff;
+  --bg-card: rgba(255, 255, 255, 0.85);
+  --bg-card-hover: rgba(245, 235, 255, 0.95);
+  --border-color: rgba(192, 132, 252, 0.25);
+  --border-highlight: rgba(219, 39, 119, 0.35);
+  --text-main: #1e1b4b;
+  --text-muted: #64748b;
+  --text-accent: #db2777;
+  --nav-bg: rgba(250, 245, 255, 0.85);
+  --glow-pink: rgba(236, 72, 153, 0.15);
+  --glow-purple: rgba(168, 85, 247, 0.15);
+  --badge-bg: rgba(219, 39, 119, 0.1);
+  --badge-text: #be185d;
+  --input-bg: rgba(255, 255, 255, 0.9);
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  transition: background-color 0.35s ease, color 0.35s ease;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, .font-heading {
+  font-family: var(--font-heading);
+}
+
+/* Glassmorphism & Card Styles */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--border-color);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-panel:hover {
+  border-color: var(--border-highlight);
+  box-shadow: 0 12px 30px -10px var(--glow-pink);
+}
+
+.nav-glass {
+  background: var(--nav-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Custom Gradients */
+.text-gradient {
+  background: linear-gradient(135deg, #ec4899 0%, #a855f7 50%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gradient-pink {
+  background: linear-gradient(135deg, #f472b6 0%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient-brand {
+  background: linear-gradient(135deg, #ec4899 0%, #9333ea 100%);
+}
+
+.bg-gradient-subtle {
+  background: radial-gradient(circle at 50% -20%, rgba(236, 72, 153, 0.18) 0%, rgba(168, 85, 247, 0.08) 50%, transparent 80%);
+}
+
+/* Glow Elements */
+.glow-effect {
+  position: relative;
+}
+
+.glow-effect::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #ec4899, #8b5cf6, #3b82f6, #ec4899);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  filter: blur(8px);
+}
+
+.glow-effect:hover::before {
+  opacity: 0.7;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.3);
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(236, 72, 153, 0.6);
+}
+
+/* Custom Navigation Link Underlines */
+.nav-link {
+  position: relative;
+  transition: color 0.2s ease;
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  bottom: -4px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(90deg, #ec4899, #a855f7);
+  transition: width 0.3s ease;
+  border-radius: 9999px;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+.nav-link.active {
+  color: #ec4899 !important;
+  font-weight: 600;
+}
+
+/* Floating animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Pulse Glow */
+@keyframes pulseGlow {
+  0%, 100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: scale(1.05);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulseGlow 6s ease-in-out infinite;
+}
+
+/* Toast Notification */
+#toast-notification {
+  transform: translateY(120%);
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#toast-notification.show {
+  transform: translateY(0);
+}

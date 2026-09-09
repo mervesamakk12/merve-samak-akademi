@@ -1,14 +1,14 @@
 /**
  * Merve SAMAK AKADEMİ - Veri Motoru ve Ders Materyali Portalı
- * Hedef Kitle: 5, 6, 7 ve 8. Sınıf Ortaokul Matematik Öğrencileri ve Öğretmenleri
+ * Hedef Kitle: 8. Sınıf LGS Matematik Öğrencileri ve Öğretmenleri
  */
 
 const DEFAULT_ACADEMY_DATA = {
   author: {
     name: "Merve SAMAK",
-    title: "Ortaokul Matematik Öğretmeni",
+    title: "8. Sınıf LGS Matematik Öğretmeni & Eğitim Koçu",
     avatar: "assets/logo.png",
-    bio: "Sevgili öğrencilerim ve değerli velilerim; bu platformda 5, 6, 7 ve 8. sınıf matematik derslerimizde kullandığımız ders notlarını, haftalık çalışma kağıtlarını, akıllı tahta GeoGebra uygulamalarını, yazılıya hazırlık testlerini ve zeka oyunlarını sizlerle paylaşıyorum.",
+    bio: "Sevgili 8. sınıf LGS öğrencilerim ve değerli velilerim; bu platformda LGS matematik yolculuğunuzda en yüksek nete ulaşmanız için hazırladığım tüm ünite konu anlatım özetlerini, yeni nesil soru fasiküllerini (PDF), formül tablolarını, deneme sınavlarını ve interaktif uygulamaları paylaşıyorum.",
     social: {
       instagram: "https://instagram.com",
       youtube: "https://youtube.com",
@@ -19,303 +19,227 @@ const DEFAULT_ACADEMY_DATA = {
 
   categories: [
     {
-      id: "ders-materyalleri",
-      name: "Çalışma Kağıtları & Ders Notları",
-      icon: "ph-file-text",
+      id: "konu-anlatimi-pdf",
+      name: "8. Sınıf Konu Anlatımı (PDF)",
+      icon: "ph-book-open-text",
       badgeColor: "from-pink-500 to-rose-500",
-      description: "5, 6, 7 ve 8. sınıf MEB kazanımlarına uygun konu özetleri, adım adım çözümlü alıştırmalar ve ödev fasikülleri.",
+      description: "8. Sınıf LGS MEB kazanımlarına tam uyumlu ünite konu anlatım özetleri, formül tabloları ve adım adım çözümlü örnekler.",
+      count: 5
+    },
+    {
+      id: "soru-fasikulleri-pdf",
+      name: "8. Sınıf Soru Bankası & Testler (PDF)",
+      icon: "ph-file-text",
+      badgeColor: "from-purple-500 to-indigo-500",
+      description: "Beceri temelli, görsel ve grafik yorumlamalı 8. sınıf LGS yeni nesil soru fasikülleri ve açıklamalı çözüm anahtarları.",
       count: 4
     },
     {
-      id: "akilli-tahta",
-      name: "Akıllı Tahta & İnteraktif Uygulamalar",
-      icon: "ph-chalkboard-teacher",
-      badgeColor: "from-purple-500 to-indigo-500",
-      description: "Derslerimizde kullandığımız dinamik GeoGebra simülasyonları, görsel modeller ve akıllı tahta test sunuları.",
+      id: "deneme-sinavlari-pdf",
+      name: "LGS Matematik Branş Denemeleri (PDF)",
+      icon: "ph-exam",
+      badgeColor: "from-amber-500 to-orange-500",
+      description: "Tam 20 soruluk MEB sınav formatında hazırlanmış 8. sınıf LGS matematik branş denemeleri ve optik puanlama anahtarı.",
       count: 3
     },
     {
-      id: "yazili-ve-lgs",
-      name: "Yazılıya Hazırlık & LGS Denemeleri",
-      icon: "ph-exam",
-      badgeColor: "from-amber-500 to-orange-500",
-      description: "1. ve 2. dönem yazılı sınav provası soru kağıtları, LGS yeni nesil branş denemeleri ve çözüm anahtarları.",
+      id: "akilli-tahta",
+      name: "Akıllı Tahta & GeoGebra",
+      icon: "ph-chalkboard-teacher",
+      badgeColor: "from-cyan-500 to-blue-500",
+      description: "Derslerimizde kullandığımız dinamik GeoGebra geometri simülasyonları ve akıllı tahta konu sunuları.",
       count: 3
     },
     {
       id: "zeka-oyunlari",
-      name: "Akıl & Zeka Oyunları",
+      name: "LGS Akıl & Mantık Oyunları",
       icon: "ph-puzzle-piece",
       badgeColor: "from-fuchsia-500 to-pink-500",
-      description: "Matematiksel düşünmeyi ve problem çözme hızını geliştiren haftalık mantık bulmacaları ve zeka oyunları.",
-      count: 2
-    },
-    {
-      id: "dijital-odevler",
-      name: "Dijital Ödevler & Testler",
-      icon: "ph-laptop",
-      badgeColor: "from-cyan-500 to-blue-500",
-      description: "Evde kendinizi test edebileceğiniz etkileşimli online quizler, Blooket ve Quizizz pekiştirme etkinlikleri.",
+      description: "Matematiksel düşünme ve muhakeme hızını artıran haftalık mantık labirentleri ve zeka bulmacaları.",
       count: 2
     }
   ],
 
   gradeLevels: [
-    { id: "all", name: "Tüm Sınıflar" },
-    { id: "5", name: "5. Sınıf" },
-    { id: "6", name: "6. Sınıf" },
-    { id: "7", name: "7. Sınıf" },
-    { id: "8", name: "8. Sınıf (LGS)" }
+    { id: "all", name: "Tüm LGS Konuları" },
+    { id: "carpanlar", name: "Çarpanlar ve Katlar" },
+    { id: "uslu", name: "Üslü İfadeler" },
+    { id: "karekok", name: "Kareköklü İfadeler" },
+    { id: "veri-olasilik", name: "Veri Analizi & Olasılık" },
+    { id: "cebir", name: "Cebirsel İfadeler" },
+    { id: "denklem-egim", name: "Doğrusal Denklemler & Eğim" },
+    { id: "esitsizlik-ucgen", name: "Eşitsizlikler & Üçgenler" }
   ],
 
   posts: [
     {
-      id: "8-sinif-carpanlar-katlar-yeni-nesil-fasikul",
-      title: "8. Sınıf Çarpanlar ve Katlar: 2025-2026 LGS Yeni Nesil Çalışma Kağıdı ve PDF Çözümleri",
-      slug: "8-sinif-carpanlar-katlar-yeni-nesil-fasikul",
-      category: "ders-materyalleri",
-      categoryName: "Çalışma Kağıtları & Ders Notları",
-      grade: "8",
-      gradeName: "8. Sınıf (LGS)",
-      date: "31 Ağustos 2026",
-      readTime: "5 dk okuma / PDF İndir",
+      id: "8-sinif-carpanlar-katlar-konu-anlatimi-ve-soru-fasikulu-pdf",
+      title: "8. Sınıf Çarpanlar ve Katlar: Kapsamlı Konu Anlatımı ve 50 Soruluk LGS Yeni Nesil Soru Fasikülü (PDF)",
+      slug: "8-sinif-carpanlar-katlar-konu-anlatimi-ve-soru-fasikulu-pdf",
+      category: "konu-anlatimi-pdf",
+      categoryName: "8. Sınıf Konu Anlatımı (PDF)",
+      grade: "carpanlar",
+      gradeName: "Çarpanlar ve Katlar",
+      date: "09 Eylül 2026",
+      readTime: "6 dk okuma / Konu + Soru PDF İndir",
       featured: true,
       coverImage: "https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1200&q=80",
-      excerpt: "Sevgili 8. sınıf öğrencilerim; LGS matematik yolculuğumuzun ilk ünitesi olan EBOB-EKOK konusunu pekiştirmeniz için hazırladığım beceri temelli çalışma kağıdı ve adım adım çözümler.",
+      excerpt: "8. sınıf LGS matematik 1. ünitesi olan Çarpanlar ve Katlar konusunun tüm püf noktalarını, EBOB-EKOK problem ayırt etme taktiklerini ve 50 adet yeni nesil beceri temelli soruyu içeren PDF seti.",
       content: `
         <div class="space-y-6">
           <p class="text-lg leading-relaxed">
-            Sevgili 8. sınıf öğrencilerim; LGS matematik maratonuna güçlü bir başlangıç yapıyoruz! İlk ünitemiz olan <strong>Çarpanlar ve Katlar</strong> konusunda yeni nesil sorulardan korkmamanız için derste işlediğimiz mantığı özetleyen özel bir çalışma fasikülü hazırladım.
+            Sevgili 8. sınıf öğrencilerim; LGS matematik maratonunda ilk hedefimiz Çarpanlar ve Katlar konusunu %100 nete bağlamak! Bu fasikülde hem <strong>1 sayfalık hap konu anlatımı özeti</strong> hem de sınavda karşınıza çıkabilecek tüm <strong>yeni nesil soru tipleri ve çözümleri</strong> yer alıyor.
           </p>
 
           <div class="p-5 rounded-2xl bg-purple-500/10 border border-purple-500/30 text-purple-200">
             <h4 class="flex items-center gap-2 font-bold text-lg text-pink-400 mb-2">
-              <i class="ph ph-check-circle text-xl"></i> Bu Haftaki MEB Kazanımımız (M.8.1.1.2)
+              <i class="ph ph-check-circle text-xl"></i> 8. Sınıf MEB Kazanım Hedefleri (M.8.1.1.1 - M.8.1.1.3)
             </h4>
-            <p class="text-sm">İki doğal sayının en büyük ortak bölenini (EBOB) ve en küçük ortak katını (EKOK) hesaplar, ilgili problemleri çözer. Gerçek yaşam problemlerinde parçadan bütüne ve bütünden parçaya ilişkisini kurar.</p>
+            <p class="text-sm">Verilen pozitif tam sayıların çarpanlarını bulur, asal çarpanlarına ayırır. İki doğal sayının EBOB ve EKOK değerlerini hesaplar, gerçek yaşam problemlerini modeller.</p>
           </div>
 
-          <h3 class="text-2xl font-bold text-white mt-8 mb-4">Fasikülün İçeriğinde Neler Var?</h3>
+          <h3 class="text-2xl font-bold text-white mt-8 mb-4">Bu PDF Fasikülünün İçeriğinde Neler Var?</h3>
           <ul class="space-y-3 list-none pl-0">
             <li class="flex items-start gap-3">
               <span class="p-1 rounded-lg bg-pink-500/20 text-pink-400 mt-1"><i class="ph ph-check font-bold"></i></span>
-              <span><strong>1 Sayfalık Pratik Konu Özeti:</strong> Asal çarpan algoritması ve pratik EBOB-EKOK bulma taktikleri.</span>
+              <span><strong>Ayrıntılı Konu Anlatımı:</strong> Asal çarpan algoritması, aralarında asal sayılar ve pratik EBOB-EKOK kuralları.</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="p-1 rounded-lg bg-pink-500/20 text-pink-400 mt-1"><i class="ph ph-check font-bold"></i></span>
-              <span><strong>12 Adet Seviye Seviye Soru:</strong> 4 adet temel kavrama, 4 adet orta düzey ve 4 adet tam LGS formatında yeni nesil problem.</span>
+              <span><strong>50 Adet LGS Yeni Nesil Soru:</strong> 15 temel kavrama, 20 orta düzey ve 15 tam LGS formatında beceri temelli problem.</span>
             </li>
             <li class="flex items-start gap-3">
               <span class="p-1 rounded-lg bg-pink-500/20 text-pink-400 mt-1"><i class="ph ph-check font-bold"></i></span>
-              <span><strong>Adım Adım Çözüm Anahtarı:</strong> Takıldığınız sorularda hatanızı görebileceğiniz açıklamalı yanıtlar.</span>
+              <span><strong>Adım Adım Video ve PDF Çözüm Anahtarı:</strong> Tüm soruların ayrıntılı çözüm adımları.</span>
             </li>
           </ul>
 
           <div class="my-8 p-6 rounded-2xl bg-gradient-to-r from-pink-900/30 to-purple-900/30 border border-pink-500/30">
-            <h4 class="font-bold text-xl text-white mb-2">💡 Merve Öğretmenden Hatırlatma:</h4>
+            <h4 class="font-bold text-xl text-white mb-2">💡 Merve Öğretmenden LGS İpucu:</h4>
             <p class="text-gray-300 text-sm leading-relaxed">
-              Soruyu okurken verilen sayıları hemen çarpmaya veya bölmeye kalkışmayın. Önce "burada parçalama mı yapılıyor yoksa birleştirme mi?" sorusunu kendinize sorun.
+              Soruda parçalama, bölme, eşit aralıklı direk dikme varsa <strong>EBOB</strong>; periyodik nöbet, zil, sefer saatleri gibi birleşip katlanma varsa <strong>EKOK</strong> kullanılır!
             </p>
           </div>
 
           <div class="flex flex-wrap gap-4 pt-4">
-            <a href="javascript:void(0)" onclick="alert('8. Sınıf Çarpanlar ve Katlar Çalışma Kağıdı indirildi! (Örnek PDF)')" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold shadow-lg shadow-pink-500/20 hover:scale-105 transition-all">
-              <i class="ph ph-file-pdf text-xl"></i> Çalışma Kağıdını İndir (PDF)
+            <a href="javascript:void(0)" onclick="alert('8. Sınıf Çarpanlar ve Katlar Konu Anlatımı PDF Fasikülü İndirildi!')" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-brand text-white font-bold shadow-lg shadow-pink-500/25 hover:scale-105 transition-all">
+              <i class="ph ph-file-pdf text-2xl"></i> Konu Anlatımı & Soru Fasikülünü İndir (PDF)
             </a>
-            <a href="javascript:void(0)" onclick="alert('Online interaktif test moduna yönlendiriliyorsunuz!')" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-purple-900/40 hover:bg-purple-800/40 border border-purple-500/30 text-purple-200 font-semibold transition-all">
-              <i class="ph ph-laptop text-xl"></i> Kendini Test Et (Online)
+            <a href="#questions" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-purple-900/50 hover:bg-purple-800 border border-purple-500/30 text-purple-200 font-bold transition-all">
+              <i class="ph ph-check-circle text-xl"></i> Online Soru Dünyasında Çöz
             </a>
           </div>
         </div>
       `
     },
     {
-      id: "7-sinif-rasyonel-sayilar-geogebra-etkinligi",
-      title: "7. Sınıf Rasyonel Sayılarla Dört İşlem: Modelleme ve İnteraktif GeoGebra Etkinliği",
-      slug: "7-sinif-rasyonel-sayilar-geogebra-etkinligi",
-      category: "akilli-tahta",
-      categoryName: "Akıllı Tahta & İnteraktif Uygulamalar",
-      grade: "7",
-      gradeName: "7. Sınıf",
-      date: "28 Ağustos 2026",
-      readTime: "4 dk okuma / Uygulama",
+      id: "8-sinif-uslu-ifadeler-konu-anlatimi-ve-meb-cikmis-sorular-pdf",
+      title: "8. Sınıf Üslü İfadeler: Formül Tablosu, Konu Anlatımı ve LGS Çıkmış Soru Bankası (PDF)",
+      slug: "8-sinif-uslu-ifadeler-konu-anlatimi-ve-meb-cikmis-sorular-pdf",
+      category: "soru-fasikulleri-pdf",
+      categoryName: "8. Sınıf Soru Bankası & Testler (PDF)",
+      grade: "uslu",
+      gradeName: "Üslü İfadeler",
+      date: "07 Eylül 2026",
+      readTime: "5 dk okuma / PDF İndir",
       featured: true,
       coverImage: "https://images.unsplash.com/photo-1509228468518-180dd4864904?auto=format&fit=crop&w=1200&q=80",
-      excerpt: "7. sınıf öğrencilerim için rasyonel sayılarda toplama, çıkarma ve çarpma işlemlerini somutlaştıran etkileşimli sayı doğrusu ve alan modelleme uygulaması.",
+      excerpt: "8. sınıf üslü sayılarda negatif üs, üssün üssü, taban eşitleme taktikleri, ondalık çözümleme ve bilimsel gösterim MEB çıkmış soru fasikülü.",
       content: `
         <div class="space-y-6">
           <p class="text-lg leading-relaxed">
-            Sevgili 7. sınıflarım; rasyonel sayılarda işaret kurallarını ezberlemek yerine sayı doğrusunda hareket ederek keşfediyoruz! Bu etkinlikte telefonunuzdan veya tabletinizden kaydırıcıları hareket ettirerek rasyonel sayı işlemlerinin mantığını görsel olarak inceleyebilirsiniz.
+            Sevgili öğrencilerim; LGS'de her yıl en az 2-3 soru gelen <strong>Üslü İfadeler</strong> ünitesini tüm kurallarıyla tek bir fasikülde topladım. Parantezli ve parantezsiz negatif taban tuzaklarına düşmemek için bu konu anlatımı ve soru setini mutlaka çözün.
           </p>
 
           <div class="p-5 rounded-2xl bg-purple-500/10 border border-purple-500/30 text-purple-200">
-            <h4 class="flex items-center gap-2 font-bold text-lg text-pink-400 mb-2">
-              <i class="ph ph-check-circle text-xl"></i> 7. Sınıf Kazanımı (M.7.1.2.1)
-            </h4>
-            <p class="text-sm">Rasyonel sayılarla toplama ve çıkarma işlemlerini yapar; sayı doğrusu ve alan modelleri üzerinde görselleştirir.</p>
+            <h4 class="font-bold text-lg text-pink-400 mb-2">🎯 Öne Çıkan Formüller:</h4>
+            <p class="text-sm font-mono">$a^{-n} = \\frac{1}{a^n}$, $\\quad (a^m)^n = a^{m \\cdot n}$, $\\quad a^m \\cdot a^n = a^{m+n}$, $\\quad \\frac{a^m}{a^n} = a^{m-n}$</p>
           </div>
-
-          <h3 class="text-2xl font-bold text-white mt-6 mb-3">Evde Uygulama Adımları</h3>
-          <ol class="list-decimal list-inside space-y-2 text-gray-200 text-sm">
-            <li>Aşağıdaki "Uygulamayı Aç" butonuna tıklayarak GeoGebra penceresini tam ekran yapın.</li>
-            <li>Mavi ve kırmızı noktaları sürükleyerek iki farklı rasyonel sayı seçin.</li>
-            <li>"İşlemi Göster" kutucuğunu işaretleyip payda eşitleme aşamalarını adım adım takip edin.</li>
-          </ol>
 
           <div class="flex flex-wrap gap-4 pt-4">
-            <a href="javascript:void(0)" onclick="alert('GeoGebra Rasyonel Sayı Simülatörü açıldı!')" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-pink-500 to-purple-600 text-white font-semibold shadow-lg shadow-pink-500/20 hover:scale-105 transition-all">
-              <i class="ph ph-play-circle text-xl"></i> İnteraktif Uygulamayı Başlat
-            </a>
-            <a href="javascript:void(0)" onclick="alert('7. Sınıf Rasyonel Sayılar Çalışma Kağıdı indirildi!')" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-purple-900/40 hover:bg-purple-800/40 border border-purple-500/30 text-purple-200 font-semibold transition-all">
-              <i class="ph ph-file-pdf text-xl"></i> Pekiştirme Kağıdı (PDF)
+            <a href="javascript:void(0)" onclick="alert('8. Sınıf Üslü İfadeler Konu ve Soru PDF Paketi İndirildi!')" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-brand text-white font-bold shadow-lg shadow-pink-500/25 hover:scale-105 transition-all">
+              <i class="ph ph-file-pdf text-2xl"></i> Üslü İfadeler Soru Fasikülünü İndir (PDF)
             </a>
           </div>
         </div>
       `
     },
     {
-      id: "6-sinif-tam-sayilar-ve-mutlak-deger-fasikulu",
-      title: "6. Sınıf Tam Sayılar ve Mutlak Değer: Günlük Hayat Problemleri ve Alıştırma Kağıdı",
-      slug: "6-sinif-tam-sayilar-ve-mutlak-deger-fasikulu",
-      category: "ders-materyalleri",
-      categoryName: "Çalışma Kağıtları & Ders Notları",
-      grade: "6",
-      gradeName: "6. Sınıf",
-      date: "25 Ağustos 2026",
-      readTime: "4 dk okuma / PDF İndir",
+      id: "8-sinif-karekoklu-ifadeler-konu-anlatimi-ve-beceri-temelli-test-pdf",
+      title: "8. Sınıf Kareköklü İfadeler: Tam Konu Anlatımı ve LGS Yeni Nesil Modelleme Testi (PDF)",
+      slug: "8-sinif-karekoklu-ifadeler-konu-anlatimi-ve-beceri-temelli-test-pdf",
+      category: "konu-anlatimi-pdf",
+      categoryName: "8. Sınıf Konu Anlatımı (PDF)",
+      grade: "karekok",
+      gradeName: "Kareköklü İfadeler",
+      date: "05 Eylül 2026",
+      readTime: "7 dk okuma / PDF İndir",
       featured: false,
       coverImage: "https://images.unsplash.com/photo-1596495578065-6e0763fa1178?auto=format&fit=crop&w=1200&q=80",
-      excerpt: "Sıcaklık değerleri, deniz seviyesi ve borç-alacak durumlarıyla tam sayıları somutlaştıran 6. sınıf renkli etkinlik kağıdı.",
+      excerpt: "Tam kare sayılar, yaklaşık değer bulma, a√b biçiminde kök dışına çıkarma ve kareköklü sayılarda dört işlem beceri temelli soru seti.",
       content: `
         <div class="space-y-6">
           <p class="text-lg leading-relaxed">
-            Sevgili 6. sınıflarım; tam sayılar konusuna harika bir giriş yaptık! Termometrede sıfırın altındaki dereceler, asansörde otopark katları ve deniz seviyesinin altındaki derinliklerle negatif sayıların hayatımızdaki yerini öğreniyoruz.
+            Kareköklü sayılar LGS'de geometri modellemeleri ve alan sorularıyla birleştirilerek sorulur. Alanı bilinen bir karenin kenarını bulmaktan sayı doğrusunda yaklaşık değer hesaplamaya kadar her aşamayı adım adım inceleyen PDF fasikülümüz.
           </p>
 
-          <div class="p-5 rounded-2xl bg-cyan-950/30 border border-cyan-500/30 text-cyan-200">
-            <h4 class="font-bold text-lg mb-1">🎯 Konu Başlıkları:</h4>
-            <p class="text-sm">Pozitif ve Negatif Tam Sayılar, Sayı Doğrusunda Sıralama, Mutlak Değerin Uzaklık Anlamı.</p>
-          </div>
-
           <div class="pt-4">
-            <a href="javascript:void(0)" onclick="alert('6. Sınıf Tam Sayılar Çalışma Kağıdı indirildi!')" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-brand text-white font-semibold hover:opacity-90 transition-all">
-              <i class="ph ph-file-pdf text-xl"></i> Çalışma Kağıdını İndir (A4 PDF)
+            <a href="javascript:void(0)" onclick="alert('8. Sınıf Kareköklü İfadeler PDF Fasikülü İndirildi!')" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-brand text-white font-bold shadow-lg shadow-pink-500/25 hover:scale-105 transition-all">
+              <i class="ph ph-file-pdf text-2xl"></i> Karekök Konu & Soru PDF İndir
             </a>
           </div>
         </div>
       `
     },
     {
-      id: "5-sinif-dogal-sayilar-ve-zihinden-islem-taktikleri",
-      title: "5. Sınıf Doğal Sayılar: Zihinden Dört İşlem Stratejileri ve Oyunlu Çalışma Kağıdı",
-      slug: "5-sinif-dogal-sayilar-ve-zihinden-islem-taktikleri",
-      category: "ders-materyalleri",
-      categoryName: "Çalışma Kağıtları & Ders Notları",
-      grade: "5",
-      gradeName: "5. Sınıf",
-      date: "22 Ağustos 2026",
-      readTime: "3 dk okuma / PDF İndir",
+      id: "8-sinif-cebirsel-ifadeler-ve-ozdeslikler-konu-anlatimi-pdf",
+      title: "8. Sınıf Cebirsel İfadeler ve Özdeşlikler: Geometrik Alan Modelleme & Soru Fasikülü (PDF)",
+      slug: "8-sinif-cebirsel-ifadeler-ve-ozdeslikler-konu-anlatimi-pdf",
+      category: "konu-anlatimi-pdf",
+      categoryName: "8. Sınıf Konu Anlatımı (PDF)",
+      grade: "cebir",
+      gradeName: "Cebirsel İfadeler",
+      date: "02 Eylül 2026",
+      readTime: "5 dk okuma / PDF İndir",
       featured: false,
       coverImage: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=1200&q=80",
-      excerpt: "5. sınıf öğrencilerimin işlem hızını 2 katına çıkaracak zihinden toplama ve çarpma taktikleri ve eğlenceli boyama bulmacası.",
+      excerpt: "Tam kare ve iki kare farkı özdeşliklerini geometrik karo modelleriyle öğreten 8. sınıf LGS cebir konu anlatımı ve soru paketi.",
       content: `
         <div class="space-y-6">
           <p class="text-lg leading-relaxed">
-            Sevgili 5. sınıf miniklerim; ortaokul matematiğine hoş geldiniz! Bu çalışma kağıdında kağıt kalem kullanmadan kafadan hızlı hesap yapmanın 3 pratik sırrını öğreniyoruz.
+            Cebirsel ifadelerde katsayılar toplamı, sabit terim ve en önemlisi $(a+b)^2$, $(a-b)^2$ ve $a^2-b^2$ özdeşliklerinin geometrik alan sorularına uygulanışını bu fasikülle pekiştirin.
           </p>
 
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-            <div class="p-4 rounded-xl bg-purple-950/40 border border-purple-500/20">
-              <h5 class="font-bold text-pink-400 text-sm">1. Onluğa Tamamlama</h5>
-              <p class="text-xs text-gray-300 mt-1">Sayıları 10, 100 veya 1000'e yuvarlayarak hızlı toplama.</p>
-            </div>
-            <div class="p-4 rounded-xl bg-purple-950/40 border border-purple-500/20">
-              <h5 class="font-bold text-pink-400 text-sm">2. Parçalara Ayırma</h5>
-              <p class="text-xs text-gray-300 mt-1">Önce onlar basamaklarını, sonra birler basamaklarını toplama.</p>
-            </div>
-            <div class="p-4 rounded-xl bg-purple-950/40 border border-purple-500/20">
-              <h5 class="font-bold text-pink-400 text-sm">3. 5 ile Pratik Çarpma</h5>
-              <p class="text-xs text-gray-300 mt-1">Sayıyı önce 10 ile çarpıp ardından 2'ye bölme taktiği.</p>
-            </div>
-          </div>
-
           <div class="pt-4">
-            <a href="javascript:void(0)" onclick="alert('5. Sınıf Zihinden İşlemler Kağıdı indirildi!')" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-brand text-white font-semibold">
-              <i class="ph ph-file-pdf text-xl"></i> Eğlenceli Çalışma Kağıdını İndir
+            <a href="javascript:void(0)" onclick="alert('8. Sınıf Cebirsel İfadeler PDF İndirildi!')" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-brand text-white font-bold shadow-lg shadow-pink-500/25">
+              <i class="ph ph-file-pdf text-2xl"></i> Cebirsel İfadeler PDF Fasikülünü İndir
             </a>
           </div>
         </div>
       `
     },
     {
-      id: "haftanin-akil-ve-zeka-oyunu-sihirli-petekler",
-      title: "Haftalık Akıl & Zeka Oyunu: Sihirli Petekler ve Mantık Labirenti (#1)",
-      slug: "haftanin-akil-ve-zeka-oyunu-sihirli-petekler",
-      category: "zeka-oyunlari",
-      categoryName: "Akıl & Zeka Oyunları",
+      id: "8-sinif-lgs-matematik-tam-brans-denemesi-1-pdf",
+      title: "8. Sınıf LGS Matematik 20 Soruluk Branş Denemesi ve Açıklamalı Çözüm Kitapçığı (#1) (PDF)",
+      slug: "8-sinif-lgs-matematik-tam-brans-denemesi-1-pdf",
+      category: "deneme-sinavlari-pdf",
+      categoryName: "LGS Matematik Branş Denemeleri (PDF)",
       grade: "all",
-      gradeName: "Tüm Sınıflar",
-      date: "20 Ağustos 2026",
-      readTime: "3 dk / Bulmaca",
-      featured: false,
-      coverImage: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=1200&q=80",
-      excerpt: "Tüm sınıflarımızın çözebileceği, hafta sonu ailenizle veya arkadaşlarınızla yarışabileceğiniz yazdırılabilir mantık bulmacası.",
-      content: `
-        <div class="space-y-6">
-          <p class="text-lg leading-relaxed">
-            Haftanın zeka oyunu köşemizde bu hafta <strong>Sihirli Petekler</strong> bulmacamız var! Bakalım sınıfımızda bu bulmacayı ilk çözen kim olacak?
-          </p>
-
-          <div class="p-5 rounded-2xl bg-fuchsia-950/40 border border-fuchsia-500/30">
-            <h4 class="font-bold text-pink-300 text-base mb-2">Kurallar:</h4>
-            <ul class="list-disc list-inside space-y-1 text-xs md:text-sm text-gray-200">
-              <li>1'den 7'ye kadar rakamları her peteğe birer kez yerleştirin.</li>
-              <li>Komşu (birbirine değen) hiçbir iki petekte ardışık sayılar yan yana gelemez.</li>
-              <li>Ortadaki petek sayının kilididir!</li>
-            </ul>
-          </div>
-
-          <div class="pt-4">
-            <button onclick="alert('Zeka oyunu çalışma kağıdı indirildi!')" class="px-6 py-3 rounded-xl bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white font-semibold">
-              <i class="ph ph-printer text-xl inline mr-1"></i> Bulmacayı Yazdır (PDF)
-            </button>
-          </div>
-        </div>
-      `
-    },
-    {
-      id: "1-donem-1-yaziliya-hazirlik-soru-paketleri",
-      title: "1. Dönem 1. Matematik Yazılılarına Hazırlık Fasikülleri (5, 6, 7 ve 8. Sınıf)",
-      slug: "1-donem-1-yaziliya-hazirlik-soru-paketleri",
-      category: "yazili-ve-lgs",
-      categoryName: "Yazılıya Hazırlık & LGS Denemeleri",
-      grade: "all",
-      gradeName: "Tüm Sınıflar",
-      date: "18 Ağustos 2026",
-      readTime: "6 dk / Yazılı Provası",
+      gradeName: "Tüm LGS Konuları",
+      date: "28 Ağustos 2026",
+      readTime: "40 dk Sınav / PDF İndir",
       featured: false,
       coverImage: "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1200&q=80",
-      excerpt: "Yazılı haftasında 100 tam puan almanız için MEB'in açık uçlu soru senaryolarına birebir uygun hazırladığım yazılı provası testleri.",
+      excerpt: "MEB LGS sınav soru sayıları ve zorluk katsayılarına birebir uygun olarak hazırlanan 20 soruluk prova branş denemesi ve puan cetveli.",
       content: `
         <div class="space-y-6">
           <p class="text-lg leading-relaxed">
-            Sevgili öğrencilerim; okulda yapılacak 1. dönem 1. matematik yazılı sınavlarına eksiksiz hazırlanmanız için her sınıf düzeyine özel MEB açık uçlu sınav senaryolarına uygun prova kağıtları hazırladım.
+            Sevgili LGS öğrencilerim; gerçek sınav provası yapmanız için hazırladığım bu 20 soruluk branş denemesini 40 dakikalık süre tutarak çözün. Ardından çözüm kitapçığından yanlışlarınızı ve Hedef & Net Koçu modülünden netinizi analiz edin.
           </p>
 
-          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div class="p-4 rounded-xl bg-purple-950/40 border border-purple-500/20">
-              <h5 class="font-bold text-white text-base">5 ve 6. Sınıflar İçin</h5>
-              <p class="text-xs text-gray-300 mt-1">İşlem adımları puanlanan açık uçlu 10 adet klasik matematik sorusu ve puanlama anahtarı.</p>
-            </div>
-            <div class="p-4 rounded-xl bg-purple-950/40 border border-purple-500/20">
-              <h5 class="font-bold text-white text-base">7 ve 8. Sınıflar İçin</h5>
-              <p class="text-xs text-gray-300 mt-1">Yeni nesil modelleme ve çok adımlı problem çözme sorularından oluşan 100 puanlık yazılı provası.</p>
-            </div>
-          </div>
-
           <div class="pt-4">
-            <a href="javascript:void(0)" onclick="alert('Yazılı provası paketi indirildi!')" class="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-brand text-white font-semibold">
-              <i class="ph ph-file-pdf text-xl"></i> Yazılı Provası PDF Paketini İndir
+            <a href="javascript:void(0)" onclick="alert('8. Sınıf LGS 1. Branş Denemesi PDF İndirildi!')" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-brand text-white font-bold shadow-lg shadow-pink-500/25">
+              <i class="ph ph-file-pdf text-2xl"></i> 20 Soruluk LGS Denemesini İndir (PDF)
             </a>
           </div>
         </div>
@@ -325,28 +249,28 @@ const DEFAULT_ACADEMY_DATA = {
 
   faq: [
     {
-      q: "Buradaki çalışma kağıtları ve ödevler ücretsiz mi?",
-      a: "Evet sevgili öğrencilerim! Sitede paylaştığım tüm ders notları, çalışma kağıtları, akıllı tahta uygulamaları ve yazılı provası testleri tamamen ücretsizdir."
+      q: "8. sınıf LGS konu anlatımı ve soru PDF'leri ücretsiz mi?",
+      a: "Evet sevgili öğrencilerim! Sitede paylaştığım tüm 8. sınıf LGS konu anlatım özetleri, yeni nesil soru fasikülleri ve branş denemeleri tamamen ücretsizdir."
     },
     {
-      q: "Ödevlerimi ve çalışma kağıtlarını telefondan açabilir miyim?",
-      a: "Evet. Sitedeki tüm PDF dosyaları ve etkileşimli uygulamalar telefon, tablet, bilgisayar ve akıllı tahtalarla %100 uyumludur."
+      q: "Soru fasiküllerini ve denemeleri telefondan veya tabletten açabilir miyim?",
+      a: "Evet. Sitemizdeki tüm PDF dosyaları ve etkileşimli modüller telefon, tablet, bilgisayar ve akıllı tahtalarla %100 uyumludur."
     },
     {
-      q: "Çözemediğim soruları Merve Öğretmenime nasıl sorabilirim?",
-      a: "Sitemizin 'İletişim' bölümündeki formdan veya derste doğrudan bana sorularınızı iletebilirsiniz."
+      q: "LGS netlerimi artırmak için siteyi nasıl kullanmalıyım?",
+      a: "Önce 'Konu Notları' sekmesinden formül ve tuzakları inceleyin, ardından 'Soru Dünyası'nda yeni nesil soruları çözüp 'Hedef & Net Koçu'ndan eksiklerinize göre kişisel reçetenizi çıkarın."
     },
     {
-      q: "Zeka oyunlarının cevaplarını nereden öğrenebilirim?",
-      a: "Her pazartesi günü derste ve sitemizin ilgili zeka oyunu sayfasında haftanın şampiyonlarını ve ayrıntılı çözüm adımlarını paylaşıyorum."
+      q: "Çözemediğim LGS sorularını Merve Öğretmenime nasıl sorabilirim?",
+      a: "Sitemizin 'İletişim' bölümündeki formdan veya derste doğrudan bana takıldığınız soruları iletebilirsiniz."
     }
   ],
 
   stats: [
-    { number: "5, 6, 7, 8", label: "Tüm Ortaokul Kademeleri", icon: "ph-graduation-cap" },
-    { number: "100+ PDF", label: "Ücretsiz Çalışma Kağıdı", icon: "ph-file-pdf" },
+    { number: "8. Sınıf (LGS)", label: "LGS Sınav Odaklı", icon: "ph-graduation-cap" },
+    { number: "100+ PDF", label: "Konu Anlatımı & Soru Fasikülü", icon: "ph-file-pdf" },
     { number: "GeoGebra", label: "İnteraktif Görsel Modeller", icon: "ph-chalkboard-teacher" },
-    { number: "LGS & Yazılı", label: "Sınavlara Tam Hazırlık", icon: "ph-exam" }
+    { number: "Yeni Nesil", label: "LGS Deneme & Provaları", icon: "ph-exam" }
   ]
 };
 
@@ -370,7 +294,7 @@ function toAsciiSlug(text) {
 
 window.toAsciiSlug = toAsciiSlug;
 
-// LocalStorage Senkronizasyonu
+// LocalStorage Senkronizasyonu (Sadece 8. Sınıf LGS Verileri ile Yeniler)
 function loadData() {
   const localPosts = localStorage.getItem('ms_academy_posts');
   const localAuthor = localStorage.getItem('ms_academy_author');
@@ -381,14 +305,13 @@ function loadData() {
   const localCategories = localStorage.getItem('ms_academy_categories');
   let categories = DEFAULT_ACADEMY_DATA.categories;
 
-  // Başlangıçta yeni verileri yükle
-  if (!localPosts || localPosts.includes('ChatGPT')) {
+  // Başlangıçta 8. Sınıf LGS verilerini yükle (Eski 5,6,7 verilerini temizler)
+  if (!localPosts || localPosts.includes('5. Sınıf') || localPosts.includes('6. Sınıf') || localPosts.includes('7. Sınıf')) {
     localStorage.setItem('ms_academy_posts', JSON.stringify(DEFAULT_ACADEMY_DATA.posts));
     posts = DEFAULT_ACADEMY_DATA.posts;
   } else {
     try {
       posts = JSON.parse(localPosts);
-      // Link ve slug ASCII kontrolü
       posts = posts.map(p => ({
         ...p,
         id: toAsciiSlug(p.id || p.slug || p.title),
@@ -400,13 +323,12 @@ function loadData() {
     }
   }
 
-  if (!localCategories) {
+  if (!localCategories || localCategories.includes('5, 6, 7')) {
     localStorage.setItem('ms_academy_categories', JSON.stringify(DEFAULT_ACADEMY_DATA.categories));
     categories = DEFAULT_ACADEMY_DATA.categories;
   } else {
     try {
       categories = JSON.parse(localCategories);
-      // Kategori ID ASCII kontrolü
       categories = categories.map(c => ({
         ...c,
         id: toAsciiSlug(c.id || c.name)
@@ -416,7 +338,7 @@ function loadData() {
     }
   }
 
-  if (!localAuthor || !localAuthor.includes('Merve SAMAK')) {
+  if (!localAuthor || localAuthor.includes('5, 6, 7')) {
     localStorage.setItem('ms_academy_author', JSON.stringify(DEFAULT_ACADEMY_DATA.author));
     author = DEFAULT_ACADEMY_DATA.author;
   } else {

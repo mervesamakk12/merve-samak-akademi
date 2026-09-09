@@ -195,7 +195,7 @@ function renderAdminPostsTable() {
         </span>
       </td>
       <td class="py-3.5 px-4 text-xs text-purple-200 font-bold whitespace-nowrap">
-        ${post.gradeName || post.grade + '. Sınıf'}
+        ${post.gradeName || '8. Sınıf (LGS)'}
       </td>
       <td class="py-3.5 px-4 text-right whitespace-nowrap space-x-2">
         <a href="#post/${post.id}" target="_blank" class="px-3 py-1.5 rounded-lg bg-purple-900/40 hover:bg-purple-800 text-purple-200 text-xs font-semibold transition-colors inline-block" title="Sitede Gör">
@@ -223,7 +223,7 @@ function savePostFromForm() {
   const excerpt = document.getElementById('post-form-excerpt').value.trim();
 
   const categoryObj = ACADEMY_DATA.categories.find(c => c.id === categoryId) || ACADEMY_DATA.categories[0];
-  const gradeObj = ACADEMY_DATA.gradeLevels.find(g => g.id === grade) || { name: grade === 'all' ? 'Tüm Sınıflar' : `${grade}. Sınıf` };
+  const gradeObj = ACADEMY_DATA.gradeLevels.find(g => g.id === grade) || { name: grade === 'all' ? 'Tüm LGS Konuları' : '8. Sınıf (LGS)' };
 
   const today = new Date();
   const months = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];

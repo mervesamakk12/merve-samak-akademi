@@ -1,36 +1,96 @@
 /**
  * Merve SAMAK AKADEMİ - 4 Yeni Modül Veri Havuzu
- * 1. Konu Notları (Özet, Formüller & Tuzak Noktalar)
+ * 1. Konu Notları (Derste Açıp Anlatmaya Uygun Konu Anlatımı & PDF Fasikülleri)
  * 2. Soru Dünyası (Kazanım & LGS Yeni Nesil Soruları)
  * 3. Matematik Oyunları Verileri
  * 4. Hedef & Net Koçu Reçete Matrisi
  */
 
 const ACADEMY_MODULES_DATA = {
-  // 1. LGS KONU NOTLARI (ÖZET & TUZAK NOKTALAR)
+  // 1. 8. SINIF LGS KONU ANLATIMI & DERS FASİKÜLLERİ (PDF)
   notes: [
     {
       id: "carpanlar-ve-katlar",
+      unitNo: 1,
       title: "Çarpanlar ve Katlar",
       icon: "ph-grid-four",
       badgeColor: "from-pink-500 to-rose-500",
       grade: "8",
-      summary: "Pozitif tam sayıların çarpanları, asal çarpan algoritması, EBOB & EKOK problem taktikleri.",
-      formulas: [
+      kazanimCode: "M.8.1.1.1 - M.8.1.1.3",
+      kazanimDesc: "Verilen pozitif tam sayıların pozitif tam sayı çarpanlarını bulur, asal sayıları tanır; iki doğal sayının EBOB ve EKOK'unu hesaplar, ilgili problemleri çözer.",
+      summary: "Pozitif tam sayı çarpanları, asal çarpan algoritması, aralarında asal sayılar ve LGS EBOB-EKOK problem ayırt etme taktikleri.",
+      introMotivation: "Günlük hayatta paketleme, periyodik nöbetler, tarlanın etrafına eşit aralıklarla direk dikme veya fayans döşeme gibi tüm mühendislik ve bölüştürme problemlerinin temelinde Çarpanlar ve Katlar yatar. LGS'de bu üniteden her yıl kesinlikle 1-2 yeni nesil soru gelmektedir.",
+      sections: [
         {
-          title: "İki Sayının Çarpımı Kuralı",
-          math: "A \\cdot B = \\text{EBOB}(A, B) \\cdot \\text{EKOK}(A, B)",
-          desc: "İki pozitif tam sayının çarpımı, bu sayıların EBOB'u ile EKOK'unun çarpımına daima eşittir."
+          title: "1. Pozitif Tam Sayıların Çarpanları & Asal Çarpan Algoritması",
+          content: `
+            <p class="leading-relaxed mb-3">Her pozitif tam sayı, en az iki pozitif tam sayının çarpımı olarak yazılabilir. Bu sayılara o sayının <strong>çarpanları (aynı zamanda bölenleri)</strong> denir.</p>
+            <div class="p-4 rounded-xl bg-purple-950/40 border border-purple-500/20 mb-4">
+              <strong class="text-pink-300 block mb-1">📌 Örnek İnceleme (48 Sayısının Çarpanları):</strong>
+              <p class="font-mono text-sm text-gray-200">48 = 1 × 48 = 2 × 24 = 3 × 16 = 4 × 12 = 6 × 8</p>
+              <p class="text-xs text-purple-200 mt-1">48'in çarpanları: {1, 2, 3, 4, 6, 8, 12, 16, 24, 48} → Toplam 10 adet çarpanı vardır.</p>
+            </div>
+            <p class="leading-relaxed mb-2"><strong>Asal Sayı:</strong> 1 ve kendisinden başka hiçbir pozitif böleni olmayan 1'den büyük doğal sayılardır. <em>(En küçük asal sayı 2'dir ve 2 yegane çift asal sayıdır: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47...)</em></p>
+          `,
+          formulas: [
+            {
+              title: "Asal Çarpanlara Ayırma (Üslü Gösterim)",
+              math: "A = a^x \\cdot b^y \\cdot c^z \\quad (a, b, c: \\text{Farklı Asal Sayılar})",
+              desc: "Bölme listesi algoritması ile sayı en küçük asal sayıdan başlanarak bölünür ve üslü biçimde ifade edilir."
+            },
+            {
+              title: "Pozitif Bölen Sayısı (PBS) Formülü (Püf Nokta)",
+              math: "\\text{Pozitif Bölen Sayısı} = (x + 1) \\cdot (y + 1) \\cdot (z + 1)",
+              desc: "Asal çarpanların üsleri 1'er artırılarak birbiriyle çarpıldığında sayının toplam pozitif bölen sayısı hızlıca bulunur."
+            }
+          ],
+          examples: [
+            {
+              question: "72 sayısını asal çarpanlarının çarpımı şeklinde yazınız ve toplam kaç adet pozitif tam sayı böleni olduğunu bulunuz.",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p><strong>Adım 1:</strong> 72'yi asal çarpanlarına ayıralım:</p>
+                  <p class="font-mono bg-black/20 p-2 rounded text-pink-300">72 / 2 = 36 → 36 / 2 = 18 → 18 / 2 = 9 → 9 / 3 = 3 → 3 / 3 = 1 &nbsp;⟹&nbsp; 72 = 2³ × 3²</p>
+                  <p><strong>Adım 2:</strong> Asal çarpanları: 2 ve 3'tür (2 farklı asal çarpan).</p>
+                  <p><strong>Adım 3:</strong> PBS = (3 + 1) × (2 + 1) = 4 × 3 = 12 adet pozitif böleni vardır.</p>
+                </div>
+              `,
+              tip: "Testlerde 'kaç farklı asal çarpanı vardır' ile 'kaç tane böleni vardır' sorularını birbirine karıştırmayın!"
+            }
+          ]
         },
         {
-          title: "Aralarında Asal Sayılar",
-          math: "\\text{EBOB}(A, B) = 1 \\quad \\text{ve} \\quad \\text{EKOK}(A, B) = A \\cdot B",
-          desc: "Aralarında asal sayıların 1'den başka ortak böleni yoktur. Ardışık iki sayı daima aralarında asaldır."
-        },
-        {
-          title: "Asal Çarpanlarına Ayrılmış Sayılarda EBOB & EKOK",
-          math: "A = 2^3 \\cdot 3^2 \\cdot 5, \\quad B = 2^2 \\cdot 3^4 \\cdot 7 \\implies \\text{EBOB} = 2^2 \\cdot 3^2, \\; \\text{EKOK} = 2^3 \\cdot 3^4 \\cdot 5 \\cdot 7",
-          desc: "EBOB için ortak asallardan üssü küçük olanlar; EKOK için ortak asallardan üssü büyük olanlar ve ortak olmayanların tamamı çarpılır."
+          title: "2. EBOB & EKOK Hesaplama ve Problem Taktikleri",
+          content: `
+            <p class="leading-relaxed mb-3"><strong>EBOB (En Büyük Ortak Bölen):</strong> İki veya daha fazla sayının ortak bölenlerinin en büyüğüdür.</p>
+            <p class="leading-relaxed mb-3"><strong>EKOK (En Küçük Ortak Kat):</strong> İki veya daha fazla sayının pozitif ortak katlarının en küçüğüdür.</p>
+          `,
+          formulas: [
+            {
+              title: "İki Sayının Çarpımı ile EBOB-EKOK İlişkisi",
+              math: "A \\cdot B = \\text{EBOB}(A, B) \\cdot \\text{EKOK}(A, B)",
+              desc: "İki pozitif tam sayının çarpımı, bu sayıların EBOB'u ile EKOK'unun çarpımına daima eşittir."
+            },
+            {
+              title: "Aralarında Asal Sayılarda EBOB & EKOK",
+              math: "\\text{EBOB}(A, B) = 1 \\quad \\text{ve} \\quad \\text{EKOK}(A, B) = A \\cdot B",
+              desc: "1'den başka ortak pozitif böleni olmayan sayılar aralarında asaldır. Ardışık sayılar (örn: 14 ve 15) daima aralarında asaldır."
+            }
+          ],
+          examples: [
+            {
+              question: "Boyutları 36 m ve 48 m olan dikdörtgen şeklindeki bir bahçenin etrafına, köşelere de gelmek şartıyla eşit aralıklarla fidan dikilecektir. En az kaç fidana ihtiyaç vardır?",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p><strong>Adım 1 (Model Tespiti):</strong> Büyük bütünden eşit küçük aralıklara gidildiği için bu bir <strong>EBOB</strong> problemidir.</p>
+                  <p><strong>Adım 2:</strong> İki fidan arası mesafe = EBOB(36, 48) = 12 metre olmalıdır.</p>
+                  <p><strong>Adım 3:</strong> Bahçenin Çevresi = 2 × (36 + 48) = 2 × 84 = 168 metre.</p>
+                  <p><strong>Adım 4:</strong> Fidan Sayısı = Çevre / EBOB = 168 / 12 = <strong>14 adet</strong> fidan gerekir.</p>
+                </div>
+              `,
+              tip: "Kapalı geometrik şekillerin etrafına direk/ağaç dikilirken köşe sayısı kenar sayısına eşit olduğundan Fidan Sayısı = Çevre / EBOB formülü doğrudan çalışır."
+            }
+          ]
         }
       ],
       traps: [
@@ -50,30 +110,92 @@ const ACADEMY_MODULES_DATA = {
       tips: [
         "Direk dikme sorularında köşelere de direk dikileceğini unutmayın (Köşe sayısı = Kenar sayısı).",
         "EKOK sorularında 'en az kaç adet' deniyorsa ortak katın en küçük katını (1. kat), sınır verilmişse sınırın hemen altındaki veya üstündeki katı alın."
-      ]
+      ],
+      classActivity: {
+        title: "Sıra Sende / Sınıfta Birlikte Çözelim",
+        question: "İki zilden biri 15 dakikada bir, diğeri 18 dakikada bir çalmaktadır. Bu iki zil ilk kez saat 08.30'da birlikte çaldığına göre, ikinci kez saat kaçta birlikte çalarlar?",
+        solution: "15 ve 18 sayılarının EKOK'u alınır: EKOK(15, 18) = 90 dakikadır. 90 dakika = 1 saat 30 dakika eder. İlk çalış: 08.30 ⟹ 08.30 + 01.30 = Saat 10.00'da birlikte çalarlar."
+      }
     },
     {
       id: "uslu-ifadeler",
+      unitNo: 2,
       title: "Üslü İfadeler",
       icon: "ph-arrow-fat-lines-up",
       badgeColor: "from-purple-500 to-indigo-500",
       grade: "8",
-      summary: "Negatif üs, üssün üssü, taban ve üs eşitliği ile bilimsel gösterim kuralları.",
-      formulas: [
+      kazanimCode: "M.8.1.2.1 - M.8.1.2.5",
+      kazanimDesc: "Tam sayıların tam sayı kuvvetlerini hesaplar, üslü ifadelerle çarpma ve bölme işlemlerini yapar, çok büyük ve çok küçük sayıları bilimsel gösterimle ifade eder.",
+      summary: "Negatif üs, üssün üssü, taban ve üs eşitliği, çözümleme ve LGS bilimsel gösterim kuralları.",
+      introMotivation: "Uzaydaki gezegenler arası mesafeleri (milyonlarca kilometre) veya bir hücrenin mikroskobik boyutunu (milimetrenin milyonda biri) pratik olarak yazabilmek için üslü sayılar ve bilimsel gösterim kullanılır. LGS'de bilimsel gösterim sorusu %100 her sene sorulmaktadır.",
+      sections: [
         {
-          title: "Negatif Üs Kuralı",
-          math: "a^{-n} = \\frac{1}{a^n} \\quad \\text{ve} \\quad \\left(\\frac{a}{b}\\right)^{-n} = \\left(\\frac{b}{a}\\right)^n \\quad (a, b \\neq 0)",
-          desc: "Negatif üs sayının işaretini değiştirmez, sayıyı sadece çarpmaya göre ters çevirir (takla attırır)."
+          title: "1. Tam Sayıların Kuvvetleri & Negatif Üs Kuralı",
+          content: `
+            <p class="leading-relaxed mb-3">Üslü ifadede taban çarpılan sayıyı, üs (kuvvet) ise tabanın kaç defa yan yana çarpılacağını gösterir ($a^n = \\underbrace{a \\cdot a \\dots a}_{n \\text{ tane}}$).</p>
+            <div class="p-4 rounded-xl bg-purple-950/40 border border-purple-500/20 mb-4">
+              <strong class="text-pink-300 block mb-1">📌 Parantez ve İşaret Kuralı (Çok Önemli!):</strong>
+              <p class="text-sm text-gray-200">• Negatif sayının ÇİFT kuvveti parantez içindeyse POZİTİF: $(-3)^2 = +9$</p>
+              <p class="text-sm text-gray-200">• Parantez yoksa çift üs işareti etkilemez: $-3^2 = -9$</p>
+              <p class="text-sm text-gray-200">• Negatif sayının TEK kuvveti daima NEGATİF: $(-2)^3 = -8$</p>
+            </div>
+          `,
+          formulas: [
+            {
+              title: "Negatif Üs Kuralı (Takla Attırma)",
+              math: "a^{-n} = \\frac{1}{a^n} \\quad \\text{ve} \\quad \\left(\\frac{a}{b}\\right)^{-n} = \\left(\\frac{b}{a}\\right)^n \\quad (a, b \\neq 0)",
+              desc: "Negatif üs sayının işaretini asla eksi yapmaz; sayıyı sadece çarpmaya göre ters çevirir (pay ile paydayı yer değiştirir)."
+            },
+            {
+              title: "Üssün Üssü Kuralı",
+              math: "(a^m)^n = a^{m \\cdot n} = (a^n)^m",
+              desc: "Üssün üssü alınırken üsler birbiriyle çarpılır."
+            }
+          ],
+          examples: [
+            {
+              question: "$(-2)^{-4} + (-3)^{-1}$ işleminin sonucunu bulunuz.",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p><strong>1. Terim:</strong> $(-2)^{-4} = \\frac{1}{(-2)^4} = \\frac{1}{16}$ (Çift üs parantezde olduğu için +16 olur).</p>
+                  <p><strong>2. Terim:</strong> $(-3)^{-1} = \\frac{1}{(-3)^1} = -\\frac{1}{3}$.</p>
+                  <p><strong>İşlem:</strong> $\\frac{1}{16} - \\frac{1}{3} = \\frac{3 - 16}{48} = -\\frac{13}{48}$ bulunur.</p>
+                </div>
+              `,
+              tip: "Negatif üssü görünce önce sayıyı kesirli forma çevirin, ardından işaret kontrolü yapın."
+            }
+          ]
         },
         {
-          title: "Çarpma ve Bölme Kuralları",
-          math: "a^m \\cdot a^n = a^{m+n}, \\quad \\frac{a^m}{a^n} = a^{m-n}, \\quad a^n \\cdot b^n = (a \\cdot b)^n",
-          desc: "Tabanlar aynıysa çarparken üsler toplanır, bölerken çıkarılır. Üsler aynıysa tabanlar çarpılır/bölünür."
-        },
-        {
-          title: "Bilimsel Gösterim",
-          math: "a \\cdot 10^n \\quad \\text{şartı:} \\quad 1 \\le |a| < 10 \\; \\text{ve} \\; n \\in \\mathbb{Z}",
-          desc: "Katsayı ($a$) mutlak değerce 1 ile 10 arasında olmalı, 10 olamaz! (1 dahil, 10 hariç)."
+          title: "2. Çarpma, Bölme & Bilimsel Gösterim",
+          content: `
+            <p class="leading-relaxed mb-3">Farklı tabanlı üslü sayılarda işlem yaparken öncelikle tabanlar en küçük asal tabanlara (özellikle 2, 3, 5) dönüştürülür.</p>
+          `,
+          formulas: [
+            {
+              title: "Çarpma ve Bölme Kuralları",
+              math: "a^m \\cdot a^n = a^{m+n}, \\quad \\frac{a^m}{a^n} = a^{m-n}, \\quad a^n \\cdot b^n = (a \\cdot b)^n, \\quad \\frac{a^n}{b^n} = \\left(\\frac{a}{b}\\right)^n",
+              desc: "Tabanlar aynıysa üsler toplanır/çıkarılır; üsler aynıysa tabanlar çarpılır/bölünür."
+            },
+            {
+              title: "Bilimsel Gösterim Şartı",
+              math: "a \\cdot 10^n \\quad \\text{şartı:} \\quad 1 \\le |a| < 10 \\; \\text{ve} \\; n \\in \\mathbb{Z}",
+              desc: "Katsayı mutlak değerce 1'e eşit veya büyük, 10'dan küçük olmalıdır (1 dahil, 10 hariçtir)."
+            }
+          ],
+          examples: [
+            {
+              question: "Bir kenar uzunluğu $8^4$ mm olan kare şeklindeki bir levhanın alanı kaç $\\text{mm}^2$'dir?",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p><strong>Adım 1:</strong> Karenin alanı $= \\text{kenar}^2 = (8^4)^2 = 8^8$</p>
+                  <p><strong>Adım 2:</strong> 8 tabanını 2'nin kuvveti olarak yazalım: $8 = 2^3$</p>
+                  <p><strong>Adım 3:</strong> $(2^3)^8 = 2^{3 \\times 8} = 2^{24} \\text{ mm}^2$ bulunur.</p>
+                </div>
+              `,
+              tip: "Şıklarda $8^8$ yoksa tabanı 2 tabanına çevrilmiş halini arayın ($2^{24}$ veya $4^{12}$)."
+            }
+          ]
         }
       ],
       traps: [
@@ -86,37 +208,94 @@ const ACADEMY_MODULES_DATA = {
           text: "$(-5)^0 = 1$ ve $-5^0 = -1$'dir. $0^0$ ise matematikte tanımsız/belirsizdir."
         },
         {
-          title: "⚠️ Basamak Sayısı ve $10^n$ İlişkisi",
-          text: "$A \\cdot 10^n$ sayısının basamak sayısı = ($A$'nın basamak sayısı) $+ n$'dir. $10^7$ sayısı $1$ ve ardından $7$ sıfırdan oluştuğu için $8$ basamaklıdır."
+          title: "⚠️ Bilimsel Gösterimde 10 Katsayısı",
+          text: "$10 \\times 10^5$ bilimsel gösterim DEĞİLDİR! Doğrusu $1 \\times 10^6$ olmalıdır ($|a| < 10$ şartı)."
         }
       ],
       tips: [
-        "Farklı tabanlı üslü sayılarda önce tabanları $2, 3, 5$ gibi en küçük asal tabanlara çevirin (örn: $8^4 = (2^3)^4 = 2^{12}$).",
-        "Kaç katıdır sorularında büyük ifadeyi küçük ifadeye bölün!"
-      ]
+        "Farklı tabanlı üslü sayılarda önce tabanları $2, 3, 5$ gibi en küçük asal tabanlara çevirin.",
+        "Kaç basamaklıdır sorularında ifadeyi $A \\cdot 10^n$ formatına getirip ($A$'nın basamağı $+ n$) kuralını kullanın."
+      ],
+      classActivity: {
+        title: "Sıra Sende / Sınıfta Birlikte Çözelim",
+        question: "0,000045 sayısının bilimsel gösterimi $a \\cdot 10^x$ olduğuna göre $a + x$ toplamı kaçtır?",
+        solution: "0,000045 sayısında virgül 5 basamak sağa kaydırılır: 4,5 × 10⁻⁵ olur. Burada a = 4,5 ve x = -5'tir. Toplam: 4,5 + (-5) = -0,5 bulunur."
+      }
     },
     {
       id: "karekoklu-ifadeler",
+      unitNo: 3,
       title: "Kareköklü İfadeler",
       icon: "ph-radical",
       badgeColor: "from-amber-500 to-orange-500",
       grade: "8",
-      summary: "Tam kare sayılar, kök dışına çıkarma $a\\sqrt{b}$, yaklaşık değer tahmini ve ondalık karekökler.",
-      formulas: [
+      kazanimCode: "M.8.1.3.1 - M.8.1.3.6",
+      kazanimDesc: "Tam kare pozitif tam sayıların kareköklerini belirler, kareköklü ifadeleri a√b biçiminde yazar, yaklaşık değerini tahmin eder, dört işlem yapar ve irrasyonel sayıları tanır.",
+      summary: "Tam kare sayılar, kök dışına çıkarma $a\\sqrt{b}$, sayı doğrusunda yaklaşık değer, ondalık karekökler ve alan-kenar ilişkisi.",
+      introMotivation: "Alanı verilen bir karenin bir kenarını bulmak matematikte karekök alma işlemidir ($a = \\sqrt{\\text{Alan}}$). LGS'de harita ve sayı doğrusu üzerinde konumlandırma, mesafe tahminleri ve geometri tabanlı karekök soruları en çok puan getiren kısımdır.",
+      sections: [
         {
-          title: "Kök Dışına Çıkarma ve İçine Alma",
-          math: "\\sqrt{a^2 \\cdot b} = |a|\\sqrt{b} \\quad \\text{ve} \\quad a\\sqrt{b} = \\sqrt{a^2 \\cdot b} \\quad (a > 0)",
-          desc: "Kök içindeki tam kare çarpanlar karekökten kurtularak dışarı çıkar. Dışarıdaki sayı içeri girerken karesi alınır."
+          title: "1. Tam Kare Sayılar & Kök Dışına Çıkarma ($a\\sqrt{b}$)",
+          content: `
+            <p class="leading-relaxed mb-3">Bir tam sayının karesi olan pozitif tam sayılara <strong>tam kare sayılar</strong> denir (1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361, 400...).</p>
+          `,
+          formulas: [
+            {
+              title: "Kök Dışına Çıkarma & İçine Alma",
+              math: "\\sqrt{a^2 \\cdot b} = a\\sqrt{b} \\quad \\text{ve} \\quad a\\sqrt{b} = \\sqrt{a^2 \\cdot b} \\quad (a \\ge 0)",
+              desc: "Kök içindeki tam kare çarpan kök dışına karesiz çıkar. Dışarıdaki sayı içeri girerken karesi alınarak içerideki sayıyla çarpılır."
+            },
+            {
+              title: "Yaklaşık Değer Tahmini",
+              math: "\\sqrt{a} < \\sqrt{x} < \\sqrt{b} \\implies \\sqrt{x} \\approx \\text{Hangi tam kareye daha yakın?}",
+              desc: "Kök içindeki sayıya en yakın iki tam kare sayı belirlenir ve aradaki fark kıyaslanır."
+            }
+          ],
+          examples: [
+            {
+              question: "$\\sqrt{75}$ sayısını $a\\sqrt{b}$ biçiminde yazınız ve hangi iki ardışık tam sayı arasında olduğunu bulunuz.",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p><strong>1. Kök Dışına Çıkarma:</strong> $75 = 25 \\times 3 = 5^2 \\times 3 \\implies \\sqrt{75} = 5\\sqrt{3}$</p>
+                  <p><strong>2. Tam Sayı Aralığı:</strong> $\\sqrt{64} < \\sqrt{75} < \\sqrt{81} \\implies 8 < \\sqrt{75} < 9$</p>
+                  <p><strong>3. Yakınlık:</strong> $75-64 = 11$ iken $81-75 = 6$'dır. Yani $\\sqrt{75}$ sayısı 9'a daha yakındır (yaklaşık $8{,}6$).</p>
+                </div>
+              `,
+              tip: "Sayı doğrusu sorularında kök içine alarak kıyaslama yapmak en güvenli yoldur."
+            }
+          ]
         },
         {
-          title: "Toplama ve Çıkarma Şartı",
-          math: "a\\sqrt{x} + b\\sqrt{x} - c\\sqrt{x} = (a + b - c)\\sqrt{x}",
-          desc: "Kareköklü ifadelerde toplama/çıkarma yapılabilmesi için kök içlerinin birebir AYNI olması şarttır!"
-        },
-        {
-          title: "Çarpma ve Bölme",
-          math: "a\\sqrt{x} \\cdot b\\sqrt{y} = (a \\cdot b)\\sqrt{x \\cdot y}, \\quad \\frac{a\\sqrt{x}}{b\\sqrt{y}} = \\frac{a}{b}\\sqrt{\\frac{x}{y}}",
-          desc: "Dıştakiler kendi arasında, kök içindekiler kendi arasında çarpılır ve bölünür."
+          title: "2. Kareköklü İfadelerde Dört İşlem & İrrasyonel Sayılar",
+          content: `
+            <p class="leading-relaxed mb-3">Toplama ve çıkarma yapabilmek için kök içlerinin birebir aynı olması zorunludur. Çarpma ve bölmede ise dıştakiler kendi arasında, içtekiler kendi arasında işleme girer.</p>
+          `,
+          formulas: [
+            {
+              title: "Dört İşlem Kuralları",
+              math: "a\\sqrt{x} \\pm b\\sqrt{x} = (a \\pm b)\\sqrt{x}, \\quad a\\sqrt{x} \\cdot b\\sqrt{y} = (ab)\\sqrt{xy}, \\quad \\frac{a\\sqrt{x}}{b\\sqrt{y}} = \\frac{a}{b}\\sqrt{\\frac{x}{y}}",
+              desc: "Kök içleri farklıysa toplama yapılamaz ($\\sqrt{2} + \\sqrt{3} \\neq \\sqrt{5}$)."
+            },
+            {
+              title: "Doğal Sayı Yapan Çarpan",
+              math: "\\sqrt{a} \\cdot \\sqrt{a} = a \\quad \\text{ve} \\quad a\\sqrt{b} \\cdot c\\sqrt{b} = a \\cdot c \\cdot b",
+              desc: "Kareköklü bir ifadeyi kendisinin irrasyonel kök kısmıyla çarpmak sonucu doğal sayı yapar."
+            }
+          ],
+          examples: [
+            {
+              question: "$\\sqrt{12} + \\sqrt{27} - \\sqrt{48}$ işleminin sonucunu bulunuz.",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p>• $\\sqrt{12} = \\sqrt{4 \\times 3} = 2\\sqrt{3}$</p>
+                  <p>• $\\sqrt{27} = \\sqrt{9 \\times 3} = 3\\sqrt{3}$</p>
+                  <p>• $\\sqrt{48} = \\sqrt{16 \\times 3} = 4\\sqrt{3}$</p>
+                  <p>İşlem: $(2 + 3 - 4)\\sqrt{3} = 1\\sqrt{3} = \\sqrt{3}$ bulunur.</p>
+                </div>
+              `,
+              tip: "Kök içlerini daima en küçük kök kalacak şekilde parçalayın."
+            }
+          ]
         }
       ],
       traps: [
@@ -125,107 +304,192 @@ const ACADEMY_MODULES_DATA = {
           text: "$\\sqrt{a + b} \\neq \\sqrt{a} + \\sqrt{b}$ ! Örneğin: $\\sqrt{9 + 16} = \\sqrt{25} = 5$ iken $\\sqrt{9} + \\sqrt{16} = 3 + 4 = 7$'dir."
         },
         {
-          title: "⚠️ Yaklaşık Değerde Hangisine Yakın?",
-          text: "$\\sqrt{70}$ sayısı $\\sqrt{64}=8$ ile $\\sqrt{81}=9$ arasındadır. $70-64 = 6$ ve $81-70 = 11$ olduğundan $\\sqrt{70}$ sayısı 8'e daha yakındır (yaklaşık $8.3$ - $8.4$)."
-        },
-        {
-          title: "⚠️ Doğal Sayı Yapan Çarpan",
-          text: "Bir köklü ifadeyi doğal sayı yapmak için kök içindeki irrasyonel kısmı kendisiyle veya kök içini tam kare yapan bir sayıyla çarpmak gerekir ($2\\sqrt{3} \\cdot \\sqrt{3} = 2 \\cdot 3 = 6$)."
+          title: "⚠️ Karekökün İçi Asla Negatif Olamaz",
+          text: "Reel sayılarda kök derecesi 2 olan ifadenin içi negatif olamaz ($\\sqrt{-16}$ tanımsızdır). Ancak $-\\sqrt{16} = -4$'tür."
         }
       ],
       tips: [
-        "1'den 25'e kadar olan tam kare sayıları adınız gibi ezberleyin: $1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225, 256, 289, 324, 361, 400, 625$.",
-        "Alanı verilen karenin bir kenar uzunluğu daima alanın kareköküdür ($A = 48 \\text{ cm}^2 \\implies a = \\sqrt{48} = 4\\sqrt{3} \\text{ cm}$)."
-      ]
+        "1'den 25'e kadar olan tam kareleri ezberleyin ($1, 4, 9, \\dots, 625$).",
+        "Alanı verilen karenin bir kenarı daima $\\sqrt{\\text{Alan}}$'dır."
+      ],
+      classActivity: {
+        title: "Sıra Sende / Sınıfta Birlikte Çözelim",
+        question: "Alanı $108 \\text{ cm}^2$ olan karenin çevresi kaç santimetredir?",
+        solution: "Karenin bir kenarı a = √108 = √(36 × 3) = 6√3 cm'dir. Çevre = 4 × a = 4 × 6√3 = 24√3 cm bulunur."
+      }
     },
     {
       id: "veri-analizi",
+      unitNo: 4,
       title: "Veri Analizi",
       icon: "ph-chart-pie-slice",
       badgeColor: "from-cyan-500 to-blue-500",
       grade: "8",
-      summary: "Daire grafiği ($360^\\circ$ oranlama), sütun grafiği ve çizgi grafiği arası dönüşümler.",
-      formulas: [
+      kazanimCode: "M.8.4.1.1 - M.8.4.1.2",
+      kazanimDesc: "En fazla üç veri grubuna ait çizgi, sütun ve daire grafiklerini yorumlar ve birbirine dönüştürür.",
+      summary: "Daire grafiği ($360^\\circ$ orantısı), sütun ve çizgi grafiği dönüşümleri ile LGS grafik okuma teknikleri.",
+      introMotivation: "Anket sonuçları, bütçe dağılımları ve hava sıcaklığı değişimleri grafiklerle özetlenir. LGS'de grafik soruları genellikle iki farklı grafiğin (örn: Daire grafiği ile Sütun grafiği) birbiriyle ilişkilendirilmesi şeklinde gelir.",
+      sections: [
         {
-          title: "Daire Grafiği Orantı Formülü",
-          math: "\\text{Merkez Açı} = \\frac{\\text{Kategori Miktarı}}{\\text{Toplam Miktar}} \\times 360^\\circ",
-          desc: "Tüm verilerin toplamı dairenin tamamına yani $360^\\circ$'ye karşılık gelir."
-        },
-        {
-          title: "Grafik Seçim Kriterleri",
-          math: "\\text{Daire} \\rightarrow \\text{Oran/Bütün}, \\quad \\text{Çizgi} \\rightarrow \\text{Zamana Bağlı Değişim}, \\quad \\text{Sütun} \\rightarrow \\text{Karşılaştırma}",
-          desc: "Soru metninde zamana bağlı artış/azalış varsa çizgi; kategorik karşılaştırma varsa sütun; bir bütünün parçaları soruluyorsa daire grafiği seçilir."
+          title: "1. Grafik Türleri & Daire Grafiği Orantı Mantığı",
+          content: `
+            <p class="leading-relaxed mb-3"><strong>Daire Grafiği:</strong> Bir bütünün parçalarını (oranını) göstermek için en uygun grafiktir. Bütün daima $360^\\circ$'ye eşittir.</p>
+            <p class="leading-relaxed mb-3"><strong>Sütun Grafiği:</strong> Farklı kategorilerin miktarlarını karşılaştırmak için kullanılır.</p>
+            <p class="leading-relaxed mb-3"><strong>Çizgi Grafiği:</strong> Zamana bağlı artış, azalış ve süreklilik gösteren verilerde (sıcaklık, döviz, borsa vb.) kullanılır.</p>
+          `,
+          formulas: [
+            {
+              title: "Daire Grafiği Merkez Açı Formülü",
+              math: "\\text{Merkez Açı} = \\frac{\\text{Kategori Miktarı}}{\\text{Toplam Veri Miktarı}} \\times 360^\\circ",
+              desc: "Toplam veri miktarı $360^\\circ$'ye oranlanarak her kategoriye düşen merkez açı bulunur."
+            },
+            {
+              title: "Pratik Açı - Kesir Karşılıkları (Hızlı Çözüm)",
+              math: "180^\\circ = \\frac{1}{2}, \\quad 120^\\circ = \\frac{1}{3}, \\quad 90^\\circ = \\frac{1}{4}, \\quad 60^\\circ = \\frac{1}{6}, \\quad 45^\\circ = \\frac{1}{8}",
+              desc: "Bu pratik oranları bilmek denemelerde orantı kurmadan saniyeler içinde sonuca götürür."
+            }
+          ],
+          examples: [
+            {
+              question: "Bir sınıftaki 36 öğrencinin 9'u voleybol, 12'si basketbol ve geri kalanı futbol oynamaktadır. Bu dağılım daire grafiğinde gösterildiğinde futbola ait merkez açı kaç derece olur?",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p><strong>Adım 1:</strong> Futbol oynayan öğrenci sayısı: $36 - (9 + 12) = 36 - 21 = 15$ öğrenci.</p>
+                  <p><strong>Adım 2:</strong> Toplam 36 öğrenci $360^\\circ$'ye karşılık geliyorsa:</p>
+                  <p>$$1 \\text{ öğrenci} = \\frac{360^\\circ}{36} = 10^\\circ$$</p>
+                  <p><strong>Adım 3:</strong> 15 futbolcu $= 15 \\times 10^\\circ = 150^\\circ$ bulunur.</p>
+                </div>
+              `,
+              tip: "Toplam veriyi 360'a bölerek '1 birime kaç derece düşüyor' kuralını bulmak en hızlı yöntemdir."
+            }
+          ]
         }
       ],
       traps: [
         {
           title: "⚠️ Toplam Veriyi $360^\\circ$ Yerine $100$ Almak",
           text: "Daire grafiğinde toplam açı $100$ değil, daima $360^\\circ$'dir. Yüzde soruluyorsa $\%100 \\leftrightarrow 360^\\circ$ çapraz orantısı kurulmalıdır."
-        },
-        {
-          title: "⚠️ Eksen Başlangıç Değerlerine Dikkat",
-          text: "Çizgi veya sütun grafiklerinde dikey eksen sıfırdan başlamıyorsa görsel bir yanılsama oluşabilir; mutlaka sayısal değerleri okuyun."
         }
       ],
       tips: [
-        "Açıları sadeleştirin! Örneğin $90^\\circ = \\frac{1}{4}$ (çeyrek), $120^\\circ = \\frac{1}{3}$, $180^\\circ = \\frac{1}{2}$ (yarım), $60^\\circ = \\frac{1}{6}$'dır."
-      ]
+        "Açıları sadeleştirin! Örneğin $90^\\circ = \\frac{1}{4}$ (çeyrek), $180^\\circ = \\frac{1}{2}$ (yarım)."
+      ],
+      classActivity: {
+        title: "Sıra Sende / Sınıfta Birlikte Çözelim",
+        question: "Bir çiftlikteki hayvanların %25'i inek, %35'i koyun ve kalanı tavuktur. Tavukların daire grafiğindeki merkez açısı kaç derecedir?",
+        solution: "Tavuk yüzdesi = %100 - (%25 + %35) = %40. %100 ⟹ 360° ise %40 ⟹ (40 × 360) / 100 = 144° bulunur."
+      }
     },
     {
       id: "olasilik",
+      unitNo: 5,
       title: "Basit Olayların Olma Olasılığı",
       icon: "ph-dice-five",
       badgeColor: "from-emerald-500 to-teal-500",
       grade: "8",
-      summary: "Olası durumlar, eş olasılık, kesin olay ($1$), imkansız olay ($0$) ve olay olasılığı.",
-      formulas: [
+      kazanimCode: "M.8.5.1.1 - M.8.5.1.5",
+      kazanimDesc: "Basit olayların olası durumlarını belirler, 'daha fazla', 'daha az', 'eşit' olasılıklı olayları ayırt eder ve bir olayın olma olasılığını hesaplar.",
+      summary: "Olası durumlar kümesi, eş olasılık, kesin olay (1), imkansız olay (0) ve olmama olasılığı.",
+      introMotivation: "Şans oyunları, hava durumu tahminleri ve risk analizlerinde olasılık kullanılır. LGS'de soru kökündeki 'en az', 'en çok', 'veya', 'birlikte' ve 'geri bırakılmaksızın' kelimelerine dikkat edildiğinde olasılık en kolay net getiren konudur.",
+      sections: [
         {
-          title: "Bir Olayın Olma Olasılığı",
-          math: "P(A) = \\frac{\\text{İstenen Olası Durumların Sayısı}}{\\text{Tüm Olası Durumların Sayısı}}",
-          desc: "Bir olayın olma olasılığı 0 ile 1 arasındadır ($0 \\le P(A) \\le 1$)."
-        },
-        {
-          title: "Olma ve Olmama Olasılığı Toplamı",
-          math: "P(\\text{Olay}) + P(\\text{Olay Değil}) = 1 \\implies P(\\text{Olay Değil}) = 1 - P(\\text{Olay})",
-          desc: "Bir olayın gerçekleşme olasılığı ile gerçekleşmeme olasılığının toplamı daima 1'dir."
+          title: "1. Temel Kavramlar & Olasılık Formülü",
+          content: `
+            <p class="leading-relaxed mb-3"><strong>Deney:</strong> Bir sonucun elde edilmesi için yapılan işlem (Örn: Zar atılması).</p>
+            <p class="leading-relaxed mb-3"><strong>Çıktı (Olası Durum):</strong> Deney sonucunda elde edilebilecek her bir sonuç (Zarın 1, 2, 3, 4, 5, 6 gelmesi).</p>
+            <p class="leading-relaxed mb-3"><strong>İmkansız Olay:</strong> Gerçekleşmesi mümkün olmayan olay ($P = 0$). Örneğin standart zarda 7 gelmesi.</p>
+            <p class="leading-relaxed mb-3"><strong>Kesin Olay:</strong> Gerçekleşmesi garanti olan olay ($P = 1$). Örneğin atılan zarın 7'den küçük gelmesi.</p>
+          `,
+          formulas: [
+            {
+              title: "Bir Olayın Olma Olasılığı Formülü",
+              math: "P(A) = \\frac{\\text{İstenen Olası Durumların Sayısı}}{\\text{Tüm Olası Durumların Sayısı}} \\quad (0 \\le P(A) \\le 1)",
+              desc: "Bir olayın olasılığı daima 0 ile 1 arasındadır (basit kesirdir)."
+            },
+            {
+              title: "Olma ve Olmama Olasılığı",
+              math: "P(\\text{Olay}) + P(\\text{Olay Değil}) = 1 \\implies P(\\text{Olmama}) = 1 - P(\\text{Olma})",
+              desc: "Bir olayın olma olasılığı ile olmama olasılığının toplamı daima 1'e eşittir."
+            }
+          ],
+          examples: [
+            {
+              question: "İçinde 4 kırmızı, 6 mavi ve 5 sarı bilye bulunan bir torbadan rastgele çekilen bir bilyenin **mavi olmama** olasılığı kaçtır?",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p><strong>Adım 1:</strong> Tüm bilyeler $= 4 + 6 + 5 = 15$ adet (Tüm Olası Durumlar).</p>
+                  <p><strong>Adım 2:</strong> Mavi olmayan bilyeler $= 4 \\text{ (kırmızı)} + 5 \\text{ (sarı)} = 9$ adet (İstenen Durumlar).</p>
+                  <p><strong>Adım 3:</strong> Olasılık $= \\frac{9}{15} = \\frac{3}{5}$ bulunur.</p>
+                </div>
+              `,
+              tip: "Kesirleri mutlaka en sade haline getirerek şıklarda arayın."
+            }
+          ]
         }
       ],
       traps: [
         {
           title: "⚠️ 1'den Büyük veya Negatif Olasılık Olamaz",
-          text: "Bir olasılık değeri hiçbir zaman negatif veya $1$'den (yani $\%100$'den) büyük çıkamaz. Bulduğunuz kesir daima basit kesir olmalıdır."
-        },
-        {
-          title: "⚠️ 'Geri Bırakılmaksızın' İfadesi",
-          text: "Torbadan bir top çekilip geri atılmıyorsa toplam durum sayısı 1 azalır! Bu kelimeyi soruda mutlaka yuvarlak içine alın."
+          text: "Bir olasılık değeri hiçbir zaman negatif veya $1$'den büyük çıkamaz."
         }
       ],
       tips: [
         "Tüm olası durumların sayısını en başta doğru saymak sorunun %50'sini çözmektir."
-      ]
+      ],
+      classActivity: {
+        title: "Sıra Sende / Sınıfta Birlikte Çözelim",
+        question: "1'den 20'ye kadar (1 ve 20 dahil) numaralandırılmış kartlardan rastgele seçilen bir kartın üzerindeki sayının asal sayı olma olasılığı kaçtır?",
+        solution: "Tüm durumlar = 20. 1-20 arasındaki asallar: {2, 3, 5, 7, 11, 13, 17, 19} → 8 adettir. Olasılık = 8/20 = 2/5 bulunur."
+      }
     },
     {
       id: "cebirsel-ifadeler",
+      unitNo: 6,
       title: "Cebirsel İfadeler ve Özdeşlikler",
       icon: "ph-brackets-curly",
       badgeColor: "from-fuchsia-500 to-pink-500",
       grade: "8",
-      summary: "Terim, katsayı, sabit terim, ortak çarpan parantezi, tam kare ve iki kare farkı özdeşlikleri.",
-      formulas: [
+      kazanimCode: "M.8.2.1.1 - M.8.2.1.4",
+      kazanimDesc: "Basit cebirsel ifadeleri anlar ve farklı biçimlerde yazar; cebirsel ifadelerin çarpımını yapar, özdeşlikleri modeller ve çarpanlarına ayırır.",
+      summary: "Terim, katsayı, sabit terim, ortak çarpan parantezi, tam kare ve iki kare farkı özdeşlikleri ile geometrik alan modellemeleri.",
+      introMotivation: "Bilinmeyen sayıları harflerle ($x, y, a, b$) ifade etmek matematiğin evrensel dilidir. LGS'de kağıt katlama ve kesip çıkarma gibi geometrik alan sorularının tamamı Cebirsel İfadeler ve Özdeşlikler ile çözülür.",
+      sections: [
         {
-          title: "İki Terimin Toplamının Karesi",
-          math: "(a + b)^2 = a^2 + 2ab + b^2",
-          desc: "Birincinin karesi + Birinci ile ikincinin çarpımının 2 katı + İkincinin karesi."
-        },
-        {
-          title: "İki Terimin Farkının Karesi",
-          math: "(a - b)^2 = a^2 - 2ab + b^2",
-          desc: "Birincinin karesi - Birinci ile ikincinin çarpımının 2 katı + İkincinin karesi."
-        },
-        {
-          title: "İki Kare Farkı Özdeşliği",
-          math: "a^2 - b^2 = (a - b)(a + b)",
-          desc: "Kareleri farkı, tabanların farkı ile toplamının çarpımına eşittir."
+          title: "1. Cebirsel Kavramlar & 3 Temel Özdeşlik",
+          content: `
+            <p class="leading-relaxed mb-3">İçinde en az bir bilinmeyen ve işlem bulunan ifadelere <strong>cebirsel ifade</strong> denir ($3x^2 - 5x + 7$).</p>
+            <p class="leading-relaxed mb-3"><strong>Özdeşlik:</strong> Bilinmeyenin HER değeri için doğru olan eşitliklerdir. Denklem ise sadece belirli kökler için doğrudur.</p>
+          `,
+          formulas: [
+            {
+              title: "1. İki Terimin Toplamının Karesi (Tam Kare)",
+              math: "(a + b)^2 = a^2 + 2ab + b^2",
+              desc: "Birincinin karesi + Birinci ile ikincinin çarpımının 2 katı + İkincinin karesi."
+            },
+            {
+              title: "2. İki Terimin Farkının Karesi (Tam Kare)",
+              math: "(a - b)^2 = a^2 - 2ab + b^2",
+              desc: "Birincinin karesi - Birinci ile ikincinin çarpımının 2 katı + İkincinin karesi."
+            },
+            {
+              title: "3. İki Kare Farkı Özdeşliği",
+              math: "a^2 - b^2 = (a - b)(a + b)",
+              desc: "Kareleri farkı, tabanların farkı ile toplamının çarpımına eşittir."
+            }
+          ],
+          examples: [
+            {
+              question: "$102^2 - 98^2$ işleminin sonucunu iki kare farkı özdeşliği kullanarak kolayca hesaplayınız.",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p><strong>Kural:</strong> $a^2 - b^2 = (a - b)(a + b)$</p>
+                  <p>• $a = 102$ ve $b = 98$</p>
+                  <p>• $(102 - 98) \\times (102 + 98) = 4 \\times 200 = 800$ bulunur.</p>
+                </div>
+              `,
+              tip: "Büyük sayıların kare farklarında doğrudan kare almak yerine iki kare farkını uygulayın."
+            }
+          ]
         }
       ],
       traps: [
@@ -236,45 +500,65 @@ const ACADEMY_MODULES_DATA = {
         {
           title: "⚠️ Sabit Terim de Bir Katsayıdır",
           text: "$3x^2 - 5x + 7$ ifadesinin katsayılar toplamı: $3 + (-5) + 7 = 5$'tir. Sabit terim ($+7$) aynı zamanda bir katsayıdır ve işaretiyle birlikte alınır."
-        },
-        {
-          title: "⚠️ Denklem ile Özdeşlik Farkı",
-          text: "Özdeşlik, bilinmeyenin HER değeri için daima doğrudur ($2(x+3)=2x+6$). Denklem ise sadece belirli $x$ değerleri için sağlanır ($2x+3=7 \\implies x=2$)."
         }
       ],
       tips: [
         "Geometrik alan modellemelerinde büyük karenin alanından küçük parçaların alanını çıkararak iki kare farkını somutlaştırın."
-      ]
+      ],
+      classActivity: {
+        title: "Sıra Sende / Sınıfta Birlikte Çözelim",
+        question: "$x + y = 7$ ve $x \\cdot y = 10$ olduğuna göre $x^2 + y^2$ ifadesinin değeri kaçtır?",
+        solution: "(x + y)² = x² + 2xy + y² formülünde değerleri yerine yazalım: 7² = (x² + y²) + 2(10) ⟹ 49 = (x² + y²) + 20 ⟹ x² + y² = 29 bulunur."
+      }
     },
     {
       id: "dogrusal-denklemler",
+      unitNo: 7,
       title: "Doğrusal Denklemler ve Eğim",
       icon: "ph-trend-up",
       badgeColor: "from-blue-600 to-indigo-600",
       grade: "8",
-      summary: "Birinci dereceden bir bilinmeyenli denklemler, koordinat sistemi, doğru grafikleri ve eğim ($m$).",
-      formulas: [
+      kazanimCode: "M.8.2.2.1 - M.8.2.2.6",
+      kazanimDesc: "Birinci dereceden bir bilinmeyenli denklemleri çözer; koordinat sistemini tanır, doğrusal ilişkilerin tablosunu ve grafiğini oluşturur; doğrunun eğimini modeller ve hesaplar.",
+      summary: "Denklem çözme, koordinat sistemi, doğru grafikleri ($y=mx+n$), eksenleri kestiği noktalar ve eğim ($m = \\Delta y / \\Delta x$).",
+      introMotivation: "Bir taksimetrenin açılış ücreti ve kilometre başına yazdığı tarife ya da bir fidanın zamana bağlı boy uzaması doğrusal denklemlerle modellenir. Eğim ise dağ yollarının dikliğini veya rampaların standartlara uygunluğunu belirler.",
+      sections: [
         {
-          title: "Eğim Formülü",
-          math: "m = \\frac{\\text{Dikey Uzunluk}}{\\text{Yatay Uzunluk}} = \\frac{\\Delta y}{\\Delta x}",
-          desc: "Sağa yatık doğruların eğimi pozitif ($m > 0$), sola yatık doğruların eğimi negatiftir ($m < 0$)."
-        },
-        {
-          title: "Doğru Denkleminden Eğim Bulma",
-          math: "y = mx + n \\implies \\text{Eğim} = m, \\quad ax + by + c = 0 \\implies m = -\\frac{a}{b}",
-          desc: "$y$ yalnız bırakıldığında $x$'in katsayısı doğrunun eğimini verir."
-        },
-        {
-          title: "Eksenleri Kestiği Noktalar",
-          math: "x = 0 \\implies y\\text{-eksenini kestiği nokta}, \\quad y = 0 \\implies x\\text{-eksenini kestiği nokta}",
-          desc: "Grafik çizerken $x$'e 0 verip $y$'yi, $y$'ye 0 verip $x$'i bulun."
+          title: "1. Koordinat Düzlemi, Doğru Grafiği & Eğim ($m$)",
+          content: `
+            <p class="leading-relaxed mb-3"><strong>Koordinat Sistemi:</strong> İki sayı doğrusunun $0$ noktasında dik kesişmesiyle oluşur ($x$: Apsis ekseni, $y$: Ordinat ekseni, Orijin $(0,0)$).</p>
+            <p class="leading-relaxed mb-3"><strong>Eksenleri Kesen Doğrular ($ax+by+c=0$):</strong> $x=0$ verilip $y$ kesim noktası, $y=0$ verilip $x$ kesim noktası bulunur.</p>
+            <p class="leading-relaxed mb-3"><strong>Orijinden Geçen Doğrular ($y=mx$):</strong> Sabit terimi ($c$) sıfırdır, daima $(0,0)$'dan geçer.</p>
+          `,
+          formulas: [
+            {
+              title: "Eğim Formülü",
+              math: "m = \\frac{\\text{Dikey Uzunluk}}{\\text{Yatay Uzunluk}} = \\frac{\\Delta y}{\\Delta x}",
+              desc: "Sağa yatık doğruların eğimi pozitif ($m > 0$), sola yatık doğruların eğimi negatiftir ($m < 0$)."
+            },
+            {
+              title: "Denklemden Eğim Çekme",
+              math: "y = mx + n \\implies \\text{Eğim} = m, \\quad ax + by + c = 0 \\implies m = -\\frac{a}{b}",
+              desc: "$y$ yalnız bırakıldığında $x$'in katsayısı doğrudan eğimi verir."
+            }
+          ],
+          examples: [
+            {
+              question: "$2x - 3y + 12 = 0$ doğrusunun eğimini ve eksenleri kestiği noktaları bulunuz.",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p><strong>1. Eksenleri Kestiği Noktalar:</strong></p>
+                  <p>• $x = 0 \\implies -3y + 12 = 0 \\implies y = 4 \\implies (0, 4)$</p>
+                  <p>• $y = 0 \\implies 2x + 12 = 0 \\implies x = -6 \\implies (-6, 0)$</p>
+                  <p><strong>2. Eğim ($m$):</strong> $y$'yi yalnız bırakalım: $3y = 2x + 12 \\implies y = \\frac{2}{3}x + 4 \\implies m = \\frac{2}{3}$</p>
+                </div>
+              `,
+              tip: "Eğim bulurken y'nin katsayısını 1 yapmayı unutmayın."
+            }
+          ]
         }
       ],
       traps: [
-        {
-          title: "⚠️ Eğimde Uzunluk Negatif Olmaz Ama Doğrunun Eğimi Negatif Olabilir",
-          text: "Üçgende dikey ve yatay uzunluklar daima pozitiftir. Ancak koordinat düzleminde doğru sola yatıksa önüne eksi işareti ($-$) konur!"
-        },
         {
           title: "⚠️ Yatay ve Dikey Doğruların Eğimi",
           text: "Yatay doğru ($y = b$) eğimi $= 0$'dır. Dikey doğru ($x = a$) eğimi ise **tanımsızdır** (payda 0 olur)."
@@ -282,25 +566,55 @@ const ACADEMY_MODULES_DATA = {
       ],
       tips: [
         "Orijinden geçen doğruların denklemlerinde sabit terim yoktur ($y = mx$ formundadır ve $(0,0)$'dan geçer)."
-      ]
+      ],
+      classActivity: {
+        title: "Sıra Sende / Sınıfta Birlikte Çözelim",
+        question: "Dikey yüksekliği 6 metre, yatay uzunluğu 15 metre olan bir engelli rampasının eğimi yüzde kaçtır?",
+        solution: "Eğim m = Dikey / Yatay = 6 / 15. Kesri sadeleştirip paydayı 100 yapalım: 6/15 = 2/5 = 40/100 = %40 bulunur."
+      }
     },
     {
       id: "esitsizlikler",
+      unitNo: 8,
       title: "Eşitsizlikler",
       icon: "ph-arrows-left-right",
       badgeColor: "from-rose-500 to-red-600",
       grade: "8",
-      summary: "Birinci dereceden bir bilinmeyenli eşitsizlikler, sayı doğrusunda gösterim ve yön değiştirme kuralı.",
-      formulas: [
+      kazanimCode: "M.8.2.3.1 - M.8.2.3.3",
+      kazanimDesc: "Birinci dereceden bir bilinmeyenli eşitsizlik içeren günlük hayat durumlarını modeller, eşitsizlikleri sayı doğrusunda gösterir ve çözer.",
+      summary: "Eşitsizlik sembolleri ($<, \\le, >, \\ge$), negatif sayıya bölmede yön değiştirme ve sayı doğrusu aralık gösterimi.",
+      introMotivation: "Hız limitleri (örn: $v \\le 120 \\text{ km/s}$), asansör taşıma kapasiteleri ($k \\le 450 \\text{ kg}$) ve bütçe sınırları eşitsizliklerle ifade edilir.",
+      sections: [
         {
-          title: "Eşitsizlikte Yön Değiştirme Kuralı (Kritik!)",
-          math: "-2x < 6 \\implies x > \\frac{6}{-2} \\implies x > -3",
-          desc: "Eşitsizliğin her iki tarafı negatif bir sayı ile çarpılır veya bölünürse eşitsizlik sembolü YÖN DEĞİŞTİRİR ($< \\leftrightarrow >$)."
-        },
-        {
-          title: "Sayı Doğrusunda Gösterim",
-          math: "x \\ge a \\rightarrow \\text{İçi Dolu Nokta (\\textbullet)}, \\quad x > a \\rightarrow \\text{İçi Boş Nokta (\\textopenbullet)}",
-          desc: "Eşitlik ($\le, \\ge$) varsa sınır noktası dahil edilir ve içi taranır."
+          title: "1. Eşitsizlik Çözüm Kuralları & Yön Değiştirme",
+          content: `
+            <p class="leading-relaxed mb-3">İçinde $<, \\le, >, \\ge$ sembolleri bulunan ifadelere <strong>eşitsizlik</strong> denir. Denklem çözer gibi bilinmeyen yalnız bırakılır.</p>
+          `,
+          formulas: [
+            {
+              title: "Eşitsizlikte Yön Değiştirme Kuralı (Kritik!)",
+              math: "-ax < b \\implies x > -\\frac{b}{a} \\quad (a > 0)",
+              desc: "Eşitsizliğin her iki tarafı negatif bir sayı ile çarpılır veya bölünürse eşitsizlik sembolü YÖN DEĞİŞTİRİR ($< \\leftrightarrow >$)."
+            },
+            {
+              title: "Sayı Doğrusu Gösterimi",
+              math: "x \\ge a \\rightarrow \\text{İçi Dolu (\\textbullet)}, \\quad x > a \\rightarrow \\text{İçi Boş (\\textopenbullet)}",
+              desc: "Eşitlik varsa sınır noktası taranır, eşitlik yoksa içi boş bırakılır."
+            }
+          ],
+          examples: [
+            {
+              question: "$-3x + 5 \\ge 20$ eşitsizliğini çözünüz ve çözüm kümesini bulunuz.",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p><strong>Adım 1:</strong> $+5$'i sağ tarafa atalım: $-3x \\ge 20 - 5 \\implies -3x \\ge 15$</p>
+                  <p><strong>Adım 2 (YÖN DEĞİŞTİRME):</strong> Her iki tarafı $-3$'e bölelim (sembol $\\ge$ iken $\\le$ olur):</p>
+                  <p>$$x \\le \\frac{15}{-3} \\implies x \\le -5$$</p>
+                </div>
+              `,
+              tip: "Negatif sayıya böldüğünüz anda sembolün yönünü değiştirmeyi refleksi haline getirin."
+            }
+          ]
         }
       ],
       traps: [
@@ -311,37 +625,91 @@ const ACADEMY_MODULES_DATA = {
       ],
       tips: [
         "'En az 15' deniyorsa $x \\ge 15$, 'en çok 20' deniyorsa $x \\le 20$, '10'dan fazla' deniyorsa $x > 10$ yazılır."
-      ]
+      ],
+      classActivity: {
+        title: "Sıra Sende / Sınıfta Birlikte Çözelim",
+        question: "Hangi sayının 4 katının 6 eksiği, aynı sayının 18 fazlasından küçüktür?",
+        solution: "Cebirsel model: 4x - 6 < x + 18 ⟹ 4x - x < 18 + 6 ⟹ 3x < 24 ⟹ x < 8 bulunur."
+      }
     },
     {
       id: "ucgenler",
+      unitNo: 9,
       title: "Üçgenler & Pisagor Teoremi",
       icon: "ph-triangle",
       badgeColor: "from-amber-600 to-yellow-500",
       grade: "8",
-      summary: "Üçgen eşitsizliği, açı-kenar bağıntıları, kenarortay, açıortay, yükseklik ve Pisagor bağıntısı.",
-      formulas: [
+      kazanimCode: "M.8.3.1.1 - M.8.3.1.5",
+      kazanimDesc: "Üçgende kenarortay, açıortay ve yüksekliği inşa eder; üçgen eşitsizliğini, açı-kenar bağıntılarını ve Pisagor bağıntısını uygular.",
+      summary: "Üçgen eşitsizliği, açı-kenar bağıntıları, yardımcı elemanlar ($V, n, h$), Pisagor bağıntısı ($a^2+b^2=c^2$) ve özel dik üçgenler.",
+      introMotivation: "Mimarlıkta çatı makasları, köprü kabloları ve GPS konumlandırmalarının tümü üçgenlerin geometrik sağlamlığı ve Pisagor bağıntısıyla tasarlanır.",
+      sections: [
         {
-          title: "Üçgen Eşitsizliği Kuralı",
-          math: "|b - c| < a < b + c",
-          desc: "Bir üçgende herhangi bir kenar uzunluğu, diğer iki kenarın farkının mutlak değerinden büyük, toplamından küçük olmalıdır."
+          title: "1. Üçgen Eşitsizliği & Açı-Kenar İlişkisi",
+          content: `
+            <p class="leading-relaxed mb-3">Bir üçgenin çizilebilmesi için kenarları arasında üçgen eşitsizliği kuralı sağlanmalıdır.</p>
+          `,
+          formulas: [
+            {
+              title: "Üçgen Eşitsizliği Formülü",
+              math: "|b - c| < a < b + c",
+              desc: "Bir kenar uzunluğu, diğer iki kenarın farkının mutlak değerinden büyük, toplamından küçük olmalıdır."
+            },
+            {
+              title: "Açı - Kenar Bağıntısı",
+              math: "m(\\hat{A}) > m(\\hat{B}) > m(\\hat{C}) \\iff a > b > c",
+              desc: "Büyük açının karşısında daima büyük kenar bulunur."
+            }
+          ],
+          examples: [
+            {
+              question: "Kenar uzunlukları $6 \\text{ cm}$ ve $10 \\text{ cm}$ olan bir üçgenin üçüncü kenarının alabileceği en büyük ve en küçük tam sayı değerleri toplamı kaçtır?",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p><strong>Üçgen Eşitsizliği:</strong> $|10 - 6| < x < 10 + 6 \\implies 4 < x < 16$</p>
+                  <p>• En küçük tam sayı: $x = 5$</p>
+                  <p>• En büyük tam sayı: $x = 15$</p>
+                  <p>• Toplam: $5 + 15 = 20 \\text{ cm}$ bulunur.</p>
+                </div>
+              `,
+              tip: "Soruda 'üçgen çeşitkenardır' gibi ekstra şartlar olup olmadığını kontrol edin."
+            }
+          ]
         },
         {
-          title: "Pisagor Bağıntısı",
-          math: "a^2 + b^2 = c^2 \\quad (c: \\text{Hipotenüs})",
-          desc: "Dik açının karşısındaki hipotenüsün karesi, dik kenarların kareleri toplamına eşittir."
-        },
-        {
-          title: "Özel Dik Üçgenler (Soru Çözdüren Kalıplar)",
-          math: "(3-4-5), \\quad (5-12-13), \\quad (8-15-17), \\quad (7-24-25) \\; \\text{ve katları}",
-          desc: "Örn: $(6-8-10)$, $(9-12-15)$, $(10-24-26)$ üçgenlerini ezbere bilmek zaman kazandırır."
+          title: "2. Pisagor Bağıntısı & Özel Dik Üçgenler",
+          content: `
+            <p class="leading-relaxed mb-3">Bir dik üçgende $90^\\circ$'lik açının karşısındaki kenara <strong>hipotenüs</strong> denir ve hipotenüs üçgenin en uzun kenarıdır.</p>
+          `,
+          formulas: [
+            {
+              title: "Pisagor Bağıntısı",
+              math: "a^2 + b^2 = c^2 \\quad (c: \\text{Hipotenüs})",
+              desc: "Dik kenarların kareleri toplamı, hipotenüsün karesine eşittir."
+            },
+            {
+              title: "Özel Dik Üçgen Kalıpları (Ezbere Bilinmeli)",
+              math: "(3 - 4 - 5), \\quad (5 - 12 - 13), \\quad (8 - 15 - 17), \\quad (7 - 24 - 25) \\; \\text{ve katları}",
+              desc: "Örneğin (6-8-10), (9-12-15), (10-24-26) gibi katları ezbere bilmek LGS'de 1 dakika kazandırır."
+            }
+          ],
+          examples: [
+            {
+              question: "Dik kenar uzunlukları $9 \\text{ cm}$ ve $12 \\text{ cm}$ olan bir dik üçgenin hipotenüs uzunluğu kaç santimetredir?",
+              solution: `
+                <div class="space-y-1.5 font-sans">
+                  <p><strong>Özel Üçgen Kuralı:</strong> 3-4-5 üçgeninin 3 katıdır:</p>
+                  <p>• $3 \\times 3 = 9$</p>
+                  <p>• $4 \\times 3 = 12$</p>
+                  <p>• Hipotenüs $= 5 \\times 3 = 15 \\text{ cm}$ bulunur.</p>
+                </div>
+              `,
+              tip: "Sayılar büyükse önce ortak bir bölen ile sadeleştirip özel üçgen kalıbı arayın."
+            }
+          ]
         }
       ],
       traps: [
-        {
-          title: "⚠️ Büyük Açının Karşısında Büyük Kenar Vardır",
-          text: "Bir üçgende en büyük açının karşısındaki kenar daima en uzundur. Ancak farklı üçgenlerdeki kenarlar kıyaslanırken ortak kenarlar köprü olarak kullanılmalıdır."
-        },
         {
           title: "⚠️ Pisagor Sadece Dik Üçgende Geçerlidir",
           text: "Açısı $90^\\circ$ olmayan üçgenlerde $a^2+b^2=c^2$ bağıntısı KULLANILAMAZ!"
@@ -349,7 +717,12 @@ const ACADEMY_MODULES_DATA = {
       ],
       tips: [
         "Açıortay açıyı ikiye böler ($n$), Kenarortay kenarı ikiye böler ($V$), Yükseklik dik iner ($h$)."
-      ]
+      ],
+      classActivity: {
+        title: "Sıra Sende / Sınıfta Birlikte Çözelim",
+        question: "Duvardan 5 metre uzaklıkta duran 13 metre uzunluğundaki bir merdivenin duvara değdiği noktanın yerden yüksekliği kaç metredir?",
+        solution: "Merdiven hipotenüstür (c=13), yer mesafesi a=5'tir. 5-12-13 özel dik üçgeninden duvar yüksekliği b = 12 metre bulunur."
+      }
     }
   ],
 

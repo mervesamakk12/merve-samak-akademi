@@ -267,3 +267,149 @@ input[type="range"]::-webkit-slider-thumb:hover {
   transform: scale(1.2);
 }
 
+/* ==========================================================================
+   DERS FASİKÜLÜ & PDF YAZDIRMA STİLLERİ (@media print)
+   ========================================================================== */
+@media print {
+  /* Arka plan renklerini ve grafikleri zorla yazdır */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+    font-size: 11pt !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  /* Ana sayfa, header, nav, footer ve tüm diğer elemanları gizle */
+  header,
+  footer,
+  nav,
+  #header,
+  #footer,
+  main,
+  .no-print,
+  #note-pdf-toolbar,
+  #admin-login-modal,
+  #toast-notification {
+    display: none !important;
+  }
+
+  /* Sadece modal ve içindeki #note-printable-document'i görünür kıl */
+  #note-detail-modal {
+    position: static !important;
+    display: block !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    max-height: none !important;
+  }
+
+  #note-detail-modal > div {
+    max-width: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-height: none !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  #note-printable-document {
+    background: #ffffff !important;
+    color: #111827 !important;
+    border: 1px solid #cbd5e1 !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+    padding: 18px 24px !important;
+    width: 100% !important;
+  }
+
+  /* Başlık ve Logo Alanı */
+  .print-header-brand {
+    border-bottom: 2px solid #9333ea !important;
+    padding-bottom: 12px !important;
+    margin-bottom: 16px !important;
+  }
+
+  .print-header-brand h1 {
+    color: #581c87 !important;
+  }
+
+  .print-header-brand p,
+  .print-header-brand div {
+    color: #475569 !important;
+  }
+
+  /* Kutu Renkleri Beyaz/Hafif Griye Dönüşsün */
+  #note-printable-document .bg-\[\#180b28\],
+  #note-printable-document .bg-\[\#130720\],
+  #note-printable-document .bg-purple-950\/40,
+  #note-printable-document .bg-purple-950\/50,
+  #note-printable-document .bg-purple-950\/70,
+  #note-printable-document .bg-black\/30 {
+    background: #f8fafc !important;
+    border-color: #cbd5e1 !important;
+    color: #1e293b !important;
+  }
+
+  #note-printable-document .text-white,
+  #note-printable-document .text-gray-200,
+  #note-printable-document .text-gray-300 {
+    color: #1e293b !important;
+  }
+
+  #note-printable-document .text-pink-400,
+  #note-printable-document .text-purple-200 {
+    color: #7e22ce !important;
+  }
+
+  #note-printable-document .text-emerald-200,
+  #note-printable-document .text-emerald-400 {
+    color: #047857 !important;
+  }
+
+  #note-printable-document .bg-emerald-950\/20,
+  #note-printable-document .bg-emerald-950\/30 {
+    background: #f0fdf4 !important;
+    border-color: #86efac !important;
+  }
+
+  #note-printable-document .bg-red-950\/20 {
+    background: #fef2f2 !important;
+    border-color: #fca5a5 !important;
+  }
+
+  #note-printable-document .text-red-400,
+  #note-printable-document .text-red-300 {
+    color: #b91c1c !important;
+  }
+
+  #note-printable-document .bg-amber-950\/30 {
+    background: #fffbeb !important;
+    border-color: #fde68a !important;
+  }
+
+  #note-printable-document .text-amber-300 {
+    color: #b45309 !important;
+  }
+
+  /* Sayfa Bölünme Kontrolü */
+  .print-page-break {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-bottom: 16px !important;
+  }
+
+  /* KaTeX Çıktısı */
+  .katex {
+    color: #111827 !important;
+  }
+}
+
+

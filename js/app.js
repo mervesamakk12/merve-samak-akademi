@@ -47,7 +47,7 @@ function applyTheme(theme) {
 /* ==========================================================================
    2. SPA ROTALAMA (HASH ROUTING)
    ========================================================================== */
-const routes = ['home', 'blog', 'categories', 'about', 'contact', 'post', 'admin'];
+const routes = ['home', 'notes', 'questions', 'games', 'coach', 'blog', 'categories', 'about', 'contact', 'post', 'admin'];
 
 function initRouter() {
   window.addEventListener('hashchange', handleRouteChange);
@@ -110,21 +110,73 @@ function handleRouteChange() {
   }
 
   // Sayfa özel fonksiyonlarını tetikle
-  if (route === 'blog') {
+  if (route === 'home') {
+    renderHomePage();
+  } else if (route === 'notes' || route === 'konu-notlari') {
+    if (typeof renderNotesPage === 'function') renderNotesPage();
+  } else if (route === 'questions' || route === 'soru-dunyasi') {
+    if (typeof renderQuestionsPage === 'function') renderQuestionsPage();
+  } else if (route === 'games' || route === 'matematik-oyunlari') {
+    if (typeof renderGamesPage === 'function') renderGamesPage();
+  } else if (route === 'coach' || route === 'hedef-kocu') {
+    if (typeof renderCoachPage === 'function') renderCoachPage();
+  } else if (route === 'blog') {
     if (param) {
       activeCategory = param;
     }
     renderBlogPage();
   } else if (route === 'categories') {
     renderCategoriesPage();
-  } else if (route === 'home') {
-    renderHomePage();
   } else if (route === 'about') {
     renderAboutSection();
   } else if (route === 'admin') {
     renderAdminDashboard();
   }
+
+  // Matematiksel formülleri derle
+  setTimeout(() => {
+    if (window.renderMathInElementSafely && targetView) {
+      window.renderMathInElementSafely(targetView);
+    }
+  }, 100);
 }
+
+// KaTeX Güvenli Render Yardımcısı
+function renderMathInElementSafely(element) {
+  if (!element) return;
+  if (typeof renderMathInElement === 'function') {
+    try {
+      renderMathInElement(element, {
+        delimiters: [
+          { left: '$$', right: '$$', display: true },
+          { left: '$', right: '$', display: false },
+          { left: '\\(', right: '\\)', display: false },
+          { left: '\\[', right: '\\]', display: true }
+        ],
+        throwOnError: false
+      });
+    } catch (e) {
+      console.warn('KaTeX render uyarısı:', e);
+    }
+  } else {
+    setTimeout(() => {
+      if (typeof renderMathInElement === 'function') {
+        try {
+          renderMathInElement(element, {
+            delimiters: [
+              { left: '$$', right: '$$', display: true },
+              { left: '$', right: '$', display: false },
+              { left: '\\(', right: '\\)', display: false },
+              { left: '\\[', right: '\\]', display: true }
+            ],
+            throwOnError: false
+          });
+        } catch (e) {}
+      }
+    }, 300);
+  }
+}
+window.renderMathInElementSafely = renderMathInElementSafely;
 
 /* ==========================================================================
    3. BİLEŞEN RENDER FONKSİYONLARI

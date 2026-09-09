@@ -30,6 +30,11 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="assets/logo.png?v=1">
 
+  <!-- KaTeX Matematik Formülü Desteği -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
   <!-- Phosphor Icons -->
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/regular/style.css" />
   <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/bold/style.css" />
@@ -46,47 +51,57 @@
       <div class="flex items-center justify-between h-20">
         
         <!-- Logo -->
-        <a href="#home" class="flex items-center gap-3 group">
+        <a href="#home" class="flex items-center gap-3 group shrink-0">
           <div class="w-12 h-12 rounded-2xl overflow-hidden shadow-lg shadow-pink-500/25 group-hover:scale-105 transition-all p-0.5 border border-pink-500/30 bg-[#160a22]/60">
             <img src="assets/logo.png?v=1" alt="Merve SAMAK AKADEMİ Logo" class="w-full h-full object-contain">
           </div>
           <div>
-            <span class="text-xl md:text-2xl font-black tracking-tight text-white group-hover:text-pink-400 transition-colors flex items-center gap-1.5">
-              Merve SAMAK <span class="text-xs px-2 py-0.5 rounded-md bg-pink-500/20 text-pink-400 border border-pink-500/30 font-bold">AKADEMİ</span>
+            <span class="text-lg md:text-xl font-black tracking-tight text-white group-hover:text-pink-400 transition-colors flex items-center gap-1.5">
+              Merve SAMAK <span class="text-[10px] px-1.5 py-0.5 rounded-md bg-pink-500/20 text-pink-400 border border-pink-500/30 font-bold">AKADEMİ</span>
             </span>
-            <p class="text-[10px] text-gray-400 uppercase tracking-widest font-semibold">Ortaokul Matematik Portalı</p>
+            <p class="text-[9px] text-gray-400 uppercase tracking-widest font-semibold">Ortaokul Matematik Portalı</p>
           </div>
         </a>
 
-        <!-- Masaüstü Navigasyon Linkleri -->
-        <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+        <!-- Masaüstü Navigasyon Linkleri (4 Yeni Modül Dahil) -->
+        <nav class="hidden xl:flex items-center gap-5 text-[13px] font-semibold text-gray-300">
           <a href="#home" class="nav-link hover:text-pink-400 py-1">Ana Sayfa</a>
-          <a href="#blog" class="nav-link hover:text-pink-400 py-1">Ders Materyalleri</a>
+          <a href="#notes" class="nav-link hover:text-pink-400 py-1 flex items-center gap-1">
+            <i class="ph ph-book-open text-pink-400 text-base"></i> Konu Notları
+          </a>
+          <a href="#questions" class="nav-link hover:text-pink-400 py-1 flex items-center gap-1">
+            <i class="ph ph-check-circle text-purple-400 text-base"></i> Soru Dünyası
+          </a>
+          <a href="#games" class="nav-link hover:text-pink-400 py-1 flex items-center gap-1">
+            <i class="ph ph-game-controller text-pink-400 text-base"></i> Matematik Oyunları
+          </a>
+          <a href="#coach" class="nav-link hover:text-pink-400 py-1 flex items-center gap-1">
+            <i class="ph ph-trend-up text-purple-400 text-base"></i> Hedef & Net Koçu
+          </a>
+          <a href="#blog" class="nav-link hover:text-pink-400 py-1">Materyaller</a>
           <a href="#categories" class="nav-link hover:text-pink-400 py-1">Kategoriler</a>
-          <a href="#about" class="nav-link hover:text-pink-400 py-1">Merve Öğretmen</a>
-          <a href="#contact" class="nav-link hover:text-pink-400 py-1">İletişim</a>
         </nav>
 
         <!-- Sağ Eylemler: Tema Değiştirici & Yönetici Butonu & Hızlı Buton & Mobil Menü Butonu -->
-        <div class="flex items-center gap-3">
+        <div class="flex items-center gap-2.5">
           <!-- Tema Değiştirici (Dark / Light) -->
           <button id="theme-toggle" aria-label="Temayı Değiştir" class="p-2.5 rounded-xl bg-purple-900/30 hover:bg-purple-800/40 border border-purple-500/30 transition-all hover:scale-105" title="Gece / Gündüz Modu">
-            <i id="theme-icon" class="ph ph-sun text-xl text-amber-400"></i>
+            <i id="theme-icon" class="ph ph-sun text-lg text-amber-400"></i>
           </button>
 
           <!-- Yönetici Paneli Butonu -->
           <button onclick="openAdminLoginModal()" class="p-2.5 rounded-xl bg-purple-900/30 hover:bg-purple-800/40 text-purple-300 hover:text-pink-400 border border-purple-500/30 transition-all hover:scale-105" title="Yönetici (Admin) Paneli">
-            <i class="ph ph-gear-six text-xl"></i>
+            <i class="ph ph-gear-six text-lg"></i>
           </button>
 
-          <!-- Hızlı Materyal İncele Butonu -->
-          <a href="#blog" class="hidden sm:inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-brand text-white text-xs font-bold shadow-lg shadow-pink-500/20 hover:shadow-pink-500/40 hover:scale-105 transition-all">
-            <i class="ph ph-download-simple text-sm font-bold"></i>
-            <span>Çalışma Kağıtları</span>
+          <!-- Hızlı Başla Butonu -->
+          <a href="#questions" class="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-gradient-brand text-white text-xs font-bold shadow-lg shadow-pink-500/20 hover:shadow-pink-500/40 hover:scale-105 transition-all">
+            <i class="ph ph-sparkle text-sm font-bold"></i>
+            <span>Soru Çöz</span>
           </a>
 
           <!-- Mobil Menü Açma Butonu -->
-          <button id="mobile-menu-btn" class="md:hidden p-2.5 rounded-xl bg-purple-900/30 text-white border border-purple-500/30">
+          <button id="mobile-menu-btn" class="xl:hidden p-2.5 rounded-xl bg-purple-900/30 text-white border border-purple-500/30">
             <i class="ph ph-list text-2xl"></i>
           </button>
         </div>
@@ -96,8 +111,8 @@
   </header>
 
   <!-- MOBİL MENÜ DRAWER -->
-  <div id="mobile-menu" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-xl md:hidden">
-    <div class="fixed inset-y-0 right-0 w-4/5 max-w-sm bg-[#140a20] border-l border-purple-500/30 p-6 flex flex-col justify-between">
+  <div id="mobile-menu" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-xl xl:hidden">
+    <div class="fixed inset-y-0 right-0 w-4/5 max-w-sm bg-[#140a20] border-l border-purple-500/30 p-6 flex flex-col justify-between overflow-y-auto">
       <div class="space-y-6">
         <div class="flex items-center justify-between pb-4 border-b border-purple-500/20">
           <span class="font-bold text-white text-lg">Menü</span>
@@ -105,9 +120,21 @@
             <i class="ph ph-x text-2xl"></i>
           </button>
         </div>
-        <nav class="flex flex-col space-y-4 text-base font-semibold text-gray-200">
+        <nav class="flex flex-col space-y-2.5 text-sm font-semibold text-gray-200">
           <a href="#home" class="p-3 rounded-xl hover:bg-pink-500/10 hover:text-pink-400 transition-colors flex items-center gap-3">
             <i class="ph ph-house text-xl text-pink-400"></i> Ana Sayfa
+          </a>
+          <a href="#notes" class="p-3 rounded-xl hover:bg-pink-500/10 hover:text-pink-400 transition-colors flex items-center gap-3">
+            <i class="ph ph-book-open text-xl text-pink-400"></i> Konu Notları (Özet & Püf Noktalar)
+          </a>
+          <a href="#questions" class="p-3 rounded-xl hover:bg-pink-500/10 hover:text-pink-400 transition-colors flex items-center gap-3">
+            <i class="ph ph-check-circle text-xl text-purple-400"></i> Soru Dünyası (Kazanım & Yeni Nesil)
+          </a>
+          <a href="#games" class="p-3 rounded-xl hover:bg-pink-500/10 hover:text-pink-400 transition-colors flex items-center gap-3">
+            <i class="ph ph-game-controller text-xl text-pink-400"></i> Matematik Oyunları (Kök Avcısı & EBOB)
+          </a>
+          <a href="#coach" class="p-3 rounded-xl hover:bg-pink-500/10 hover:text-pink-400 transition-colors flex items-center gap-3">
+            <i class="ph ph-trend-up text-xl text-purple-400"></i> Hedef & Net Koçu (Deneme Analiz)
           </a>
           <a href="#blog" class="p-3 rounded-xl hover:bg-pink-500/10 hover:text-pink-400 transition-colors flex items-center gap-3">
             <i class="ph ph-article text-xl text-pink-400"></i> Ders Materyalleri & PDF
@@ -187,6 +214,77 @@
           <div class="flex items-center justify-center gap-2">
             <i class="ph ph-exam text-purple-400 text-base"></i> MEB Yazılı & LGS Provaları
           </div>
+        </div>
+      </section>
+
+      <!-- 4 YENİ İNTERAKTİF MODÜL VİTRİNİ -->
+      <section class="space-y-6">
+        <div class="flex items-center justify-between">
+          <div>
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/15 text-pink-400 text-xs font-bold mb-1">
+              <i class="ph ph-lightning"></i> İnteraktif Öğrenme Alanları
+            </div>
+            <h2 class="text-2xl md:text-3xl font-extrabold text-white">LGS ve Ortaokul Matematik Araçları</h2>
+            <p class="text-xs md:text-sm text-gray-400 mt-1">Konu özetleri, yeni nesil soru havuzu, eğitici oyunlar ve yapay zeka destekli net koçluğu</p>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+          <!-- 1. Konu Notları Kartı -->
+          <a href="#notes" class="glass-panel p-6 rounded-3xl flex flex-col justify-between space-y-5 hover:border-pink-500/60 transition-all duration-300 group hover:-translate-y-1.5 border border-purple-500/25 relative overflow-hidden">
+            <div class="space-y-3">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-500 to-rose-500 flex items-center justify-center text-white text-2xl shadow-lg shadow-pink-500/30 group-hover:scale-110 transition-transform">
+                <i class="ph ph-book-open font-bold"></i>
+              </div>
+              <h3 class="text-lg font-black text-white group-hover:text-pink-400 transition-colors">Konu Notları</h3>
+              <p class="text-xs text-gray-400 leading-relaxed">LGS ünitelerine ait kritik formül sınırları, tuzak noktalar ve Merve Öğretmen'den altın taktikler.</p>
+            </div>
+            <div class="flex items-center text-xs font-bold text-pink-400 group-hover:text-pink-300 gap-1 pt-2 border-t border-purple-500/15">
+              <span>Notları İncele</span> <i class="ph ph-arrow-right font-bold group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </a>
+
+          <!-- 2. Soru Dünyası Kartı -->
+          <a href="#questions" class="glass-panel p-6 rounded-3xl flex flex-col justify-between space-y-5 hover:border-purple-500/60 transition-all duration-300 group hover:-translate-y-1.5 border border-purple-500/25 relative overflow-hidden">
+            <div class="space-y-3">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-purple-500 to-indigo-500 flex items-center justify-center text-white text-2xl shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
+                <i class="ph ph-check-circle font-bold"></i>
+              </div>
+              <h3 class="text-lg font-black text-white group-hover:text-purple-400 transition-colors">Soru Dünyası</h3>
+              <p class="text-xs text-gray-400 leading-relaxed">Kazanım ve LGS Yeni Nesil testleri, anında doğru/yanlış dönütü ve MEB tarzı adım adım çözümler.</p>
+            </div>
+            <div class="flex items-center text-xs font-bold text-purple-400 group-hover:text-purple-300 gap-1 pt-2 border-t border-purple-500/15">
+              <span>Soruları Çöz</span> <i class="ph ph-arrow-right font-bold group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </a>
+
+          <!-- 3. Matematik Oyunları Kartı -->
+          <a href="#games" class="glass-panel p-6 rounded-3xl flex flex-col justify-between space-y-5 hover:border-amber-500/60 transition-all duration-300 group hover:-translate-y-1.5 border border-purple-500/25 relative overflow-hidden">
+            <div class="space-y-3">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-white text-2xl shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform">
+                <i class="ph ph-game-controller font-bold"></i>
+              </div>
+              <h3 class="text-lg font-black text-white group-hover:text-amber-400 transition-colors">Matematik Oyunları</h3>
+              <p class="text-xs text-gray-400 leading-relaxed">"Kök Avcısı" yaklaşık değer tahmin oyunu ve "EBOB-EKOK" hafıza kartı eşleştirme oyunu.</p>
+            </div>
+            <div class="flex items-center text-xs font-bold text-amber-400 group-hover:text-amber-300 gap-1 pt-2 border-t border-purple-500/15">
+              <span>Hemen Oyna</span> <i class="ph ph-arrow-right font-bold group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </a>
+
+          <!-- 4. Hedef & Net Koçu Kartı -->
+          <a href="#coach" class="glass-panel p-6 rounded-3xl flex flex-col justify-between space-y-5 hover:border-emerald-500/60 transition-all duration-300 group hover:-translate-y-1.5 border border-purple-500/25 relative overflow-hidden">
+            <div class="space-y-3">
+              <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-emerald-500 to-teal-500 flex items-center justify-center text-white text-2xl shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+                <i class="ph ph-trend-up font-bold"></i>
+              </div>
+              <h3 class="text-lg font-black text-white group-hover:text-emerald-400 transition-colors">Hedef & Net Koçu</h3>
+              <p class="text-xs text-gray-400 leading-relaxed">Deneme netlerini analiz et, zorlandığın ünitelere özel reçeteni çıkar ve gelişim grafiğini takip et.</p>
+            </div>
+            <div class="flex items-center text-xs font-bold text-emerald-400 group-hover:text-emerald-300 gap-1 pt-2 border-t border-purple-500/15">
+              <span>Reçeteni Çıkar</span> <i class="ph ph-arrow-right font-bold group-hover:translate-x-1 transition-transform"></i>
+            </div>
+          </a>
         </div>
       </section>
 
@@ -275,6 +373,265 @@
         </div>
       </section>
 
+    </div>
+
+    <!-- ===================================================================
+         YENİ MODÜL 1: KONU NOTLARI (#notes)
+         =================================================================== -->
+    <div id="view-notes" class="spa-view hidden space-y-8 animate-fadeIn">
+      <div class="text-center space-y-3 max-w-3xl mx-auto py-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-500/15 border border-pink-500/30 text-pink-400 text-xs font-bold">
+          <i class="ph ph-book-open-text text-base"></i> 8. Sınıf LGS Konu Notları & Formüller
+        </div>
+        <h1 class="text-3xl md:text-5xl font-black text-white">Konu Notları & Püf Noktalar</h1>
+        <p class="text-gray-400 text-sm md:text-base">Müfredattaki kritik formül sınırları, LGS'de öğrencilerin en çok düştüğü tuzak noktalar ve Merve Öğretmen'den altın ipuçları.</p>
+      </div>
+
+      <div id="notes-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- js/notes.js tarafından dinamik render edilir -->
+      </div>
+    </div>
+
+    <!-- ===================================================================
+         YENİ MODÜL 2: SORU DÜNYASI (#questions)
+         =================================================================== -->
+    <div id="view-questions" class="spa-view hidden space-y-8 animate-fadeIn">
+      <div class="text-center space-y-3 max-w-3xl mx-auto py-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-purple-500/15 border border-purple-500/30 text-purple-300 text-xs font-bold">
+          <i class="ph ph-check-circle text-base"></i> İnteraktif Soru Bankası & Çözüm Analizi
+        </div>
+        <h1 class="text-3xl md:text-5xl font-black text-white">Soru Dünyası</h1>
+        <p class="text-gray-400 text-sm md:text-base">Kazanım kavrama ve LGS yeni nesil beceri temelli soruları çözün, anında dönüt alın ve adım adım MEB çözümlerini inceleyin.</p>
+      </div>
+
+      <!-- Soru Filtreleme ve Canlı İstatistik Çubuğu -->
+      <div class="glass-panel p-6 rounded-3xl space-y-6 border border-purple-500/30">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <!-- Ünite Seçimi -->
+          <div class="lg:col-span-5 space-y-1.5">
+            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider">Konu / Ünite:</label>
+            <select id="question-unit-filter" onchange="handleQuestionUnitChange(this)" class="w-full px-4 py-3 rounded-2xl bg-purple-950/60 border border-purple-500/30 text-white text-sm focus:outline-none focus:border-pink-500">
+              <option value="all">Tüm Konular (8. Sınıf LGS)</option>
+            </select>
+          </div>
+
+          <!-- Mod Seçimi (Kazanım vs Yeni Nesil) -->
+          <div class="lg:col-span-4 space-y-1.5">
+            <label class="block text-xs font-bold text-gray-400 uppercase tracking-wider">Soru Düzeyi:</label>
+            <div class="flex items-center gap-2">
+              <button onclick="filterQuestionsByType('all')" id="qtype-btn-all" class="question-type-tab-btn px-4 py-2 rounded-xl text-xs font-bold transition-all bg-gradient-brand text-white shadow-lg shadow-pink-500/20">
+                Tümü
+              </button>
+              <button onclick="filterQuestionsByType('kazanim')" id="qtype-btn-kazanim" class="question-type-tab-btn px-4 py-2 rounded-xl text-xs font-bold text-gray-300 hover:text-white hover:bg-purple-900/30 transition-all border border-purple-500/20">
+                🎯 Kazanım
+              </button>
+              <button onclick="filterQuestionsByType('yeninesil')" id="qtype-btn-yeninesil" class="question-type-tab-btn px-4 py-2 rounded-xl text-xs font-bold text-gray-300 hover:text-white hover:bg-purple-900/30 transition-all border border-purple-500/20">
+                🚀 Yeni Nesil
+              </button>
+            </div>
+          </div>
+
+          <!-- Canlı İstatistik Göstergesi -->
+          <div class="lg:col-span-3 flex items-center justify-around p-3.5 rounded-2xl bg-purple-950/60 border border-purple-500/20 text-center">
+            <div>
+              <div class="text-[10px] text-gray-400 uppercase font-bold">Doğru</div>
+              <div id="q-stats-correct" class="text-lg font-black text-emerald-400">0</div>
+            </div>
+            <div class="w-px h-8 bg-purple-500/20"></div>
+            <div>
+              <div class="text-[10px] text-gray-400 uppercase font-bold">Yanlış</div>
+              <div id="q-stats-wrong" class="text-lg font-black text-red-400">0</div>
+            </div>
+            <div class="w-px h-8 bg-purple-500/20"></div>
+            <div>
+              <div class="text-[10px] text-gray-400 uppercase font-bold">LGS Net</div>
+              <div id="q-stats-net" class="text-lg font-black text-pink-400">0</div>
+            </div>
+            <div class="w-px h-8 bg-purple-500/20"></div>
+            <div>
+              <div class="text-[10px] text-gray-400 uppercase font-bold">Başarı</div>
+              <div id="q-stats-percent" class="text-lg font-black text-purple-300">%0</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sorular Listesi -->
+      <div id="questions-list-container" class="space-y-6">
+        <!-- js/questions.js tarafından render edilir -->
+      </div>
+    </div>
+
+    <!-- ===================================================================
+         YENİ MODÜL 3: MATEMATİK OYUNLARI (#games)
+         =================================================================== -->
+    <div id="view-games" class="spa-view hidden space-y-8 animate-fadeIn">
+      <div class="text-center space-y-3 max-w-3xl mx-auto py-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-bold">
+          <i class="ph ph-game-controller text-base"></i> İnteraktif Matematik Oyunları & Zeka Arenası
+        </div>
+        <h1 class="text-3xl md:text-5xl font-black text-white">Matematik Oyunları</h1>
+        <p class="text-gray-400 text-sm md:text-base">Kareköklü sayı tahminleri yapın ve EBOB-EKOK kartlarını eşleştirerek reflekslerinizi ve matematiksel hızınızı geliştirin!</p>
+      </div>
+
+      <!-- Oyun Seçim Sekmeleri -->
+      <div class="flex items-center justify-center gap-3">
+        <button onclick="switchGameTab('root')" id="game-tab-btn-root" class="game-tab-btn px-6 py-3 rounded-2xl text-xs sm:text-sm font-black transition-all bg-gradient-brand text-white shadow-lg shadow-pink-500/25 flex items-center gap-2">
+          <i class="ph ph-target font-bold text-lg"></i> 1. Kök Avcısı (Karekök Tahmini)
+        </button>
+        <button onclick="switchGameTab('ebob')" id="game-tab-btn-ebob" class="game-tab-btn px-6 py-3 rounded-2xl text-xs sm:text-sm font-black text-gray-300 hover:text-white hover:bg-purple-900/30 transition-all border border-purple-500/20 flex items-center gap-2">
+          <i class="ph ph-cards font-bold text-lg"></i> 2. EBOB-EKOK Kart Eşleştirme
+        </button>
+      </div>
+
+      <!-- 1. Oyun Paneli: Kök Avcısı -->
+      <div id="game-panel-root" class="game-panel-section">
+        <div id="game-root-hunter-container">
+          <!-- js/games.js tarafından render edilir -->
+        </div>
+      </div>
+
+      <!-- 2. Oyun Paneli: EBOB-EKOK Kart Eşleştirme -->
+      <div id="game-panel-ebob" class="game-panel-section hidden">
+        <div class="glass-panel p-6 md:p-8 rounded-3xl space-y-6 border border-purple-500/30 max-w-2xl mx-auto">
+          <!-- Oyun Üst Bilgi Barı -->
+          <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-purple-500/20 text-xs">
+            <div class="flex items-center gap-4">
+              <span class="text-gray-400 font-semibold">Süre: <strong id="ebob-game-timer" class="text-white font-mono text-sm">00:00</strong></span>
+              <span class="text-gray-400 font-semibold">Hamle: <strong id="ebob-game-moves" class="text-pink-400 text-sm">0</strong></span>
+            </div>
+            <div class="flex items-center gap-3">
+              <span class="text-gray-400 font-semibold">Eşleşen: <strong id="ebob-game-matched" class="text-emerald-400 text-sm">0 / 8</strong></span>
+              <button onclick="initEbobEkokGame()" class="px-3 py-1.5 rounded-xl bg-purple-900/50 hover:bg-purple-800 text-purple-200 text-xs font-bold border border-purple-500/30 transition-colors">
+                <i class="ph ph-arrow-counter-clockwise"></i> Yeniden Başlat
+              </button>
+            </div>
+          </div>
+
+          <!-- Kartlar Grid (4x4) -->
+          <div id="game-ebob-cards-container" class="grid grid-cols-4 gap-3 md:gap-4">
+            <!-- js/games.js tarafından render edilir -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================
+         YENİ MODÜL 4: HEDEF & NET KOÇU (#coach)
+         =================================================================== -->
+    <div id="view-coach" class="spa-view hidden space-y-12 animate-fadeIn">
+      <div class="text-center space-y-3 max-w-3xl mx-auto py-6">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/30 text-emerald-300 text-xs font-bold">
+          <i class="ph ph-trend-up text-base"></i> Yapay Zeka & Pedagojik Net Koçluğu
+        </div>
+        <h1 class="text-3xl md:text-5xl font-black text-white">Hedef & Net Koçu</h1>
+        <p class="text-gray-400 text-sm md:text-base">Mevcut ve hedef netinizi girin, en çok zorlandığınız 2 üniteyi seçin; Merve Öğretmen'in akıllı algoritması size özel haftalık çalışma reçetenizi çıkarsın.</p>
+      </div>
+
+      <!-- Giriş Formu ve Reçete Sonuç Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Sol Kolon: Analiz Giriş Formu -->
+        <div class="lg:col-span-5 glass-panel p-6 md:p-8 rounded-3xl border border-purple-500/30 space-y-6">
+          <div class="flex items-center gap-3 pb-4 border-b border-purple-500/20">
+            <div class="w-10 h-10 rounded-xl bg-pink-500/20 text-pink-400 flex items-center justify-center text-xl">
+              <i class="ph ph-chart-line-up font-bold"></i>
+            </div>
+            <div>
+              <h3 class="text-lg font-bold text-white">Deneme Verilerini Gir</h3>
+              <p class="text-xs text-gray-400">LGS Matematik (0 - 20 Net Aralığı)</p>
+            </div>
+          </div>
+
+          <form id="coach-analysis-form" onsubmit="generatePrescription(event)" class="space-y-5">
+            <!-- Deneme Adı -->
+            <div>
+              <label class="block text-xs font-bold text-gray-300 mb-1.5">Deneme Sınavı Adı / Tarihi</label>
+              <input type="text" id="coach-exam-title" placeholder="Örn: Özdebir 2. Deneme veya 12 Kasım" class="w-full px-4 py-3 rounded-xl bg-purple-950/60 border border-purple-500/30 text-white text-sm focus:outline-none focus:border-pink-500">
+            </div>
+
+            <!-- Mevcut Net (0-20) -->
+            <div class="space-y-2">
+              <div class="flex justify-between items-center text-xs font-bold">
+                <span class="text-gray-300">Mevcut Matematik Netin:</span>
+                <input type="number" id="coach-current-net" min="0" max="20" step="0.25" value="10" oninput="syncNetInputs('current', this.value)" class="w-20 px-2.5 py-1 rounded-lg bg-purple-950 border border-purple-500/40 text-pink-400 font-black text-center text-base focus:outline-none focus:border-pink-500">
+              </div>
+              <input type="range" id="coach-current-range" min="0" max="20" step="0.25" value="10" oninput="syncNetInputs('current', this.value)" class="w-full">
+            </div>
+
+            <!-- Hedef Net (0-20) -->
+            <div class="space-y-2">
+              <div class="flex justify-between items-center text-xs font-bold">
+                <span class="text-gray-300">Ulaşmak İstediğin Hedef Net:</span>
+                <input type="number" id="coach-target-net" min="0" max="20" step="0.25" value="16" oninput="syncNetInputs('target', this.value)" class="w-20 px-2.5 py-1 rounded-lg bg-purple-950 border border-purple-500/40 text-emerald-400 font-black text-center text-base focus:outline-none focus:border-emerald-500">
+              </div>
+              <input type="range" id="coach-target-range" min="0" max="20" step="0.25" value="16" oninput="syncNetInputs('target', this.value)" class="w-full">
+            </div>
+
+            <!-- En Çok Zorlanılan 1. Ünite -->
+            <div>
+              <label class="block text-xs font-bold text-gray-300 mb-1.5">En Çok Zorlandığın 1. Ünite</label>
+              <select id="coach-unit-1" class="w-full px-4 py-3 rounded-xl bg-purple-950/60 border border-purple-500/30 text-white text-sm focus:outline-none focus:border-pink-500">
+                <option value="carpanlar-ve-katlar">Çarpanlar ve Katlar</option>
+              </select>
+            </div>
+
+            <!-- En Çok Zorlanılan 2. Ünite -->
+            <div>
+              <label class="block text-xs font-bold text-gray-300 mb-1.5">En Çok Zorlandığın 2. Ünite</label>
+              <select id="coach-unit-2" class="w-full px-4 py-3 rounded-xl bg-purple-950/60 border border-purple-500/30 text-white text-sm focus:outline-none focus:border-pink-500">
+                <option value="karekoklu-ifadeler">Kareköklü İfadeler</option>
+              </select>
+            </div>
+
+            <button type="submit" class="w-full py-4 rounded-2xl bg-gradient-brand text-white font-black text-sm shadow-xl shadow-pink-500/30 hover:scale-[1.02] transition-all flex items-center justify-center gap-2">
+              <i class="ph ph-magic-wand font-bold text-lg"></i> Reçeteyi Çıkar & Analiz Et
+            </button>
+          </form>
+        </div>
+
+        <!-- Sağ Kolon: Akıllı Reçete Sonuç Kartı -->
+        <div id="coach-prescription-result" class="lg:col-span-7">
+          <div class="glass-panel p-8 md:p-12 rounded-3xl border border-purple-500/20 text-center space-y-4">
+            <div class="w-16 h-16 mx-auto rounded-2xl bg-purple-900/40 text-pink-400 flex items-center justify-center text-3xl">
+              <i class="ph ph-stethoscope"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white">Henüz Reçete Üretilmedi</h3>
+            <p class="text-xs md:text-sm text-gray-400 max-w-md mx-auto">
+              Soldaki formdan mevcut netinizi, hedefinizi ve zorlandığınız 2 üniteyi seçerek "Reçeteyi Çıkar" butonuna basınız.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Deneme Net Gelişim Çizgi Grafiği & Geçmiş Denemeler Listesi -->
+      <div class="glass-panel p-6 md:p-10 rounded-3xl space-y-8 border border-purple-500/30">
+        <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-purple-500/20">
+          <div>
+            <h3 class="text-xl md:text-2xl font-black text-white flex items-center gap-2">
+              <i class="ph ph-chart-line text-pink-400"></i> Deneme Net Gelişim Çizgi Grafiği
+            </h3>
+            <p class="text-xs text-gray-400 mt-1">Girdiğiniz denemeler localStorage üzerinde güvenle saklanır ve başarı eğriniz dinamik çizilir.</p>
+          </div>
+          <button onclick="clearAllCoachHistory()" class="px-3.5 py-1.5 rounded-xl bg-red-500/15 hover:bg-red-500/25 text-red-300 text-xs font-semibold border border-red-500/30 transition-colors flex items-center gap-1.5">
+            <i class="ph ph-trash"></i> Geçmişi Temizle
+          </button>
+        </div>
+
+        <!-- SVG Çizgi Grafiği -->
+        <div id="coach-line-chart-container" class="py-2">
+          <!-- js/coach.js tarafından dinamik çizilir -->
+        </div>
+
+        <!-- Geçmiş Denemeler Tablosu -->
+        <div class="space-y-3 pt-4 border-t border-purple-500/20">
+          <h4 class="text-sm font-bold text-gray-300 uppercase tracking-wider">Kayıtlı Deneme Geçmişi</h4>
+          <div id="coach-history-list" class="space-y-2.5">
+            <!-- js/coach.js tarafından render edilir -->
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- 2. GÖRÜNÜM: BLOG SAYFASI (#blog) -->
@@ -847,6 +1204,31 @@
 
   </main>
 
+  <!-- KONU NOTLARI DETAY MODALI -->
+  <div id="note-detail-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-xl flex items-center justify-center p-4 overflow-y-auto">
+    <div class="glass-panel p-6 md:p-10 rounded-3xl max-w-3xl w-full border border-pink-500/50 bg-[#160b24]/95 space-y-6 shadow-2xl relative my-8 max-h-[90vh] overflow-y-auto">
+      <button onclick="closeNoteDetailModal()" class="absolute top-5 right-5 text-gray-400 hover:text-white text-2xl transition-colors p-2 rounded-xl hover:bg-purple-900/40">
+        <i class="ph ph-x"></i>
+      </button>
+
+      <!-- Modal Başlık Alanı -->
+      <div class="flex items-center gap-4 pr-10">
+        <div id="note-modal-icon" class="w-12 h-12 rounded-2xl bg-gradient-brand flex items-center justify-center text-white text-2xl shadow-lg shadow-pink-500/30 shrink-0">
+          <i class="ph ph-book-open"></i>
+        </div>
+        <div>
+          <span id="note-modal-badge" class="text-xs font-bold text-pink-400 uppercase tracking-wider">8. Sınıf LGS Notu</span>
+          <h2 id="note-modal-title" class="text-2xl md:text-3xl font-black text-white leading-tight">Konu Başlığı</h2>
+        </div>
+      </div>
+
+      <!-- Modal Dinamik Sekme & İçerik Alanı -->
+      <div id="note-modal-content" class="pt-2">
+        <!-- js/notes.js tarafından doldurulur -->
+      </div>
+    </div>
+  </div>
+
   <!-- YÖNETİCİ GİRİŞ MODALI -->
   <div id="admin-login-modal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-xl flex items-center justify-center p-4">
     <div class="glass-panel p-8 rounded-3xl max-w-md w-full border border-pink-500/40 bg-[#160b24]/95 space-y-6 shadow-2xl relative">
@@ -895,19 +1277,19 @@
             <span class="text-lg font-bold text-white">Merve SAMAK AKADEMİ</span>
           </div>
           <p class="text-gray-400 text-xs leading-relaxed max-w-sm">
-            5, 6, 7 ve 8. sınıf ortaokul matematik öğrencileri için ders notları, çalışma kağıtları, akıllı tahta GeoGebra uygulamaları ve zeka oyunları portalı.
+            5, 6, 7 ve 8. sınıf ortaokul matematik öğrencileri için ders notları, çalışma kağıtları, akıllı tahta GeoGebra uygulamaları, soru bankası ve zeka oyunları portalı.
           </p>
         </div>
 
         <!-- Hızlı Linkler -->
         <div class="space-y-2">
-          <h4 class="font-bold text-white text-sm">Hızlı Bağlantılar</h4>
+          <h4 class="font-bold text-white text-sm">Eğitim Modülleri</h4>
           <ul class="space-y-1.5 text-xs">
-            <li><a href="#home" class="hover:text-pink-400 transition-colors">Ana Sayfa</a></li>
-            <li><a href="#blog" class="hover:text-pink-400 transition-colors">Tüm Ders Materyalleri</a></li>
-            <li><a href="#categories" class="hover:text-pink-400 transition-colors">Materyal Kategorileri</a></li>
-            <li><a href="#about" class="hover:text-pink-400 transition-colors">Merve Öğretmen Hakkında</a></li>
-            <li><a href="#contact" class="hover:text-pink-400 transition-colors">İletişim & Soru Sor</a></li>
+            <li><a href="#notes" class="hover:text-pink-400 transition-colors">📖 Konu Notları & Formüller</a></li>
+            <li><a href="#questions" class="hover:text-pink-400 transition-colors">🎯 Soru Dünyası (Kazanım & LGS)</a></li>
+            <li><a href="#games" class="hover:text-pink-400 transition-colors">🎮 Matematik Oyunları</a></li>
+            <li><a href="#coach" class="hover:text-pink-400 transition-colors">📈 Hedef & Net Koçu</a></li>
+            <li><a href="#blog" class="hover:text-pink-400 transition-colors">📚 Çalışma Kağıtları & PDF</a></li>
             <li><a href="#admin" onclick="openAdminLoginModal()" class="text-pink-400 hover:text-pink-300 font-semibold transition-colors flex items-center gap-1"><i class="ph ph-lock-key"></i> Yönetici Girişi</a></li>
           </ul>
         </div>
@@ -920,6 +1302,8 @@
             <li><a href="#blog" onclick="changeGradeFilter('6'); window.location.hash='#blog';" class="hover:text-pink-400 transition-colors">6. Sınıf Matematik</a></li>
             <li><a href="#blog" onclick="changeGradeFilter('7'); window.location.hash='#blog';" class="hover:text-pink-400 transition-colors">7. Sınıf Matematik</a></li>
             <li><a href="#blog" onclick="changeGradeFilter('8'); window.location.hash='#blog';" class="hover:text-pink-400 transition-colors">8. Sınıf (LGS) Matematik</a></li>
+            <li><a href="#about" class="hover:text-pink-400 transition-colors">Merve Öğretmen Hakkında</a></li>
+            <li><a href="#contact" class="hover:text-pink-400 transition-colors">İletişim & Soru Sor</a></li>
           </ul>
         </div>
 
@@ -942,8 +1326,13 @@
     </div>
   </div>
 
-  <!-- UYGULAMA SCRIPTLERİ -->
+  <!-- UYGULAMA VE MODÜL SCRIPTLERİ -->
   <script src="js/data.js"></script>
+  <script src="js/modules-data.js"></script>
+  <script src="js/notes.js"></script>
+  <script src="js/questions.js"></script>
+  <script src="js/games.js"></script>
+  <script src="js/coach.js"></script>
   <script src="js/admin.js"></script>
   <script src="js/app.js"></script>
 </body>

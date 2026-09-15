@@ -980,6 +980,32 @@ const ACADEMY_MODULES_DATA = {
     ]
   },
 
+  // 3. MATEMATİK OYUNLARI VERİLERİ (KÖK AVCISI & EBOB-EKOK KARTLARI)
+  games: {
+    rootHunter: [
+      { target: 45, low: 6, high: 7, lowSq: 36, highSq: 49, closerTo: 7, diffLow: 9, diffHigh: 4 },
+      { target: 20, low: 4, high: 5, lowSq: 16, highSq: 25, closerTo: 4, diffLow: 4, diffHigh: 5 },
+      { target: 75, low: 8, high: 9, lowSq: 64, highSq: 81, closerTo: 9, diffLow: 11, diffHigh: 6 },
+      { target: 110, low: 10, high: 11, lowSq: 100, highSq: 121, closerTo: 10, diffLow: 10, diffHigh: 11 },
+      { target: 30, low: 5, high: 6, lowSq: 25, highSq: 36, closerTo: 5, diffLow: 5, diffHigh: 6 },
+      { target: 50, low: 7, high: 8, lowSq: 49, highSq: 64, closerTo: 7, diffLow: 1, diffHigh: 14 },
+      { target: 85, low: 9, high: 10, lowSq: 81, highSq: 100, closerTo: 9, diffLow: 4, diffHigh: 15 },
+      { target: 130, low: 11, high: 12, lowSq: 121, highSq: 144, closerTo: 11, diffLow: 9, diffHigh: 14 },
+      { target: 15, low: 3, high: 4, lowSq: 9, highSq: 16, closerTo: 4, diffLow: 6, diffHigh: 1 },
+      { target: 95, low: 9, high: 10, lowSq: 81, highSq: 100, closerTo: 10, diffLow: 14, diffHigh: 5 }
+    ],
+    ebobEkokCards: [
+      { matchId: 1, type: "EBOB", pair: "(12, 18)", val: "6" },
+      { matchId: 2, type: "EKOK", pair: "(4, 6)", val: "12" },
+      { matchId: 3, type: "EBOB", pair: "(24, 36)", val: "12" },
+      { matchId: 4, type: "EKOK", pair: "(8, 12)", val: "24" },
+      { matchId: 5, type: "EBOB", pair: "(15, 25)", val: "5" },
+      { matchId: 6, type: "EKOK", pair: "(10, 15)", val: "30" },
+      { matchId: 7, type: "EBOB", pair: "(14, 21)", val: "7" },
+      { matchId: 8, type: "EKOK", pair: "(6, 9)", val: "18" }
+    ]
+  },
+
   // 4. HEDEF & NET KOÇU PEDAGOJİK REÇETE MATRİSİ
   coach: {
     unitAdvice: {

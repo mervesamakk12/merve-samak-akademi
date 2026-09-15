@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Renkli Sıframonlar: EBOB & EKOK Dünyası | 8. Sınıf Matematik Oyunu</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            pink: {
+              50: '#fdf2f8',
+              100: '#fce7f3',
+              200: '#fbcfe8',
+              300: '#f472b6',
+              400: '#f43f5e',
+              500: '#ec4899',
+              600: '#db2777',
+              700: '#be185d',
+              800: '#9d174d'
+            },
+            sky: {
+              50: '#f0f9ff',
+              100: '#e0f2fe',
+              200: '#bae6fd',
+              300: '#7dd3fc',
+              400: '#38bdf8',
+              500: '#0ea5e9',
+              600: '#0284c7',
+              700: '#0369a1'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .math-bg-symbol {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      font-family: 'Fredoka', cursive, sans-serif;
+      font-weight: 700;
+      opacity: 0.12;
+      animation: float-symbol 20s infinite linear;
+    }
+
+    @keyframes float-symbol {
+      0% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.08; }
+      50% { transform: translateY(-25px) rotate(10deg) scale(1.1); opacity: 0.2; }
+      100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.08; }
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between selection:bg-pink-300 selection:text-pink-900 relative overflow-x-hidden">
+  
+  <!-- FLOATING MATHEMATICS SYMBOLS BACKGROUND -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <span class="math-bg-symbol text-pink-400 text-6xl top-[10%] left-[5%]">π</span>
+    <span class="math-bg-symbol text-sky-400 text-7xl top-[25%] right-[8%]" style="animation-delay: 2s;">∑</span>
+    <span class="math-bg-symbol text-yellow-400 text-6xl top-[65%] left-[8%]" style="animation-delay: 4s;">√x</span>
+    <span class="math-bg-symbol text-purple-400 text-8xl top-[75%] right-[12%]" style="animation-delay: 1s;">∞</span>
+    <span class="math-bg-symbol text-pink-500 text-6xl top-[45%] left-[4%]" style="animation-delay: 3s;">÷</span>
+    <span class="math-bg-symbol text-sky-500 text-7xl top-[15%] right-[30%]" style="animation-delay: 5s;">×</span>
+    <span class="math-bg-symbol text-sky-400 text-5xl top-[85%] left-[40%]" style="animation-delay: 2.5s;">EBOB</span>
+    <span class="math-bg-symbol text-yellow-400 text-5xl top-[35%] right-[45%]" style="animation-delay: 3.5s;">EKOK</span>
+  </div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- TOP SWEET HUD BAR (Sticky & Touch Ready) -->
+  <header class="relative z-20 w-full bg-white/90 border-b-2 border-pink-200 backdrop-blur-md px-4 py-2.5 sticky top-0 shadow-sm">
+    <div class="max-w-5xl mx-auto flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
+      
+      <!-- Logo & Home Navigation -->
+      <a href="../index.html" class="flex items-center gap-2.5 sm:gap-3 cursor-pointer group" title="Merve Samak Akademi Ana Portal">
+        <div class="w-11 h-11 sm:w-13 sm:h-13 rounded-2xl overflow-hidden bg-pink-50 p-0.5 border-2 border-pink-400 shadow-md flex items-center justify-center group-hover:scale-105 transition-transform">
+          <img src="assets/logo.png" alt="Merve Samak Akademi Logo" class="w-full h-full object-contain" onerror="this.src='../assets/logo.png'">
+        </div>
+        <div>
+          <span class="text-[10px] sm:text-xs font-extrabold text-pink-600 tracking-wide block uppercase font-fredoka">
+            MERVE SAMAK AKADEMİ
+          </span>
+          <div class="flex items-center gap-1.5 -mt-0.5">
+            <h1 class="font-fredoka font-extrabold text-sm sm:text-base text-slate-800 tracking-wide">
+              SIFRAMONLAR
+            </h1>
+            <span id="hud-level-badge" class="text-[9px] sm:text-[10px] px-2 py-0.5 rounded-full bg-pink-100 text-pink-700 font-bold font-comfortaa">
+              EBOB & EKOK DÜNYASI
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Live Game Stats -->
+      <div class="flex items-center gap-2 sm:gap-3 font-fredoka text-xs sm:text-sm">
+        <div class="px-3 py-1.5 rounded-2xl bg-pink-50 border-2 border-pink-200 flex items-center gap-1.5 shadow-sm">
+          <span class="text-pink-500 font-bold">PUAN:</span>
+          <span id="hud-score" class="font-extrabold text-pink-700 text-sm sm:text-base">0</span>
+        </div>
+
+        <div class="px-3 py-1.5 rounded-2xl bg-sky-50 border-2 border-sky-200 flex items-center gap-1.5 shadow-sm">
+          <span class="text-sky-500 font-bold">SERİ:</span>
+          <span id="hud-streak" class="font-extrabold text-sky-700 text-sm sm:text-base">x0</span>
+        </div>
+
+        <div class="px-3 py-1.5 rounded-2xl bg-yellow-50 border-2 border-yellow-200 flex items-center gap-1.5 shadow-sm">
+          <span>⏱️</span>
+          <span id="hud-timer" class="font-bold text-yellow-800 font-comfortaa">00:00</span>
+        </div>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <a href="../index.html" title="Oyun Portalı" class="smart-btn px-3 py-1.5 rounded-2xl bg-pink-50 border-2 border-pink-200 hover:bg-pink-100 text-pink-600 text-xs font-fredoka flex items-center gap-1 shadow-sm">
+          <span>🏠 Portal</span>
+        </a>
+
+        <button id="sound-toggle-btn" title="Sesi Aç / Kapat" class="smart-btn w-10 h-10 rounded-2xl bg-pink-50 border-2 border-pink-200 hover:bg-pink-100 flex items-center justify-center transition-all shadow-sm">
+          <span id="sound-icon"></span>
+        </button>
+
+        <button id="fullscreen-toggle-btn" title="Tam Ekran (Akıllı Tahta Modu)" class="smart-btn w-10 h-10 rounded-2xl bg-sky-50 border-2 border-sky-200 hover:bg-sky-100 text-sky-600 flex items-center justify-center transition-all shadow-sm">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0 0l-5-5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <main class="relative z-10 flex-1 max-w-5xl w-full mx-auto p-3 sm:p-6 flex flex-col justify-center">
+
+    <!-- SCREEN: MAIN MENU -->
+    <section id="screen-menu" class="w-full flex flex-col items-center justify-center py-4">
+      <div class="text-center mb-6">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-100 text-pink-700 font-fredoka font-bold text-xs sm:text-sm mb-3 shadow-sm">
+          <span>✨ MERVE SAMAK AKADEMİ • EĞLENCELİ VE RENKLİ MATEMATİK DÜNYASI</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold font-fredoka text-pink-600 mb-1 drop-shadow-sm">
+          RENKLİ SIFRAMONLAR
+        </h2>
+        <h3 class="text-xl sm:text-2xl font-bold font-comfortaa text-sky-600">
+          EBOB & EKOK DÜNYASI
+        </h3>
+        <p class="text-slate-600 max-w-lg mx-auto mt-2 text-sm sm:text-base font-comfortaa">
+          Asal şekerleri canavarlara yedir, kurabiyeleri en büyük kutulara paylaştır ve baloncuk zıplayışında ortak noktayı yakala!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-4xl mb-6">
+        <div class="pastel-card p-6 flex flex-col justify-between hover:scale-102 transition-transform">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-3 py-1 bg-pink-100 text-pink-600 text-xs font-fredoka font-bold rounded-full">SEVİYE 1</span>
+              <span class="text-3xl">🍬</span>
+            </div>
+            <h4 class="text-xl font-bold font-fredoka text-pink-600 mb-1">Asal Şeker Canavarı</h4>
+            <p class="text-slate-600 text-xs sm:text-sm font-comfortaa leading-relaxed">
+              Canavarın karnındaki sayıyı asal şeker balonlarıyla (2, 3, 5, 7) bölerek 1'e ulaştır ve üslü ifadesini oluştur!
+            </p>
+          </div>
+          <button onclick="window.game.startLevel1()" class="smart-btn w-full mt-5 py-3.5 bg-gradient-to-r from-pink-500 to-pink-600 text-white font-fredoka font-bold text-lg rounded-2xl shadow-lg hover:from-pink-600 hover:to-pink-700">
+            OYNA ➔
+          </button>
+        </div>
+
+        <div class="pastel-card pastel-card-blue p-6 flex flex-col justify-between hover:scale-102 transition-transform">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-3 py-1 bg-sky-100 text-sky-600 text-xs font-fredoka font-bold rounded-full">SEVİYE 2</span>
+              <span class="text-3xl">🍪</span>
+            </div>
+            <h4 class="text-xl font-bold font-fredoka text-sky-600 mb-1">Kurabiye Kutulama</h4>
+            <p class="text-slate-600 text-xs sm:text-sm font-comfortaa leading-relaxed">
+              Pembe ve mavi kurabiyeleri birbirine karıştırmadan EN BÜYÜK eşit kutulara (EBOB) paketle!
+            </p>
+          </div>
+          <button onclick="window.game.startLevel2()" class="smart-btn w-full mt-5 py-3.5 bg-gradient-to-r from-sky-400 to-sky-500 text-white font-fredoka font-bold text-lg rounded-2xl shadow-lg hover:from-sky-500 hover:to-sky-600">
+            OYNA ➔
+          </button>
+        </div>
+
+        <div class="pastel-card pastel-card-yellow p-6 flex flex-col justify-between hover:scale-102 transition-transform">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-3 py-1 bg-yellow-100 text-yellow-700 text-xs font-fredoka font-bold rounded-full">SEVİYE 3</span>
+              <span class="text-3xl">🐸</span>
+            </div>
+            <h4 class="text-xl font-bold font-fredoka text-yellow-700 mb-1">Baloncuk Zıplayışı</h4>
+            <p class="text-slate-600 text-xs sm:text-sm font-comfortaa leading-relaxed">
+              Pembiş ve Mavik adımlarıyla zıplıyor. İkisinin ilk kez aynı anda buluştuğu ortak baloncuk (EKOK) hangisi?
+            </p>
+          </div>
+          <button onclick="window.game.startLevel3()" class="smart-btn w-full mt-5 py-3.5 bg-gradient-to-r from-yellow-400 to-yellow-500 text-yellow-950 font-fredoka font-bold text-lg rounded-2xl shadow-lg hover:from-yellow-500 hover:to-yellow-600">
+            OYNA ➔
+          </button>
+        </div>
+      </div>
+
+      <button onclick="window.game.showErrorReview()" class="smart-btn px-6 py-3 bg-white border-2 border-pink-200 hover:border-pink-400 text-pink-600 rounded-2xl text-sm font-fredoka font-bold flex items-center gap-2 shadow-sm">
+        <span>📖</span>
+        <span>HATA ANALİZİ VE ÖĞRENME RAPORU</span>
+      </button>
+    </section>
+
+    <!-- SCREEN: LEVEL 1 -->
+    <section id="screen-level1" class="w-full hidden animate-fadeIn">
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-1.5">
+          <span id="l1-q-counter" class="text-sm font-fredoka text-pink-600 font-bold">Canavar 1 / 5: Pembiş</span>
+          <span class="text-xs text-slate-500 font-comfortaa">Şekerleri yedirerek 1'e ulaştır!</span>
+        </div>
+        <div class="w-full h-3 bg-pink-100 rounded-full overflow-hidden border border-pink-200">
+          <div id="l1-progress-bar" class="h-full bg-gradient-to-r from-pink-400 to-pink-500 transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+        <div class="md:col-span-5 flex flex-col gap-3">
+          <div class="pastel-card p-4 flex-1 flex flex-col">
+            <h3 class="text-xs font-fredoka font-bold text-pink-600 tracking-wider mb-2 flex items-center gap-1.5">
+              <span>📋</span> BÖLME ALGORİTMASI LİSTESİ
+            </h3>
+            <div id="l1-ladder-list" class="flex-1 overflow-y-auto max-h-[200px] space-y-1.5 p-1">
+            </div>
+          </div>
+
+          <div class="pastel-card p-3.5 bg-gradient-to-r from-pink-50 to-sky-50 text-center border-2 border-pink-200">
+            <span class="text-xs font-fredoka font-bold text-pink-600 block mb-0.5">ÜSLÜ ÇARPAN GÖSTERİMİ</span>
+            <div id="l1-exponent-display" class="font-comfortaa text-xl sm:text-2xl font-bold text-slate-800 tracking-wide">
+              ...
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-7 pastel-card p-6 flex flex-col justify-between items-center text-center">
+          <div id="l1-monster-container" class="mb-4">
+          </div>
+
+          <p class="text-xs sm:text-sm font-comfortaa text-slate-600 mb-3">
+            Canavarı beslemek için kalansız bölen <b>Asal Şeker Baloncuğuna</b> dokun:
+          </p>
+
+          <div id="l1-prime-candies" class="flex flex-wrap gap-2.5 sm:gap-4 justify-center items-center">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-5 text-center">
+        <button onclick="window.game.showScreen('menu')" class="text-slate-400 hover:text-pink-600 text-xs font-fredoka transition-colors">
+          ← MENÜYE DÖN
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN: LEVEL 2 -->
+    <section id="screen-level2" class="w-full hidden animate-fadeIn">
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-1.5">
+          <span id="l2-q-counter" class="text-sm font-fredoka text-sky-600 font-bold">Görev 1 / 4</span>
+          <span class="text-xs text-slate-500 font-comfortaa">En Büyük Eşit Kutu (EBOB)</span>
+        </div>
+        <div class="w-full h-3 bg-sky-100 rounded-full overflow-hidden border border-sky-200">
+          <div id="l2-progress-bar" class="h-full bg-gradient-to-r from-sky-400 to-sky-500 transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="pastel-card pastel-card-blue p-6 mb-4">
+        <p id="l2-story-text" class="text-slate-700 text-base sm:text-lg font-comfortaa font-medium leading-relaxed mb-4 text-center">
+          Problem yükleniyor...
+        </p>
+
+        <div id="l2-cookies-display" class="mb-5">
+        </div>
+
+        <div id="l2-feedback" class="hidden"></div>
+
+        <div id="l2-stage-ebob" class="pt-2">
+          <h4 id="l2-ebob-prompt" class="text-sm sm:text-base font-fredoka font-bold text-pink-600 mb-3 text-center">
+            1. ADIM: BİR KUTUYA EN FAZLA KAÇ KURABİYE KONULABİLİR? (EBOB)
+          </h4>
+          <div id="l2-ebob-options" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl mx-auto">
+          </div>
+        </div>
+
+        <div id="l2-stage-boxes" class="pt-4 border-t border-sky-100 hidden">
+          <h4 id="l2-boxes-prompt" class="text-sm sm:text-base font-fredoka font-bold text-sky-600 mb-3 text-center">
+            2. ADIM: TOPLAM EN AZ KAÇ KUTU GEREKİR?
+          </h4>
+          <div id="l2-boxes-options" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl mx-auto">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <button onclick="window.game.showScreen('menu')" class="text-slate-400 hover:text-sky-600 text-xs font-fredoka transition-colors">
+          ← MENÜYE DÖN
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN: LEVEL 3 -->
+    <section id="screen-level3" class="w-full hidden animate-fadeIn">
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-1.5">
+          <span id="l3-q-counter" class="text-sm font-fredoka text-yellow-700 font-bold">1. Görev</span>
+          <span class="text-xs text-slate-500 font-comfortaa">İlk Ortak Buluşma (EKOK)</span>
+        </div>
+        <div class="w-full h-3 bg-yellow-100 rounded-full overflow-hidden border border-yellow-200">
+          <div id="l3-progress-bar" class="h-full bg-gradient-to-r from-yellow-400 to-yellow-500 transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="pastel-card pastel-card-yellow p-6 mb-4">
+        <p id="l3-story-text" class="text-slate-700 text-base sm:text-lg font-comfortaa font-medium leading-relaxed mb-4 text-center">
+          Problem yükleniyor...
+        </p>
+
+        <div id="l3-track-display" class="mb-5">
+        </div>
+
+        <div class="flex justify-center mb-5">
+          <button id="l3-btn-hop" class="smart-btn px-6 py-3.5 bg-gradient-to-r from-pink-500 to-sky-500 hover:from-pink-600 hover:to-sky-600 text-white font-fredoka font-bold text-lg rounded-2xl shadow-lg flex items-center gap-2">
+            <span>🐸 ZIPLAT VE İZLE!</span>
+          </button>
+        </div>
+
+        <div class="pt-4 border-t border-yellow-100">
+          <h4 class="text-sm sm:text-base font-fredoka font-bold text-yellow-800 mb-3 text-center">
+            İLK HANGİ ORTAK BALONCUKTA BULUŞURLAR? (EKOK)
+          </h4>
+          <div id="l3-options-container" class="grid grid-cols-2 sm:grid-cols-5 gap-3 max-w-2xl mx-auto">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <button onclick="window.game.showScreen('menu')" class="text-slate-400 hover:text-yellow-700 text-xs font-fredoka transition-colors">
+          ← MENÜYE DÖN
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN: SUMMARY -->
+    <section id="screen-summary" class="w-full hidden animate-fadeIn flex items-center justify-center py-6">
+      <div class="pastel-card p-6 sm:p-8 max-w-md w-full text-center border-4 border-yellow-300 shadow-2xl">
+        <h2 id="summary-level-title" class="text-2xl sm:text-3xl font-extrabold font-fredoka text-pink-600 mb-2">
+          SEVİYE TAMAMLANDI! 🎉
+        </h2>
+        <p class="text-slate-600 text-xs sm:text-sm font-comfortaa mb-5">Sıframonlar seninle gurur duyuyor!</p>
+
+        <div id="summary-stars-container" class="flex items-center justify-center gap-3 mb-6">
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 p-3 bg-pink-50 rounded-2xl mb-6 font-fredoka text-xs sm:text-sm border border-pink-200">
+          <div>
+            <span class="text-[10px] text-slate-400 block font-comfortaa">TOPLAM PUAN</span>
+            <span id="summary-score" class="text-lg font-bold text-pink-600">0</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-400 block font-comfortaa">SÜRE</span>
+            <span id="summary-time" class="text-lg font-bold text-sky-600">00:00</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-400 block font-comfortaa">HATALAR</span>
+            <span id="summary-errors-count" class="text-lg font-bold text-rose-500">0</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button id="summary-next-btn" class="smart-btn w-full py-4 bg-gradient-to-r from-pink-500 via-purple-500 to-sky-500 text-white font-fredoka font-bold text-lg rounded-2xl shadow-lg">
+            SONRAKİ SEVİYEYE GEÇ ➔
+          </button>
+          
+          <button onclick="window.game.showErrorReview()" class="smart-btn w-full py-3 bg-white border-2 border-pink-200 text-pink-600 font-fredoka font-bold text-xs rounded-2xl shadow-sm">
+            ÖĞRENME RAPORUNU GÖRÜNTÜLE
+          </button>
+
+          <button onclick="window.game.showScreen('menu')" class="text-slate-400 hover:text-slate-700 text-xs font-fredoka mt-1">
+            ANA MENÜYE DÖN
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN: ERROR REVIEW -->
+    <section id="screen-review" class="w-full hidden animate-fadeIn">
+      <div class="flex items-center justify-between mb-5 flex-wrap gap-2">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold font-fredoka text-pink-600">
+            HATA ANALİZİ VE ÖĞRENME RAPORU
+          </h2>
+          <p class="text-slate-600 text-xs sm:text-sm font-comfortaa">
+            Denemelerden ders çıkararak EBOB ve EKOK ustası ol!
+          </p>
+        </div>
+        
+        <span id="review-summary-badge" class="px-4 py-1.5 bg-pink-100 text-pink-700 font-fredoka font-bold rounded-full text-xs">
+          0 İpucu
+        </span>
+      </div>
+
+      <div id="review-empty-state" class="pastel-card p-8 text-center border-2 border-emerald-300 bg-emerald-50 hidden">
+        <span class="text-5xl mb-2 block">🌟</span>
+        <h3 class="text-2xl font-bold font-fredoka text-emerald-700 mb-1">HARİKASIN! HİÇ HATA YAPMADIN!</h3>
+        <p class="text-slate-600 font-comfortaa text-sm">
+          Bu oturumda tüm soruları ilk seferde doğru çözdün!
+        </p>
+      </div>
+
+      <div id="review-cards-list" class="space-y-3">
+      </div>
+
+      <div class="mt-6 text-center">
+        <button onclick="window.game.showScreen('menu')" class="smart-btn px-8 py-3.5 bg-pink-500 hover:bg-pink-600 text-white font-fredoka font-bold rounded-2xl shadow-lg">
+          ANA MENÜYE DÖN
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 w-full bg-white/70 border-t border-pink-100 py-3 px-4 text-center">
+    <p class="text-xs text-slate-400 font-comfortaa">
+      Renkli Sıframonlar • 8. Sınıf Matematik EBOB-EKOK Eğitsel Oyunu • Akıllı Tahta & Mobil Uyumlu
+    </p>
+  </footer>
+
+  <script src="js/audio.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

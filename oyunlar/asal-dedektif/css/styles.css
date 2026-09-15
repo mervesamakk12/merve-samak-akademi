@@ -1,0 +1,142 @@
+/* Asal Dedektif: Çarpanlar ve Katlar Macerası */
+
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fredoka:wght@500;600;700&family=JetBrains+Mono:wght@500;700;800&family=Rajdhani:wght@600;700&display=swap');
+
+:root {
+  --color-bg-dark: #090e1a;
+  --color-card-bg: rgba(17, 24, 39, 0.85);
+  --color-card-border: rgba(56, 189, 248, 0.25);
+  --color-emerald: #10b981;
+  --color-amber: #f59e0b;
+  --color-cyan: #06b6d4;
+  --color-rose: #f43f5e;
+  --color-purple: #8b5cf6;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: var(--color-bg-dark);
+  background-image: 
+    radial-gradient(circle at 15% 20%, rgba(6, 182, 212, 0.08) 0%, transparent 40%),
+    radial-gradient(circle at 85% 80%, rgba(244, 63, 94, 0.08) 0%, transparent 40%),
+    linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+  color: #f1f5f9;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+.font-fredoka { font-family: 'Fredoka', sans-serif; }
+.font-mono-math { font-family: 'JetBrains Mono', monospace; }
+.font-rajdhani { font-family: 'Rajdhani', sans-serif; }
+
+/* Mystery Cards */
+.mystery-card {
+  background: var(--color-card-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid var(--color-card-border);
+  border-radius: 1.5rem;
+  box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.mystery-card-emerald {
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 15px 35px -10px rgba(16, 185, 129, 0.2);
+}
+
+.mystery-card-amber {
+  border-color: rgba(245, 158, 11, 0.35);
+  box-shadow: 0 15px 35px -10px rgba(245, 158, 11, 0.2);
+}
+
+.mystery-card-purple {
+  border-color: rgba(139, 92, 246, 0.35);
+  box-shadow: 0 15px 35px -10px rgba(139, 92, 246, 0.2);
+}
+
+/* Touch & Smartboard Sizing (Minimum 52px for all interactive elements) */
+.smart-btn {
+  min-height: 52px;
+  min-width: 52px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.smart-btn:hover {
+  transform: translateY(-2px) scale(1.02);
+}
+
+.smart-btn:active {
+  transform: translateY(2px) scale(0.96);
+}
+
+/* Factor Arc / Rainbow Badges */
+.factor-pill {
+  border-radius: 1rem;
+  font-family: 'JetBrains Mono', monospace;
+  font-weight: 700;
+  transition: all 0.25s ease;
+}
+
+.rainbow-arc-1 { border-color: #f43f5e; color: #fda4af; background: rgba(244, 63, 94, 0.15); }
+.rainbow-arc-2 { border-color: #f59e0b; color: #fde68a; background: rgba(245, 158, 11, 0.15); }
+.rainbow-arc-3 { border-color: #10b981; color: #a7f3d0; background: rgba(16, 185, 129, 0.15); }
+.rainbow-arc-4 { border-color: #06b6d4; color: #a5f3fc; background: rgba(6, 182, 212, 0.15); }
+.rainbow-arc-5 { border-color: #8b5cf6; color: #ddd6fe; background: rgba(139, 92, 246, 0.15); }
+
+/* Shake on Error */
+@keyframes shake-detective {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px) rotate(-1deg); }
+  40% { transform: translateX(8px) rotate(1deg); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+.shake-error {
+  animation: shake-detective 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  border-color: #f43f5e !important;
+}
+
+/* Success Glow Pulse */
+@keyframes glow-pop {
+  0% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.08); filter: brightness(1.5) drop-shadow(0 0 15px rgba(16, 185, 129, 0.8)); }
+  100% { transform: scale(1); filter: brightness(1); }
+}
+
+.animate-success-pop {
+  animation: glow-pop 0.4s ease-out;
+}
+
+/* Star Pop Animation */
+@keyframes star-award {
+  0% { transform: scale(0) rotate(-45deg); opacity: 0; }
+  70% { transform: scale(1.3) rotate(15deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.star-pop-1 { animation: star-award 0.5s 0.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; opacity: 0; }
+.star-pop-2 { animation: star-award 0.5s 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; opacity: 0; }
+.star-pop-3 { animation: star-award 0.5s 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards; opacity: 0; }
+
+/* Confetti Canvas */
+#confetti-canvas {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+}

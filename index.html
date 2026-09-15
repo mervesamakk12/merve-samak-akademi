@@ -265,7 +265,7 @@
                 <i class="ph ph-game-controller font-bold"></i>
               </div>
               <h3 class="text-lg font-black text-white group-hover:text-amber-400 transition-colors">Matematik Oyunları</h3>
-              <p class="text-xs text-gray-400 leading-relaxed">"Kök Avcısı" yaklaşık değer tahmin oyunu ve "EBOB-EKOK" hafıza kartı eşleştirme oyunu.</p>
+              <p class="text-xs text-gray-400 leading-relaxed">Asal Dedektif (Kademeli), Sayı Avcısı, Sıframonlar, Kök Avcısı ve EBOB-EKOK zeka oyunları.</p>
             </div>
             <div class="flex items-center text-xs font-bold text-amber-400 group-hover:text-amber-300 gap-1 pt-2 border-t border-purple-500/15">
               <span>Hemen Oyna</span> <i class="ph ph-arrow-right font-bold group-hover:translate-x-1 transition-transform"></i>
@@ -465,55 +465,151 @@
     <!-- ===================================================================
          YENİ MODÜL 3: MATEMATİK OYUNLARI (#games)
          =================================================================== -->
-    <div id="view-games" class="spa-view hidden space-y-8 animate-fadeIn">
-      <div class="text-center space-y-3 max-w-3xl mx-auto py-6">
-        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-300 text-xs font-bold">
-          <i class="ph ph-game-controller text-base"></i> İnteraktif Matematik Oyunları & Zeka Arenası
+    <div id="view-games" class="spa-view hidden space-y-10 animate-fadeIn">
+      
+      <!-- Başlık ve Tanıtım Alanı -->
+      <div class="text-center space-y-3 max-w-3xl mx-auto py-4">
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-pink-500/15 border border-pink-500/30 text-pink-400 text-xs font-bold">
+          <i class="ph ph-game-controller text-base"></i> 8. Sınıf LGS İnteraktif Matematik Oyunları Dünyası
         </div>
-        <h1 class="text-3xl md:text-5xl font-black text-white">Matematik Oyunları</h1>
-        <p class="text-gray-400 text-sm md:text-base">Kareköklü sayı tahminleri yapın ve EBOB-EKOK kartlarını eşleştirerek reflekslerinizi ve matematiksel hızınızı geliştirin!</p>
+        <h1 class="text-3xl md:text-5xl font-black text-white">LGS Matematik Oyunları & Zeka Arenası</h1>
+        <p class="text-gray-300 text-sm md:text-base">Akıllı tahta ve mobil uyumlu, kademeli çarpan avı, siber uzay EBOB-EKOK reaktörleri ve eğlenceli canavar maceraları ile matematiği keşfedin!</p>
       </div>
 
-      <!-- Oyun Seçim Sekmeleri -->
-      <div class="flex items-center justify-center gap-3">
-        <button onclick="switchGameTab('root')" id="game-tab-btn-root" class="game-tab-btn px-6 py-3 rounded-2xl text-xs sm:text-sm font-black transition-all bg-gradient-brand text-white shadow-lg shadow-pink-500/25 flex items-center gap-2">
-          <i class="ph ph-target font-bold text-lg"></i> 1. Kök Avcısı (Karekök Tahmini)
-        </button>
-        <button onclick="switchGameTab('ebob')" id="game-tab-btn-ebob" class="game-tab-btn px-6 py-3 rounded-2xl text-xs sm:text-sm font-black text-gray-300 hover:text-white hover:bg-purple-900/30 transition-all border border-purple-500/20 flex items-center gap-2">
-          <i class="ph ph-cards font-bold text-lg"></i> 2. EBOB-EKOK Kart Eşleştirme
-        </button>
-      </div>
-
-      <!-- 1. Oyun Paneli: Kök Avcısı -->
-      <div id="game-panel-root" class="game-panel-section">
-        <div id="game-root-hunter-container">
-          <!-- js/games.js tarafından render edilir -->
+      <!-- 1. BÖLÜM: 3 BÜYÜK KADEMELİ LGS OYUNU -->
+      <div class="space-y-4">
+        <div class="flex items-center justify-between">
+          <h2 class="text-xl font-black text-white flex items-center gap-2">
+            <i class="ph ph-sparkle text-pink-400"></i> Öne Çıkan Kademeli LGS Oyunları
+          </h2>
+          <a href="oyunlar/index.html" target="_blank" class="text-xs font-bold text-pink-400 hover:text-pink-300 flex items-center gap-1">
+            <span>Tüm Oyun Portalını Aç</span> <i class="ph ph-arrow-square-out"></i>
+          </a>
         </div>
-      </div>
 
-      <!-- 2. Oyun Paneli: EBOB-EKOK Kart Eşleştirme -->
-      <div id="game-panel-ebob" class="game-panel-section hidden">
-        <div class="glass-panel p-6 md:p-8 rounded-3xl space-y-6 border border-purple-500/30 max-w-2xl mx-auto">
-          <!-- Oyun Üst Bilgi Barı -->
-          <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-purple-500/20 text-xs">
-            <div class="flex items-center gap-4">
-              <span class="text-gray-400 font-semibold">Süre: <strong id="ebob-game-timer" class="text-white font-mono text-sm">00:00</strong></span>
-              <span class="text-gray-400 font-semibold">Hamle: <strong id="ebob-game-moves" class="text-pink-400 text-sm">0</strong></span>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          
+          <!-- OYUN 1: ASAL DEDEKTİF -->
+          <div class="glass-panel p-6 rounded-3xl border border-emerald-500/40 flex flex-col justify-between space-y-5 hover:border-emerald-400 transition-all hover:-translate-y-1.5 shadow-xl shadow-emerald-950/40 relative overflow-hidden group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg bg-emerald-950 text-emerald-400 text-xs font-bold border border-emerald-500/40">4 Kademeli Seviye</span>
+                <span class="text-3xl">🔎</span>
+              </div>
+              <h3 class="text-xl font-black text-white group-hover:text-emerald-400 transition-colors">Asal Dedektif</h3>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                Gökkuşağı çarpan yöntemi, 91 & 51 gibi LGS tuzak sayıları, aralarında asallık kuralları ve şampiyonluk görevleri.
+              </p>
+              <div class="space-y-1 text-[11px] text-gray-400">
+                <div class="flex items-center gap-1.5"><span class="text-emerald-400 font-bold">✓</span> Seviye 1: Çarpan Avcısı (Temel)</div>
+                <div class="flex items-center gap-1.5"><span class="text-emerald-400 font-bold">✓</span> Seviye 2: Asal Kalkan (91 & 51 Tuzağı)</div>
+                <div class="flex items-center gap-1.5"><span class="text-emerald-400 font-bold">✓</span> Seviye 3: Aralarında Asal Dedektifi</div>
+                <div class="flex items-center gap-1.5"><span class="text-emerald-400 font-bold">✓</span> Seviye 4: LGS Şampiyonluk Görevi</div>
+              </div>
             </div>
-            <div class="flex items-center gap-3">
-              <span class="text-gray-400 font-semibold">Eşleşen: <strong id="ebob-game-matched" class="text-emerald-400 text-sm">0 / 8</strong></span>
-              <button onclick="initEbobEkokGame()" class="px-3 py-1.5 rounded-xl bg-purple-900/50 hover:bg-purple-800 text-purple-200 text-xs font-bold border border-purple-500/30 transition-colors">
-                <i class="ph ph-arrow-counter-clockwise"></i> Yeniden Başlat
-              </button>
-            </div>
+            <a href="oyunlar/asal-dedektif/index.html" target="_blank" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-400 hover:brightness-110 text-slate-950 font-black text-xs md:text-sm flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 transition-all">
+              <i class="ph ph-play font-bold"></i> Oyunu Başlat (Tam Ekran)
+            </a>
           </div>
 
-          <!-- Kartlar Grid (4x4) -->
-          <div id="game-ebob-cards-container" class="grid grid-cols-4 gap-3 md:gap-4">
+          <!-- OYUN 2: SAYI AVCISI -->
+          <div class="glass-panel p-6 rounded-3xl border border-cyan-500/40 flex flex-col justify-between space-y-5 hover:border-cyan-400 transition-all hover:-translate-y-1.5 shadow-xl shadow-cyan-950/40 relative overflow-hidden group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg bg-cyan-950 text-cyan-400 text-xs font-bold border border-cyan-500/40">Siber Uzay Görevi</span>
+                <span class="text-3xl">🚀</span>
+              </div>
+              <h3 class="text-xl font-black text-white group-hover:text-cyan-400 transition-colors">Sayı Avcısı: Asal Kaçış</h3>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                Asal çekirdekleri çarpanlarına ayırarak reaktörü dengede tut, EBOB/EKOK stratejilerini seç ve LGS çark sistemini çöz!
+              </p>
+              <div class="space-y-1 text-[11px] text-gray-400">
+                <div class="flex items-center gap-1.5"><span class="text-cyan-400 font-bold">✓</span> Görev 1: Asal Çekirdek Parçalama</div>
+                <div class="flex items-center gap-1.5"><span class="text-cyan-400 font-bold">✓</span> Görev 2: EBOB vs EKOK Kararı</div>
+                <div class="flex items-center gap-1.5"><span class="text-cyan-400 font-bold">✓</span> Görev 3: LGS Yeni Nesil Çark Sistemi</div>
+              </div>
+            </div>
+            <a href="oyunlar/sayi-avcisi/index.html" target="_blank" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-cyan-500 to-blue-500 hover:brightness-110 text-slate-950 font-black text-xs md:text-sm flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 transition-all">
+              <i class="ph ph-play font-bold"></i> Oyunu Başlat (Tam Ekran)
+            </a>
+          </div>
+
+          <!-- OYUN 3: SIFRAMONLAR -->
+          <div class="glass-panel p-6 rounded-3xl border border-pink-500/40 flex flex-col justify-between space-y-5 hover:border-pink-400 transition-all hover:-translate-y-1.5 shadow-xl shadow-pink-950/40 relative overflow-hidden group">
+            <div class="space-y-3">
+              <div class="flex items-center justify-between">
+                <span class="px-2.5 py-1 rounded-lg bg-pink-950 text-pink-400 text-xs font-bold border border-pink-500/40">Renkli Canavarlar</span>
+                <span class="text-3xl">👾</span>
+              </div>
+              <h3 class="text-xl font-black text-white group-hover:text-pink-400 transition-colors">Renkli Sıframonlar</h3>
+              <p class="text-xs text-gray-300 leading-relaxed">
+                Canavarları asal şekerlerle besle, kurabiyeleri en büyük kutulara paylaştır (EBOB) ve baloncuk zıplayışını yakala (EKOK)!
+              </p>
+              <div class="space-y-1 text-[11px] text-gray-400">
+                <div class="flex items-center gap-1.5"><span class="text-pink-400 font-bold">✓</span> Bölüm 1: Asal Şeker Canavarı</div>
+                <div class="flex items-center gap-1.5"><span class="text-pink-400 font-bold">✓</span> Bölüm 2: Kurabiye Kutulama (EBOB)</div>
+                <div class="flex items-center gap-1.5"><span class="text-pink-400 font-bold">✓</span> Bölüm 3: Baloncuk Zıplayışı (EKOK)</div>
+              </div>
+            </div>
+            <a href="oyunlar/siframonlar/index.html" target="_blank" class="w-full py-3.5 rounded-2xl bg-gradient-to-r from-pink-500 via-rose-400 to-amber-400 hover:brightness-110 text-slate-950 font-black text-xs md:text-sm flex items-center justify-center gap-2 shadow-lg shadow-pink-500/25 transition-all">
+              <i class="ph ph-play font-bold"></i> Oyunu Başlat (Tam Ekran)
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- 2. BÖLÜM: HIZLI SAYFA İÇİ MİNİ OYUNLAR (Kök Avcısı & EBOB Kartları) -->
+      <div class="pt-6 border-t border-purple-500/20 space-y-6">
+        <div class="text-center space-y-2">
+          <h2 class="text-xl font-black text-white flex items-center justify-center gap-2">
+            <i class="ph ph-lightning text-amber-400"></i> Hızlı Sınıf İçi Mini Oyunlar
+          </h2>
+          <p class="text-xs text-gray-400">Tarayıcıdan ayrılmadan sayfa içinde oynayabileceğiniz hızlı pratik oyunları.</p>
+        </div>
+
+        <!-- Mini Oyun Sekmeleri -->
+        <div class="flex items-center justify-center gap-3">
+          <button onclick="switchGameTab('root')" id="game-tab-btn-root" class="game-tab-btn px-6 py-3 rounded-2xl text-xs sm:text-sm font-black transition-all bg-gradient-brand text-white shadow-lg shadow-pink-500/25 flex items-center gap-2">
+            <i class="ph ph-target font-bold text-lg"></i> 1. Kök Avcısı (Karekök Tahmini)
+          </button>
+          <button onclick="switchGameTab('ebob')" id="game-tab-btn-ebob" class="game-tab-btn px-6 py-3 rounded-2xl text-xs sm:text-sm font-black text-gray-300 hover:text-white hover:bg-purple-900/30 transition-all border border-purple-500/20 flex items-center gap-2">
+            <i class="ph ph-cards font-bold text-lg"></i> 2. EBOB-EKOK Kart Eşleştirme
+          </button>
+        </div>
+
+        <!-- 1. Oyun Paneli: Kök Avcısı -->
+        <div id="game-panel-root" class="game-panel-section">
+          <div id="game-root-hunter-container">
             <!-- js/games.js tarafından render edilir -->
           </div>
         </div>
+
+        <!-- 2. Oyun Paneli: EBOB-EKOK Kart Eşleştirme -->
+        <div id="game-panel-ebob" class="game-panel-section hidden">
+          <div class="glass-panel p-6 md:p-8 rounded-3xl space-y-6 border border-purple-500/30 max-w-2xl mx-auto">
+            <!-- Oyun Üst Bilgi Barı -->
+            <div class="flex flex-wrap items-center justify-between gap-4 pb-4 border-b border-purple-500/20 text-xs">
+              <div class="flex items-center gap-4">
+                <span class="text-gray-400 font-semibold">Süre: <strong id="ebob-game-timer" class="text-white font-mono text-sm">00:00</strong></span>
+                <span class="text-gray-400 font-semibold">Hamle: <strong id="ebob-game-moves" class="text-pink-400 text-sm">0</strong></span>
+              </div>
+              <div class="flex items-center gap-3">
+                <span class="text-gray-400 font-semibold">Eşleşen: <strong id="ebob-game-matched" class="text-emerald-400 text-sm">0 / 8</strong></span>
+                <button onclick="initEbobEkokGame()" class="px-3 py-1.5 rounded-xl bg-purple-900/50 hover:bg-purple-800 text-purple-200 text-xs font-bold border border-purple-500/30 transition-colors">
+                  <i class="ph ph-arrow-counter-clockwise"></i> Yeniden Başlat
+                </button>
+              </div>
+            </div>
+
+            <!-- Kartlar Grid (4x4) -->
+            <div id="game-ebob-cards-container" class="grid grid-cols-4 gap-3 md:gap-4">
+              <!-- js/games.js tarafından render edilir -->
+            </div>
+          </div>
+        </div>
       </div>
+
     </div>
 
     <!-- ===================================================================

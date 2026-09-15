@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Sayı Avcısı: Asal Kaçış | 8. Sınıf Matematik Oyunu</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Cyberpunk Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            cyber: {
+              dark: '#070a13',
+              cyan: '#00f0ff',
+              green: '#00ff88',
+              purple: '#b026ff',
+              amber: '#ffb700',
+              rose: '#ff2a5f'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    .math-bg-symbol {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      font-family: 'JetBrains Mono', serif;
+      font-weight: 800;
+      opacity: 0.1;
+      animation: float-symbol 22s infinite linear;
+    }
+
+    @keyframes float-symbol {
+      0% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.06; }
+      50% { transform: translateY(-25px) rotate(12deg) scale(1.1); opacity: 0.16; }
+      100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.06; }
+    }
+  </style>
+</head>
+<body class="bg-[#070a13] text-slate-100 min-h-screen cyber-grid flex flex-col justify-between selection:bg-cyan-500 selection:text-black relative overflow-x-hidden">
+  
+  <!-- FLOATING MATHEMATICS SYMBOLS BACKGROUND -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <span class="math-bg-symbol text-cyan-400 text-6xl top-[12%] left-[4%]">π</span>
+    <span class="math-bg-symbol text-pink-400 text-7xl top-[20%] right-[7%]" style="animation-delay: 2s;">∑</span>
+    <span class="math-bg-symbol text-emerald-400 text-6xl top-[60%] left-[6%]" style="animation-delay: 4s;">√n</span>
+    <span class="math-bg-symbol text-purple-400 text-8xl top-[70%] right-[10%]" style="animation-delay: 1s;">∞</span>
+    <span class="math-bg-symbol text-rose-400 text-6xl top-[40%] left-[3%]" style="animation-delay: 3s;">×</span>
+    <span class="math-bg-symbol text-amber-400 text-5xl top-[85%] left-[45%]" style="animation-delay: 2.5s;">EBOB</span>
+    <span class="math-bg-symbol text-cyan-300 text-5xl top-[30%] right-[35%]" style="animation-delay: 3.5s;">EKOK</span>
+  </div>
+
+  <!-- Background Animation Canvas -->
+  <canvas id="bg-canvas" class="fixed inset-0 pointer-events-none z-0"></canvas>
+  <!-- Confetti Celebration Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- TOP CYBER HUD BAR -->
+  <header class="relative z-20 w-full bg-slate-900/90 border-b border-cyan-500/20 backdrop-blur-md px-4 py-2.5 sticky top-0 shadow-lg shadow-black/40">
+    <div class="max-w-6xl mx-auto flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
+      
+      <!-- Logo & Home Navigation -->
+      <a href="../index.html" class="flex items-center gap-2.5 sm:gap-3 cursor-pointer group" title="Merve Samak Akademi Ana Portal">
+        <div class="w-11 h-11 sm:w-13 sm:h-13 rounded-xl overflow-hidden bg-slate-950 p-0.5 border-2 border-cyan-400/80 glow-cyan-sm flex items-center justify-center group-hover:scale-105 transition-transform">
+          <img src="assets/logo.png" alt="Merve Samak Akademi Logo" class="w-full h-full object-contain" onerror="this.src='../assets/logo.png'">
+        </div>
+        <div>
+          <span class="text-[10px] sm:text-xs font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-emerald-300 to-cyan-200 tracking-wider block uppercase font-orbitron">
+            MERVE SAMAK AKADEMİ
+          </span>
+          <div class="flex items-center gap-1.5 -mt-0.5">
+            <h1 class="font-orbitron font-extrabold text-sm sm:text-base tracking-wider text-white">
+              SAYI AVCISI
+            </h1>
+            <span id="hud-level-badge" class="text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-md bg-cyan-950 text-cyan-300 font-bold border border-cyan-500/40 font-rajdhani uppercase">
+              ASAL KAÇIŞ
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Live Game Stats -->
+      <div class="flex items-center gap-2 sm:gap-4 font-orbitron text-xs sm:text-sm">
+        <div class="px-3 py-1.5 rounded-lg bg-slate-800/90 border border-cyan-500/30 flex items-center gap-1.5 shadow-inner">
+          <span class="text-cyan-400 text-xs font-rajdhani font-bold">PUAN:</span>
+          <span id="hud-score" class="font-bold text-cyan-300">0</span>
+        </div>
+
+        <div class="px-3 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700 flex items-center gap-1.5 shadow-inner">
+          <span class="text-xs font-rajdhani font-bold text-slate-400">SERİ:</span>
+          <span id="hud-streak" class="font-bold text-slate-300">x0</span>
+        </div>
+
+        <div class="px-3 py-1.5 rounded-lg bg-slate-800/90 border border-slate-700 flex items-center gap-1.5 shadow-inner">
+          <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+          <span id="hud-timer" class="font-bold font-mono-math text-emerald-400">00:00</span>
+        </div>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <a href="../index.html" title="Oyun Portalı" class="smart-btn px-3 py-1.5 rounded-xl bg-slate-800/90 border border-slate-700 hover:border-cyan-400 text-cyan-300 text-xs font-orbitron flex items-center gap-1">
+          <span>🏠 Portal</span>
+        </a>
+
+        <button id="sound-toggle-btn" title="Sesi Aç / Kapat" class="smart-btn w-10 h-10 rounded-xl bg-slate-800/90 border border-slate-700 hover:border-cyan-400 flex items-center justify-center transition-all">
+          <span id="sound-icon"></span>
+        </button>
+
+        <button id="fullscreen-toggle-btn" title="Tam Ekran (Akıllı Tahta Modu)" class="smart-btn w-10 h-10 rounded-xl bg-slate-800/90 border border-slate-700 hover:border-cyan-400 text-cyan-400 flex items-center justify-center transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0 0l-5-5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <main class="relative z-10 flex-1 max-w-5xl w-full mx-auto p-3 sm:p-6 flex flex-col justify-center">
+
+    <!-- SCREEN: MAIN MENU -->
+    <section id="screen-menu" class="w-full flex flex-col items-center justify-center py-6 animate-fadeIn">
+      <div class="text-center mb-8">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/40 text-cyan-300 text-xs sm:text-sm font-semibold tracking-wider mb-4 font-rajdhani">
+          <span>🚀 MERVE SAMAK AKADEMİ • 8. SINIF LGS MATEMATİK GÖREV SİMÜLATÖRÜ</span>
+        </div>
+        <h2 class="text-4xl sm:text-6xl font-extrabold font-orbitron tracking-tight text-white mb-2">
+          SAYI AVCISI
+        </h2>
+        <h3 class="text-2xl sm:text-3xl font-extrabold font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400 text-glow-cyan">
+          ASAL KAÇIŞ
+        </h3>
+        <p class="text-slate-400 max-w-xl mx-auto mt-3 text-sm sm:text-base font-rajdhani">
+          Asal çarpanları parçalayarak reaktörü dengede tut, EBOB ve EKOK stratejilerini seç, LGS Yeni Nesil problemleri çöz!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 w-full max-w-4xl mb-8">
+        <div class="cyber-card p-6 flex flex-col justify-between border-cyan-500/30 hover:border-cyan-400 hover:glow-cyan transition-all group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 bg-cyan-950/80 text-cyan-400 text-xs font-orbitron font-bold rounded-lg border border-cyan-500/40">SEVİYE 1</span>
+              <span class="text-2xl text-cyan-400 group-hover:scale-110 transition-transform">⚛️</span>
+            </div>
+            <h4 class="text-xl font-bold font-orbitron text-white mb-2">Asal Çekirdek</h4>
+            <p class="text-slate-400 text-sm font-rajdhani leading-relaxed">
+              Hedef sayıları asal sayılara (2, 3, 5, 7...) bölerek 1'e ulaştır ve üslü gösterimini oluştur.
+            </p>
+          </div>
+          <button onclick="window.game.startLevel1()" class="smart-btn w-full mt-6 py-3 bg-gradient-to-r from-cyan-600 to-cyan-500 hover:from-cyan-500 hover:to-cyan-400 text-slate-950 font-orbitron font-extrabold rounded-xl shadow-lg glow-cyan-sm">
+            BAŞLAT
+          </button>
+        </div>
+
+        <div class="cyber-card p-6 flex flex-col justify-between border-purple-500/30 hover:border-purple-400 hover:glow-purple transition-all group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 bg-purple-950/80 text-purple-400 text-xs font-orbitron font-bold rounded-lg border border-purple-500/40">SEVİYE 2</span>
+              <span class="text-2xl text-purple-400 group-hover:scale-110 transition-transform">⚡</span>
+            </div>
+            <h4 class="text-xl font-bold font-orbitron text-white mb-2">EBOB mu EKOK mu?</h4>
+            <p class="text-slate-400 text-sm font-rajdhani leading-relaxed">
+              Hikayeli LGS problemlerinde önce doğru yönteme (EBOB / EKOK) karar ver, ardından sonuca ulaş.
+            </p>
+          </div>
+          <button onclick="window.game.startLevel2()" class="smart-btn w-full mt-6 py-3 bg-gradient-to-r from-purple-600 to-purple-500 hover:from-purple-500 hover:to-purple-400 text-white font-orbitron font-extrabold rounded-xl shadow-lg glow-purple">
+            BAŞLAT
+          </button>
+        </div>
+
+        <div class="cyber-card p-6 flex flex-col justify-between border-amber-500/30 hover:border-amber-400 hover:glow-amber transition-all group">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <span class="px-3 py-1 bg-amber-950/80 text-amber-400 text-xs font-orbitron font-bold rounded-lg border border-amber-500/40">SEVİYE 3</span>
+              <span class="text-2xl text-amber-400 group-hover:scale-110 transition-transform">🎯</span>
+            </div>
+            <h4 class="text-xl font-bold font-orbitron text-white mb-2">LGS Yeni Nesil</h4>
+            <p class="text-slate-400 text-sm font-rajdhani leading-relaxed">
+              Görsel diyagramlar, çark sistemleri ve alan kaplama içeren beceri temelli LGS meydan okuması.
+            </p>
+          </div>
+          <button onclick="window.game.startLevel3()" class="smart-btn w-full mt-6 py-3 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-amber-400 text-slate-950 font-orbitron font-extrabold rounded-xl shadow-lg glow-amber">
+            BAŞLAT
+          </button>
+        </div>
+      </div>
+
+      <button onclick="window.game.showErrorReview()" class="smart-btn px-6 py-3 bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-white rounded-xl text-sm font-orbitron font-semibold flex items-center gap-2">
+        <svg class="w-5 h-5 text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" /></svg>
+        <span>HATA ANALİZİ VE ÖĞRENME RAPORU</span>
+      </button>
+    </section>
+
+    <!-- SCREEN: LEVEL 1 -->
+    <section id="screen-level1" class="w-full hidden animate-fadeIn">
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <span id="l1-q-counter" class="text-sm font-orbitron text-cyan-400 font-bold">Hedef 1 / 6</span>
+          <span class="text-xs text-slate-400 font-rajdhani">Hedefi 1'e ulaştır!</span>
+        </div>
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+          <div id="l1-progress-bar" class="h-full bg-cyan-400 transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-5 items-stretch">
+        <div class="md:col-span-5 flex flex-col gap-4">
+          <div class="cyber-card p-4 flex-1 flex flex-col border-cyan-500/30">
+            <h3 class="text-xs font-orbitron font-bold text-slate-400 tracking-wider mb-2 flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+              BÖLME ALGORİTMASI MERDİVENİ
+            </h3>
+            <div id="l1-ladder-list" class="flex-1 overflow-y-auto max-h-[220px] bg-slate-950/60 rounded-xl p-2 border border-slate-800">
+            </div>
+          </div>
+
+          <div class="cyber-card p-4 border-emerald-500/30 bg-emerald-950/20 text-center">
+            <span class="text-xs font-orbitron font-bold text-emerald-400 block mb-1">ÜSLÜ İFADE GÖSTERİMİ</span>
+            <div id="l1-exponent-display" class="font-mono-math text-lg sm:text-2xl font-bold text-white tracking-wide">
+              ...
+            </div>
+          </div>
+        </div>
+
+        <div class="md:col-span-7 flex flex-col justify-between cyber-card p-6 border-cyan-500/30">
+          <div class="text-center mb-6">
+            <span class="text-xs font-orbitron text-slate-400 uppercase tracking-widest block mb-2">ÇEKİRDEK SAYI</span>
+            <div id="l1-core-container" class="inline-flex items-center justify-center w-32 h-32 sm:w-40 sm:h-40 rounded-full bg-slate-900 border-4 border-cyan-400/80 animate-core-pulse glow-cyan transition-all">
+              <span id="l1-core-number" class="text-4xl sm:text-5xl font-extrabold font-orbitron text-cyan-400">
+                72
+              </span>
+            </div>
+            <p class="text-xs text-slate-400 mt-3 font-rajdhani">Aşağıdaki asal sayılardan kalansız böleni seç:</p>
+          </div>
+
+          <div id="l1-prime-buttons" class="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 text-center">
+        <button onclick="window.game.showScreen('menu')" class="text-slate-500 hover:text-slate-300 text-xs font-orbitron transition-colors">
+          ← GÖREVLER MENÜSÜNE DÖN
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN: LEVEL 2 -->
+    <section id="screen-level2" class="w-full hidden animate-fadeIn">
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <span id="l2-q-counter" class="text-sm font-orbitron text-purple-400 font-bold">Problem 1 / 5</span>
+          <span class="text-xs text-slate-400 font-rajdhani">Stratejini Belirle!</span>
+        </div>
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+          <div id="l2-progress-bar" class="h-full bg-purple-500 transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="cyber-card p-6 mb-5 border-purple-500/30">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="w-2.5 h-2.5 rounded-full bg-purple-400"></span>
+          <h3 class="text-xs font-orbitron font-bold text-purple-400 uppercase tracking-wider">LGS GERÇEK YAŞAM PROBLEMİ</h3>
+        </div>
+        <p id="l2-story-text" class="text-slate-200 text-base sm:text-xl font-rajdhani font-medium leading-relaxed mb-4">
+          Problem yükleniyor...
+        </p>
+
+        <div id="l2-method-feedback" class="hidden"></div>
+
+        <div id="l2-stage-method" class="pt-2">
+          <h4 class="text-xs sm:text-sm font-orbitron font-bold text-slate-300 mb-3 text-center">
+            1. ADIM: HANGİ YÖNTEMİ KULLANMALISIN?
+          </h4>
+          <div class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+            <button id="l2-btn-ebob" class="smart-btn flex-1 py-5 px-6 rounded-xl border-2 border-cyan-500/60 bg-slate-800/80 text-cyan-300 font-orbitron font-bold text-xl sm:text-2xl">
+              EBOB
+              <span class="block text-xs font-rajdhani text-cyan-400/80 font-normal">Bütünden $\rightarrow$ Parçaya</span>
+            </button>
+            <button id="l2-btn-ekok" class="smart-btn flex-1 py-5 px-6 rounded-xl border-2 border-purple-500/60 bg-slate-800/80 text-purple-300 font-orbitron font-bold text-xl sm:text-2xl">
+              EKOK
+              <span class="block text-xs font-rajdhani text-purple-400/80 font-normal">Parçadan $\rightarrow$ Bütüne</span>
+            </button>
+          </div>
+        </div>
+
+        <div id="l2-stage-solve" class="pt-4 border-t border-slate-700/60 hidden">
+          <h4 id="l2-solve-prompt" class="text-sm sm:text-base font-orbitron font-bold text-emerald-400 mb-3 text-center">
+            2. ADIM: SAYISAL SONUCU BUL
+          </h4>
+          <div id="l2-options-container" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <button onclick="window.game.showScreen('menu')" class="text-slate-500 hover:text-slate-300 text-xs font-orbitron transition-colors">
+          ← GÖREVLER MENÜSÜNE DÖN
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN: LEVEL 3 -->
+    <section id="screen-level3" class="w-full hidden animate-fadeIn">
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-2">
+          <span id="l3-q-counter" class="text-sm font-orbitron text-amber-400 font-bold">Yeni Nesil Görev 1 / 3</span>
+          <span class="text-xs text-slate-400 font-rajdhani">Beceri Temelli Meydan Okuma</span>
+        </div>
+        <div class="w-full h-2 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+          <div id="l3-progress-bar" class="h-full bg-amber-500 transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="cyber-card p-5 sm:p-6 mb-5 border-amber-500/30">
+        <h3 id="l3-title" class="text-lg sm:text-2xl font-bold font-orbitron text-amber-400 mb-2">
+          Görev Yükleniyor...
+        </h3>
+        <p id="l3-story-text" class="text-slate-200 text-base sm:text-lg font-rajdhani leading-relaxed mb-4">
+          Problem metni...
+        </p>
+
+        <div id="l3-diagram-container" class="my-4 p-3 bg-slate-950/70 border border-slate-800 rounded-2xl flex items-center justify-center">
+        </div>
+
+        <div class="flex items-center justify-between gap-3 mb-4 flex-wrap">
+          <button id="l3-hint-btn" class="smart-btn px-4 py-2 bg-amber-950/60 border border-amber-500/50 hover:border-amber-400 text-amber-300 rounded-xl text-xs sm:text-sm font-orbitron font-bold flex items-center gap-2">
+            <svg class="w-5 h-5 text-amber-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" /></svg>
+            <span>İPUCU AL</span>
+          </button>
+          <span class="text-xs text-slate-400 font-rajdhani">İpucu kullanmak puanı etkiler.</span>
+        </div>
+
+        <div id="l3-hints-container" class="hidden mb-4"></div>
+
+        <div class="pt-4 border-t border-slate-700/60">
+          <h4 class="text-xs sm:text-sm font-orbitron font-bold text-slate-300 mb-3 text-center">
+            DOĞRU CEVABI SEÇİN:
+          </h4>
+          <div id="l3-options-container" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-2xl mx-auto">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-4 text-center">
+        <button onclick="window.game.showScreen('menu')" class="text-slate-500 hover:text-slate-300 text-xs font-orbitron transition-colors">
+          ← GÖREVLER MENÜSÜNE DÖN
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN: SUMMARY -->
+    <section id="screen-summary" class="w-full hidden animate-fadeIn flex items-center justify-center py-6">
+      <div class="cyber-card p-6 sm:p-8 max-w-md w-full text-center border-amber-500/40 glow-amber">
+        <h2 id="summary-level-title" class="text-2xl sm:text-3xl font-extrabold font-orbitron text-amber-400 mb-2">
+          SEVİYE TAMAMLANDI!
+        </h2>
+        <p class="text-slate-400 text-sm font-rajdhani mb-6">Uzay istasyonu sistemleri güncellendi.</p>
+
+        <div id="summary-stars-container" class="flex items-center justify-center gap-3 mb-6">
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 p-4 bg-slate-950/70 border border-slate-800 rounded-xl mb-6 font-mono-math">
+          <div>
+            <span class="text-[10px] text-slate-500 block">TOPLAM PUAN</span>
+            <span id="summary-score" class="text-lg font-bold text-cyan-300">0</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-500 block">SÜRE</span>
+            <span id="summary-time" class="text-lg font-bold text-emerald-400">00:00</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-500 block">HATALAR</span>
+            <span id="summary-errors-count" class="text-lg font-bold text-rose-400">0</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button id="summary-next-btn" class="smart-btn w-full py-4 bg-gradient-to-r from-emerald-600 to-cyan-500 text-slate-950 font-orbitron font-extrabold text-base rounded-xl glow-green">
+            SONRAKİ SEVİYEYE GEÇ
+          </button>
+          
+          <button id="summary-review-btn" class="smart-btn w-full py-3 bg-slate-800 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-white font-orbitron font-semibold text-xs rounded-xl">
+            HATA ANALİZİNİ GÖRÜNTÜLE
+          </button>
+
+          <button onclick="window.game.showScreen('menu')" class="text-slate-400 hover:text-white text-xs font-orbitron mt-1">
+            ANA MENÜYE DÖN
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN: ERROR REVIEW -->
+    <section id="screen-review" class="w-full hidden animate-fadeIn">
+      <div class="flex items-center justify-between mb-6 flex-wrap gap-3">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold font-orbitron text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-amber-300 to-cyan-300">
+            HATA ANALİZİ VE ÖĞRENME RAPORU
+          </h2>
+          <p class="text-slate-400 text-sm font-rajdhani">
+            Yanlış yapılan her adımın pedagojik açıklaması ve çözüm stratejisi.
+          </p>
+        </div>
+        
+        <span id="review-summary-badge" class="px-4 py-2 bg-slate-800/90 border border-slate-700 rounded-xl text-xs font-orbitron text-cyan-400">
+          0 Tespit Edilen Eksik
+        </span>
+      </div>
+
+      <div id="review-empty-state" class="cyber-card p-8 text-center border-emerald-500/30 hidden">
+        <span class="text-5xl mb-3 block">🏆</span>
+        <h3 class="text-2xl font-bold font-orbitron text-emerald-400 mb-2">KUSURSUZ PERFORMANS!</h3>
+        <p class="text-slate-300 font-rajdhani max-w-md mx-auto">
+          Bu oturumda hiç hata yapmadın! Asal çarpanlar ve EBOB-EKOK konularına tamamen hakimsin.
+        </p>
+      </div>
+
+      <div id="review-cards-list" class="space-y-4">
+      </div>
+
+      <div class="mt-8 text-center">
+        <button onclick="window.game.showScreen('menu')" class="smart-btn px-8 py-3.5 bg-gradient-to-r from-cyan-600 to-emerald-500 text-slate-950 font-orbitron font-extrabold rounded-xl glow-cyan-sm">
+          ANA MENÜYE DÖN
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="relative z-10 w-full bg-slate-950/80 border-t border-slate-800/60 py-3 px-4 text-center">
+    <p class="text-[11px] text-slate-500 font-rajdhani tracking-wider">
+      Sayı Avcısı: Asal Kaçış • 8. Sınıf LGS Matematik Eğitsel Oyunu • Akıllı Tahta & Mobil Uyumlu
+    </p>
+  </footer>
+
+  <script src="js/audio.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

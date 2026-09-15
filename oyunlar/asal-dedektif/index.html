@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Asal Dedektif: Çarpanlar ve Katlar Macerası | 8. Sınıf Matematik</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+  
+  <style>
+    .math-bg-symbol {
+      position: absolute;
+      pointer-events: none;
+      user-select: none;
+      font-family: 'JetBrains Mono', serif;
+      font-weight: 800;
+      opacity: 0.1;
+      animation: float-symbol 22s infinite linear;
+    }
+
+    @keyframes float-symbol {
+      0% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.07; }
+      50% { transform: translateY(-25px) rotate(12deg) scale(1.1); opacity: 0.16; }
+      100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.07; }
+    }
+  </style>
+</head>
+<body class="flex flex-col justify-between selection:bg-emerald-500 selection:text-slate-950 relative overflow-x-hidden">
+  
+  <!-- FLOATING MATHEMATICS SYMBOLS BACKGROUND -->
+  <div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+    <span class="math-bg-symbol text-emerald-400 text-6xl top-[12%] left-[4%]">√x</span>
+    <span class="math-bg-symbol text-cyan-400 text-7xl top-[20%] right-[7%]" style="animation-delay: 2s;">π</span>
+    <span class="math-bg-symbol text-amber-400 text-6xl top-[60%] left-[6%]" style="animation-delay: 4s;">∑</span>
+    <span class="math-bg-symbol text-purple-400 text-8xl top-[70%] right-[10%]" style="animation-delay: 1s;">∞</span>
+    <span class="math-bg-symbol text-rose-400 text-6xl top-[40%] left-[3%]" style="animation-delay: 3s;">×</span>
+    <span class="math-bg-symbol text-emerald-300 text-5xl top-[85%] left-[45%]" style="animation-delay: 2.5s;">EBOB</span>
+    <span class="math-bg-symbol text-yellow-400 text-5xl top-[30%] right-[35%]" style="animation-delay: 3.5s;">EKOK</span>
+    <span class="math-bg-symbol text-teal-400 text-6xl top-[5%] right-[20%]" style="animation-delay: 5s;">≠</span>
+  </div>
+
+  <!-- Confetti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- TOP HUD BAR WITH LOGO -->
+  <header class="relative z-20 w-full bg-slate-900/90 border-b border-slate-800 backdrop-blur-md px-4 py-2.5 sticky top-0 shadow-lg shadow-black/40">
+    <div class="max-w-5xl mx-auto flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
+      
+      <!-- Logo & Home Navigation -->
+      <a href="../index.html" class="flex items-center gap-2.5 sm:gap-3 cursor-pointer group" title="Merve Samak Akademi Ana Portal">
+        <div class="w-11 h-11 sm:w-13 sm:h-13 rounded-xl overflow-hidden bg-slate-950 p-0.5 border-2 border-emerald-400/80 shadow-lg flex items-center justify-center group-hover:scale-105 transition-transform">
+          <img src="assets/logo.png" alt="Merve Samak Akademi Logo" class="w-full h-full object-contain" onerror="this.src='../assets/logo.png'">
+        </div>
+        <div>
+          <span class="text-[10px] sm:text-xs font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-amber-300 to-cyan-300 tracking-wide block uppercase font-fredoka">
+            MERVE SAMAK AKADEMİ
+          </span>
+          <div class="flex items-center gap-1.5 -mt-0.5">
+            <h1 class="font-fredoka font-extrabold text-sm sm:text-base tracking-wide text-white">
+              ASAL DEDEKTİF
+            </h1>
+            <span id="hud-level-badge" class="text-[9px] sm:text-[10px] px-1.5 py-0.5 rounded-md bg-emerald-950 text-emerald-300 font-bold border border-emerald-500/40">
+              ÇARPANLAR & KATLAR
+            </span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Live Game Stats -->
+      <div class="flex items-center gap-2 sm:gap-3 font-mono-math text-xs sm:text-sm">
+        
+        <!-- Score -->
+        <div class="px-3 py-1.5 rounded-xl bg-slate-800/90 border border-emerald-500/30 flex items-center gap-1.5 shadow-inner">
+          <span class="text-emerald-400 font-bold">PUAN:</span>
+          <span id="hud-score" class="font-bold text-emerald-300">0</span>
+        </div>
+
+        <!-- Combo Streak -->
+        <div class="px-3 py-1.5 rounded-xl bg-slate-800/90 border border-slate-700 flex items-center gap-1.5 shadow-inner">
+          <span class="text-slate-400 font-bold">SERİ:</span>
+          <span id="hud-streak" class="font-bold text-slate-300">x0</span>
+        </div>
+
+        <!-- Timer -->
+        <div class="px-3 py-1.5 rounded-xl bg-slate-800/90 border border-slate-700 flex items-center gap-1.5 shadow-inner">
+          <span>⏱️</span>
+          <span id="hud-timer" class="font-bold text-amber-400">00:00</span>
+        </div>
+      </div>
+
+      <!-- Quick Action Controls -->
+      <div class="flex items-center gap-1.5 sm:gap-2">
+        <a href="../index.html" title="Oyun Portalı" class="smart-btn px-3 py-1.5 rounded-xl bg-slate-800 border border-slate-700 hover:border-emerald-400 text-emerald-300 text-xs font-fredoka flex items-center gap-1">
+          <span>🏠 Portal</span>
+        </a>
+
+        <button id="sound-toggle-btn" title="Sesi Aç / Kapat" class="smart-btn w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 hover:border-emerald-400 flex items-center justify-center transition-all">
+          <span id="sound-icon"></span>
+        </button>
+
+        <button id="fullscreen-toggle-btn" title="Tam Ekran (Akıllı Tahta Modu)" class="smart-btn w-10 h-10 rounded-xl bg-slate-800 border border-slate-700 hover:border-emerald-400 text-emerald-400 flex items-center justify-center transition-all">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-5h-4m4 0v4m0 0l-5-5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" /></svg>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN VIEWPORT CONTAINER -->
+  <main class="relative z-10 flex-1 max-w-5xl w-full mx-auto p-3 sm:p-6 flex flex-col justify-center">
+
+    <!-- SCREEN: MAIN MENU -->
+    <section id="screen-menu" class="w-full flex flex-col items-center justify-center py-4 animate-fadeIn">
+      
+      <div class="text-center mb-6">
+        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-950/70 border border-emerald-500/40 text-emerald-300 text-xs sm:text-sm font-semibold mb-3">
+          <span>🎓 MERVE SAMAK AKADEMİ • 8. SINIF KADEMELİ DEDEKTİF</span>
+        </div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold font-fredoka text-white mb-1">
+          ASAL DEDEKTİF
+        </h2>
+        <h3 class="text-lg sm:text-2xl font-bold font-mono-math text-emerald-400">
+          Çarpanlar, Asal Sayılar & Aralarında Asallık
+        </h3>
+        <p class="text-slate-400 max-w-lg mx-auto mt-2 text-xs sm:text-sm font-medium">
+          Gökkuşağı çarpanlarını keşfet, 91 ve 51 gibi tuzak sayıları yakala, aralarında asallık kurallarını çöz ve LGS şampiyonu ol!
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-5xl mb-6">
+        
+        <div class="mystery-card mystery-card-emerald p-5 flex flex-col justify-between hover:scale-102 transition-transform">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-0.5 bg-emerald-950 text-emerald-400 text-[11px] font-bold rounded-lg border border-emerald-500/30">SEVİYE 1</span>
+              <span class="text-2xl">🌈</span>
+            </div>
+            <h4 class="text-base font-bold font-fredoka text-white mb-1">Çarpan Avcısı</h4>
+            <span class="text-[10px] text-emerald-400 font-bold block mb-2">Giriş / Temel Seviye</span>
+            <p class="text-slate-400 text-xs leading-relaxed">
+              Pozitif tam sayıların tüm çarpanlarını gökkuşağı çiftleriyle adım adım bul.
+            </p>
+          </div>
+          <button onclick="window.game.startLevel1()" class="smart-btn w-full mt-4 py-2.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-fredoka font-bold text-sm rounded-xl shadow-lg">
+            BAŞLAT ➔
+          </button>
+        </div>
+
+        <div class="mystery-card mystery-card-amber p-5 flex flex-col justify-between hover:scale-102 transition-transform">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-0.5 bg-amber-950 text-amber-400 text-[11px] font-bold rounded-lg border border-amber-500/30">SEVİYE 2</span>
+              <span class="text-2xl">🛡️</span>
+            </div>
+            <h4 class="text-base font-bold font-fredoka text-white mb-1">Asal Kalkan</h4>
+            <span class="text-[10px] text-amber-400 font-bold block mb-2">Orta / Kavrama</span>
+            <p class="text-slate-400 text-xs leading-relaxed">
+              91, 51, 57 ve 1 gibi LGS tuzak sayılarını keşfet ve asallığı test et.
+            </p>
+          </div>
+          <button onclick="window.game.startLevel2()" class="smart-btn w-full mt-4 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-fredoka font-bold text-sm rounded-xl shadow-lg">
+            BAŞLAT ➔
+          </button>
+        </div>
+
+        <div class="mystery-card mystery-card-purple p-5 flex flex-col justify-between hover:scale-102 transition-transform">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-0.5 bg-purple-950 text-purple-400 text-[11px] font-bold rounded-lg border border-purple-500/30">SEVİYE 3</span>
+              <span class="text-2xl">⚡</span>
+            </div>
+            <h4 class="text-base font-bold font-fredoka text-white mb-1">Aralarında Asal</h4>
+            <span class="text-[10px] text-purple-400 font-bold block mb-2">Orta-İleri / Beceri</span>
+            <p class="text-slate-400 text-xs leading-relaxed">
+              Ardışık sayılar ve ortak böleni sadece 1 olan sayı çiftlerini dedektif gibi incele.
+            </p>
+          </div>
+          <button onclick="window.game.startLevel3()" class="smart-btn w-full mt-4 py-2.5 bg-purple-500 hover:bg-purple-400 text-white font-fredoka font-bold text-sm rounded-xl shadow-lg">
+            BAŞLAT ➔
+          </button>
+        </div>
+
+        <div class="mystery-card p-5 flex flex-col justify-between border-cyan-500/40 hover:scale-102 transition-transform">
+          <div>
+            <div class="flex items-center justify-between mb-3">
+              <span class="px-2.5 py-0.5 bg-cyan-950 text-cyan-400 text-[11px] font-bold rounded-lg border border-cyan-500/30">SEVİYE 4</span>
+              <span class="text-2xl">🏆</span>
+            </div>
+            <h4 class="text-base font-bold font-fredoka text-white mb-1">LGS Şampiyonluk</h4>
+            <span class="text-[10px] text-cyan-400 font-bold block mb-2">İleri / Yeni Nesil</span>
+            <p class="text-slate-400 text-xs leading-relaxed">
+              Alan-kenar ilişkisi, şifreli çarpan kilitleri ve stratejik mantık bulmacaları.
+            </p>
+          </div>
+          <button onclick="window.game.startLevel4()" class="smart-btn w-full mt-4 py-2.5 bg-gradient-to-r from-cyan-500 to-emerald-400 text-slate-950 font-fredoka font-bold text-sm rounded-xl shadow-lg">
+            BAŞLAT ➔
+          </button>
+        </div>
+
+      </div>
+
+      <button onclick="window.game.showErrorReview()" class="smart-btn px-6 py-3 bg-slate-900 border border-slate-700 hover:border-emerald-400 text-slate-300 hover:text-white rounded-xl text-xs sm:text-sm font-mono-math flex items-center gap-2">
+        <span>📖</span>
+        <span>HATA ANALİZİ VE DEDEKTİF RAPORU</span>
+      </button>
+
+    </section>
+
+    <!-- SCREEN: LEVEL 1 -->
+    <section id="screen-level1" class="w-full hidden animate-fadeIn">
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-1.5">
+          <span id="l1-q-counter" class="text-sm font-fredoka text-emerald-400 font-bold">Hedef 1</span>
+          <span class="text-xs text-slate-400 font-mono-math">Gökkuşağı Çiftlerini Tamamla</span>
+        </div>
+        <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+          <div id="l1-progress-bar" class="h-full bg-emerald-400 transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="mystery-card p-6 mb-4 text-center">
+        <span class="text-xs text-slate-400 uppercase tracking-widest font-mono-math block mb-1">HEDEF SAYI</span>
+        <div id="l1-target-number" class="text-5xl sm:text-6xl font-black font-mono-math text-emerald-400 mb-4 drop-shadow-md">
+          24
+        </div>
+        
+        <p class="text-xs sm:text-sm text-slate-300 font-medium mb-4">
+          Aşağıdaki eksik çarpan kutucuklarını tamamlamak için doğru sayıları seç:
+        </p>
+
+        <div id="l1-rainbow-slots" class="flex flex-wrap gap-2 sm:gap-3 justify-center items-center mb-6">
+        </div>
+
+        <div id="l1-pairs-box" class="flex flex-wrap gap-2 justify-center items-center p-3 bg-slate-950/60 rounded-2xl border border-slate-800 mb-6">
+        </div>
+
+        <div class="pt-4 border-t border-slate-800">
+          <h4 class="text-xs sm:text-sm font-mono-math text-slate-400 mb-3">EKSİK ÇARPANLARI SEÇ:</h4>
+          <div id="l1-options-container" class="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3 max-w-xl mx-auto">
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button onclick="window.game.showScreen('menu')" class="text-slate-500 hover:text-slate-300 text-xs font-mono-math transition-colors">
+          ← GÖREV MENÜSÜNE DÖN
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN: LEVEL 2 -->
+    <section id="screen-level2" class="w-full hidden animate-fadeIn">
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-1.5">
+          <span id="l2-q-counter" class="text-sm font-fredoka text-amber-400 font-bold">Dedektif 1</span>
+          <span class="text-xs text-slate-400 font-mono-math">Asal mı, Tuzak mı?</span>
+        </div>
+        <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+          <div id="l2-progress-bar" class="h-full bg-amber-400 transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="mystery-card mystery-card-amber p-6 sm:p-8 mb-4 text-center max-w-2xl mx-auto">
+        <span class="text-xs text-amber-400 uppercase tracking-widest font-mono-math block mb-2">ŞÜPHELİ SAYI İNCELENİYOR</span>
+        
+        <div class="inline-flex items-center justify-center w-32 h-32 sm:w-40 sm:h-40 rounded-3xl bg-slate-950 border-4 border-amber-400/80 shadow-2xl mb-5">
+          <span id="l2-mystery-number" class="text-5xl sm:text-6xl font-black font-mono-math text-amber-300">
+            91
+          </span>
+        </div>
+
+        <div id="l2-feedback-box" class="hidden"></div>
+
+        <h4 class="text-base sm:text-lg font-fredoka text-white mb-4">
+          Bu sayı bir <b>ASAL SAYI</b> mıdır?
+        </h4>
+
+        <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <button id="l2-btn-prime" class="smart-btn flex-1 py-4 px-6 rounded-2xl bg-emerald-950/80 border-2 border-emerald-500 hover:border-emerald-400 text-emerald-300 font-fredoka font-bold text-xl sm:text-2xl shadow-lg">
+            ✅ ASALDIR
+          </button>
+          <button id="l2-btn-not-prime" class="smart-btn flex-1 py-4 px-6 rounded-2xl bg-rose-950/80 border-2 border-rose-500 hover:border-rose-400 text-rose-300 font-fredoka font-bold text-xl sm:text-2xl shadow-lg">
+            ❌ ASAL DEĞİLDİR
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button onclick="window.game.showScreen('menu')" class="text-slate-500 hover:text-slate-300 text-xs font-mono-math transition-colors">
+          ← GÖREV MENÜSÜNE DÖN
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN: LEVEL 3 -->
+    <section id="screen-level3" class="w-full hidden animate-fadeIn">
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-1.5">
+          <span id="l3-q-counter" class="text-sm font-fredoka text-purple-400 font-bold">İkili 1</span>
+          <span class="text-xs text-slate-400 font-mono-math">Aralarında Asallık Testi</span>
+        </div>
+        <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+          <div id="l3-progress-bar" class="h-full bg-purple-400 transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="mystery-card mystery-card-purple p-6 sm:p-8 mb-4 text-center max-w-2xl mx-auto">
+        <span id="l3-pair-badge" class="inline-block px-3 py-1 bg-purple-950 text-purple-300 text-xs font-mono-math font-bold rounded-full border border-purple-500/40 mb-4">
+          Ardışık Sayılar Kuralı
+        </span>
+
+        <div class="flex items-center justify-center gap-4 sm:gap-6 mb-6">
+          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-slate-950 border-3 border-purple-400 flex items-center justify-center shadow-lg">
+            <span id="l3-num1" class="text-4xl sm:text-5xl font-black font-mono-math text-purple-300">8</span>
+          </div>
+          <span class="text-2xl font-bold text-slate-500 font-mono-math">&</span>
+          <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl bg-slate-950 border-3 border-purple-400 flex items-center justify-center shadow-lg">
+            <span id="l3-num2" class="text-4xl sm:text-5xl font-black font-mono-math text-purple-300">9</span>
+          </div>
+        </div>
+
+        <div id="l3-feedback-box" class="hidden"></div>
+
+        <h4 class="text-base sm:text-lg font-fredoka text-white mb-4">
+          Bu iki sayı <b>ARALARINDA ASAL</b> mıdır? (EBOB = 1 mi?)
+        </h4>
+
+        <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <button id="l3-btn-yes" class="smart-btn flex-1 py-4 px-6 rounded-2xl bg-emerald-950/80 border-2 border-emerald-500 hover:border-emerald-400 text-emerald-300 font-fredoka font-bold text-xl sm:text-2xl shadow-lg">
+            👍 EVET (Aralarında Asal)
+          </button>
+          <button id="l3-btn-no" class="smart-btn flex-1 py-4 px-6 rounded-2xl bg-rose-950/80 border-2 border-rose-500 hover:border-rose-400 text-rose-300 font-fredoka font-bold text-xl sm:text-2xl shadow-lg">
+            👎 HAYIR
+          </button>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button onclick="window.game.showScreen('menu')" class="text-slate-500 hover:text-slate-300 text-xs font-mono-math transition-colors">
+          ← GÖREV MENÜSÜNE DÖN
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN: LEVEL 4 -->
+    <section id="screen-level4" class="w-full hidden animate-fadeIn">
+      <div class="mb-4">
+        <div class="flex items-center justify-between mb-1.5">
+          <span id="l4-q-counter" class="text-sm font-fredoka text-cyan-400 font-bold">LGS Görev 1</span>
+          <span class="text-xs text-slate-400 font-mono-math">Beceri Temelli Meydan Okuma</span>
+        </div>
+        <div class="w-full h-2.5 bg-slate-800 rounded-full overflow-hidden border border-slate-700">
+          <div id="l4-progress-bar" class="h-full bg-cyan-400 transition-all duration-300" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="mystery-card p-6 sm:p-8 mb-4 border-cyan-500/40">
+        <p id="l4-story-text" class="text-slate-200 text-base sm:text-lg font-medium leading-relaxed mb-6">
+          Soru yükleniyor...
+        </p>
+
+        <div class="flex items-center justify-between gap-3 mb-4 flex-wrap">
+          <button id="l4-hint-btn" class="smart-btn px-4 py-2 bg-amber-950/70 border border-amber-500/50 hover:border-amber-400 text-amber-300 rounded-xl text-xs sm:text-sm font-mono-math font-bold">
+            💡 İPUCU AL
+          </button>
+          <span class="text-xs text-slate-400">İpucu kullanmadan çözenlere tam dedektif puanı verilir.</span>
+        </div>
+
+        <div id="l4-hints-box" class="hidden mb-4"></div>
+
+        <div class="pt-4 border-t border-slate-800">
+          <h4 class="text-xs sm:text-sm font-mono-math text-slate-400 mb-3 text-center">
+            DOĞRU CEVABI SEÇİN:
+          </h4>
+          <div id="l4-options-container" class="grid grid-cols-2 sm:grid-cols-4 gap-3 max-w-xl mx-auto">
+          </div>
+        </div>
+      </div>
+
+      <div class="text-center">
+        <button onclick="window.game.showScreen('menu')" class="text-slate-500 hover:text-slate-300 text-xs font-mono-math transition-colors">
+          ← GÖREV MENÜSÜNE DÖN
+        </button>
+      </div>
+    </section>
+
+    <!-- SCREEN: SUMMARY -->
+    <section id="screen-summary" class="w-full hidden animate-fadeIn flex items-center justify-center py-6">
+      <div class="mystery-card p-6 sm:p-8 max-w-md w-full text-center border-amber-500/40 shadow-2xl">
+        <h2 id="summary-level-title" class="text-2xl sm:text-3xl font-extrabold font-fredoka text-amber-400 mb-2">
+          SEVİYE TAMAMLANDI! 🏆
+        </h2>
+        <p class="text-slate-400 text-xs sm:text-sm font-mono-math mb-5">Dedektiflik rozetiniz güncellendi.</p>
+
+        <div id="summary-stars-container" class="flex items-center justify-center gap-3 mb-6">
+        </div>
+
+        <div class="grid grid-cols-3 gap-2 p-3 bg-slate-950/80 rounded-2xl mb-6 font-mono-math text-xs border border-slate-800">
+          <div>
+            <span class="text-[10px] text-slate-500 block">TOPLAM PUAN</span>
+            <span id="summary-score" class="text-lg font-bold text-emerald-400">0</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-500 block">SÜRE</span>
+            <span id="summary-time" class="text-lg font-bold text-cyan-400">00:00</span>
+          </div>
+          <div>
+            <span class="text-[10px] text-slate-500 block">HATALAR</span>
+            <span id="summary-errors-count" class="text-lg font-bold text-rose-400">0</span>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <button id="summary-next-btn" class="smart-btn w-full py-4 bg-gradient-to-r from-emerald-500 to-cyan-400 text-slate-950 font-fredoka font-bold text-base rounded-2xl shadow-lg">
+            SONRAKİ SEVİYEYE GEÇ ➔
+          </button>
+          
+          <button onclick="window.game.showErrorReview()" class="smart-btn w-full py-3 bg-slate-800 border border-slate-700 text-slate-300 font-mono-math text-xs rounded-2xl">
+            DEDEKTİF HATA RAPORUNU GÖRÜNTÜLE
+          </button>
+
+          <button onclick="window.game.showScreen('menu')" class="text-slate-500 hover:text-white text-xs font-mono-math mt-1">
+            ANA MENÜYE DÖN
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- SCREEN: ERROR REVIEW -->
+    <section id="screen-review" class="w-full hidden animate-fadeIn">
+      <div class="flex items-center justify-between mb-5 flex-wrap gap-2">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold font-fredoka text-transparent bg-clip-text bg-gradient-to-r from-rose-400 via-amber-300 to-emerald-300">
+            DEDEKTİF ÖĞRENME VE HATA RAPORU
+          </h2>
+          <p class="text-slate-400 text-xs sm:text-sm font-mono-math">
+            Yanlış yapılan adımların pedagojik analizleri ve LGS püf noktaları.
+          </p>
+        </div>
+        
+        <span id="review-summary-badge" class="px-4 py-1.5 bg-slate-800 border border-slate-700 text-emerald-400 font-mono-math font-bold rounded-xl text-xs">
+          0 Tespit Edilen Eksik
+        </span>
+      </div>
+
+      <div id="review-empty-state" class="mystery-card p-8 text-center border-emerald-500/30 bg-emerald-950/20 hidden">
+        <span class="text-5xl mb-2 block">🏆</span>
+        <h3 class="text-2xl font-bold font-fredoka text-emerald-400 mb-1">KUSURSUZ DEDEKTİF!</h3>
+        <p class="text-slate-300 text-sm font-medium">
+          Bu oturumda hiçbir tuzağa düşmedin ve tüm çarpanları eksiksiz buldun!
+        </p>
+      </div>
+
+      <div id="review-cards-list" class="space-y-3">
+      </div>
+
+      <div class="mt-6 text-center">
+        <button onclick="window.game.showScreen('menu')" class="smart-btn px-8 py-3.5 bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-fredoka font-bold rounded-2xl shadow-lg">
+          ANA MENÜYE DÖN
+        </button>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="relative z-10 w-full bg-slate-950/80 border-t border-slate-800/60 py-3 px-4 text-center">
+    <p class="text-xs text-slate-500 font-mono-math">
+      Asal Dedektif • 8. Sınıf Matematik Çarpanlar ve Katlar Kademeli Oyun • Akıllı Tahta & Mobil Uyumlu
+    </p>
+  </footer>
+
+  <script src="js/audio.js"></script>
+  <script src="js/data.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>

@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Üslerin Savaşı: Dijital Matematik Yarışması (8. Sınıf)</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body>
+
+  <!-- Dinamik Temalı Parçacık Canvas & Ortam Katmanı -->
+  <canvas id="theme-particles-canvas"></canvas>
+  <div id="theme-ambient-bg"></div>
+
+  <!-- Konfeti Efekti Canvas -->
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- ==========================================
+       ÜST HEADER / ARENA KONTROL ÇUBUĞU
+       ========================================== -->
+  <header class="arena-header">
+    <div class="logo-group">
+      <span class="logo-badge">⚡</span>
+      <div class="title-text">
+        <h1>ÜSLERİN SAVAŞI: DİJİTAL MATEMATİK YARIŞMASI</h1>
+        <p>MEB 8. Sınıf Matematik • Üslü İfadeler Ünitesi • İki Takımlı İnteraktif Yarışma</p>
+      </div>
+    </div>
+
+    <div class="header-actions">
+      <!-- Öğrenci Dostu Tema Seçici -->
+      <div class="theme-selector-dropdown">
+        <button id="btn-theme-toggle" class="btn-icon btn-theme" title="Arka Plan Temasını Değiştir">
+          <span id="current-theme-icon">🌌</span> <span id="current-theme-name">Uzay Teması</span> ▾
+        </button>
+        <div id="theme-menu" class="theme-dropdown-menu">
+          <div class="theme-option" data-theme="space">
+            <span class="theme-opt-icon">🌌</span>
+            <div>
+              <strong>Kozmik Uzay</strong>
+              <p>Yıldızlar, gezegenler ve astronot</p>
+            </div>
+          </div>
+          <div class="theme-option" data-theme="ocean">
+            <span class="theme-opt-icon">🌊</span>
+            <div>
+              <strong>Derin Deniz Altı</strong>
+              <p>Yükselen kabarcıklar ve mercanlar</p>
+            </div>
+          </div>
+          <div class="theme-option" data-theme="forest">
+            <span class="theme-opt-icon">🌲</span>
+            <div>
+              <strong>Büyülü Orman</strong>
+              <p>Ateş böcekleri ve zümrüt doğa</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="../index.html" class="btn-icon" style="text-decoration:none; color:inherit; background: rgba(255,255,255,0.06);" title="Oyun Portalı'na Dön">
+        <span>◀</span> Portala Dön
+      </a>
+      <button id="btn-mute" class="btn-icon" title="Sesi Aç veya Kapat">🔊 Ses: Açık</button>
+      <button id="btn-fullscreen" class="btn-icon" title="Akıllı Tahta Tam Ekran">⛶ Tam Ekran</button>
+      <button id="btn-teacher-panel" class="btn-icon btn-teacher" title="Öğretmen Masası ve Kontrol Paneli">
+        <span>🎓</span> Öğretmen Masası
+      </button>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       PUAN TABLOSU VE MERKEZİ ARENA SAYAÇ BÖLÜMÜ
+       ========================================== -->
+  <section class="scoreboard-section">
+    <!-- PEMBE TAKIM (Kızlar) -->
+    <div id="team-card-pink" class="team-card pink-team active-team">
+      <div class="team-header">
+        <div class="team-identity">
+          <div class="team-avatar">🌸</div>
+          <div class="team-info">
+            <h2>PEMBE TAKIM</h2>
+            <span class="team-subtitle">Kızlar Takımı</span>
+          </div>
+        </div>
+        <span class="turn-pill">SIRA SİZDE</span>
+      </div>
+
+      <div class="team-stats-row">
+        <div class="score-display">
+          <span class="score-label">Toplam Puan</span>
+          <span id="pink-score-val" class="score-value">0</span>
+        </div>
+        <div class="team-metrics">
+          <div class="metric-pill correct">
+            <span>✓</span> <span id="pink-correct-count">0 Doğru</span>
+          </div>
+          <div class="metric-pill wrong">
+            <span>✕</span> <span id="pink-wrong-count">0 Yanlış</span>
+          </div>
+          <div class="metric-pill hint">
+            <span>💡</span> <span id="pink-hint-status">İpucu: Var</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="badges-container" id="pink-badges-list">
+        <span class="badge-tag">Rozetler Yükleniyor...</span>
+      </div>
+    </div>
+
+    <!-- MERKEZİ VS VE GERİ SAYIM SAYACI -->
+    <div class="arena-center">
+      <div id="arena-level-indicator" class="level-indicator">⚔️ MÜCADELE ARENASI</div>
+
+      <div class="timer-wrapper">
+        <svg class="timer-svg" viewBox="0 0 100 100">
+          <circle class="timer-bg" cx="50" cy="50" r="45"></circle>
+          <circle id="timer-progress-circle" class="timer-progress" cx="50" cy="50" r="45"></circle>
+        </svg>
+        <div class="timer-text-container">
+          <span id="timer-seconds" class="timer-seconds">30</span>
+          <span class="timer-unit">SANİYE</span>
+        </div>
+      </div>
+
+      <div class="timer-actions">
+        <button id="btn-pause-timer" class="btn-timer-ctrl" title="Süreyi Duraklat veya Devam Ettir">⏸️ Duraklat</button>
+      </div>
+    </div>
+
+    <!-- MAVİ TAKIM (Erkekler) -->
+    <div id="team-card-blue" class="team-card blue-team">
+      <div class="team-header">
+        <div class="team-identity">
+          <div class="team-avatar">⚡</div>
+          <div class="team-info">
+            <h2>MAVİ TAKIM</h2>
+            <span class="team-subtitle">Erkekler Takımı</span>
+          </div>
+        </div>
+        <span class="turn-pill">SIRA SİZDE</span>
+      </div>
+
+      <div class="team-stats-row">
+        <div class="score-display">
+          <span class="score-label">Toplam Puan</span>
+          <span id="blue-score-val" class="score-value">0</span>
+        </div>
+        <div class="team-metrics">
+          <div class="metric-pill correct">
+            <span>✓</span> <span id="blue-correct-count">0 Doğru</span>
+          </div>
+          <div class="metric-pill wrong">
+            <span>✕</span> <span id="blue-wrong-count">0 Yanlış</span>
+          </div>
+          <div class="metric-pill hint">
+            <span>💡</span> <span id="blue-hint-status">İpucu: Var</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="badges-container" id="blue-badges-list">
+        <span class="badge-tag">Rozetler Yükleniyor...</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       SORU VE CEVAP SAHNESİ (MAIN QUESTION STAGE)
+       ========================================== -->
+  <main class="question-stage">
+    <div class="stage-card">
+      <!-- Dinamik Soru İçeriği -->
+      <div id="question-stage-content">
+        <!-- app.js tarafından render edilir -->
+      </div>
+
+      <!-- Alt İpucu ve Yardım Çubuğu -->
+      <div class="lifeline-bar">
+        <button id="btn-use-hint" class="btn-lifeline">
+          <span>💡</span> İpucu Kullan (Seviyede 1 Hak)
+        </button>
+        <div style="font-size: 0.85rem; color: var(--text-muted);">
+          ℹ️ İpucu puanınızı eksiltmez, matematiksel düşünmenize rehberlik eder.
+        </div>
+      </div>
+
+      <!-- Öğretici Dönüt Kutusu -->
+      <div id="feedback-container" class="feedback-box">
+        <div class="feedback-header">
+          <span id="feedback-icon" class="feedback-icon">🌟</span>
+          <h3 id="feedback-title" class="feedback-title">Geri Bildirim Başlığı</h3>
+        </div>
+        <div id="feedback-text" class="feedback-text">
+          Matematiksel çözüm ve dönüt adımları burada yer alacaktır.
+        </div>
+        <div class="feedback-actions">
+          <button id="btn-feedback-retry" class="btn-feedback-action btn-retry" style="display: none;">
+            Tekrar Dene 🔄
+          </button>
+          <button id="btn-feedback-next" class="btn-feedback-action btn-next-question">
+            Sonraki Soruya Geç ➜
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- ==========================================
+       ÖĞRETMEN MASASI MODALI (TEACHER PANEL)
+       ========================================== -->
+  <div id="teacher-modal" class="modal-overlay">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🎓</span> Öğretmen Masası & Yarışma Yönetimi
+        </div>
+        <button id="btn-close-teacher" class="btn-modal-close" title="Kapat">✕</button>
+      </div>
+
+      <div class="teacher-grid">
+        <!-- Soru ve Süre Kontrolleri -->
+        <div class="teacher-box">
+          <h3>⏱️ Süre ve Soru Kontrolleri</h3>
+          <div class="teacher-btn-group">
+            <button id="t-btn-add-time" class="btn-t-action">+15 Sn Ekle</button>
+            <button id="t-btn-force-correct" class="btn-t-action" style="color: #34d399;">✓ Doğru Say</button>
+            <button id="t-btn-force-wrong" class="btn-t-action" style="color: #f87171;">✕ Yanlış Say</button>
+            <button id="t-btn-reveal" class="btn-t-action">💡 Cevabı Aç</button>
+            <button id="t-btn-skip" class="btn-t-action">⏭️ Soruyu Atla</button>
+          </div>
+          <div style="margin-top: 12px;">
+            <label style="font-size: 0.8rem; color: var(--text-muted); display: block; margin-bottom: 4px;">Süre Ayarı:</label>
+            <select id="t-select-timer" style="width: 100%; padding: 8px; border-radius: 6px; background: #1e293b; color: white; border: 1px solid var(--border-glass);">
+              <option value="30">Standart (30 Saniye)</option>
+              <option value="45">Geniş (45 Saniye)</option>
+              <option value="60">İleri Düzey (60 Saniye)</option>
+              <option value="90">Tartışmalı (90 Saniye)</option>
+              <option value="infinite">Süresiz Mod (Serbest Zaman)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Manuel Puan Yönetimi -->
+        <div class="teacher-box">
+          <h3>⚖️ Manuel Puan Müdahalesi</h3>
+          <div style="margin-bottom: 10px;">
+            <strong style="color: #f472b6; font-size: 0.85rem;">Pembe Takım:</strong>
+            <div class="teacher-btn-group" style="margin-top: 4px;">
+              <button id="t-pink-add10" class="btn-t-action">+10 Puan</button>
+              <button id="t-pink-sub10" class="btn-t-action">-10 Puan</button>
+            </div>
+          </div>
+          <div>
+            <strong style="color: #38bdf8; font-size: 0.85rem;">Mavi Takım:</strong>
+            <div class="teacher-btn-group" style="margin-top: 4px;">
+              <button id="t-blue-add10" class="btn-t-action">+10 Puan</button>
+              <button id="t-blue-sub10" class="btn-t-action">-10 Puan</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Seviye Atlama / Özel Atlamalar -->
+        <div class="teacher-box">
+          <h3>🚀 Doğrudan Seviye Seçimi</h3>
+          <div class="teacher-btn-group">
+            <button class="btn-t-action t-jump-level" data-level="1">1. Isınma</button>
+            <button class="btn-t-action t-jump-level" data-level="2">2. Üs Ustaları</button>
+            <button class="btn-t-action t-jump-level" data-level="3">3. Zekâ Kapıları</button>
+            <button class="btn-t-action t-jump-level" data-level="4">4. LGS Şampiyonlar</button>
+            <button id="t-btn-golden" class="btn-t-action" style="color: #fde68a;">⭐ Altın Soru</button>
+          </div>
+        </div>
+
+        <!-- Genel İşlemler -->
+        <div class="teacher-box">
+          <h3>📋 Rapor & Sıfırlama</h3>
+          <div class="teacher-btn-group">
+            <button id="t-btn-view-report" class="btn-t-action" style="background: rgba(16, 185, 129, 0.2); border-color: var(--green);">📊 Kazanım Raporu</button>
+            <button id="t-btn-reset-game" class="btn-t-action btn-t-danger">⚠️ Oyunu Sıfırla</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================
+       YARIŞMA SONU VE ŞAMPİYONLUK MODALI
+       ========================================== -->
+  <div id="results-modal" class="modal-overlay">
+    <div class="modal-card" style="max-width: 780px;">
+      <div class="podium-container">
+        <div class="trophy-icon">🏆</div>
+        <h2 id="winner-team-title" class="winner-banner">ŞAMPİYON: PEMBE TAKIM</h2>
+        <p id="winner-description" style="color: var(--text-muted); font-size: 1rem;">
+          Yarışma başarıyla tamamlandı. Öğrencilerimizi kutluyoruz!
+        </p>
+
+        <!-- Sonuç Özeti Tablosu -->
+        <table class="results-table">
+          <thead>
+            <tr>
+              <th>Takım</th>
+              <th>Toplam Puan</th>
+              <th>Doğru</th>
+              <th>Yanlış</th>
+              <th>Kazanılan Rozetler</th>
+            </tr>
+          </thead>
+          <tbody id="results-table-body">
+            <!-- app.js doldurur -->
+          </tbody>
+        </table>
+
+        <!-- Pedagojik Kazanım Raporu -->
+        <div id="kazanim-evaluation-content">
+          <!-- app.js doldurur -->
+        </div>
+
+        <div style="margin-top: 24px; display: flex; gap: 12px; justify-content: center;">
+          <button onclick="window.print()" class="btn-feedback-action" style="background: rgba(255,255,255,0.12); color: white;">
+            🖨️ Raporu Yazdır / PDF
+          </button>
+          <button onclick="window.location.reload()" class="btn-feedback-action btn-next-question">
+            🔄 Yeni Yarışma Başlat
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script Dosyaları -->
+  <script src="questions.js"></script>
+  <script src="sound.js"></script>
+  <script src="theme.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

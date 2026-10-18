@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Merve Samak Akademi | 8. Sınıf Üslü İfadeler Gizemli Boyama Çalışma Kağıdı</title>
+  <title>Merve Samak Akademi | 8. Sınıf Üslü İfadeler Gizemli Şekil Boyama</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -18,24 +18,23 @@
     .a4-sheet {
       width: 210mm;
       min-height: 297mm;
-      margin: 20px auto;
+      margin: 16px auto;
       background: #ffffff;
-      padding: 12mm 14mm;
+      padding: 10mm 12mm;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
       border-radius: 12px;
       position: relative;
     }
 
-    /* Pixel Grid Styling */
+    /* 15x12 Pixel Grid Styling (180 smaller boxes) */
     .pixel-grid {
       display: grid;
-      grid-template-columns: repeat(12, 1fr);
+      grid-template-columns: repeat(15, 1fr);
       border: 2.5px solid #1e293b;
       background: #1e293b;
       gap: 1px;
-      aspect-ratio: 12 / 10;
       width: 100%;
-      max-width: 580px;
+      max-width: 620px;
       margin: 0 auto;
       user-select: none;
     }
@@ -46,16 +45,15 @@
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      font-size: 13px;
-      color: #334155;
+      font-size: 11px;
+      color: #1e293b;
       cursor: pointer;
-      transition: background-color 0.15s ease, transform 0.1s ease;
-      position: relative;
+      transition: background-color 0.12s ease;
       aspect-ratio: 1 / 1;
     }
 
     .pixel-cell:hover {
-      filter: brightness(0.95);
+      filter: brightness(0.93);
     }
 
     .color-swatch {
@@ -63,8 +61,8 @@
       cursor: pointer;
     }
     .color-swatch.active-swatch {
-      transform: scale(1.08);
-      box-shadow: 0 0 0 3px #0f172a;
+      transform: scale(1.03);
+      box-shadow: 0 0 0 3px #db2777;
     }
 
     @media print {
@@ -80,7 +78,7 @@
         width: 100% !important;
         min-height: auto !important;
         margin: 0 !important;
-        padding: 6mm 8mm !important;
+        padding: 5mm 7mm !important;
         box-shadow: none !important;
         border-radius: 0 !important;
       }
@@ -109,35 +107,35 @@
         </a>
         <div>
           <span class="font-fredoka font-bold text-sm sm:text-base text-amber-400 block">
-            🎨 8. SINIF ÜSLÜ SAYILAR GİZEMLİ BOYAMA ATÖLYESİ
+            🎨 8. SINIF ÜSLÜ İFADELER GİZEMLİ ŞEKİL BOYAMA (60 SORU • 180 KUTU)
           </span>
           <span class="text-[11px] text-slate-300 block">
-            İster akıllı tahtada boyayın, ister A4 siyah-beyaz çıktı alıp sınıfa dağıtın!
+            Öğrenci kağıdında hangi şekil çıkacağı gizlidir! Boyadıkça sürpriz şekil ortaya çıkar.
           </span>
         </div>
       </div>
 
-      <!-- Shape Switcher & Print Controls -->
+      <!-- Group Switcher & Download/Print Controls -->
       <div class="flex flex-wrap items-center gap-2">
         <div class="flex items-center bg-slate-800 p-1 rounded-xl border border-slate-700">
           <button onclick="switchMysteryTheme('submarine')" id="btn-theme-submarine" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-amber-400 text-slate-950 transition-all">
-            🚢 1. Denizaltı Şekli
+            📄 A Grubu (Gizemli Şekil 1)
           </button>
           <button onclick="switchMysteryTheme('car')" id="btn-theme-car" class="px-3 py-1.5 rounded-lg text-xs font-bold text-slate-300 hover:text-white transition-all">
-            🏎️ 2. Yarış Arabası Şekli
+            📄 B Grubu (Gizemli Şekil 2)
           </button>
         </div>
 
         <button onclick="toggleSolutionPreview()" id="btn-preview-solution" class="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs shadow flex items-center gap-1.5 transition-all">
-          <span>👁️</span> <span id="preview-btn-text">Cevap Şeklini Göster</span>
+          <span>👁️</span> <span id="preview-btn-text">Gizemli Şekli & Cevapları Göster</span>
         </button>
 
-        <button onclick="clearGridColors()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-slate-200 font-bold text-xs transition-all">
-          🧹 Temizle
-        </button>
+        <a href="8_Sinif_Uslu_Sayilar_Gizemli_Boyama_Calisma_Kagidi.pdf" download class="px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-110 text-white font-bold text-xs shadow-lg flex items-center gap-1.5 transition-all">
+          <span>📥</span> Hazır PDF İndir (3 Sayfa)
+        </a>
 
-        <button onclick="window.print()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-pink-500 to-rose-500 hover:brightness-110 text-white font-bold text-xs shadow-lg flex items-center gap-1.5 transition-all">
-          <span>🖨️</span> A4 Yazdır / PDF Kaydet
+        <button onclick="window.print()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-bold text-xs flex items-center gap-1.5 transition-all">
+          <span>🖨️</span> Yazdır
         </button>
       </div>
 
@@ -148,28 +146,28 @@
   <div class="a4-sheet">
     
     <!-- WORKSHEET HEADER -->
-    <div class="flex items-center justify-between border-b-2 border-slate-800 pb-3 mb-3">
+    <div class="flex items-center justify-between border-b-2 border-slate-800 pb-2.5 mb-2.5">
       <div class="flex items-center gap-3">
-        <div class="w-14 h-14 rounded-2xl overflow-hidden border-2 border-pink-500 p-0.5 bg-slate-900 flex items-center justify-center shrink-0 print-color-keep">
+        <div class="w-12 h-12 rounded-2xl overflow-hidden border-2 border-pink-500 p-0.5 bg-slate-900 flex items-center justify-center shrink-0 print-color-keep">
           <img src="assets/logo.png" alt="Merve Samak Akademi" class="w-full h-full object-contain" onerror="this.src='logo.png'">
         </div>
         <div>
           <div class="flex items-center gap-2">
-            <span class="font-fredoka font-extrabold text-lg text-pink-600 tracking-wide">MERVE SAMAK AKADEMİ</span>
-            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 print-color-keep">8. SINIF MATEMATİK</span>
+            <span class="font-fredoka font-extrabold text-base text-pink-600 tracking-wide">MERVE SAMAK AKADEMİ</span>
+            <span class="text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 border border-amber-300 print-color-keep">8. SINIF LGS MATEMATİK</span>
           </div>
-          <h1 class="font-fredoka font-extrabold text-xl text-slate-900 leading-tight">
-            ÜSLÜ SAYILAR GİZEMLİ RESİM BOYAMA ETKİNLİĞİ
+          <h1 id="worksheet-main-title" class="font-fredoka font-extrabold text-lg text-slate-900 leading-tight">
+            ETKİNLİK 1: ÜSLÜ İFADELER GİZEMLİ ŞEKİL BOYAMA (A GRUBU)
           </h1>
-          <p class="text-[11px] text-slate-600 font-semibold">
-            Kazanım: Temel Kuvvetler, Üssün Üssü, Üslü Sayılarda Çarpma ve Bölme İşlemleri
+          <p class="text-[10px] text-slate-600 font-semibold">
+            Kazanım: Tam Sayıların Kuvvetleri, Üssün Üssü, Üslü İfadelerde Çarpma ve Bölme İşlemleri
           </p>
         </div>
       </div>
 
       <!-- Student Name & Class Box -->
       <div class="border-2 border-slate-800 rounded-xl p-2 text-xs w-52 bg-slate-50">
-        <div class="mb-1.5 border-b border-slate-300 pb-1 font-bold text-slate-700">Adı Soyadı: ...............................</div>
+        <div class="mb-1 border-b border-slate-300 pb-1 font-bold text-slate-700">Adı Soyadı: ...............................</div>
         <div class="flex justify-between font-bold text-slate-700">
           <span>Sınıfı: .............</span>
           <span>Puan: .............</span>
@@ -177,39 +175,39 @@
       </div>
     </div>
 
-    <!-- MINI CHEAT SHEET (TEMEL HATIRLATMA KUTUSU - ZAYIF ÖĞRENCİLER İÇİN) -->
-    <div class="bg-amber-50/90 border-2 border-amber-300 rounded-xl p-2.5 mb-3 print-color-keep">
-      <div class="flex items-center gap-1.5 font-fredoka font-bold text-xs text-amber-900 mb-1.5">
-        <span>💡 MERVE ÖĞRETMEN'DEN HIZLI İPUCU KUTUSU (İşlemleri Yaparken Bakabilirsin!):</span>
+    <!-- MINI CHEAT SHEET (TEMEL HATIRLATMA KUTUSU) -->
+    <div class="bg-amber-50/90 border-2 border-amber-300 rounded-xl p-2 mb-2.5 print-color-keep">
+      <div class="flex items-center gap-1.5 font-fredoka font-bold text-[11px] text-amber-900 mb-1">
+        <span>💡 MERVE ÖĞRETMEN'DEN HIZLI İPUCU KUTUSU (Çözerken Kurallara Buradan Bakabilirsin!):</span>
       </div>
-      <div class="grid grid-cols-4 gap-2 text-[11px]">
+      <div class="grid grid-cols-4 gap-2 text-[10px]">
         <div class="bg-white p-1.5 rounded-lg border border-amber-200">
-          <strong class="text-pink-600 block">1) Sıfırıncı & 1. Kuvvet:</strong>
-          <span>Her sayının 0. kuvveti <b>1</b>'dir (5<sup>0</sup> = 1).<br>1'in tüm kuvvetleri <b>1</b>'dir (1<sup>50</sup> = 1).</span>
+          <strong class="text-pink-600 block">1) 0. Kuvvet ve İşaret:</strong>
+          <span>8<sup>0</sup> = <b>1</b>, (-5)<sup>0</sup> = <b>1</b>, 1<sup>40</sup> = <b>1</b><br>Çift üs pozitif: (-2)<sup>4</sup> = <b>+16</b></span>
         </div>
         <div class="bg-white p-1.5 rounded-lg border border-amber-200">
           <strong class="text-sky-600 block">2) Üssün Üssü Kuralı:</strong>
-          <span>Üsler birbiriyle <b>çarpılır!</b><br>(2<sup>2</sup>)<sup>3</sup> = 2<sup>2×3</sup> = 2<sup>6</sup> = 64</span>
+          <span>Üsler birbiriyle <b>ÇARPILIR!</b><br>(2<sup>2</sup>)<sup>3</sup> = 2<sup>2×3</sup> = 2<sup>6</sup> = <b>64</b></span>
         </div>
         <div class="bg-white p-1.5 rounded-lg border border-amber-200">
           <strong class="text-emerald-600 block">3) Çarpma İşlemi:</strong>
-          <span>Tabanlar aynıysa üsler <b>toplanır!</b><br>2<sup>3</sup> · 2<sup>2</sup> = 2<sup>3+2</sup> = 2<sup>5</sup> = 32</span>
+          <span>Taban aynıysa üs <b>TOPLANIR!</b><br>2<sup>3</sup> · 2<sup>2</sup> = 2<sup>3+2</sup> = 2<sup>5</sup> = <b>32</b></span>
         </div>
         <div class="bg-white p-1.5 rounded-lg border border-amber-200">
           <strong class="text-purple-600 block">4) Bölme İşlemi:</strong>
-          <span>Tabanlar aynıysa üsler <b>çıkarılır!</b><br>3<sup>6</sup> ÷ 3<sup>4</sup> = 3<sup>6-4</sup> = 3<sup>2</sup> = 9</span>
+          <span>Taban aynıysa üs <b>ÇIKARILIR!</b><br>3<sup>6</sup> ÷ 3<sup>4</sup> = 3<sup>6-4</sup> = 3<sup>2</sup> = <b>9</b></span>
         </div>
       </div>
     </div>
 
-    <!-- STEP 1: QUESTIONS & COLOR KEY TABLE -->
-    <div class="mb-3">
-      <div class="flex items-center justify-between mb-1.5">
-        <h2 class="font-fredoka font-extrabold text-sm text-slate-900 flex items-center gap-1.5">
-          <span class="w-5 h-5 rounded-full bg-slate-900 text-white inline-flex items-center justify-center text-xs">1</span>
-          AŞAĞIDAKİ İŞLEMLERİN SONUÇLARINI BUL VE TABLODAKİ RENGİ KULLANARAK KUTULARI BOYA!
+    <!-- STEP 1: 60 QUESTIONS & COLOR KEY TABLE (NO SHAPE SPOILERS) -->
+    <div class="mb-2.5">
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="font-fredoka font-extrabold text-xs text-slate-900 flex items-center gap-1.5">
+          <span class="w-4 h-4 rounded-full bg-slate-900 text-white inline-flex items-center justify-center text-[10px]">1</span>
+          AŞAĞIDAKİ 60 ÜSLÜ SAYI İŞLEMİNİN SONUCUNU BUL! (Her kutudaki işlemler o rengin sayılarını verir)
         </h2>
-        <span class="no-print text-[11px] font-bold text-pink-600 animate-pulse">
+        <span class="no-print text-[11px] font-bold text-pink-600">
           👇 Akıllı tahtada boyamak için önce aşağıdan bir renge tıkla!
         </span>
       </div>
@@ -220,224 +218,242 @@
       </div>
     </div>
 
-    <!-- STEP 2: MYSTERY PIXEL GRID -->
+    <!-- STEP 2: 15x12 MYSTERY PIXEL GRID (180 SMALLER BOXES) -->
     <div class="mt-2">
-      <div class="flex items-center justify-between mb-1.5">
-        <h2 class="font-fredoka font-extrabold text-sm text-slate-900 flex items-center gap-1.5">
-          <span class="w-5 h-5 rounded-full bg-slate-900 text-white inline-flex items-center justify-center text-xs">2</span>
-          BULDUĞUN SONUÇLARI AŞAĞIDAKİ TABLODA İLGİLİ RENKLE BOYA! BAKALIM HANGİ ŞEKİL ÇIKACAK?
+      <div class="flex items-center justify-between mb-1">
+        <h2 class="font-fredoka font-extrabold text-xs text-slate-900 flex items-center gap-1.5">
+          <span class="w-4 h-4 rounded-full bg-slate-900 text-white inline-flex items-center justify-center text-[10px]">2</span>
+          BULDUĞUN SONUÇLARI AŞAĞIDAKİ 180 KUTULUK TABLODA RENGİNE GÖRE BOYA! BAKALIM HANGİ GİZEMLİ ŞEKİL ÇIKACAK?
         </h2>
         <span id="active-brush-indicator" class="no-print text-xs font-bold px-2.5 py-0.5 rounded-full bg-slate-200 text-slate-800">
           Seçili Kalem: Yok
         </span>
       </div>
 
-      <!-- 12x10 Mystery Grid -->
+      <!-- 15x12 Mystery Grid -->
       <div id="mystery-pixel-grid" class="pixel-grid">
         <!-- Populated by JS -->
       </div>
     </div>
 
     <!-- FOOTER -->
-    <div class="mt-3 pt-2 border-t border-slate-300 flex items-center justify-between text-[10px] text-slate-500 font-semibold">
-      <span>Merve Samak Akademi • 8. Sınıf LGS Matematik Eğitsel Çalışma Kağıdı</span>
-      <span id="sheet-theme-label">Gizemli Şekil Serisi #1</span>
+    <div class="mt-2.5 pt-1.5 border-t border-slate-300 flex items-center justify-between text-[10px] text-slate-500 font-semibold">
+      <span>Merve Samak Akademi • 8. Sınıf LGS Matematik Gizemli Boyama Çalışma Kağıdı</span>
+      <span id="sheet-theme-label">A Grubu Çalışma Kağıdı</span>
       <span>merve-samak-akademi.vercel.app</span>
     </div>
 
   </div>
 
   <script>
-    /**
-     * MYSTERY PICTURE WORKSHEET ENGINE
-     * Designed specifically for struggling 8th grade classes:
-     * Simple, confidence-building exponent results that map to colors.
-     */
     const THEMES = {
       submarine: {
-        name: "Gizemli Şekil #1 (Denizaltı)",
+        title: "ETKİNLİK 1: ÜSLÜ İFADELER GİZEMLİ ŞEKİL BOYAMA (A GRUBU)",
+        footerLabel: "A Grubu Çalışma Kağıdı",
         groups: [
           {
             code: 'A',
-            colorName: 'AÇIK MAVİ (Deniz)',
+            colorName: 'AÇIK MAVİ',
             hex: '#38bdf8',
             textColor: '#0f172a',
             questions: [
-              { q: '2⁴', ans: 16, vals: [16] },
-              { q: '(2²)²', ans: 16, vals: [16] },
-              { q: '2² · 2¹', ans: 8, vals: [8] },
-              { q: '2⁷ ÷ 2⁴', ans: 8, vals: [8] },
-              { q: '5²', ans: 25, vals: [25] }
+              { q: '2³', ans: 8 }, { q: '2² · 2¹', ans: 8 },
+              { q: '2⁷ ÷ 2⁴', ans: 8 }, { q: '2⁴', ans: 16 },
+              { q: '(-2)⁴', ans: 16 }, { q: '(2²)²', ans: 16 },
+              { q: '2⁸ ÷ 2⁴', ans: 16 }, { q: '5²', ans: 25 },
+              { q: '(-5)²', ans: 25 }, { q: '5⁶ ÷ 5⁴', ans: 25 }
             ],
             numbers: [8, 16, 25]
           },
           {
             code: 'B',
-            colorName: 'LACİVERT (Derin Su)',
+            colorName: 'LACİVERT',
             hex: '#1d4ed8',
             textColor: '#ffffff',
             questions: [
-              { q: '2⁵', ans: 32, vals: [32] },
-              { q: '2³ · 2²', ans: 32, vals: [32] },
-              { q: '(2³)²', ans: 64, vals: [64] },
-              { q: '2⁹ ÷ 2³', ans: 64, vals: [64] }
+              { q: '2⁵', ans: 32 }, { q: '2³ · 2²', ans: 32 },
+              { q: '2⁴ · 2¹', ans: 32 }, { q: '2⁸ ÷ 2³', ans: 32 },
+              { q: '2¹⁰ ÷ 2⁵', ans: 32 }, { q: '2⁶', ans: 64 },
+              { q: '4³', ans: 64 }, { q: '(2³)²', ans: 64 },
+              { q: '(2²)³', ans: 64 }, { q: '2⁹ ÷ 2³', ans: 64 }
             ],
             numbers: [32, 64]
           },
           {
             code: 'C',
-            colorName: 'SARI (Gövde)',
+            colorName: 'SARI',
             hex: '#facc15',
             textColor: '#0f172a',
             questions: [
-              { q: '3²', ans: 9, vals: [9] },
-              { q: '3⁵ ÷ 3³', ans: 9, vals: [9] },
-              { q: '3¹ · 3²', ans: 27, vals: [27] },
-              { q: '(3²)²', ans: 81, vals: [81] }
+              { q: '3²', ans: 9 }, { q: '(-3)²', ans: 9 },
+              { q: '3⁵ ÷ 3³', ans: 9 }, { q: '3³', ans: 27 },
+              { q: '3¹ · 3²', ans: 27 }, { q: '3⁷ ÷ 3⁴', ans: 27 },
+              { q: '3⁴', ans: 81 }, { q: '9²', ans: 81 },
+              { q: '(3²)²', ans: 81 }, { q: '3⁶ ÷ 3²', ans: 81 }
             ],
             numbers: [9, 27, 81]
           },
           {
             code: 'D',
-            colorName: 'KIRMIZI (Periskop & Kuyruk)',
+            colorName: 'KIRMIZI',
             hex: '#ef4444',
             textColor: '#ffffff',
             questions: [
-              { q: '2²', ans: 4, vals: [4] },
-              { q: '2⁶ ÷ 2⁴', ans: 4, vals: [4] },
-              { q: '7²', ans: 49, vals: [49] }
+              { q: '2²', ans: 4 }, { q: '(-2)²', ans: 4 },
+              { q: '2¹ · 2¹', ans: 4 }, { q: '2⁶ ÷ 2⁴', ans: 4 },
+              { q: '4⁵ ÷ 4⁴', ans: 4 }, { q: '7²', ans: 49 },
+              { q: '(-7)²', ans: 49 }, { q: '7¹ · 7¹', ans: 49 },
+              { q: '7³ ÷ 7¹', ans: 49 }, { q: '7⁵ ÷ 7³', ans: 49 }
             ],
             numbers: [4, 49]
           },
           {
             code: 'E',
-            colorName: 'TURUNCU (Alt Gövde & Burun)',
+            colorName: 'TURUNCU',
             hex: '#f97316',
             textColor: '#ffffff',
             questions: [
-              { q: '6²', ans: 36, vals: [36] },
-              { q: '10²', ans: 100, vals: [100] },
-              { q: '10¹ · 10¹', ans: 100, vals: [100] }
+              { q: '6²', ans: 36 }, { q: '(-6)²', ans: 36 },
+              { q: '6¹ · 6¹', ans: 36 }, { q: '6³ ÷ 6¹', ans: 36 },
+              { q: '6⁵ ÷ 6³', ans: 36 }, { q: '10²', ans: 100 },
+              { q: '(-10)²', ans: 100 }, { q: '10¹ · 10¹', ans: 100 },
+              { q: '10³ ÷ 10¹', ans: 100 }, { q: '10⁵ ÷ 10³', ans: 100 }
             ],
             numbers: [36, 100]
           },
           {
             code: 'F',
-            colorName: 'BEYAZ / GRİ (Camlar & Köpük)',
+            colorName: 'BEYAZ / GRİ',
             hex: '#e2e8f0',
             textColor: '#0f172a',
             questions: [
-              { q: '8⁰', ans: 1, vals: [1] },
-              { q: '1²⁰', ans: 1, vals: [1] },
-              { q: '(5⁰)³', ans: 1, vals: [1] }
+              { q: '8⁰', ans: 1 }, { q: '15⁰', ans: 1 },
+              { q: '(-9)⁰', ans: 1 }, { q: '1²⁰', ans: 1 },
+              { q: '1¹⁰⁰', ans: 1 }, { q: '(-1)¹⁰', ans: 1 },
+              { q: '(5⁰)³', ans: 1 }, { q: '(1⁴)⁵', ans: 1 },
+              { q: '4⁵ ÷ 4⁵', ans: 1 }, { q: '7³ ÷ 7³', ans: 1 }
             ],
             numbers: [1]
           }
         ],
-        // 10 rows x 12 cols
-        // A: Light Blue, B: Dark Blue, C: Yellow, D: Red, E: Orange, F: White/Grey
         map: [
-          ['A','A','A','A','A','D','D','A','A','A','A','A'],
-          ['A','A','A','A','A','D','A','A','A','A','A','A'],
-          ['A','A','A','A','C','C','C','A','A','A','A','A'],
-          ['A','D','A','C','C','C','C','C','C','A','A','A'],
-          ['F','D','C','C','F','C','F','C','F','C','E','A'],
-          ['A','D','C','C','F','C','F','C','F','C','E','A'],
-          ['A','D','A','E','E','E','E','E','E','E','A','A'],
-          ['A','A','A','A','E','E','E','E','E','A','A','A'],
-          ['B','B','F','B','B','B','B','B','B','B','F','B'],
-          ['B','B','B','B','B','B','B','B','B','B','B','B']
+          ['A','A','A','A','A','A','A','D','D','A','A','A','A','A','A'],
+          ['A','A','A','A','A','A','A','D','A','A','A','A','A','A','A'],
+          ['A','A','A','A','A','A','C','C','C','A','A','A','A','A','A'],
+          ['A','A','D','A','A','C','C','C','C','C','A','A','A','A','A'],
+          ['A','F','D','A','C','C','C','C','C','C','C','C','A','A','A'],
+          ['A','A','D','C','C','F','F','C','F','F','C','C','E','A','A'],
+          ['A','F','D','C','C','F','F','C','F','F','C','C','E','E','A'],
+          ['A','A','D','C','C','C','C','C','C','C','C','C','E','A','A'],
+          ['A','A','D','A','E','E','E','E','E','E','E','E','A','A','A'],
+          ['A','A','A','A','A','E','E','E','E','E','E','A','A','A','A'],
+          ['B','B','F','B','B','B','B','B','B','B','B','B','F','B','B'],
+          ['B','B','B','B','B','B','B','B','B','B','B','B','B','B','B']
         ]
       },
 
       car: {
-        name: "Gizemli Şekil #2 (Yarış Arabası)",
+        title: "ETKİNLİK 2: ÜSLÜ İFADELER GİZEMLİ ŞEKİL BOYAMA (B GRUBU)",
+        footerLabel: "B Grubu Çalışma Kağıdı",
         groups: [
           {
             code: 'A',
-            colorName: 'AÇIK MAVİ (Gökyüzü)',
+            colorName: 'AÇIK MAVİ',
             hex: '#38bdf8',
             textColor: '#0f172a',
             questions: [
-              { q: '2⁴', ans: 16, vals: [16] },
-              { q: '(2²)²', ans: 16, vals: [16] },
-              { q: '2² · 2¹', ans: 8, vals: [8] },
-              { q: '5²', ans: 25, vals: [25] }
+              { q: '2³', ans: 8 }, { q: '2¹ · 2²', ans: 8 },
+              { q: '2⁶ ÷ 2³', ans: 8 }, { q: '2⁴', ans: 16 },
+              { q: '(-2)⁴', ans: 16 }, { q: '(2²)²', ans: 16 },
+              { q: '4²', ans: 16 }, { q: '5²', ans: 25 },
+              { q: '(-5)²', ans: 25 }, { q: '5⁴ ÷ 5²', ans: 25 }
             ],
             numbers: [8, 16, 25]
           },
           {
             code: 'D',
-            colorName: 'KIRMIZI (Spor Araba)',
+            colorName: 'KIRMIZI',
             hex: '#ef4444',
             textColor: '#ffffff',
             questions: [
-              { q: '3²', ans: 9, vals: [9] },
-              { q: '3⁵ ÷ 3³', ans: 9, vals: [9] },
-              { q: '3¹ · 3²', ans: 27, vals: [27] },
-              { q: '(3²)²', ans: 81, vals: [81] }
+              { q: '3²', ans: 9 }, { q: '(-3)²', ans: 9 },
+              { q: '3⁴ ÷ 3²', ans: 9 }, { q: '3³', ans: 27 },
+              { q: '3² · 3¹', ans: 27 }, { q: '3⁶ ÷ 3³', ans: 27 },
+              { q: '3⁴', ans: 81 }, { q: '9²', ans: 81 },
+              { q: '(3²)²', ans: 81 }, { q: '3⁵ ÷ 3¹', ans: 81 }
             ],
             numbers: [9, 27, 81]
           },
           {
             code: 'C',
-            colorName: 'SARI (Güneş & Farlar)',
+            colorName: 'SARI',
             hex: '#facc15',
             textColor: '#0f172a',
             questions: [
-              { q: '2²', ans: 4, vals: [4] },
-              { q: '2⁶ ÷ 2⁴', ans: 4, vals: [4] },
-              { q: '7²', ans: 49, vals: [49] }
+              { q: '2²', ans: 4 }, { q: '(-2)²', ans: 4 },
+              { q: '2¹ · 2¹', ans: 4 }, { q: '2⁵ ÷ 2³', ans: 4 },
+              { q: '2⁷ ÷ 2⁵', ans: 4 }, { q: '7²', ans: 49 },
+              { q: '(-7)²', ans: 49 }, { q: '7¹ · 7¹', ans: 49 },
+              { q: '7⁴ ÷ 7²', ans: 49 }, { q: '7⁶ ÷ 7⁴', ans: 49 }
             ],
             numbers: [4, 49]
           },
           {
             code: 'B',
-            colorName: 'SİYAH / KOYU GRİ (Tekerlek & Yol)',
+            colorName: 'SİYAH / KOYU GRİ',
             hex: '#334155',
             textColor: '#ffffff',
             questions: [
-              { q: '2⁵', ans: 32, vals: [32] },
-              { q: '2³ · 2²', ans: 32, vals: [32] },
-              { q: '(2³)²', ans: 64, vals: [64] },
-              { q: '2⁹ ÷ 2³', ans: 64, vals: [64] }
+              { q: '2⁵', ans: 32 }, { q: '2² · 2³', ans: 32 },
+              { q: '2⁴ · 2¹', ans: 32 }, { q: '2⁷ ÷ 2²', ans: 32 },
+              { q: '2⁹ ÷ 2⁴', ans: 32 }, { q: '2⁶', ans: 64 },
+              { q: '4³', ans: 64 }, { q: '8²', ans: 64 },
+              { q: '(2³)²', ans: 64 }, { q: '2⁸ ÷ 2²', ans: 64 }
             ],
             numbers: [32, 64]
           },
           {
             code: 'E',
-            colorName: 'YEŞİL (Çimenler)',
+            colorName: 'YEŞİL',
             hex: '#22c55e',
             textColor: '#ffffff',
             questions: [
-              { q: '6²', ans: 36, vals: [36] },
-              { q: '10²', ans: 100, vals: [100] }
+              { q: '6²', ans: 36 }, { q: '(-6)²', ans: 36 },
+              { q: '6¹ · 6¹', ans: 36 }, { q: '6⁴ ÷ 6²', ans: 36 },
+              { q: '6⁶ ÷ 6⁴', ans: 36 }, { q: '10²', ans: 100 },
+              { q: '(-10)²', ans: 100 }, { q: '10¹ · 10¹', ans: 100 },
+              { q: '10⁴ ÷ 10²', ans: 100 }, { q: '10⁶ ÷ 10⁴', ans: 100 }
             ],
             numbers: [36, 100]
           },
           {
             code: 'F',
-            colorName: 'BEYAZ / GRİ (Araba Camı & Jant)',
+            colorName: 'BEYAZ / GRİ',
             hex: '#e2e8f0',
             textColor: '#0f172a',
             questions: [
-              { q: '9⁰', ans: 1, vals: [1] },
-              { q: '1⁴⁰', ans: 1, vals: [1] }
+              { q: '9⁰', ans: 1 }, { q: '25⁰', ans: 1 },
+              { q: '(-6)⁰', ans: 1 }, { q: '1⁴⁰', ans: 1 },
+              { q: '1⁸⁵', ans: 1 }, { q: '(-1)¹²', ans: 1 },
+              { q: '(7⁰)²', ans: 1 }, { q: '(1³)⁶', ans: 1 },
+              { q: '5³ ÷ 5³', ans: 1 }, { q: '3⁸ ÷ 3⁸', ans: 1 }
             ],
             numbers: [1]
           }
         ],
         map: [
-          ['C','C','A','A','A','A','A','A','A','A','A','A'],
-          ['C','C','A','A','A','A','A','A','A','A','A','A'],
-          ['A','A','A','A','D','D','D','D','A','A','A','A'],
-          ['A','D','A','D','D','F','F','D','D','A','A','A'],
-          ['A','D','D','D','D','F','F','D','D','D','D','A'],
-          ['A','D','D','D','D','D','D','D','D','D','C','A'],
-          ['A','A','B','B','D','D','D','D','B','B','A','A'],
-          ['E','E','B','F','E','E','E','E','B','F','E','E'],
-          ['B','B','B','B','B','B','B','B','B','B','B','B'],
-          ['B','B','F','F','B','B','F','F','B','B','F','F']
+          ['C','C','C','A','A','A','A','A','A','A','A','A','A','A','A'],
+          ['C','C','C','A','A','A','A','A','A','A','A','A','A','A','A'],
+          ['A','C','A','A','A','A','A','A','A','A','A','A','A','A','A'],
+          ['A','A','A','A','A','D','D','D','D','D','A','A','A','A','A'],
+          ['A','D','D','A','D','D','F','F','F','D','D','A','A','A','A'],
+          ['A','A','D','D','D','D','F','F','F','D','D','D','D','A','A'],
+          ['A','A','D','D','D','D','D','D','D','D','D','D','D','C','A'],
+          ['A','A','D','D','B','B','D','D','D','D','B','B','D','C','A'],
+          ['A','A','A','B','F','F','B','D','D','B','F','F','B','A','A'],
+          ['E','E','E','B','F','F','B','E','E','B','F','F','B','E','E'],
+          ['B','B','B','B','B','B','B','B','B','B','B','B','B','B','B'],
+          ['B','B','F','F','F','B','B','B','F','F','F','B','B','B','B']
         ]
       }
     };
@@ -445,13 +461,13 @@
     let currentThemeKey = 'submarine';
     let activeBrush = null;
     let isSolutionVisible = false;
-    let cellAssignments = []; // Stores { code, number, userHex, userText }
+    let cellAssignments = [];
 
     function initWorksheet() {
       const theme = THEMES[currentThemeKey];
-      document.getElementById('sheet-theme-label').textContent = theme.name;
+      document.getElementById('worksheet-main-title').textContent = theme.title;
+      document.getElementById('sheet-theme-label').textContent = theme.footerLabel;
 
-      // Default active brush to first group
       activeBrush = theme.groups[0];
       updateBrushIndicator();
 
@@ -461,33 +477,27 @@
 
     function renderQuestionsPalette(theme) {
       const container = document.getElementById('questions-palette-container');
-      container.innerHTML = theme.groups.map((grp, idx) => {
+      container.innerHTML = theme.groups.map(grp => {
         const isSelected = activeBrush && activeBrush.code === grp.code;
         return `
           <div onclick="selectBrush('${grp.code}')" 
                id="swatch-${grp.code}"
                class="color-swatch rounded-xl border-2 border-slate-800 p-2 bg-white flex flex-col justify-between ${isSelected ? 'active-swatch' : ''}">
             
-            <!-- Color Header Bar -->
-            <div class="flex items-center justify-between px-2.5 py-1 rounded-lg mb-1.5 font-fredoka font-bold text-xs border border-slate-700 print-color-keep"
+            <!-- Color Header Bar (No Shape Spoiler!) -->
+            <div class="flex items-center justify-between px-2.5 py-1 rounded-lg mb-1 font-fredoka font-bold text-xs border border-slate-700 print-color-keep"
                  style="background-color: ${grp.hex}; color: ${grp.textColor};">
-              <span>🎨 ${grp.colorName}</span>
+              <span>🎨 BOYA RENGİ: ${grp.colorName}</span>
             </div>
 
-            <!-- Exponent Questions in this Color Group -->
-            <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-xs font-bold text-slate-800 px-1">
+            <!-- 10 Exponent Questions in 2 Columns -->
+            <div class="grid grid-cols-2 gap-x-2 gap-y-0.5 text-[11px] font-bold text-slate-800 px-1">
               ${grp.questions.map(item => `
-                <div class="flex items-center justify-between border-b border-dashed border-slate-300 py-0.5">
+                <div class="flex items-center justify-between border-b border-dashed border-slate-200 py-0.5">
                   <span class="font-extrabold text-slate-900">${item.q} =</span>
-                  <span class="ans-blank text-slate-400 font-mono">${isSolutionVisible ? `<b class="text-pink-600">${item.ans}</b>` : '.......'}</span>
+                  <span class="ans-blank text-slate-400 font-mono">${isSolutionVisible ? `<b class="text-pink-600">${item.ans}</b>` : '......'}</span>
                 </div>
               `).join('')}
-            </div>
-
-            <!-- Helper hint of which numbers belong here -->
-            <div class="mt-1.5 pt-1 border-t border-slate-200 flex items-center justify-between text-[10px] text-slate-500 font-bold">
-              <span>Tablodaki Sayılar:</span>
-              <span class="font-mono text-slate-800 bg-slate-100 px-1.5 py-0.5 rounded">${grp.numbers.join(' , ')}</span>
             </div>
           </div>
         `;
@@ -497,9 +507,6 @@
     function generatePixelGrid(theme) {
       const gridEl = document.getElementById('mystery-pixel-grid');
       cellAssignments = [];
-
-      // Deterministic pseudo-random seed so numbers look evenly distributed
-      let counter = 0;
       gridEl.innerHTML = '';
 
       for (let r = 0; r < theme.map.length; r++) {
@@ -507,8 +514,7 @@
           const code = theme.map[r][c];
           const grp = theme.groups.find(g => g.code === code);
           const numPool = grp.numbers;
-          const chosenNumber = numPool[(r * 7 + c * 3 + counter) % numPool.length];
-          counter++;
+          const chosenNumber = numPool[(r * 2 + c) % numPool.length];
 
           const cellIndex = cellAssignments.length;
           cellAssignments.push({
@@ -580,7 +586,7 @@
           cellEl.style.color = cell.userText;
         } else {
           cellEl.style.backgroundColor = '#ffffff';
-          cellEl.style.color = '#334155';
+          cellEl.style.color = '#1e293b';
         }
       });
     }
@@ -591,11 +597,11 @@
       const btn = document.getElementById('btn-preview-solution');
 
       if (isSolutionVisible) {
-        btnText.textContent = 'Cevapları Gizle (Öğrenci Modu)';
+        btnText.textContent = 'Şekli & Cevapları Gizle (Öğrenci Modu)';
         btn.classList.replace('bg-emerald-600', 'bg-amber-500');
         btn.classList.replace('hover:bg-emerald-500', 'hover:bg-amber-400');
       } else {
-        btnText.textContent = 'Cevap Şeklini Göster';
+        btnText.textContent = 'Gizemli Şekli & Cevapları Göster';
         btn.classList.replace('bg-amber-500', 'bg-emerald-600');
         btn.classList.replace('hover:bg-amber-400', 'hover:bg-emerald-500');
       }
@@ -604,21 +610,10 @@
       applyGridColors();
     }
 
-    function clearGridColors() {
-      isSolutionVisible = false;
-      document.getElementById('preview-btn-text').textContent = 'Cevap Şeklini Göster';
-      cellAssignments.forEach(c => {
-        c.userHex = null;
-        c.userText = null;
-      });
-      renderQuestionsPalette(THEMES[currentThemeKey]);
-      applyGridColors();
-    }
-
     function switchMysteryTheme(themeKey) {
       currentThemeKey = themeKey;
       isSolutionVisible = false;
-      document.getElementById('preview-btn-text').textContent = 'Cevap Şeklini Göster';
+      document.getElementById('preview-btn-text').textContent = 'Gizemli Şekli & Cevapları Göster';
 
       const subBtn = document.getElementById('btn-theme-submarine');
       const carBtn = document.getElementById('btn-theme-car');

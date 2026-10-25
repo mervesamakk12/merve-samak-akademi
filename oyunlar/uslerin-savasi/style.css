@@ -1,101 +1,97 @@
 /* ============================================================
-   DİJİTAL MATEMATİK YARIŞMASI: ÜSLERİN SAVAŞI
-   Modern Neon Arena & Akıllı Tahta Uyumlu Stil Dosyası
+   MERVE SAMAK AKADEMİ — DİJİTAL MATEMATİK YARIŞMASI: ÜSLERİN SAVAŞI
+   Modern Neon Arena & Akıllı Tahta Uyumlu Ultra-Profesyonel Stil Dosyası
    ============================================================ */
 
 :root {
-  --bg-main: #0a0d14;
-  --bg-card: rgba(18, 24, 38, 0.85);
-  --bg-card-hover: rgba(28, 36, 56, 0.95);
-  --border-glass: rgba(255, 255, 255, 0.12);
-  
+  --font-main: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-display: 'Fredoka', cursive, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
   /* PEMBE TAKIM (Kızlar) */
   --pink-primary: #ec4899;
   --pink-secondary: #f43f5e;
-  --pink-glow: rgba(236, 72, 153, 0.45);
-  --pink-light: #fbcfe8;
-  --pink-bg: rgba(236, 72, 153, 0.15);
+  --pink-glow: rgba(236, 72, 153, 0.55);
+  --pink-bg: rgba(236, 72, 153, 0.12);
+  --pink-border: rgba(236, 72, 153, 0.4);
 
   /* MAVİ TAKIM (Erkekler) */
   --blue-primary: #0ea5e9;
   --blue-secondary: #2563eb;
-  --blue-glow: rgba(14, 165, 233, 0.45);
-  --blue-light: #bae6fd;
-  --blue-bg: rgba(14, 165, 233, 0.15);
+  --blue-glow: rgba(14, 165, 233, 0.55);
+  --blue-bg: rgba(14, 165, 233, 0.12);
+  --blue-border: rgba(14, 165, 233, 0.4);
 
-  /* Nötr & Durum Renkleri */
+  /* Nötr & Vurgular */
   --gold: #f59e0b;
   --gold-glow: rgba(245, 158, 11, 0.5);
   --green: #10b981;
-  --green-glow: rgba(16, 185, 129, 0.4);
+  --green-glow: rgba(16, 185, 129, 0.5);
   --red: #ef4444;
-  --red-glow: rgba(239, 68, 68, 0.4);
+  --red-glow: rgba(239, 68, 68, 0.5);
 
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --text-dark: #0f172a;
-
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-full: 9999px;
-
-  --font-main: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+  /* Varsayılan Arka Plan: Uzay */
+  --bg-base: #070913;
+  --bg-surface: rgba(15, 23, 42, 0.85);
+  --border-surface: rgba(255, 255, 255, 0.12);
 }
 
 * {
   box-sizing: border-box;
-  margin: 0;
-  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg-base);
+  color: #f8fafc;
+  min-height: 100vh;
+  overflow-x: hidden;
   user-select: none;
   -webkit-user-select: none;
 }
 
 /* ============================================================
-   ÖĞRENCİ DOSTU TEMALAR: UZAY, DENİZ ALTI, BÜYÜLÜ ORMAN
+   ÖĞRENCİ DOSTU 3 FARKLI ARKA PLAN TEMASI
    ============================================================ */
 
-/* 1. UZAY TEMASI (VARSAYILAN) */
+/* 1. KOZMİK UZAY TEMASI (VARSAYILAN) */
 body.theme-space {
+  --bg-base: #060919;
   background-color: #060919;
   background-image: 
-    radial-gradient(circle at 12% 25%, rgba(139, 92, 246, 0.18) 0%, transparent 40%),
-    radial-gradient(circle at 85% 15%, rgba(56, 189, 248, 0.16) 0%, transparent 45%),
-    radial-gradient(circle at 50% 80%, rgba(236, 72, 153, 0.14) 0%, transparent 50%),
-    radial-gradient(circle at 75% 75%, rgba(30, 58, 138, 0.3) 0%, transparent 60%);
+    radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.22) 0%, transparent 40%),
+    radial-gradient(circle at 90% 15%, rgba(14, 165, 233, 0.2) 0%, transparent 45%),
+    radial-gradient(circle at 50% 85%, rgba(236, 72, 153, 0.18) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(30, 58, 138, 0.35) 0%, transparent 60%);
+  background-attachment: fixed;
 }
 
-/* 2. DENİZ ALTI TEMASI */
+/* 2. DERİN DENİZ ALTI TEMASI */
 body.theme-ocean {
+  --bg-base: #021524;
   background-color: #021524;
   background-image: 
-    radial-gradient(circle at 50% 0%, rgba(56, 189, 248, 0.24) 0%, transparent 55%),
-    radial-gradient(circle at 15% 45%, rgba(14, 165, 233, 0.18) 0%, transparent 45%),
-    radial-gradient(circle at 85% 65%, rgba(20, 184, 166, 0.2) 0%, transparent 50%),
-    radial-gradient(circle at 50% 100%, rgba(2, 44, 34, 0.3) 0%, transparent 60%);
-}
-
-body.theme-ocean .team-card {
-  border-color: rgba(14, 165, 233, 0.25);
-  box-shadow: 0 8px 30px rgba(2, 21, 36, 0.6);
+    radial-gradient(circle at 50% 5%, rgba(56, 189, 248, 0.28) 0%, transparent 55%),
+    radial-gradient(circle at 15% 45%, rgba(14, 165, 233, 0.22) 0%, transparent 45%),
+    radial-gradient(circle at 85% 65%, rgba(20, 184, 166, 0.24) 0%, transparent 50%),
+    radial-gradient(circle at 50% 95%, rgba(2, 44, 34, 0.35) 0%, transparent 60%);
+  background-attachment: fixed;
 }
 
 /* 3. BÜYÜLÜ ORMAN TEMASI */
 body.theme-forest {
-  background-color: #05180f;
+  --bg-base: #04180e;
+  background-color: #04180e;
   background-image: 
-    radial-gradient(circle at 20% 20%, rgba(74, 222, 128, 0.16) 0%, transparent 40%),
-    radial-gradient(circle at 80% 30%, rgba(250, 204, 21, 0.14) 0%, transparent 45%),
-    radial-gradient(circle at 50% 70%, rgba(22, 101, 52, 0.28) 0%, transparent 50%),
-    radial-gradient(circle at 85% 85%, rgba(234, 88, 12, 0.12) 0%, transparent 40%);
+    radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.2) 0%, transparent 40%),
+    radial-gradient(circle at 80% 25%, rgba(245, 158, 11, 0.18) 0%, transparent 45%),
+    radial-gradient(circle at 50% 75%, rgba(20, 83, 45, 0.35) 0%, transparent 50%),
+    radial-gradient(circle at 85% 85%, rgba(234, 88, 12, 0.15) 0%, transparent 40%);
+  background-attachment: fixed;
 }
 
-body.theme-forest .team-card {
-  border-color: rgba(34, 197, 94, 0.25);
-  box-shadow: 0 8px 30px rgba(5, 24, 15, 0.6);
-}
-
-/* Dinamik Temalı Parçacık Canvas & Ortam Katmanı */
+/* Dinamik Canvas Parçacık Katmanı */
 #theme-particles-canvas {
   position: fixed;
   top: 0;
@@ -106,121 +102,6 @@ body.theme-forest .team-card {
   z-index: 0;
 }
 
-#theme-ambient-bg {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 1;
-  overflow: hidden;
-}
-
-/* Yüzen Maskotlar (Öğrenci Dostu Figürler) */
-.floating-mascot {
-  position: absolute;
-  font-size: 2.4rem;
-  opacity: 0.8;
-  filter: drop-shadow(0 0 14px rgba(255, 255, 255, 0.35));
-  animation: float-ambient 6s infinite ease-in-out;
-  transition: all 0.5s ease;
-}
-
-/* Uzay Figür Konumları */
-.space-planet-1 { top: 12%; left: 3%; font-size: 3.2rem; animation-delay: 0s; }
-.space-rocket { bottom: 15%; left: 4%; font-size: 2.8rem; transform: rotate(-35deg); animation-delay: 1.5s; }
-.space-astro { top: 18%; right: 4%; font-size: 3rem; animation-delay: 3s; }
-.space-moon { bottom: 12%; right: 5%; font-size: 2.6rem; animation-delay: 4.5s; }
-
-/* Deniz Altı Figür Konumları */
-.ocean-jellyfish { top: 15%; left: 4%; font-size: 3rem; animation-delay: 0s; }
-.ocean-turtle { bottom: 16%; left: 5%; font-size: 2.8rem; animation-delay: 2s; }
-.ocean-fish { top: 22%; right: 4%; font-size: 2.6rem; animation-delay: 3.5s; }
-.ocean-dolphin { bottom: 14%; right: 4%; font-size: 3.2rem; animation-delay: 5s; }
-
-/* Orman Figür Konumları */
-.forest-owl { top: 14%; left: 4%; font-size: 3rem; animation-delay: 0s; }
-.forest-deer { bottom: 14%; left: 5%; font-size: 3.2rem; animation-delay: 2s; }
-.forest-butterfly { top: 20%; right: 4%; font-size: 2.6rem; animation-delay: 3.5s; }
-.forest-mushroom { bottom: 12%; right: 5%; font-size: 2.8rem; animation-delay: 5s; }
-
-@keyframes float-ambient {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  50% { transform: translateY(-14px) rotate(4deg); }
-}
-
-/* ============================================================
-   TEMA SEÇİCİ DROPDOWN BUTONU
-   ============================================================ */
-.theme-selector-dropdown {
-  position: relative;
-}
-
-.btn-theme {
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.15), rgba(139, 92, 246, 0.2));
-  border: 1px solid rgba(56, 189, 248, 0.4);
-  color: #bae6fd;
-  font-weight: 700;
-}
-.btn-theme:hover {
-  background: linear-gradient(135deg, rgba(56, 189, 248, 0.25), rgba(139, 92, 246, 0.35));
-  box-shadow: 0 0 15px rgba(56, 189, 248, 0.3);
-}
-
-.theme-dropdown-menu {
-  position: absolute;
-  top: calc(100% + 8px);
-  right: 0;
-  background: rgba(15, 23, 42, 0.95);
-  backdrop-filter: blur(16px);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--radius-md);
-  padding: 8px;
-  width: 250px;
-  display: none;
-  flex-direction: column;
-  gap: 6px;
-  box-shadow: 0 12px 35px rgba(0,0,0,0.7);
-  z-index: 1000;
-}
-
-.theme-dropdown-menu.open {
-  display: flex;
-  animation: slide-up 0.2s ease-out;
-}
-
-.theme-option {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.theme-option:hover {
-  background: rgba(255, 255, 255, 0.12);
-  transform: translateX(3px);
-}
-
-.theme-option strong {
-  font-size: 0.92rem;
-  color: white;
-  display: block;
-}
-
-.theme-option p {
-  font-size: 0.73rem;
-  color: var(--text-muted);
-}
-
-.theme-opt-icon {
-  font-size: 1.6rem;
-}
-
-/* Canvas Konfeti */
 #confetti-canvas {
   position: fixed;
   top: 0;
@@ -232,943 +113,96 @@ body.theme-forest .team-card {
 }
 
 /* ============================================================
-   HEADER / ÜST BİLGİ & KONTROL ÇUBUĞU
+   NEON GLOW VE TAKIM EFEKTLERİ
    ============================================================ */
-.arena-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 24px;
-  background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-glass);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-
-.logo-group {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.logo-badge {
-  font-size: 1.8rem;
-  background: linear-gradient(135deg, #ec4899, #3b82f6);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  display: inline-block;
-  animation: pulse-glow 3s infinite alternate;
-}
-
-.title-text h1 {
-  font-size: 1.35rem;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  background: linear-gradient(90deg, #fbcfe8, #ffffff, #bae6fd);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.title-text p {
-  font-size: 0.78rem;
-  color: var(--text-muted);
-}
-
-.header-actions {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.btn-icon {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border-glass);
-  color: var(--text-main);
-  padding: 8px 14px;
-  border-radius: var(--radius-md);
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  transition: all 0.2s ease;
-}
-
-.btn-icon:hover {
-  background: rgba(255, 255, 255, 0.16);
-  transform: translateY(-1px);
-}
-
-.btn-teacher {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(217, 119, 6, 0.3));
-  border: 1px solid var(--gold);
-  color: #fde68a;
-}
-.btn-teacher:hover {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.35), rgba(217, 119, 6, 0.5));
-  box-shadow: 0 0 15px var(--gold-glow);
-}
-
-/* ============================================================
-   PUAN TABLOSU VE VS ARENA BÖLÜMÜ
-   ============================================================ */
-.scoreboard-section {
-  display: grid;
-  grid-template-columns: 1fr 280px 1fr;
-  gap: 16px;
-  padding: 16px 24px;
-  align-items: stretch;
-  position: relative;
-  z-index: 10;
-}
-
-/* Takım Kartları */
-.team-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(16px);
-  border: 2px solid var(--border-glass);
-  border-radius: var(--radius-lg);
-  padding: 16px 20px;
-  position: relative;
-  overflow: hidden;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
-}
-
-.team-card.pink-team {
-  border-color: rgba(236, 72, 153, 0.3);
-}
-.team-card.pink-team.active-team {
-  border-color: var(--pink-primary);
+.pink-active-glow {
   box-shadow: 0 0 25px var(--pink-glow), inset 0 0 15px rgba(236, 72, 153, 0.2);
-  transform: scale(1.02);
+  border-color: var(--pink-primary) !important;
 }
 
-.team-card.blue-team {
-  border-color: rgba(14, 165, 233, 0.3);
-}
-.team-card.blue-team.active-team {
-  border-color: var(--blue-primary);
+.blue-active-glow {
   box-shadow: 0 0 25px var(--blue-glow), inset 0 0 15px rgba(14, 165, 233, 0.2);
-  transform: scale(1.02);
+  border-color: var(--blue-primary) !important;
 }
 
-.team-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
+@keyframes turnPulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px var(--pink-glow);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 35px var(--pink-glow);
+  }
 }
 
-.team-identity {
-  display: flex;
-  align-items: center;
-  gap: 10px;
+@keyframes turnPulseBlue {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px var(--blue-glow);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 0 35px var(--blue-glow);
+  }
 }
 
-.team-avatar {
-  width: 44px;
-  height: 44px;
-  border-radius: var(--radius-full);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.5rem;
+.pulse-pink {
+  animation: turnPulse 2s infinite ease-in-out;
 }
 
-.pink-team .team-avatar {
-  background: linear-gradient(135deg, var(--pink-primary), var(--pink-secondary));
-  box-shadow: 0 0 12px var(--pink-glow);
+.pulse-blue {
+  animation: turnPulseBlue 2s infinite ease-in-out;
 }
 
-.blue-team .team-avatar {
-  background: linear-gradient(135deg, var(--blue-primary), var(--blue-secondary));
-  box-shadow: 0 0 12px var(--blue-glow);
+/* Sayı ve Başlık Fontları */
+.font-display {
+  font-family: var(--font-display);
 }
 
-.team-info h2 {
-  font-size: 1.15rem;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-}
-.pink-team .team-info h2 { color: var(--pink-light); }
-.blue-team .team-info h2 { color: var(--blue-light); }
-
-.team-subtitle {
-  font-size: 0.75rem;
-  color: var(--text-muted);
+.font-mono-numbers {
+  font-family: var(--font-mono);
+  font-feature-settings: 'tnum' on, 'lnum' on;
 }
 
-.turn-pill {
-  display: none;
-  font-size: 0.72rem;
-  font-weight: 800;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: var(--radius-full);
-  letter-spacing: 0.8px;
-  animation: pulse 1.5s infinite;
+/* KaTeX Özel İyileştirmeler */
+.katex {
+  font-size: 1.15em !important;
+  color: #f8fafc;
 }
 
-.active-team .turn-pill {
-  display: inline-block;
+.katex-display {
+  margin: 0.6em 0 !important;
 }
 
-.pink-team .turn-pill {
-  background: var(--pink-primary);
-  color: white;
-  box-shadow: 0 0 10px var(--pink-glow);
-}
-
-.blue-team .turn-pill {
-  background: var(--blue-primary);
-  color: white;
-  box-shadow: 0 0 10px var(--blue-glow);
-}
-
-.team-stats-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-}
-
-.score-display {
-  display: flex;
-  flex-direction: column;
-}
-
-.score-label {
-  font-size: 0.75rem;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  font-weight: 600;
-}
-
-.score-value {
-  font-size: 2.6rem;
-  font-weight: 900;
-  line-height: 1;
-}
-
-.pink-team .score-value {
-  color: #f472b6;
-  text-shadow: 0 0 15px var(--pink-glow);
-}
-.blue-team .score-value {
-  color: #38bdf8;
-  text-shadow: 0 0 15px var(--blue-glow);
-}
-
-.team-metrics {
-  display: flex;
-  gap: 12px;
-  font-size: 0.82rem;
-}
-
-.metric-pill {
-  background: rgba(0, 0, 0, 0.35);
-  border: 1px solid var(--border-glass);
-  padding: 4px 10px;
-  border-radius: var(--radius-md);
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-.metric-pill.correct { color: #34d399; }
-.metric-pill.wrong { color: #f87171; }
-.metric-pill.hint { color: #fbbf24; }
-
-/* Rozetler Çubuğu */
-.badges-container {
-  margin-top: 12px;
-  padding-top: 10px;
-  border-top: 1px solid rgba(255,255,255,0.06);
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-.badge-tag {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  padding: 3px 8px;
-  border-radius: var(--radius-sm);
-  font-size: 0.72rem;
-  color: #cbd5e1;
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-.badge-tag.unlocked {
-  background: rgba(245, 158, 11, 0.15);
-  border-color: rgba(245, 158, 11, 0.5);
-  color: #fde68a;
-  box-shadow: 0 0 8px rgba(245, 158, 11, 0.2);
-}
-
-/* ============================================================
-   ORTA KONTROL / VS ARENA & SAYAÇ
-   ============================================================ */
-.arena-center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: rgba(15, 23, 42, 0.7);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--radius-lg);
-  padding: 12px;
-  text-align: center;
-  position: relative;
-}
-
-.level-indicator {
-  font-size: 0.82rem;
-  font-weight: 800;
-  color: var(--gold);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 6px;
-}
-
-/* Dairesel SVG Zaman Sayacı */
-.timer-wrapper {
-  position: relative;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.timer-svg {
-  transform: rotate(-90deg);
-  width: 100px;
-  height: 100px;
-}
-
-.timer-bg {
-  fill: none;
-  stroke: rgba(255, 255, 255, 0.1);
-  stroke-width: 8;
-}
-
-.timer-progress {
-  fill: none;
-  stroke: var(--green);
-  stroke-width: 8;
-  stroke-linecap: round;
-  stroke-dasharray: 283;
-  stroke-dashoffset: 0;
-  transition: stroke-dashoffset 1s linear, stroke 0.3s;
-}
-
-.timer-progress.warning {
-  stroke: var(--gold);
-}
-
-.timer-progress.danger {
-  stroke: var(--red);
-  animation: pulse-danger 0.5s infinite alternate;
-}
-
-.timer-text-container {
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.timer-seconds {
-  font-size: 1.8rem;
-  font-weight: 900;
-  line-height: 1;
-}
-
-.timer-unit {
-  font-size: 0.65rem;
-  color: var(--text-muted);
-}
-
-.timer-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.btn-timer-ctrl {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border-glass);
-  color: var(--text-main);
-  padding: 4px 10px;
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background 0.2s;
-}
-.btn-timer-ctrl:hover {
-  background: rgba(255, 255, 255, 0.18);
-}
-
-/* ============================================================
-   SORU SAHNESİ (MAIN STAGE)
-   ============================================================ */
-.question-stage {
-  flex: 1;
-  max-width: 1200px;
-  width: 100%;
-  margin: 0 auto 24px auto;
-  padding: 0 24px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  z-index: 10;
-}
-
-.stage-card {
-  background: var(--bg-card);
-  backdrop-filter: blur(20px);
-  border: 2px solid var(--border-glass);
-  border-radius: var(--radius-lg);
-  padding: 24px 32px;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.5);
-  min-height: 480px;
-}
-
-/* Soru Başlığı ve Kazanım Bilgisi */
-.question-meta-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-  padding-bottom: 14px;
-  margin-bottom: 20px;
-}
-
-.meta-badges {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.pill-level {
-  background: rgba(245, 158, 11, 0.15);
-  border: 1px solid var(--gold);
-  color: #fde68a;
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
-  font-size: 0.8rem;
-  font-weight: 700;
-}
-
-.pill-type {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border-glass);
-  color: var(--text-muted);
-  padding: 4px 12px;
-  border-radius: var(--radius-full);
-  font-size: 0.8rem;
-  font-weight: 600;
-}
-
-.pill-points {
-  background: linear-gradient(135deg, #10b981, #059669);
-  color: white;
-  padding: 4px 14px;
-  border-radius: var(--radius-full);
-  font-size: 0.85rem;
-  font-weight: 800;
-  box-shadow: 0 0 12px var(--green-glow);
-}
-
-.active-team-banner {
-  padding: 4px 14px;
-  border-radius: var(--radius-full);
-  font-size: 0.85rem;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-}
-.active-team-banner.pink {
-  background: var(--pink-bg);
-  border: 1px solid var(--pink-primary);
-  color: var(--pink-light);
-}
-.active-team-banner.blue {
-  background: var(--blue-bg);
-  border: 1px solid var(--blue-primary);
-  color: var(--blue-light);
-}
-
-/* Soru Gövdesi */
-.question-content {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.question-title-text {
-  font-size: 1.1rem;
-  color: var(--gold);
-  font-weight: 700;
-  margin-bottom: 8px;
-}
-
-.question-text {
-  font-size: 1.55rem;
-  font-weight: 600;
-  line-height: 1.55;
-  color: #ffffff;
-  margin-bottom: 24px;
-}
-
-/* Matematiksel Üst Simge & İfadeler */
-.question-text sup, .math-item sup, .option-btn sup, .step-card sup, .feedback-text sup, .match-item sup {
-  font-size: 0.72em;
-  font-weight: 800;
-  color: #38bdf8;
-  vertical-align: super;
-  padding: 0 2px;
-}
-
-/* Ders Kitabı Tarzı Kesir Gösterimi */
-.frac {
-  display: inline-flex;
-  flex-direction: column;
-  vertical-align: middle;
-  text-align: center;
-  padding: 0 5px;
-  line-height: 1.1;
-  font-size: 0.9em;
-}
-.frac-top {
-  border-bottom: 2px solid currentColor;
-  padding-bottom: 2px;
-}
-.frac-bottom {
-  padding-top: 2px;
-}
-
-/* ============================================================
-   SORU TÜRLERİ ETKİLEŞİM ALANLARI
-   ============================================================ */
-
-/* 1. DÖRT SEÇENEKLİ (MULTIPLE CHOICE) */
-.options-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.option-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid var(--border-glass);
-  border-radius: var(--radius-md);
-  padding: 16px 20px;
-  color: var(--text-main);
-  font-size: 1.25rem;
-  font-weight: 600;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 16px;
+/* Özel Eşleştirme Kartları */
+.match-card {
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  text-align: left;
+  cursor: pointer;
 }
 
-.option-btn:hover {
-  background: rgba(255, 255, 255, 0.12);
-  border-color: rgba(255, 255, 255, 0.35);
+.match-card:hover {
   transform: translateY(-2px);
 }
 
-.option-letter {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-full);
-  background: rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--gold);
-  flex-shrink: 0;
+.match-card.selected {
+  border-color: #f59e0b !important;
+  background-color: rgba(245, 158, 11, 0.2) !important;
+  box-shadow: 0 0 18px rgba(245, 158, 11, 0.45);
 }
 
-.option-btn.selected {
-  border-color: var(--gold);
-  background: rgba(245, 158, 11, 0.2);
+.match-card.paired {
+  border-color: #10b981 !important;
+  background-color: rgba(16, 185, 129, 0.2) !important;
+  opacity: 0.85;
+  pointer-events: none;
 }
 
-.option-btn.correct-choice {
-  border-color: var(--green) !important;
-  background: rgba(16, 185, 129, 0.25) !important;
-  box-shadow: 0 0 20px var(--green-glow);
-}
-
-.option-btn.wrong-choice {
-  border-color: var(--red) !important;
-  background: rgba(239, 68, 68, 0.25) !important;
-  box-shadow: 0 0 20px var(--red-glow);
-}
-
-/* 2. DOĞRU / YANLIŞ */
-.tf-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-  margin-bottom: 20px;
-}
-
-.tf-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 2px solid var(--border-glass);
-  border-radius: var(--radius-md);
-  padding: 24px;
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--text-main);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 14px;
-  transition: all 0.25s ease;
-}
-
-.tf-btn.true-btn:hover {
-  background: rgba(16, 185, 129, 0.2);
-  border-color: var(--green);
-  box-shadow: 0 0 20px var(--green-glow);
-}
-
-.tf-btn.false-btn:hover {
-  background: rgba(239, 68, 68, 0.2);
-  border-color: var(--red);
-  box-shadow: 0 0 20px var(--red-glow);
-}
-
-/* 3. BOŞLUK DOLDURMA (FILL IN BLANK & TOUCH KEYPAD) */
-.fill-blank-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 20px;
-  margin: 16px 0 24px 0;
-}
-
-.fill-input-wrapper {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  width: 100%;
-  max-width: 440px;
-}
-
-.fill-input {
-  flex: 1;
-  background: rgba(0, 0, 0, 0.45);
-  border: 2px solid var(--border-glass);
-  border-radius: var(--radius-md);
-  padding: 16px 20px;
-  font-size: 1.8rem;
-  font-weight: 800;
-  color: #38bdf8;
-  text-align: center;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.fill-input:focus {
-  border-color: var(--blue-primary);
-  box-shadow: 0 0 15px var(--blue-glow);
-}
-
-.btn-submit-answer {
-  background: linear-gradient(135deg, var(--green), #059669);
-  color: white;
-  border: none;
-  border-radius: var(--radius-md);
-  padding: 16px 24px;
-  font-size: 1.1rem;
-  font-weight: 800;
-  cursor: pointer;
-  transition: all 0.2s;
-  box-shadow: 0 0 15px var(--green-glow);
-}
-.btn-submit-answer:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 0 25px var(--green-glow);
-}
-
-/* Akıllı Tahta Dokunmatik Tuş Takımı */
-.virtual-keypad {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  width: 100%;
-  max-width: 440px;
-}
-
-.keypad-btn {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--radius-sm);
-  padding: 14px;
-  font-size: 1.3rem;
-  font-weight: 700;
-  color: var(--text-main);
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.keypad-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-}
-.keypad-btn:active {
-  transform: scale(0.95);
-}
-
-.keypad-btn.action-key {
-  background: rgba(239, 68, 68, 0.2);
-  color: #fca5a5;
-  border-color: rgba(239, 68, 68, 0.4);
-}
-
-/* 4. HATALI ADIMI BUL (FIND ERROR STEPS) */
-.steps-list {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  margin-bottom: 20px;
-}
-
-.step-card {
-  background: rgba(0, 0, 0, 0.35);
-  border: 2px solid var(--border-glass);
-  border-radius: var(--radius-md);
-  padding: 14px 20px;
-  font-size: 1.15rem;
-  cursor: pointer;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  transition: all 0.2s ease;
-}
-
-.step-card:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: var(--gold);
-}
-
-.step-card.selected-error {
-  border-color: var(--gold);
-  background: rgba(245, 158, 11, 0.2);
-}
-
-/* 5. EŞLEŞTİRME (MATCHING CARDS) */
-.matching-board {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 30px;
-  margin-bottom: 24px;
-}
-
-.matching-col {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.match-item {
-  background: rgba(255, 255, 255, 0.06);
-  border: 2px solid var(--border-glass);
-  border-radius: var(--radius-md);
-  padding: 14px 20px;
-  font-size: 1.2rem;
-  font-weight: 700;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.match-item:hover {
-  background: rgba(255, 255, 255, 0.14);
-}
-
-.match-item.selected {
-  border-color: var(--gold);
-  background: rgba(245, 158, 11, 0.25);
-  box-shadow: 0 0 15px var(--gold-glow);
-}
-
-.match-item.paired {
-  border-color: var(--green);
-  background: rgba(16, 185, 129, 0.25);
-  cursor: default;
-}
-
-/* ============================================================
-   ALT YARDIM & İPUCU ÇUBUĞU
-   ============================================================ */
-.lifeline-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 16px;
-  padding-top: 14px;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.btn-lifeline {
-  background: rgba(245, 158, 11, 0.15);
-  border: 1px solid var(--gold);
-  color: #fde68a;
-  padding: 10px 18px;
-  border-radius: var(--radius-md);
-  font-size: 0.95rem;
-  font-weight: 700;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  transition: all 0.2s;
-}
-
-.btn-lifeline:hover:not(:disabled) {
-  background: rgba(245, 158, 11, 0.3);
-  box-shadow: 0 0 15px var(--gold-glow);
-}
-
-.btn-lifeline:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  border-color: gray;
-}
-
-/* ============================================================
-   DÖNÜT KUTUSU (PEDAGOGICAL FEEDBACK MODAL/CONTAINER)
-   ============================================================ */
-.feedback-box {
-  display: none;
-  margin-top: 20px;
-  padding: 20px 24px;
-  border-radius: var(--radius-md);
-  border: 2px solid;
-  animation: slide-up 0.3s ease-out;
-}
-
-.feedback-box.correct {
-  display: block;
-  background: rgba(16, 185, 129, 0.15);
-  border-color: var(--green);
-  box-shadow: 0 0 25px var(--green-glow);
-}
-
-.feedback-box.wrong-retry {
-  display: block;
-  background: rgba(245, 158, 11, 0.15);
-  border-color: var(--gold);
-  box-shadow: 0 0 25px var(--gold-glow);
-}
-
-.feedback-box.wrong-final {
-  display: block;
-  background: rgba(239, 68, 68, 0.15);
-  border-color: var(--red);
-  box-shadow: 0 0 25px var(--red-glow);
-}
-
-.feedback-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 10px;
-}
-
-.feedback-icon {
-  font-size: 1.6rem;
-}
-
-.feedback-title {
-  font-size: 1.25rem;
-  font-weight: 800;
-}
-
-.correct .feedback-title { color: #34d399; }
-.wrong-retry .feedback-title { color: #fbbf24; }
-.wrong-final .feedback-title { color: #f87171; }
-
-.feedback-text {
-  font-size: 1.05rem;
-  line-height: 1.6;
-  color: #f1f5f9;
-  margin-bottom: 16px;
-}
-
-.feedback-actions {
-  display: flex;
-  gap: 12px;
-  justify-content: flex-end;
-}
-
-.btn-feedback-action {
-  padding: 10px 20px;
-  border-radius: var(--radius-md);
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-  border: none;
-  transition: all 0.2s;
-}
-
-.btn-retry {
-  background: var(--gold);
-  color: var(--text-dark);
-}
-.btn-retry:hover {
-  box-shadow: 0 0 15px var(--gold-glow);
-}
-
-.btn-next-question {
-  background: var(--green);
-  color: white;
-}
-.btn-next-question:hover {
-  box-shadow: 0 0 15px var(--green-glow);
-}
-
-/* ============================================================
-   MODALLER (GENEL, ÖĞRETMEN MASASI, SEVİYE ATLAMA, ŞAMPİYON)
-   ============================================================ */
+/* Modal Açılma Animasyonu */
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(12px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.3s ease;
-  padding: 20px;
+  transition: opacity 0.25s ease-out;
 }
 
 .modal-overlay.open {
@@ -1176,244 +210,62 @@ body.theme-forest .team-card {
   pointer-events: auto;
 }
 
-.modal-card {
-  background: #111827;
-  border: 2px solid var(--border-glass);
-  border-radius: var(--radius-lg);
-  padding: 30px;
-  max-width: 680px;
-  width: 100%;
-  max-height: 90vh;
-  overflow-y: auto;
-  position: relative;
-  box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+.modal-content {
+  transform: scale(0.95);
+  transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.modal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid var(--border-glass);
-  padding-bottom: 16px;
-  margin-bottom: 20px;
+.modal-overlay.open .modal-content {
+  transform: scale(1);
 }
 
-.modal-title {
-  font-size: 1.4rem;
-  font-weight: 800;
-  color: var(--gold);
-  display: flex;
-  align-items: center;
-  gap: 10px;
+/* Özel Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
-
-.btn-modal-close {
-  background: none;
-  border: none;
-  color: var(--text-muted);
-  font-size: 1.5rem;
-  cursor: pointer;
+::-webkit-scrollbar-track {
+  background: rgba(15, 23, 42, 0.6);
 }
-.btn-modal-close:hover {
-  color: white;
-}
-
-/* Öğretmen Masası Sekmeleri ve Ayarları */
-.teacher-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.teacher-box {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--radius-md);
-  padding: 16px;
-}
-
-.teacher-box h3 {
-  font-size: 1rem;
-  color: #38bdf8;
-  margin-bottom: 12px;
-}
-
-.teacher-btn-group {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.btn-t-action {
-  background: rgba(255, 255, 255, 0.1);
-  border: 1px solid var(--border-glass);
-  color: var(--text-main);
-  padding: 8px 12px;
-  border-radius: var(--radius-sm);
-  font-size: 0.85rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.2s;
-}
-
-.btn-t-action:hover {
+::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.2);
+  border-radius: 4px;
 }
-
-.btn-t-danger {
-  background: rgba(239, 68, 68, 0.2);
-  border-color: var(--red);
-  color: #fca5a5;
-}
-.btn-t-danger:hover {
-  background: rgba(239, 68, 68, 0.4);
-}
-
-/* Şampiyonluk Podyumu */
-.podium-container {
-  text-align: center;
-  padding: 20px 0;
-}
-
-.trophy-icon {
-  font-size: 5rem;
-  margin-bottom: 12px;
-  animation: float 2.5s infinite ease-in-out;
-}
-
-.winner-banner {
-  font-size: 2rem;
-  font-weight: 900;
-  margin-bottom: 8px;
-}
-
-.winner-banner.pink {
-  color: var(--pink-primary);
-  text-shadow: 0 0 20px var(--pink-glow);
-}
-.winner-banner.blue {
-  color: var(--blue-primary);
-  text-shadow: 0 0 20px var(--blue-glow);
-}
-.winner-banner.tie {
-  color: var(--gold);
-  text-shadow: 0 0 20px var(--gold-glow);
-}
-
-.results-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-}
-
-.results-table th, .results-table td {
-  padding: 10px 14px;
-  text-align: left;
-  border-bottom: 1px solid var(--border-glass);
-  font-size: 0.95rem;
-}
-
-.results-table th {
-  color: var(--text-muted);
-}
-
-/* Kazanım ve Öğrenme Değerlendirme Raporu */
-.kazanim-report {
-  background: rgba(0, 0, 0, 0.35);
-  border-radius: var(--radius-md);
-  padding: 16px;
-  margin: 16px 0;
-  text-align: left;
-}
-
-.kazanim-report h4 {
-  color: var(--gold);
-  margin-bottom: 8px;
-  font-size: 1rem;
-}
-
-.kazanim-list {
-  list-style: none;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  font-size: 0.9rem;
-}
-
-.kazanim-item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.35);
 }
 
 /* ============================================================
-   ANİMASYONLAR
+   YAZDIRMA (PRINT) STİLLERİ: MERVE SAMAK AKADEMİ RESMİ RAPORU
    ============================================================ */
-@keyframes pulse-glow {
-  0% { transform: scale(1); filter: drop-shadow(0 0 5px rgba(236,72,153,0.3)); }
-  100% { transform: scale(1.05); filter: drop-shadow(0 0 15px rgba(14,165,233,0.6)); }
-}
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  
+  #theme-particles-canvas,
+  #confetti-canvas,
+  header,
+  #lobby-screen,
+  #battle-stage,
+  .no-print {
+    display: none !important;
+  }
 
-@keyframes pulse {
-  0%, 100% { opacity: 1; transform: scale(1); }
-  50% { opacity: 0.8; transform: scale(0.96); }
-}
+  #print-report-container {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 20px !important;
+    background: white !important;
+    color: black !important;
+  }
 
-@keyframes pulse-danger {
-  0% { transform: scale(1); }
-  100% { transform: scale(1.04); }
-}
-
-@keyframes slide-up {
-  from { opacity: 0; transform: translateY(15px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* ============================================================
-   RESPONSIVE (AKILLI TAHTA, TABLET, MOBİL UYUMU)
-   ============================================================ */
-@media (max-width: 1024px) {
-  .scoreboard-section {
-    grid-template-columns: 1fr;
-    gap: 12px;
-  }
-  .arena-center {
-    order: -1;
-  }
-  .options-grid {
-    grid-template-columns: 1fr;
-  }
-  .teacher-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 640px) {
-  .arena-header {
-    flex-direction: column;
-    gap: 10px;
-    padding: 10px;
-  }
-  .title-text h1 {
-    font-size: 1.1rem;
-  }
-  .score-value {
-    font-size: 2rem;
-  }
-  .question-text {
-    font-size: 1.2rem;
-  }
-  .stage-card {
-    padding: 16px;
-  }
-  .matching-board {
-    grid-template-columns: 1fr;
-    gap: 16px;
+  .print-header {
+    border-bottom: 2px solid #000;
+    padding-bottom: 12px;
+    margin-bottom: 20px;
+    text-align: center;
   }
 }

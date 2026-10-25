@@ -1,6 +1,6 @@
 /**
- * DİJİTAL MATEMATİK YARIŞMASI: ÖĞRENCİ DOSTU TEMA MOTORU
- * Uzay (Space), Deniz Altı (Ocean) ve Büyülü Orman (Forest) Temaları
+ * MERVE SAMAK AKADEMİ — DİJİTAL MATEMATİK YARIŞMASI: TEMA MOTORU
+ * Uzay (Space), Deniz Altı (Ocean) ve Büyülü Orman (Forest)
  */
 
 class ThemeEngine {
@@ -10,8 +10,6 @@ class ThemeEngine {
     this.ctx = null;
     this.particles = [];
     this.animationFrame = null;
-    this.floatingCreatures = [];
-    
     this.init();
   }
 
@@ -33,7 +31,7 @@ class ThemeEngine {
     if (!this.canvas) return;
     this.canvas.width = window.innerWidth;
     this.canvas.height = window.innerHeight;
-    this.initParticlesForCurrentTheme();
+    this.initParticles();
   }
 
   bindEvents() {
@@ -43,13 +41,13 @@ class ThemeEngine {
     if (toggleBtn && menu) {
       toggleBtn.addEventListener('click', (e) => {
         e.stopPropagation();
-        window.soundEngine.playClick();
-        menu.classList.toggle('open');
+        if (window.soundEngine) window.soundEngine.playClick();
+        menu.classList.toggle('hidden');
       });
 
       document.addEventListener('click', (e) => {
         if (!menu.contains(e.target) && e.target !== toggleBtn) {
-          menu.classList.remove('open');
+          menu.classList.add('hidden');
         }
       });
 
@@ -57,8 +55,8 @@ class ThemeEngine {
         opt.addEventListener('click', () => {
           const themeKey = opt.dataset.theme;
           this.applyTheme(themeKey);
-          menu.classList.remove('open');
-          window.soundEngine.playTone(550, 'triangle', 0.15);
+          menu.classList.add('hidden');
+          if (window.soundEngine) window.soundEngine.playTone(550, 'triangle', 0.15);
         });
       });
     }
@@ -71,81 +69,65 @@ class ThemeEngine {
     document.body.classList.remove('theme-space', 'theme-ocean', 'theme-forest');
     document.body.classList.add(`theme-${themeKey}`);
 
-    // UI Rozetini Güncelle
     const iconEl = document.getElementById('current-theme-icon');
     const nameEl = document.getElementById('current-theme-name');
-    const bannerLevel = document.getElementById('arena-level-indicator');
 
     if (themeKey === 'space') {
       if (iconEl) iconEl.innerText = '🌌';
       if (nameEl) nameEl.innerText = 'Uzay Teması';
-      if (bannerLevel) bannerLevel.innerHTML = '🚀 KOZMİK ÜS ARENASI';
     } else if (themeKey === 'ocean') {
       if (iconEl) iconEl.innerText = '🌊';
       if (nameEl) nameEl.innerText = 'Deniz Altı';
-      if (bannerLevel) bannerLevel.innerHTML = '🫧 DERİN OKYANUS ARENASI';
     } else if (themeKey === 'forest') {
       if (iconEl) iconEl.innerText = '🌲';
       if (nameEl) nameEl.innerText = 'Büyülü Orman';
-      if (bannerLevel) bannerLevel.innerHTML = '🍃 BÜYÜLÜ DOĞA ARENASI';
     }
 
-    // Parçacıkları ve yüzen dekoratif elemanları yeniden başlat
-    this.initParticlesForCurrentTheme();
-    this.updateAmbientFloatingElements(themeKey);
+    this.initParticles();
+  }
+
+  initParticles() {
+    if (!this.canvas) return;
+    this.particles = [];
+    const count = Math.min(Math.floor(this.canvas.width / 24), 60);
+
+    for (let i = 0; i < count; i++) {
+      if (this.currentTheme === 'space') {
+        this.particles.push({
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          radius: Math.random() * 1.8 + 0.5,
+          color: Math.random() > 0.4 ? '#ffffff' : (Math.random() > 0.5 ? '#a78bfa' : '#38bdf8'),
+          speedY: (Math.random() * 0.15) - 0.07,
+          alpha: Math.random() * 0.8 + 0.2,
+          pulse: Math.random() * 0.02 + 0.005
+        });
+      } else if (this.currentTheme === 'ocean') {
+        this.particles.push({
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          radius: Math.random() * 3 + 1,
+          color: 'rgba(56, 189, 248, 0.4)',
+          speedY: -(Math.random() * 0.8 + 0.3),
+          speedX: Math.sin(Math.random() * 10) * 0.3,
+          alpha: Math.random() * 0.6 + 0.2
+        });
+      } else { // forest
+        this.particles.push({
+          x: Math.random() * this.canvas.width,
+          y: Math.random() * this.canvas.height,
+          radius: Math.random() * 2 + 1,
+          color: Math.random() > 0.4 ? '#facc15' : '#4ade80',
+          speedY: (Math.random() * 0.4) - 0.2,
+          speedX: (Math.random() * 0.4) - 0.2,
+          alpha: Math.random() * 0.7 + 0.3,
+          pulse: Math.random() * 0.03 + 0.01
+        });
+      }
+    }
 
     if (!this.animationFrame) {
       this.animate();
-    }
-  }
-
-  initParticlesForCurrentTheme() {
-    if (!this.canvas) return;
-    this.particles = [];
-    const w = this.canvas.width;
-    const h = this.canvas.height;
-
-    if (this.currentTheme === 'space') {
-      // 70 Twinkling Stars
-      for (let i = 0; i < 70; i++) {
-        this.particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          radius: Math.random() * 2 + 0.6,
-          alpha: Math.random(),
-          speedAlpha: (Math.random() * 0.02 + 0.005) * (Math.random() > 0.5 ? 1 : -1),
-          color: Math.random() > 0.3 ? '#ffffff' : (Math.random() > 0.5 ? '#93c5fd' : '#fbcfe8')
-        });
-      }
-    } 
-    else if (this.currentTheme === 'ocean') {
-      // 45 Yükselen Su Kabarcığı (Rising Bubbles)
-      for (let i = 0; i < 45; i++) {
-        this.particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          radius: Math.random() * 6 + 2,
-          speedY: Math.random() * 1.5 + 0.8,
-          wobbleAngle: Math.random() * Math.PI * 2,
-          wobbleSpeed: Math.random() * 0.04 + 0.02,
-          alpha: Math.random() * 0.4 + 0.2
-        });
-      }
-    } 
-    else if (this.currentTheme === 'forest') {
-      // 50 Yüzen Işıltılı Ateş Böceği (Fireflies)
-      for (let i = 0; i < 50; i++) {
-        this.particles.push({
-          x: Math.random() * w,
-          y: Math.random() * h,
-          radius: Math.random() * 3 + 1.2,
-          vx: (Math.random() - 0.5) * 0.8,
-          vy: (Math.random() - 0.5) * 0.8,
-          alpha: Math.random() * 0.8 + 0.2,
-          alphaSpeed: (Math.random() * 0.03 + 0.01) * (Math.random() > 0.5 ? 1 : -1),
-          glowColor: Math.random() > 0.3 ? '#fde047' : '#86efac'
-        });
-      }
     }
   }
 
@@ -153,107 +135,45 @@ class ThemeEngine {
     if (!this.ctx || !this.canvas) return;
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    const w = this.canvas.width;
-    const h = this.canvas.height;
+    for (let i = 0; i < this.particles.length; i++) {
+      const p = this.particles[i];
 
-    if (this.currentTheme === 'space') {
-      // Çizim: Yıldızlar
-      for (let p of this.particles) {
-        p.alpha += p.speedAlpha;
-        if (p.alpha <= 0.1 || p.alpha >= 1) p.speedAlpha *= -1;
-
+      if (this.currentTheme === 'space') {
+        p.alpha += Math.sin(Date.now() * p.pulse * 0.05) * 0.01;
         this.ctx.beginPath();
         this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
         this.ctx.fillStyle = p.color;
         this.ctx.globalAlpha = Math.max(0.1, Math.min(1, p.alpha));
-        this.ctx.shadowBlur = p.radius * 3;
-        this.ctx.shadowColor = p.color;
         this.ctx.fill();
-      }
-    } 
-    else if (this.currentTheme === 'ocean') {
-      // Çizim: Yükselen Kabarcıklar
-      for (let p of this.particles) {
-        p.y -= p.speedY;
-        p.wobbleAngle += p.wobbleSpeed;
-        const currentX = p.x + Math.sin(p.wobbleAngle) * 3;
-
-        if (p.y < -10) {
-          p.y = h + 10;
-          p.x = Math.random() * w;
-        }
-
-        this.ctx.beginPath();
-        this.ctx.arc(currentX, p.y, p.radius, 0, Math.PI * 2);
-        this.ctx.strokeStyle = `rgba(147, 197, 253, ${p.alpha})`;
-        this.ctx.lineWidth = 1.5;
-        this.ctx.stroke();
-
-        // Kabarcık ışıltısı
-        this.ctx.beginPath();
-        this.ctx.arc(currentX - p.radius * 0.3, p.y - p.radius * 0.3, p.radius * 0.25, 0, Math.PI * 2);
-        this.ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha * 0.9})`;
-        this.ctx.fill();
-      }
-    } 
-    else if (this.currentTheme === 'forest') {
-      // Çizim: Ateş Böcekleri
-      for (let p of this.particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        p.alpha += p.alphaSpeed;
-
-        if (p.alpha <= 0.15 || p.alpha >= 0.95) p.alphaSpeed *= -1;
-        if (p.x < 0) p.x = w;
-        if (p.x > w) p.x = 0;
-        if (p.y < 0) p.y = h;
-        if (p.y > h) p.y = 0;
-
+      } else if (this.currentTheme === 'ocean') {
+        p.y += p.speedY;
+        p.x += Math.sin(p.y * 0.02) * 0.3;
+        if (p.y < -10) p.y = this.canvas.height + 10;
         this.ctx.beginPath();
         this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        this.ctx.fillStyle = p.glowColor;
-        this.ctx.globalAlpha = Math.max(0.15, Math.min(1, p.alpha));
-        this.ctx.shadowBlur = 10;
-        this.ctx.shadowColor = p.glowColor;
+        this.ctx.strokeStyle = p.color;
+        this.ctx.lineWidth = 1;
+        this.ctx.globalAlpha = p.alpha;
+        this.ctx.stroke();
+      } else { // forest
+        p.x += p.speedX;
+        p.y += p.speedY;
+        if (p.x < 0) p.x = this.canvas.width;
+        if (p.x > this.canvas.width) p.x = 0;
+        if (p.y < 0) p.y = this.canvas.height;
+        if (p.y > this.canvas.height) p.y = 0;
+        this.ctx.beginPath();
+        this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+        this.ctx.fillStyle = p.color;
+        this.ctx.globalAlpha = Math.abs(Math.sin(Date.now() * 0.002 + i)) * 0.8 + 0.2;
         this.ctx.fill();
       }
     }
 
-    this.ctx.globalAlpha = 1;
-    this.ctx.shadowBlur = 0;
+    this.ctx.globalAlpha = 1.0;
     this.animationFrame = requestAnimationFrame(() => this.animate());
-  }
-
-  updateAmbientFloatingElements(themeKey) {
-    const container = document.getElementById('theme-ambient-bg');
-    if (!container) return;
-
-    if (themeKey === 'space') {
-      container.innerHTML = `
-        <div class="floating-mascot space-planet-1" title="Satürn Gezegeni">🪐</div>
-        <div class="floating-mascot space-rocket" title="Uzay Roketi">🚀</div>
-        <div class="floating-mascot space-astro" title="Astronot Öğrenci">👨‍🚀</div>
-        <div class="floating-mascot space-moon" title="Hilal Ay">🌙</div>
-      `;
-    } else if (themeKey === 'ocean') {
-      container.innerHTML = `
-        <div class="floating-mascot ocean-jellyfish" title="Işıldayan Denizanası">🪼</div>
-        <div class="floating-mascot ocean-turtle" title="Bilge Deniz Kaplumbağası">🐢</div>
-        <div class="floating-mascot ocean-fish" title="Küçük Palyaço Balığı">🐠</div>
-        <div class="floating-mascot ocean-dolphin" title="Akıllı Yunus">🐬</div>
-      `;
-    } else if (themeKey === 'forest') {
-      container.innerHTML = `
-        <div class="floating-mascot forest-owl" title="Bilge Baykuş">🦉</div>
-        <div class="floating-mascot forest-deer" title="Zarif Geyik">🦌</div>
-        <div class="floating-mascot forest-mushroom" title="Işıltılı Mantar">🍄</div>
-        <div class="floating-mascot forest-butterfly" title="Büyülü Kelebek">🦋</div>
-      `;
-    }
   }
 }
 
 // Global tema motoru örneği
-window.addEventListener('DOMContentLoaded', () => {
-  window.themeEngine = new ThemeEngine();
-});
+window.themeEngine = new ThemeEngine();

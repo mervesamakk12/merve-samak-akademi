@@ -4,7 +4,7 @@
  * Tüm sorular ve çözümler matematiksel açıdan doğrulanmıştır.
  */
 
-const QUESTION_BANK = {
+var QUESTION_BANK = {
   // ==========================================
   // SEVİYE 1: MATEMATİK ISINMASI (10 Puan)
   // Konular: Pozitif/negatif tam sayı kuvvetleri, taban işareti, sıfırıncı kuvvet, değer hesaplama
@@ -914,3 +914,11 @@ const QUESTION_BANK = {
     }
   ]
 };
+
+if (typeof window !== 'undefined') {
+  window.QUESTION_BANK = QUESTION_BANK;
+}
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = QUESTION_BANK;
+}
+

@@ -410,6 +410,30 @@ input[type="range"]::-webkit-slider-thumb:hover {
   .katex {
     color: #111827 !important;
   }
+
+  /* Merve Samak Akademi Antetli Test & Etkinlik Yazdırma Çıktısı */
+  #ms-print-container {
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+  #ms-print-container .ms-print-wrapper {
+    background: #ffffff !important;
+    color: #000000 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 8mm !important;
+  }
 }
+
+/* Ekran Görünümünde Gizle */
+#ms-print-container {
+  display: none;
+}
+
 
 

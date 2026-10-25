@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Veri Karnavalı: İstatistik Çarkı | Merve Samak Akademi</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&family=Orbitron:wght@700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 10%, #2e1065 0%, #170d2b 50%, #090414 100%);
+      min-height: 100vh;
+      color: #f8fafc;
+      user-select: none;
+    }
+    .font-fredoka { font-family: 'Fredoka', cursive, sans-serif; }
+    .carnival-card {
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .carnival-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(244, 63, 94, 0.4);
+    }
+    .carnival-card:active {
+      transform: scale(0.97);
+    }
+    .ferris-glow {
+      box-shadow: 0 0 35px rgba(244, 63, 94, 0.35), inset 0 0 20px rgba(234, 179, 8, 0.2);
+    }
+  </style>
+</head>
+<body class="flex flex-col justify-between min-h-screen p-3 sm:p-5">
+
+  <!-- TOP HUD -->
+  <header class="max-w-5xl mx-auto w-full flex items-center justify-between gap-3 bg-slate-900/90 border border-pink-500/30 p-3 rounded-2xl backdrop-blur-md shadow-xl">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="px-3 py-1.5 rounded-xl bg-pink-900/40 hover:bg-pink-800 text-pink-200 text-xs font-bold border border-pink-500/30 flex items-center gap-1.5 transition-all">
+        <span>◀</span> Portala Dön
+      </a>
+      <div>
+        <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider block font-fredoka">MERVE SAMAK AKADEMİ</span>
+        <h1 class="text-sm sm:text-base font-extrabold text-white font-fredoka flex items-center gap-1.5">
+          🎪 Veri Karnavalı <span id="level-pill" class="text-[10px] px-2 py-0.5 rounded-md bg-pink-500/20 text-pink-300 border border-pink-500/40">Seviye 1</span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="flex items-center gap-2 sm:gap-4 text-xs font-bold">
+      <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-pink-500/20 text-pink-300">
+        Bilet: <span id="hud-score" class="text-amber-400 font-extrabold text-sm">0</span>
+      </div>
+      <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-pink-500/20 text-pink-300">
+        Balon: <span id="hud-balloons" class="text-rose-400 font-extrabold text-sm">0 🎈</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN GAME AREA -->
+  <main class="max-w-4xl mx-auto w-full my-auto py-4">
+    <div id="game-card" class="bg-slate-900/85 border-2 border-pink-500/40 rounded-3xl p-5 sm:p-8 backdrop-blur-xl ferris-glow relative overflow-hidden">
+      
+      <!-- Progress Bar -->
+      <div class="w-full bg-slate-950/80 h-2.5 rounded-full overflow-hidden mb-6 border border-pink-500/30">
+        <div id="progress-bar" class="bg-gradient-to-r from-pink-500 via-rose-500 to-amber-400 h-full transition-all duration-500" style="width: 12%;"></div>
+      </div>
+
+      <!-- Question Title / Context -->
+      <div class="text-center space-y-2 mb-6">
+        <div id="stage-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/20 border border-pink-500/40 text-pink-300 text-xs font-bold">
+          🎡 Daire Grafiği Çarkı
+        </div>
+        <h2 id="question-text" class="text-xl sm:text-2xl font-black text-white leading-snug">
+          <!-- JS tarafından doldurulacak -->
+        </h2>
+        <p id="question-sub" class="text-xs sm:text-sm text-pink-200">Karnaval standındaki doğru veriyi analiz et!</p>
+      </div>
+
+      <!-- Interactive Options Grid -->
+      <div id="options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 my-6">
+        <!-- JS render -->
+      </div>
+
+      <!-- Feedback Banner -->
+      <div id="feedback-banner" class="hidden p-4 rounded-2xl border text-center text-sm font-bold space-y-2 animate-fadeIn">
+        <div id="feedback-msg"></div>
+        <div id="feedback-explanation" class="text-xs text-slate-300 font-normal"></div>
+        <button id="next-btn" onclick="nextQuestion()" class="mt-3 px-6 py-2.5 rounded-xl bg-gradient-to-r from-pink-600 via-rose-600 to-amber-500 hover:brightness-110 text-white font-bold text-xs shadow-lg transition-all">
+          Sonraki Karnaval Standına Geç ➔
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="max-w-4xl mx-auto w-full text-center py-2 text-xs text-slate-400 font-medium">
+    Merve Samak Akademi • 8. Sınıf LGS Veri Analizi Tematik Eğitsel Oyunu
+  </footer>
+
+  <script>
+    // Audio Synthesizer
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq, type, duration) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+    function playCorrectSound() {
+      playBeep(440, 'triangle', 0.08);
+      setTimeout(() => playBeep(554.37, 'triangle', 0.1), 80);
+      setTimeout(() => playBeep(659.25, 'triangle', 0.2), 160);
+    }
+    function playWrongSound() {
+      playBeep(260, 'sawtooth', 0.18);
+      setTimeout(() => playBeep(195, 'sawtooth', 0.25), 120);
+    }
+
+    const QUESTIONS = [
+      {
+        stage: "Seviye 1: Daire Grafiği Temelleri",
+        text: "Toplam $720$ kişinin katıldığı bir ankette, katılımcıların $\%25$'i lunaparka gitmeyi seçmiştir. Bu veri daire grafiğinde kaç derecelik merkez açı ile gösterilir?",
+        options: ["$60^\\circ$", "$90^\\circ$", "$120^\\circ$", "$180^\\circ$"],
+        correct: 1,
+        exp: "Tam açı $360^\\circ$'dir. $\%25$ çeyrek demektir: $360^\\circ \\times 0{,}25 = 90^\\circ$ olur."
+      },
+      {
+        stage: "Seviye 1: Sütun Grafiği Okuma",
+        text: "Bir okul kütüphanesindeki kitapların türlerine göre dağılımında; Roman $120$, Şiir $40$, Bilim $80$ adettir. Roman kitapları tüm kitapların kaçta kaçıdır?",
+        options: ["$\\frac{1}{3}$", "$\\frac{1}{2}$", "$\\frac{2}{3}$", "$\\frac{1}{4}$"],
+        correct: 1,
+        exp: "Toplam kitap sayısı $= 120 + 40 + 80 = 240$. Roman oranı $= 120 / 240 = 1/2$'dir."
+      },
+      {
+        stage: "Seviye 2: Açıdan Miktara Geçiş",
+        text: "Bir çiftlikteki $360$ hayvanın dağılımı daire grafiğinde verilmiştir. Koyunları gösteren daire diliminin merkez açısı $150^\\circ$ olduğuna göre bu çiftlikte kaç koyun vardır?",
+        options: ["100", "120", "150", "180"],
+        correct: 2,
+        exp: "Toplam $360^\\circ$, $360$ hayvana karşılık geliyorsa $1^\\circ = 1$ hayvandır. O halde $150^\\circ = 150$ koyun demektir."
+      },
+      {
+        stage: "Seviye 2: Çizgi Grafiği & Süreklilik",
+        text: "Haftalık sıcaklık değişimini veya bir hisse senedinin gün içindeki iniş çıkışlarını en uygun hangi grafik türü gösterir?",
+        options: ["Daire Grafiği", "Çizgi Grafiği", "Sütun Grafiği", "Histogram"],
+        correct: 1,
+        exp: "Zamana bağlı sürekli verilerin artış ve azalış eğilimlerini göstermek için en uygun grafik Çizgi Grafiğidir."
+      },
+      {
+        stage: "Seviye 3: Grafik Dönüşümleri (LGS Tarzı)",
+        text: "Bir sınıftaki öğrencilerin kan grupları şöyledir: A grubu $8$ kişi, B grubu $6$ kişi, AB grubu $2$ kişi, 0 grubu $8$ kişi. 0 kan grubunu temsil eden merkez açı kaç derecedir?",
+        options: ["$90^\\circ$", "$100^\\circ$", "$120^\\circ$", "$135^\\circ$"],
+        correct: 2,
+        exp: "Toplam öğrenci $= 8 + 6 + 2 + 8 = 24$. $24$ kişi $360^\\circ$ ise $1$ kişi $= 360 / 24 = 15^\\circ$. 0 grubu $= 8 \\times 15^\\circ = 120^\\circ$ olur."
+      },
+      {
+        stage: "Seviye 4: LGS Şampiyonluk Standı",
+        text: "Bir mağazada satılan A, B ve C ürünlerinin daire grafiğinde merkez açıları sırasıyla $120^\\circ$, $160^\\circ$ ve $80^\\circ$'dir. B ürünü A ürününden $20$ adet fazla satıldığına göre toplam kaç ürün satılmıştır?",
+        options: ["120", "150", "180", "240"],
+        correct: 2,
+        exp: "Açı farkı $= 160^\\circ - 120^\\circ = 40^\\circ$. $40^\\circ = 20$ adet ise $1$ adet $= 2^\\circ$. Toplam $360^\\circ$ olduğuna göre toplam ürün $= 360 / 2 = 180$ adettir."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let balloons = 0;
+    let answered = false;
+
+    function renderCurrentQuestion() {
+      answered = false;
+      const q = QUESTIONS[currentQ];
+      
+      document.getElementById('stage-badge').innerHTML = `🎡 ${q.stage}`;
+      document.getElementById('question-text').innerHTML = q.text;
+      document.getElementById('level-pill').innerText = `Soru ${currentQ + 1} / ${QUESTIONS.length}`;
+      
+      const pct = Math.round(((currentQ + 1) / QUESTIONS.length) * 100);
+      document.getElementById('progress-bar').style.width = `${pct}%`;
+
+      const fb = document.getElementById('feedback-banner');
+      fb.classList.add('hidden');
+
+      const grid = document.getElementById('options-grid');
+      grid.innerHTML = q.options.map((opt, i) => `
+        <button onclick="handleSelect(${i})" class="carnival-card p-4 sm:p-5 rounded-2xl bg-slate-950/70 border border-pink-500/30 text-white font-bold text-left flex items-center gap-3">
+          <span class="w-8 h-8 rounded-xl bg-pink-900/80 border border-pink-400/40 text-pink-300 flex items-center justify-center text-xs shrink-0 font-fredoka">
+            ${['A', 'B', 'C', 'D'][i]}
+          </span>
+          <span class="text-sm sm:text-base flex-1">${opt}</span>
+        </button>
+      `).join('');
+
+      renderMath();
+    }
+
+    function handleSelect(index) {
+      if (answered) return;
+      answered = true;
+      const q = QUESTIONS[currentQ];
+      const isCorrect = (index === q.correct);
+      const fb = document.getElementById('feedback-banner');
+      const msg = document.getElementById('feedback-msg');
+      const exp = document.getElementById('feedback-explanation');
+
+      fb.classList.remove('hidden');
+
+      if (isCorrect) {
+        playCorrectSound();
+        score += 30;
+        balloons += 1;
+        document.getElementById('hud-score').innerText = score;
+        document.getElementById('hud-balloons').innerText = `${balloons} 🎈`;
+        
+        fb.className = "p-4 rounded-2xl border text-center text-sm font-bold space-y-2 bg-emerald-950/80 border-emerald-500 text-emerald-300 animate-fadeIn";
+        msg.innerHTML = "🎯 Tam İsabet! Balonu Patlattın ve Karnaval Biletini Kazandın!";
+        confetti({ particleCount: 40, spread: 65, origin: { y: 0.7 } });
+      } else {
+        playWrongSound();
+        fb.className = "p-4 rounded-2xl border text-center text-sm font-bold space-y-2 bg-rose-950/80 border-rose-500 text-rose-300 animate-fadeIn";
+        msg.innerHTML = `⚠️ Ok Hedefi Iskaladı! Doğru Cevap: ${['A', 'B', 'C', 'D'][q.correct]}`;
+      }
+
+      exp.innerHTML = `<strong>Çözüm Adımları:</strong> ${q.exp}`;
+      renderMath();
+    }
+
+    function nextQuestion() {
+      currentQ++;
+      if (currentQ < QUESTIONS.length) {
+        renderCurrentQuestion();
+      } else {
+        showGameOver();
+      }
+    }
+
+    function showGameOver() {
+      confetti({ particleCount: 120, spread: 90, origin: { y: 0.6 } });
+      const card = document.getElementById('game-card');
+      card.innerHTML = `
+        <div class="text-center space-y-5 py-6">
+          <div class="text-6xl animate-bounce">🎡</div>
+          <h2 class="text-3xl font-black text-white font-fredoka">Karnaval Şampiyonu!</h2>
+          <p class="text-pink-200 text-sm max-w-md mx-auto">
+            Tebrikler! Daire grafiği merkez açı orantılarını ve grafik dönüşümlerini kusursuz bir şekilde tamamladın.
+          </p>
+          <div class="inline-flex items-center gap-6 p-4 rounded-2xl bg-pink-950/70 border border-pink-500/40">
+            <div>
+              <div class="text-xs text-pink-400">Toplam Bilet Puanı</div>
+              <div class="text-2xl font-black text-amber-400">${score}</div>
+            </div>
+            <div class="w-px h-8 bg-pink-500/30"></div>
+            <div>
+              <div class="text-xs text-pink-400">Patlatılan Balon</div>
+              <div class="text-2xl font-black text-rose-400">${balloons} / ${QUESTIONS.length} 🎈</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-3 pt-4">
+            <button onclick="location.reload()" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-pink-600 to-rose-600 hover:brightness-110 text-white font-bold text-xs shadow-lg transition-all">
+              🔄 Yeniden Oyna
+            </button>
+            <a href="../index.html" class="px-5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-pink-200 font-bold text-xs border border-pink-500/30 transition-all">
+              🎮 Diğer Oyunları Keşfet
+            </a>
+          </div>
+        </div>
+      `;
+      renderMath();
+    }
+
+    function renderMath() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCurrentQuestion();
+    });
+  </script>
+</body>
+</html>

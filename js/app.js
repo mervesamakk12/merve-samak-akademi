@@ -47,7 +47,7 @@ function applyTheme(theme) {
 /* ==========================================================================
    2. SPA ROTALAMA (HASH ROUTING)
    ========================================================================== */
-const routes = ['home', 'notes', 'questions', 'games', 'coach', 'blog', 'categories', 'about', 'contact', 'post', 'admin'];
+const routes = ['home', 'notes', 'questions', 'games', 'activities', 'coach', 'blog', 'categories', 'about', 'contact', 'post', 'admin'];
 
 function initRouter() {
   window.addEventListener('hashchange', handleRouteChange);
@@ -118,6 +118,8 @@ function handleRouteChange() {
     if (typeof renderQuestionsPage === 'function') renderQuestionsPage();
   } else if (route === 'games' || route === 'matematik-oyunlari') {
     if (typeof renderGamesPage === 'function') renderGamesPage();
+  } else if (route === 'activities' || route === 'kazanim-etkinlikleri' || route === 'etkinlikler') {
+    if (typeof renderActivitiesPage === 'function') renderActivitiesPage();
   } else if (route === 'coach' || route === 'hedef-kocu') {
     if (typeof renderCoachPage === 'function') renderCoachPage();
   } else if (route === 'blog') {

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Merve Samak Akademi | 8. Sınıf LGS Matematik Oyun Portalı</title>
+  <title>Merve Samak Akademi | 8. Sınıf LGS Matematik Oyun Portalı (9 Ünite)</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -31,61 +31,32 @@
     .font-fredoka { font-family: 'Fredoka', cursive, sans-serif; }
     .font-math { font-family: 'JetBrains Mono', monospace; }
 
-    /* Animated Math Symbols Background */
     .math-bg-symbol {
       position: absolute;
       pointer-events: none;
       user-select: none;
       font-family: 'JetBrains Mono', serif;
       font-weight: 800;
-      opacity: 0.12;
+      opacity: 0.1;
       animation: float-symbol 20s infinite linear;
     }
 
     @keyframes float-symbol {
       0% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.08; }
-      50% { transform: translateY(-30px) rotate(15deg) scale(1.15); opacity: 0.2; }
+      50% { transform: translateY(-30px) rotate(15deg) scale(1.15); opacity: 0.18; }
       100% { transform: translateY(0px) rotate(0deg) scale(1); opacity: 0.08; }
     }
     
-    .glow-cyan-card {
-      box-shadow: 0 10px 40px -10px rgba(0, 240, 255, 0.35), 0 0 25px rgba(0, 240, 255, 0.15);
-      border: 2px solid rgba(0, 240, 255, 0.4);
+    .game-card-hover {
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
-    .glow-cyan-card:hover {
-      box-shadow: 0 15px 50px -5px rgba(0, 240, 255, 0.55), 0 0 35px rgba(0, 240, 255, 0.25);
-      border-color: #00f0ff;
-    }
-
-    .glow-pink-card {
-      box-shadow: 0 10px 40px -10px rgba(236, 72, 153, 0.35), 0 0 25px rgba(236, 72, 153, 0.15);
-      border: 2px solid rgba(244, 114, 182, 0.45);
-    }
-    .glow-pink-card:hover {
-      box-shadow: 0 15px 50px -5px rgba(236, 72, 153, 0.55), 0 0 35px rgba(236, 72, 153, 0.3);
-      border-color: #ec4899;
-    }
-
-    .glow-emerald-card {
-      box-shadow: 0 10px 40px -10px rgba(16, 185, 129, 0.35), 0 0 25px rgba(16, 185, 129, 0.15);
-      border: 2px solid rgba(16, 185, 129, 0.45);
-    }
-    .glow-emerald-card:hover {
-      box-shadow: 0 15px 50px -5px rgba(16, 185, 129, 0.55), 0 0 35px rgba(16, 185, 129, 0.3);
-      border-color: #10b981;
-    }
-
-    .glow-amber-card {
-      box-shadow: 0 10px 40px -10px rgba(245, 158, 11, 0.35), 0 0 25px rgba(245, 158, 11, 0.15);
-      border: 2px solid rgba(245, 158, 11, 0.45);
-    }
-    .glow-amber-card:hover {
-      box-shadow: 0 15px 50px -5px rgba(245, 158, 11, 0.55), 0 0 35px rgba(245, 158, 11, 0.3);
-      border-color: #f59e0b;
+    .game-card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 45px rgba(236, 72, 153, 0.25);
     }
 
     .smart-btn {
-      min-height: 52px;
+      min-height: 48px;
       touch-action: manipulation;
       transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
@@ -106,7 +77,7 @@
     <span class="math-bg-symbol text-pink-400 text-7xl top-[25%] right-[8%]" style="animation-delay: 2s;">∑</span>
     <span class="math-bg-symbol text-emerald-400 text-6xl top-[65%] left-[8%]" style="animation-delay: 4s;">√x</span>
     <span class="math-bg-symbol text-amber-400 text-8xl top-[75%] right-[12%]" style="animation-delay: 1s;">∞</span>
-    <span class="math-bg-symbol text-purple-400 text-6xl top-[45%] left-[4%] style="animation-delay: 3s;">÷</span>
+    <span class="math-bg-symbol text-purple-400 text-6xl top-[45%] left-[4%]" style="animation-delay: 3s;">÷</span>
     <span class="math-bg-symbol text-rose-400 text-7xl top-[15%] right-[30%]" style="animation-delay: 5s;">×</span>
     <span class="math-bg-symbol text-sky-400 text-5xl top-[85%] left-[40%]" style="animation-delay: 2.5s;">EBOB</span>
     <span class="math-bg-symbol text-yellow-300 text-5xl top-[35%] right-[45%]" style="animation-delay: 3.5s;">EKOK</span>
@@ -116,108 +87,70 @@
   </div>
 
   <!-- Header with Corner Logo -->
-  <header class="relative z-10 max-w-6xl mx-auto w-full pt-2 pb-6">
+  <header class="relative z-10 max-w-7xl mx-auto w-full pt-2 pb-6">
     <div class="flex items-center justify-between gap-4 flex-wrap mb-4">
       
       <!-- Top Corner Logo (MERVE SAMAK AKADEMİ) -->
-      <div class="flex items-center gap-3 bg-slate-900/95 border border-pink-500/40 p-2 pr-5 rounded-2xl shadow-2xl backdrop-blur-md">
-        <div class="w-13 h-13 sm:w-16 sm:h-16 rounded-xl overflow-hidden bg-slate-950 p-0.5 border-2 border-pink-400/80 logo-glow flex items-center justify-center">
-          <img src="assets/logo.png" alt="Merve Samak Akademi Logo" class="w-full h-full object-contain" onerror="this.src='assets/logo2.png'">
+      <a href="../index.html" class="flex items-center gap-3 bg-slate-900/95 border border-pink-500/40 p-2 pr-5 rounded-2xl shadow-2xl backdrop-blur-md hover:scale-[1.02] transition-transform">
+        <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden bg-slate-950 p-0.5 border-2 border-pink-400/80 logo-glow flex items-center justify-center">
+          <img src="../assets/logo.png" alt="Merve Samak Akademi Logo" class="w-full h-full object-contain" onerror="this.src='assets/logo.png'">
         </div>
         <div>
-          <span class="font-fredoka font-extrabold text-base sm:text-lg text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-amber-300 to-emerald-400 block tracking-wide">
+          <span class="font-fredoka font-extrabold text-base text-transparent bg-clip-text bg-gradient-to-r from-pink-400 via-amber-300 to-emerald-400 block tracking-wide">
             MERVE SAMAK AKADEMİ
           </span>
-          <span class="text-[11px] sm:text-xs text-slate-300 font-bold font-math block -mt-0.5">
+          <span class="text-[11px] text-slate-300 font-bold font-math block -mt-0.5">
             🎓 8. SINIF LGS MATEMATİK
           </span>
         </div>
-      </div>
+      </a>
 
-      <!-- Badge -->
-      <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/80 border border-slate-700 text-slate-200 text-xs sm:text-sm font-semibold shadow-lg">
-        <span class="animate-pulse">✨</span>
-        <span>MERVE SAMAK MATEMATİK DÜNYASI</span>
+      <!-- Right Nav Buttons -->
+      <div class="flex items-center gap-3">
+        <a href="../index.html#questions" class="px-4 py-2 rounded-xl bg-purple-900/60 hover:bg-pink-600 text-white text-xs font-bold border border-purple-500/40 flex items-center gap-1.5 transition-all">
+          <span>📝</span> LGS Test Merkezi
+        </a>
+        <a href="../index.html" class="px-4 py-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-pink-300 text-xs font-bold border border-pink-500/40 flex items-center gap-1.5 transition-all">
+          <span>◀</span> Portala Dön
+        </a>
       </div>
 
     </div>
 
     <div class="text-center mt-2">
-      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-pink-400 mb-2 drop-shadow-md">
-        MATEMATİK OYUNLARI PORTALI
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-pink-500/15 border border-pink-500/30 text-pink-400 text-xs font-bold mb-2">
+        <span>🎮</span> 8. Sınıf Her Kazanım İçin Temalı Oyun Dünyası
+      </div>
+      <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-pink-400 mb-2 drop-shadow-md font-fredoka">
+        LGS MATEMATİK OYUNLARI PORTALI
       </h1>
-      <p class="text-slate-300 max-w-2xl mx-auto text-xs sm:text-base font-medium">
-        Merve Samak Akademi kademeli eğitsel oyunları: Çarpanlar ve Katlar, Asal Sayılar, EBOB & EKOK!
+      <p class="text-slate-300 max-w-2xl mx-auto text-xs sm:text-sm font-medium">
+        8. sınıf matematik müfredatının 9 ünitesine özel tasarlanmış öğrenci dostu, temalı ve akıllı tahta uyumlu dijital yarışma oyunları.
       </p>
     </div>
   </header>
 
-  <!-- 4 Game Cards Grid -->
-  <main class="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 my-auto items-stretch">
+  <!-- 9 Game Cards Grid -->
+  <main class="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-auto items-stretch">
     
-    <!-- GAME 4: ÜSLERİN SAVAŞI (Canlı Sınıf Yarışması - Pembe vs Mavi Takım) -->
-    <div class="relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between glow-amber-card backdrop-blur-xl transition-all group overflow-hidden">
-      <div class="absolute top-0 right-0 w-32 h-32 bg-amber-500/15 rounded-full blur-3xl pointer-events-none"></div>
-
+    <!-- 1. ÜNİTE: ÇARPANLAR VE KATLAR (ASAL DEDEKTİF) -->
+    <div class="game-card-hover relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between border-2 border-emerald-500/40 backdrop-blur-xl group overflow-hidden">
       <div>
         <div class="flex items-center justify-between mb-3">
-          <span class="px-3 py-1 bg-amber-950 text-amber-300 text-xs font-fredoka font-bold rounded-xl border border-amber-500/40 shadow">
-            CANLI DİJİTAL YARIŞMA
-          </span>
-          <span class="text-2xl">⚡</span>
-        </div>
-
-        <h2 class="text-xl sm:text-2xl font-extrabold font-fredoka text-white mb-2 tracking-wide group-hover:text-amber-400 transition-colors">
-          ÜSLERİN SAVAŞI
-        </h2>
-        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
-          Pembe Takım (Kızlar) vs Mavi Takım (Erkekler) canlı sınıf yarışması! Akıllı tahta, süre sayaçlı ve 3 temalı!
-        </p>
-
-        <div class="space-y-1.5 mb-6 text-xs text-slate-300 font-medium">
-          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-            <span class="text-amber-400 font-bold">1. Seviye:</span> Matematik Isınması (10p)
-          </div>
-          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-            <span class="text-pink-400 font-bold">2. Seviye:</span> Üs Ustaları (20p)
-          </div>
-          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-            <span class="text-cyan-400 font-bold">3. Seviye:</span> Zekâ Kapıları (30p)
-          </div>
-          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-            <span class="text-emerald-400 font-bold">4. Seviye:</span> LGS Şampiyonlar Ligi (40p)
-          </div>
-        </div>
-      </div>
-
-      <a href="uslerin-savasi/index.html" class="smart-btn w-full py-3.5 bg-gradient-to-r from-amber-500 via-rose-500 to-pink-500 text-white font-fredoka font-extrabold text-base rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 hover:brightness-110">
-        <span>YARIŞMAYI BAŞLAT</span>
-        <span>➔</span>
-      </a>
-    </div>
-
-    <!-- GAME 3: ASAL DEDEKTİF (Kademeli Öğrenme & Çarpanlar) -->
-    <div class="relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between glow-emerald-card backdrop-blur-xl transition-all group overflow-hidden">
-      <div class="absolute top-0 right-0 w-32 h-32 bg-emerald-500/15 rounded-full blur-3xl pointer-events-none"></div>
-
-      <div>
-        <div class="flex items-center justify-between mb-3">
-          <span class="px-3 py-1 bg-emerald-950 text-emerald-300 text-xs font-fredoka font-bold rounded-xl border border-emerald-500/40 shadow">
-            KADEMELİ DEDEKTİF
+          <span class="px-2.5 py-1 bg-emerald-950 text-emerald-300 text-xs font-fredoka font-bold rounded-xl border border-emerald-500/40">
+            1. ÜNİTE • 🕵️ DEDEKTİF
           </span>
           <span class="text-2xl">🔎</span>
         </div>
-
-        <h2 class="text-xl sm:text-2xl font-extrabold font-fredoka text-white mb-2 tracking-wide group-hover:text-emerald-400 transition-colors">
-          ASAL DEDEKTİF
+        <h2 class="text-xl font-extrabold font-fredoka text-white mb-2 group-hover:text-emerald-400 transition-colors">
+          Asal Dedektif
         </h2>
-        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
-          Gökkuşağı çarpan avı, 91 ve 51 tuzak sayıları, aralarında asallık kuralları ve LGS şampiyonluk görevleri!
+        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+          Gökkuşağı çarpan yöntemi, 91 ve 51 tuzak sayıları, aralarında asallık kuralları ve LGS şampiyonluk görevleri!
         </p>
-
-        <div class="space-y-1.5 mb-6 text-xs text-slate-300 font-medium">
+        <div class="space-y-1.5 mb-5 text-[11px] text-slate-300 font-medium">
           <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-            <span class="text-emerald-400 font-bold">1. Seviye:</span> Gökkuşağı Çarpan Avcısı
+            <span class="text-emerald-400 font-bold">1. Seviye:</span> Gökkuşağı Çarpan Avı
           </div>
           <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
             <span class="text-amber-400 font-bold">2. Seviye:</span> Asal Kalkan & 91 Tuzağı
@@ -225,99 +158,274 @@
           <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
             <span class="text-purple-400 font-bold">3. Seviye:</span> Aralarında Asallık Testi
           </div>
-          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-            <span class="text-cyan-400 font-bold">4. Seviye:</span> LGS Şampiyonluk Görevleri
-          </div>
         </div>
       </div>
-
-      <a href="asal-dedektif/index.html" class="smart-btn w-full py-3.5 bg-gradient-to-r from-emerald-500 to-cyan-400 text-slate-950 font-fredoka font-extrabold text-base rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 hover:brightness-110">
-        <span>DEDEKTİFİ BAŞLAT</span>
-        <span>➔</span>
+      <a href="asal-dedektif/index.html" class="smart-btn w-full py-3 bg-gradient-to-r from-emerald-500 to-teal-400 text-slate-950 font-fredoka font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-emerald-500/25 hover:brightness-110">
+        <span>DEDEKTİFİ BAŞLAT</span> <span>➔</span>
       </a>
     </div>
 
-    <!-- GAME 1: SAYI AVCISI (Cyberpunk / Dark Space) -->
-    <div class="relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between glow-cyan-card backdrop-blur-xl transition-all group overflow-hidden">
-      <div class="absolute top-0 right-0 w-32 h-32 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none"></div>
-
+    <!-- 2. ÜNİTE: ÜSLÜ İFADELER (ÜSLERİN SAVAŞI) -->
+    <div class="game-card-hover relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between border-2 border-amber-500/40 backdrop-blur-xl group overflow-hidden">
       <div>
         <div class="flex items-center justify-between mb-3">
-          <span class="px-3 py-1 bg-cyan-950 text-cyan-300 text-xs font-orbitron font-bold rounded-xl border border-cyan-500/40 shadow">
-            SİBER UZAY
+          <span class="px-2.5 py-1 bg-amber-950 text-amber-300 text-xs font-fredoka font-bold rounded-xl border border-amber-500/40">
+            2. ÜNİTE • 🚀 UZAY & DENİZ
           </span>
-          <span class="text-2xl">🚀</span>
+          <span class="text-2xl">⚡</span>
         </div>
-
-        <h2 class="text-xl sm:text-2xl font-extrabold font-orbitron text-white mb-2 tracking-wide group-hover:text-cyan-400 transition-colors">
-          SAYI AVCISI
+        <h2 class="text-xl font-extrabold font-fredoka text-white mb-2 group-hover:text-amber-400 transition-colors">
+          Üslerin Savaşı
         </h2>
-        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
-          Asal reaktörleri parçalayarak gemiyi dengede tut, EBOB/EKOK stratejilerini seç ve yeni nesil bulmacaları çöz!
+        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+          Pembe Takım (Kızlar) vs Mavi Takım (Erkekler) canlı sınıf mücadelesi! Akıllı tahta, 4 kademe ve 3 temalı stüdyo.
         </p>
-
-        <div class="space-y-1.5 mb-6 text-xs text-slate-300 font-medium">
+        <div class="space-y-1.5 mb-5 text-[11px] text-slate-300 font-medium">
           <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-            <span class="text-cyan-400 font-bold">1. Seviye:</span> Asal Çekirdek & Merdiven
+            <span class="text-amber-400 font-bold">1. Seviye:</span> Matematik Isınması (10p)
           </div>
           <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-            <span class="text-purple-400 font-bold">2. Seviye:</span> EBOB mu EKOK mu Kararı
+            <span class="text-pink-400 font-bold">2. Seviye:</span> Üs Ustaları (20p)
           </div>
           <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-            <span class="text-amber-400 font-bold">3. Seviye:</span> LGS Yeni Nesil Çark Sistemi
+            <span class="text-cyan-400 font-bold">3. Seviye:</span> LGS Şampiyonlar Ligi (40p)
           </div>
         </div>
       </div>
-
-      <a href="sayi-avcisi/index.html" class="smart-btn w-full py-3.5 bg-gradient-to-r from-cyan-500 to-emerald-400 text-slate-950 font-orbitron font-extrabold text-base rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-cyan-500/25 hover:brightness-110">
-        <span>SAYI AVCISI OYNA</span>
-        <span>➔</span>
+      <a href="uslerin-savasi/index.html" class="smart-btn w-full py-3 bg-gradient-to-r from-amber-500 via-rose-500 to-pink-500 text-white font-fredoka font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-amber-500/25 hover:brightness-110">
+        <span>YARIŞMAYI BAŞLAT</span> <span>➔</span>
       </a>
     </div>
 
-    <!-- GAME 2: RENKLİ SIFRAMONLAR (Pastel Pink & Sky Blue) -->
-    <div class="relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between glow-pink-card backdrop-blur-xl transition-all group overflow-hidden">
-      <div class="absolute top-0 right-0 w-32 h-32 bg-pink-500/15 rounded-full blur-3xl pointer-events-none"></div>
-
+    <!-- 3. ÜNİTE: KAREKÖKLÜ İFADELER (KAREKÖK MADENCİSİ) -->
+    <div class="game-card-hover relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between border-2 border-purple-500/40 backdrop-blur-xl group overflow-hidden">
       <div>
         <div class="flex items-center justify-between mb-3">
-          <span class="px-3 py-1 bg-pink-950 text-pink-300 text-xs font-fredoka font-bold rounded-xl border border-pink-500/40 shadow">
-            RENKLİ CANAVARLAR
+          <span class="px-2.5 py-1 bg-purple-950 text-purple-300 text-xs font-fredoka font-bold rounded-xl border border-purple-500/40">
+            3. ÜNİTE • 💎 KRİSTAL MADENİ
           </span>
-          <span class="text-2xl">👾</span>
+          <span class="text-2xl">⛏️</span>
         </div>
-
-        <h2 class="text-xl sm:text-2xl font-extrabold font-fredoka text-white mb-2 tracking-wide group-hover:text-pink-400 transition-colors">
-          SIFRAMONLAR
+        <h2 class="text-xl font-extrabold font-fredoka text-white mb-2 group-hover:text-purple-400 transition-colors">
+          Karekök Madencisi
         </h2>
-        <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4">
-          Canavarları asal şekerlerle besle, kurabiyeleri en büyük kutulara paylaştır ve baloncuk zıplayışını yakala!
+        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+          Tam kare kristallerini kır, yaklaşık değer tünelinde yolunu bul ve $a\sqrt{b}$ maden işlemlerini çöz!
         </p>
-
-        <div class="space-y-1.5 mb-6 text-xs text-slate-300 font-medium">
+        <div class="space-y-1.5 mb-5 text-[11px] text-slate-300 font-medium">
           <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-            <span class="text-pink-400 font-bold">1. Seviye:</span> Asal Şeker Canavarı
+            <span class="text-purple-400 font-bold">1. Seviye:</span> Tam Kare Kristaller
           </div>
           <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-            <span class="text-sky-400 font-bold">2. Seviye:</span> Kurabiye Kutulama (EBOB)
+            <span class="text-pink-400 font-bold">2. Seviye:</span> Sayı Doğrusu Yaklaşık Değer
           </div>
           <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
-            <span class="text-yellow-400 font-bold">3. Seviye:</span> Baloncuk Zıplayışı (EKOK)
+            <span class="text-emerald-400 font-bold">3. Seviye:</span> LGS Maden Kapısı
           </div>
         </div>
       </div>
+      <a href="karekok-madencisi/index.html" class="smart-btn w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-fredoka font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-purple-500/25 hover:brightness-110">
+        <span>MADENİ BAŞLAT</span> <span>➔</span>
+      </a>
+    </div>
 
-      <a href="siframonlar/index.html" class="smart-btn w-full py-3.5 bg-gradient-to-r from-pink-500 via-rose-400 to-sky-400 text-slate-950 font-fredoka font-extrabold text-base rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-pink-500/25 hover:brightness-110">
-        <span>SIFRAMONLAR OYNA</span>
-        <span>➔</span>
+    <!-- 4. ÜNİTE: VERİ ANALİZİ (VERİ KARNAVALI) -->
+    <div class="game-card-hover relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between border-2 border-rose-500/40 backdrop-blur-xl group overflow-hidden">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="px-2.5 py-1 bg-rose-950 text-rose-300 text-xs font-fredoka font-bold rounded-xl border border-rose-500/40">
+            4. ÜNİTE • 🎪 LUNAPARK
+          </span>
+          <span class="text-2xl">🎡</span>
+        </div>
+        <h2 class="text-xl font-extrabold font-fredoka text-white mb-2 group-hover:text-rose-400 transition-colors">
+          Veri Karnavalı
+        </h2>
+        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+          Dönme dolap üzerinde daire grafiği merkez açı oranlarını hesapla, balonları patlat ve karnaval biletlerini topla!
+        </p>
+        <div class="space-y-1.5 mb-5 text-[11px] text-slate-300 font-medium">
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-rose-400 font-bold">1. Seviye:</span> 360° Merkez Açı Hesabı
+          </div>
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-amber-400 font-bold">2. Seviye:</span> Sütundan Daireye Dönüşüm
+          </div>
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-cyan-400 font-bold">3. Seviye:</span> LGS Şampiyonluk Standı
+          </div>
+        </div>
+      </div>
+      <a href="veri-karnavali/index.html" class="smart-btn w-full py-3 bg-gradient-to-r from-rose-500 to-amber-500 text-white font-fredoka font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-rose-500/25 hover:brightness-110">
+        <span>KARNAVALI BAŞLAT</span> <span>➔</span>
+      </a>
+    </div>
+
+    <!-- 5. ÜNİTE: BASİT OLAYLARIN OLASILIĞI (ŞANS ADASI) -->
+    <div class="game-card-hover relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between border-2 border-teal-500/40 backdrop-blur-xl group overflow-hidden">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="px-2.5 py-1 bg-teal-950 text-teal-300 text-xs font-fredoka font-bold rounded-xl border border-teal-500/40">
+            5. ÜNİTE • 🏴‍☠️ TROPİK ADA
+          </span>
+          <span class="text-2xl">🌴</span>
+        </div>
+        <h2 class="text-xl font-extrabold font-fredoka text-white mb-2 group-hover:text-teal-400 transition-colors">
+          Şans Adası
+        </h2>
+        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+          Olası durumları say, kesin ve imkansız olayları tespit et, korsan sandığını açarak altınları kap!
+        </p>
+        <div class="space-y-1.5 mb-5 text-[11px] text-slate-300 font-medium">
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-teal-400 font-bold">1. Seviye:</span> Kesin & İmkânsız Olaylar
+          </div>
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-amber-400 font-bold">2. Seviye:</span> Eşit Şans & Torba Çekilişi
+          </div>
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">3. Seviye:</span> LGS Hazine Sandığı
+          </div>
+        </div>
+      </div>
+      <a href="sans-adasi/index.html" class="smart-btn w-full py-3 bg-gradient-to-r from-teal-500 to-emerald-400 text-slate-950 font-fredoka font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-teal-500/25 hover:brightness-110">
+        <span>ADAYA YELKEN AÇ</span> <span>➔</span>
+      </a>
+    </div>
+
+    <!-- 6. ÜNİTE: CEBİRSEL İFADELER VE ÖZDEŞLİKLER (CEBİR SİMYACISI) -->
+    <div class="game-card-hover relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between border-2 border-indigo-500/40 backdrop-blur-xl group overflow-hidden">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="px-2.5 py-1 bg-indigo-950 text-indigo-300 text-xs font-fredoka font-bold rounded-xl border border-indigo-500/40">
+            6. ÜNİTE • 🧪 SİMYA KAZANI
+          </span>
+          <span class="text-2xl">🔮</span>
+        </div>
+        <h2 class="text-xl font-extrabold font-fredoka text-white mb-2 group-hover:text-indigo-400 transition-colors">
+          Cebir Simyacısı
+        </h2>
+        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+          Tam kare özdeşliklerini ve iki kare farkını iksir kazanında birleştirerek simya gücünü zirveye taşı!
+        </p>
+        <div class="space-y-1.5 mb-5 text-[11px] text-slate-300 font-medium">
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-indigo-400 font-bold">1. Seviye:</span> Terimler & Katsayılar
+          </div>
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-pink-400 font-bold">2. Seviye:</span> Tam Kare & İki Kare Farkı
+          </div>
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-purple-400 font-bold">3. Seviye:</span> LGS Baş Simyacı Görevi
+          </div>
+        </div>
+      </div>
+      <a href="cebir-simyacisi/index.html" class="smart-btn w-full py-3 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white font-fredoka font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-indigo-500/25 hover:brightness-110">
+        <span>SİMYAYI BAŞLAT</span> <span>➔</span>
+      </a>
+    </div>
+
+    <!-- 7. ÜNİTE: DOĞRUSAL DENKLEMLER VE EĞİM (HIZ TRENİ MÜHENDİSİ) -->
+    <div class="game-card-hover relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between border-2 border-sky-500/40 backdrop-blur-xl group overflow-hidden">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="px-2.5 py-1 bg-sky-950 text-sky-300 text-xs font-fredoka font-bold rounded-xl border border-sky-500/40">
+            7. ÜNİTE • 🎢 EĞİM DAĞI
+          </span>
+          <span class="text-2xl">📐</span>
+        </div>
+        <h2 class="text-xl font-extrabold font-fredoka text-white mb-2 group-hover:text-sky-400 transition-colors">
+          Hız Treni Mühendisi
+        </h2>
+        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+          Koordinat düzleminde tren rampaları inşa et, dikey/yatay eğimleri hatasız kur ve vagonları uçurma!
+        </p>
+        <div class="space-y-1.5 mb-5 text-[11px] text-slate-300 font-medium">
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-sky-400 font-bold">1. Seviye:</span> Koordinat Sistemi Bölgeleri
+          </div>
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-cyan-400 font-bold">2. Seviye:</span> Dikey / Yatay Eğim Hesabı
+          </div>
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">3. Seviye:</span> LGS Baş Mühendis
+          </div>
+        </div>
+      </div>
+      <a href="egim-dag/index.html" class="smart-btn w-full py-3 bg-gradient-to-r from-sky-500 to-cyan-400 text-slate-950 font-fredoka font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-sky-500/25 hover:brightness-110">
+        <span>RAMPAYI KUR</span> <span>➔</span>
+      </a>
+    </div>
+
+    <!-- 8. ÜNİTE: EŞİTSİZLİKLER (ADALET TERAZİSİ) -->
+    <div class="game-card-hover relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between border-2 border-yellow-500/40 backdrop-blur-xl group overflow-hidden">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="px-2.5 py-1 bg-yellow-950 text-yellow-300 text-xs font-fredoka font-bold rounded-xl border border-yellow-500/40">
+            8. ÜNİTE • ⚖️ ANTİK TAPINAK
+          </span>
+          <span class="text-2xl">🏛️</span>
+        </div>
+        <h2 class="text-xl font-extrabold font-fredoka text-white mb-2 group-hover:text-yellow-400 transition-colors">
+          Adalet Terazisi
+        </h2>
+        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+          Negatif sayıya bölerken yön değiştirme kuralını unutma, kefeleri dengele ve tapınağın altın kapısını aç!
+        </p>
+        <div class="space-y-1.5 mb-5 text-[11px] text-slate-300 font-medium">
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-yellow-400 font-bold">1. Seviye:</span> En Az & En Çok Aralıkları
+          </div>
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-amber-400 font-bold">2. Seviye:</span> Yön Değiştirme Kuralı
+          </div>
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-emerald-400 font-bold">3. Seviye:</span> LGS Tapınak Bilgesi
+          </div>
+        </div>
+      </div>
+      <a href="adalet-terazisi/index.html" class="smart-btn w-full py-3 bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-950 font-fredoka font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-yellow-500/25 hover:brightness-110">
+        <span>TERAZİYİ BAŞLAT</span> <span>➔</span>
+      </a>
+    </div>
+
+    <!-- 9. ÜNİTE: ÜÇGENLER & PİSAGOR & BENZERLİK (PİRAMİT MİMARI) -->
+    <div class="game-card-hover relative bg-slate-900/90 rounded-3xl p-6 flex flex-col justify-between border-2 border-orange-500/40 backdrop-blur-xl group overflow-hidden">
+      <div>
+        <div class="flex items-center justify-between mb-3">
+          <span class="px-2.5 py-1 bg-orange-950 text-orange-300 text-xs font-fredoka font-bold rounded-xl border border-orange-500/40">
+            9. ÜNİTE • 📐 KRALLIK PİRAMİDİ
+          </span>
+          <span class="text-2xl">🏛️</span>
+        </div>
+        <h2 class="text-xl font-extrabold font-fredoka text-white mb-2 group-hover:text-orange-400 transition-colors">
+          Piramit Mimarı
+        </h2>
+        <p class="text-slate-300 text-xs leading-relaxed mb-4">
+          Üçgen eşitsizliği sınırlarını koru, 3-4-5 ve 5-12-13 özel dik üçgenleriyle piramidin katlarını inşa et!
+        </p>
+        <div class="space-y-1.5 mb-5 text-[11px] text-slate-300 font-medium">
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-orange-400 font-bold">1. Seviye:</span> Üçgen Eşitsizliği
+          </div>
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-amber-400 font-bold">2. Seviye:</span> Pisagor Bağıntısı
+          </div>
+          <div class="p-2 bg-slate-950/70 rounded-xl border border-slate-800 flex items-center gap-2">
+            <span class="text-yellow-400 font-bold">3. Seviye:</span> Benzerlik Oranı & LGS
+          </div>
+        </div>
+      </div>
+      <a href="piramit-mimari/index.html" class="smart-btn w-full py-3 bg-gradient-to-r from-orange-500 via-amber-500 to-yellow-400 text-slate-950 font-fredoka font-extrabold text-sm rounded-2xl flex items-center justify-center gap-2 shadow-lg shadow-orange-500/25 hover:brightness-110">
+        <span>PİRAMİDİ İNŞA ET</span> <span>➔</span>
       </a>
     </div>
 
   </main>
 
   <!-- Footer -->
-  <footer class="relative z-10 max-w-6xl mx-auto w-full text-center pt-6 pb-2 text-xs text-slate-400 font-medium">
-    <p>Merve Samak Akademi • 8. Sınıf LGS Matematik Eğitsel Oyun Portalı • Akıllı Tahta & Mobil Uyumlu</p>
+  <footer class="relative z-10 max-w-7xl mx-auto w-full text-center pt-8 pb-4 text-xs text-slate-400 font-medium">
+    <p>Merve Samak Akademi • 8. Sınıf LGS Matematik 9 Ünite Tematik Oyun Portalı • Akıllı Tahta & Dokunmatik Uyumlu</p>
   </footer>
 
 </body>

@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Şans Adası: Korsan Hazinesi | Merve Samak Akademi</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&family=Orbitron:wght@700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 15%, #064e3b 0%, #062620 50%, #02120e 100%);
+      min-height: 100vh;
+      color: #f1f5f9;
+      user-select: none;
+    }
+    .font-fredoka { font-family: 'Fredoka', cursive, sans-serif; }
+    .island-glow {
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.35), inset 0 0 20px rgba(245, 158, 11, 0.2);
+    }
+    .chest-card {
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .chest-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(16, 185, 129, 0.45);
+    }
+    .chest-card:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body class="flex flex-col justify-between min-h-screen p-3 sm:p-5">
+
+  <!-- TOP HUD -->
+  <header class="max-w-5xl mx-auto w-full flex items-center justify-between gap-3 bg-slate-900/90 border border-emerald-500/30 p-3 rounded-2xl backdrop-blur-md shadow-xl">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="px-3 py-1.5 rounded-xl bg-emerald-900/40 hover:bg-emerald-800 text-emerald-200 text-xs font-bold border border-emerald-500/30 flex items-center gap-1.5 transition-all">
+        <span>◀</span> Portala Dön
+      </a>
+      <div>
+        <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider block font-fredoka">MERVE SAMAK AKADEMİ</span>
+        <h1 class="text-sm sm:text-base font-extrabold text-white font-fredoka flex items-center gap-1.5">
+          🏴‍☠️ Şans Adası <span id="level-pill" class="text-[10px] px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">Seviye 1</span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="flex items-center gap-2 sm:gap-4 text-xs font-bold">
+      <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-emerald-500/20 text-emerald-300">
+        Altın: <span id="hud-score" class="text-amber-400 font-extrabold text-sm">0</span>
+      </div>
+      <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-emerald-500/20 text-emerald-300">
+        Sandık: <span id="hud-chests" class="text-emerald-400 font-extrabold text-sm">0 📦</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN GAME AREA -->
+  <main class="max-w-4xl mx-auto w-full my-auto py-4">
+    <div id="game-card" class="bg-slate-900/85 border-2 border-emerald-500/40 rounded-3xl p-5 sm:p-8 backdrop-blur-xl island-glow relative overflow-hidden">
+      
+      <!-- Progress Bar -->
+      <div class="w-full bg-slate-950/80 h-2.5 rounded-full overflow-hidden mb-6 border border-emerald-500/30">
+        <div id="progress-bar" class="bg-gradient-to-r from-emerald-500 via-teal-400 to-amber-400 h-full transition-all duration-500" style="width: 15%;"></div>
+      </div>
+
+      <!-- Question Title / Context -->
+      <div class="text-center space-y-2 mb-6">
+        <div id="stage-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-500/40 text-emerald-300 text-xs font-bold">
+          🌴 Olasılık Pusulası
+        </div>
+        <h2 id="question-text" class="text-xl sm:text-2xl font-black text-white leading-snug">
+          <!-- JS doldurur -->
+        </h2>
+        <p id="question-sub" class="text-xs sm:text-sm text-emerald-200">Korsan hazinesini açacak doğru olasılık oranını seç!</p>
+      </div>
+
+      <!-- Interactive Options Grid -->
+      <div id="options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 my-6">
+        <!-- JS render -->
+      </div>
+
+      <!-- Feedback Banner -->
+      <div id="feedback-banner" class="hidden p-4 rounded-2xl border text-center text-sm font-bold space-y-2 animate-fadeIn">
+        <div id="feedback-msg"></div>
+        <div id="feedback-explanation" class="text-xs text-slate-300 font-normal"></div>
+        <button id="next-btn" onclick="nextQuestion()" class="mt-3 px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-600 via-teal-600 to-amber-500 hover:brightness-110 text-white font-bold text-xs shadow-lg transition-all">
+          Sonraki Hazine Adasına Yelken Aç ➔
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="max-w-4xl mx-auto w-full text-center py-2 text-xs text-slate-400 font-medium">
+    Merve Samak Akademi • 8. Sınıf LGS Basit Olayların Olasılığı Tematik Eğitsel Oyunu
+  </footer>
+
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq, type, duration) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+    function playCorrectSound() {
+      playBeep(493.88, 'sine', 0.1);
+      setTimeout(() => playBeep(659.25, 'sine', 0.12), 100);
+      setTimeout(() => playBeep(987.77, 'triangle', 0.25), 200);
+    }
+    function playWrongSound() {
+      playBeep(240, 'sawtooth', 0.2);
+      setTimeout(() => playBeep(170, 'sawtooth', 0.3), 150);
+    }
+
+    const QUESTIONS = [
+      {
+        stage: "Seviye 1: Kesin ve İmkansız Olaylar",
+        text: "Standart bir zar atıldığında üst yüze gelen sayının $7$'den küçük bir doğal sayı olma olasılığı kaçtır?",
+        options: ["$0$ (İmkânsız)", "$\\frac{1}{2}$", "$\\frac{5}{6}$", "$1$ (Kesin Olay)"],
+        correct: 3,
+        exp: "Zardaki tüm sayılar $\\{1, 2, 3, 4, 5, 6\\}$ $7$'den küçüktür. Olasılık $= 6/6 = 1$ yani kesin olaydır."
+      },
+      {
+        stage: "Seviye 1: Olası Durumların Tespiti",
+        text: "Bir torbada $4$ mavi, $5$ kırmızı ve $3$ sarı bilye vardır. Rastgele çekilen bir bilyenin sarı olma olasılığı kaçtır?",
+        options: ["$\\frac{1}{4}$", "$\\frac{1}{3}$", "$\\frac{5}{12}$", "$\\frac{1}{2}$"],
+        correct: 0,
+        exp: "Toplam bilye $= 4 + 5 + 3 = 12$. Sarı bilye $= 3$. Olasılık $= 3 / 12 = 1/4$'tür."
+      },
+      {
+        stage: "Seviye 2: Eşit Şans & Karşılaştırma",
+        text: "Bir sınıfta $14$ kız ve $16$ erkek öğrenci vardır. Sınıftan rastgele seçilen bir başkanın kız öğrenci olma olasılığı ile erkek öğrenci olma olasılığı için hangisi doğrudur?",
+        options: [
+          "Eşit olasılıklıdır.",
+          "Kız olma olasılığı daha fazladır.",
+          "Erkek olma olasılığı daha fazladır.",
+          "Kız olma olasılığı imkânsızdır."
+        ],
+        correct: 2,
+        exp: "Erkek sayısı ($16$) kız sayısından ($14$) fazla olduğu için rastgele seçilen birinin erkek olma olasılığı daha fazladır ($16/30 > 14/30$)."
+      },
+      {
+        stage: "Seviye 3: LGS Zarı & Kart Çekilişi",
+        text: "Üzerinde $1$'den $20$'ye kadar olan doğal sayıların yazılı olduğu kartlardan rastgele biri çekiliyor. Çekilen karttaki sayının bir **tam kare sayı** olma olasılığı kaçtır?",
+        options: ["$\\frac{1}{5}$", "$\\frac{1}{4}$", "$\\frac{3}{20}$", "$\\frac{1}{10}$"],
+        correct: 0,
+        exp: "$1$ ile $20$ arasındaki tam kare sayılar: $1, 4, 9, 16$ (toplam $4$ adet). Olasılık $= 4 / 20 = 1/5$'tir."
+      },
+      {
+        stage: "Seviye 4: LGS Hazine Sandığı Görevi",
+        text: "Bir torbadaki mavi bilye sayısı, kırmızı bilye sayısının $3$ katıdır. Torbaya dışarıdan hiçbir bilye eklenmeden çekilen bir bilyenin mavi **olmama** olasılığı kaçtır?",
+        options: ["$\\frac{3}{4}$", "$\\frac{1}{4}$", "$\\frac{1}{3}$", "$\\frac{2}{3}$"],
+        correct: 1,
+        exp: "Kırmızı $= x$ ise Mavi $= 3x$. Toplam $= 4x$. Mavi olmama olasılığı kırmızı olma olasılığıdır: $x / (4x) = 1/4$'tür."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let chests = 0;
+    let answered = false;
+
+    function renderCurrentQuestion() {
+      answered = false;
+      const q = QUESTIONS[currentQ];
+      
+      document.getElementById('stage-badge').innerHTML = `🌴 ${q.stage}`;
+      document.getElementById('question-text').innerHTML = q.text;
+      document.getElementById('level-pill').innerText = `Soru ${currentQ + 1} / ${QUESTIONS.length}`;
+      
+      const pct = Math.round(((currentQ + 1) / QUESTIONS.length) * 100);
+      document.getElementById('progress-bar').style.width = `${pct}%`;
+
+      const fb = document.getElementById('feedback-banner');
+      fb.classList.add('hidden');
+
+      const grid = document.getElementById('options-grid');
+      grid.innerHTML = q.options.map((opt, i) => `
+        <button onclick="handleSelect(${i})" class="chest-card p-4 sm:p-5 rounded-2xl bg-slate-950/70 border border-emerald-500/30 text-white font-bold text-left flex items-center gap-3">
+          <span class="w-8 h-8 rounded-xl bg-emerald-900/80 border border-emerald-400/40 text-emerald-300 flex items-center justify-center text-xs shrink-0 font-fredoka">
+            ${['A', 'B', 'C', 'D'][i]}
+          </span>
+          <span class="text-sm sm:text-base flex-1">${opt}</span>
+        </button>
+      `).join('');
+
+      renderMath();
+    }
+
+    function handleSelect(index) {
+      if (answered) return;
+      answered = true;
+      const q = QUESTIONS[currentQ];
+      const isCorrect = (index === q.correct);
+      const fb = document.getElementById('feedback-banner');
+      const msg = document.getElementById('feedback-msg');
+      const exp = document.getElementById('feedback-explanation');
+
+      fb.classList.remove('hidden');
+
+      if (isCorrect) {
+        playCorrectSound();
+        score += 35;
+        chests += 1;
+        document.getElementById('hud-score').innerText = score;
+        document.getElementById('hud-chests').innerText = `${chests} 📦`;
+        
+        fb.className = "p-4 rounded-2xl border text-center text-sm font-bold space-y-2 bg-emerald-950/80 border-emerald-500 text-emerald-300 animate-fadeIn";
+        msg.innerHTML = "💰 Sandık Açıldı! Saf Altın Hazinesini Kazandın!";
+        confetti({ particleCount: 45, spread: 70, origin: { y: 0.7 } });
+      } else {
+        playWrongSound();
+        fb.className = "p-4 rounded-2xl border text-center text-sm font-bold space-y-2 bg-rose-950/80 border-rose-500 text-rose-300 animate-fadeIn";
+        msg.innerHTML = `⚠️ Sandık Kilitli Kaldı! Doğru Cevap: ${['A', 'B', 'C', 'D'][q.correct]}`;
+      }
+
+      exp.innerHTML = `<strong>Olasılık Açıklaması:</strong> ${q.exp}`;
+      renderMath();
+    }
+
+    function nextQuestion() {
+      currentQ++;
+      if (currentQ < QUESTIONS.length) {
+        renderCurrentQuestion();
+      } else {
+        showGameOver();
+      }
+    }
+
+    function showGameOver() {
+      confetti({ particleCount: 130, spread: 90, origin: { y: 0.6 } });
+      const card = document.getElementById('game-card');
+      card.innerHTML = `
+        <div class="text-center space-y-5 py-6">
+          <div class="text-6xl animate-bounce">🏴‍☠️</div>
+          <h2 class="text-3xl font-black text-white font-fredoka">Hazine Kaptanı!</h2>
+          <p class="text-emerald-200 text-sm max-w-md mx-auto">
+            Tebrikler Denizci! Tüm olası durumları ve istenen olasılık oranlarını başarıyla hesaplayarak Şans Adası'nın efsanevi hazinesini fethettin.
+          </p>
+          <div class="inline-flex items-center gap-6 p-4 rounded-2xl bg-emerald-950/70 border border-emerald-500/40">
+            <div>
+              <div class="text-xs text-emerald-400">Kazanılan Altın</div>
+              <div class="text-2xl font-black text-amber-400">${score}</div>
+            </div>
+            <div class="w-px h-8 bg-emerald-500/30"></div>
+            <div>
+              <div class="text-xs text-emerald-400">Açılan Sandık</div>
+              <div class="text-2xl font-black text-emerald-400">${chests} / ${QUESTIONS.length} 📦</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-3 pt-4">
+            <button onclick="location.reload()" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-emerald-600 to-teal-500 hover:brightness-110 text-white font-bold text-xs shadow-lg transition-all">
+              🔄 Yeniden Oyna
+            </button>
+            <a href="../index.html" class="px-5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-emerald-200 font-bold text-xs border border-emerald-500/30 transition-all">
+              🎮 Diğer Oyunları Keşfet
+            </a>
+          </div>
+        </div>
+      `;
+      renderMath();
+    }
+
+    function renderMath() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCurrentQuestion();
+    });
+  </script>
+</body>
+</html>

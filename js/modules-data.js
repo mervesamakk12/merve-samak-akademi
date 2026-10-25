@@ -728,13 +728,17 @@ const ACADEMY_MODULES_DATA = {
 
   // 2. SORU DÜNYASI (KAZANIM & LGS YENİ NESİL SORULARI)
   questions: [
-    // Çarpanlar ve Katlar
+    // =========================================================================
+    // 1. ÜNİTE: ÇARPANLAR VE KATLAR
+    // =========================================================================
     {
       id: "q-ck-01",
       unit: "carpanlar-ve-katlar",
       unitName: "Çarpanlar ve Katlar",
-      type: "kazanim",
-      typeName: "Kazanım Testi",
+      level: 1,
+      type: "isinma",
+      typeName: "🟢 1. Seviye: Temel Isınma & Kazanım Testi",
+      source: "MEB Kazanım Kavrama Testi",
       questionText: "Alanı $72 \\text{ cm}^2$ ve kenar uzunlukları santimetre cinsinden birer tam sayı olan bir dikdörtgenin çevre uzunluğu **en az** kaç santimetredir?",
       options: [
         { key: "A", text: "18 cm" },
@@ -751,7 +755,7 @@ const ACADEMY_MODULES_DATA = {
           <p>2. Çevre formülü: $\\text{Çevre} = 2(a + b)$</p>
           <p>3. Çevrenin <strong>en az</strong> olması için $a$ ve $b$ çarpanları birbirine en yakın seçilmelidir: $72 = 8 \\times 9$</p>
           <p>4. $\\text{Çevre} = 2(8 + 9) = 2 \\times 17 = 34 \\text{ cm}$ bulunur.</p>
-          <p class="text-pink-400 font-bold">Doğru Cevap: B (34 cm)</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: B (34 cm)</p>
         </div>
       `
     },
@@ -759,8 +763,10 @@ const ACADEMY_MODULES_DATA = {
       id: "q-ck-02",
       unit: "carpanlar-ve-katlar",
       unitName: "Çarpanlar ve Katlar",
-      type: "yeninesil",
-      typeName: "LGS Yeni Nesil",
+      level: 2,
+      type: "ornek",
+      typeName: "🟡 2. Seviye: MEB Beceri Temelli Örnek Soru",
+      source: "MEB LGS Örnek Sorular",
       questionText: "Bir marangoz uzunlukları $120 \\text{ cm}$ ve $150 \\text{ cm}$ olan iki tahta çıtayı hiç parça artmayacak şekilde eşit uzunlukta en büyük parçalara bölecektir. Marangoz her bir kesim işlemi için $4$ saniye harcadığına göre, bu kesim işi **toplam kaç saniye** sürer?",
       options: [
         { key: "A", text: "28 saniye" },
@@ -780,17 +786,52 @@ const ACADEMY_MODULES_DATA = {
           <p>• 2. çıta: $150 / 30 = 5$ parça $\\implies 5 - 1 = 4$ kesim</p>
           <p>3. Toplam Kesim Sayısı: $3 + 4 = 7$ kesim</p>
           <p>4. Toplam Süre: $7 \\times 4 = 28$ saniye sürer.</p>
-          <p class="text-pink-400 font-bold">Doğru Cevap: A (28 saniye)</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: A (28 saniye)</p>
         </div>
       `
     },
-    // Üslü İfadeler
+    {
+      id: "q-ck-03",
+      unit: "carpanlar-ve-katlar",
+      unitName: "Çarpanlar ve Katlar",
+      level: 3,
+      type: "cikmis",
+      typeName: "🔴 3. Seviye: LGS Gerçek Çıkmış Soru & Şampiyonluk",
+      source: "MEB LGS Gerçek Çıkmış Soru",
+      questionText: "Kenar uzunlukları santimetre cinsinden 1'den büyük birer tam sayı olan dikdörtgen şeklindeki kartonların alanları sırasıyla $35 \\text{ cm}^2$ ve $77 \\text{ cm}^2$'dir. Bu iki karton birer kenarları boyunca çakıştırılarak yeni bir dikdörtgen oluşturuluyor. Oluşan bu yeni dikdörtgenin çevre uzunluğu kaç santimetredir?",
+      options: [
+        { key: "A", text: "46 cm" },
+        { key: "B", text: "48 cm" },
+        { key: "C", text: "50 cm" },
+        { key: "D", text: "52 cm" }
+      ],
+      correctAnswer: "A",
+      hint: "Ortak kenar uzunluğu 35 ve 77'nin 1'den büyük ortak böleni yani EBOB'u olmalıdır.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB LGS Çözüm Açıklaması:</p>
+          <p>1. Ortak kenar uzunluğu $\\text{EBOB}(35, 77) = 7 \\text{ cm}$'dir.</p>
+          <p>2. Kartonların diğer kenar uzunlukları:</p>
+          <p>• $35 / 7 = 5 \\text{ cm}$</p>
+          <p>• $77 / 7 = 11 \\text{ cm}$</p>
+          <p>3. Çakıştırıldığında yeni dikdörtgenin kenarları $7 \\text{ cm}$ ve $(5 + 11 = 16) \\text{ cm}$ olur.</p>
+          <p>4. $\\text{Çevre} = 2 \\times (7 + 16) = 2 \\times 23 = 46 \\text{ cm}$'dir.</p>
+          <p class="text-pink-400 font-bold">Doğru Cevap: A (46 cm)</p>
+        </div>
+      `
+    },
+
+    // =========================================================================
+    // 2. ÜNİTE: ÜSLÜ İFADELER
+    // =========================================================================
     {
       id: "q-us-01",
       unit: "uslu-ifadeler",
       unitName: "Üslü İfadeler",
-      type: "kazanim",
-      typeName: "Kazanım Testi",
+      level: 1,
+      type: "isinma",
+      typeName: "🟢 1. Seviye: Temel Isınma & Kazanım Testi",
+      source: "MEB Kazanım Kavrama Testi",
       questionText: "$\\frac{2^8 \\cdot 4^3}{8^4}$ işleminin sonucu aşağıdakilerden hangisine eşittir?",
       options: [
         { key: "A", text: "$2^2$" },
@@ -806,9 +847,8 @@ const ACADEMY_MODULES_DATA = {
           <p>1. Tabanları 2'nin kuvveti olarak yazalım:</p>
           <p>• $4^3 = (2^2)^3 = 2^6$</p>
           <p>• $8^4 = (2^3)^4 = 2^{12}$</p>
-          <p>2. İfadeyi düzenleyelim:</p>
-          <p>$$\\frac{2^8 \\cdot 2^6}{2^{12}} = \\frac{2^{8+6}}{2^{12}} = \\frac{2^{14}}{2^{12}} = 2^{14-12} = 2^2$$</p>
-          <p class="text-pink-400 font-bold">Doğru Cevap: A ($2^2$ = 4)</p>
+          <p>2. $\\frac{2^8 \\cdot 2^6}{2^{12}} = \\frac{2^{8+6}}{2^{12}} = \\frac{2^{14}}{2^{12}} = 2^{14-12} = 2^2$ (yani 4).</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: A ($2^2$)</p>
         </div>
       `
     },
@@ -816,8 +856,10 @@ const ACADEMY_MODULES_DATA = {
       id: "q-us-02",
       unit: "uslu-ifadeler",
       unitName: "Üslü İfadeler",
-      type: "yeninesil",
-      typeName: "LGS Yeni Nesil",
+      level: 2,
+      type: "ornek",
+      typeName: "🟡 2. Seviye: MEB Beceri Temelli Örnek Soru",
+      source: "MEB LGS Örnek Sorular",
       questionText: "Bir laboratuvarda bulunan bakteri türünün sayısı her $30$ dakikada bir $2$ katına çıkmaktadır. Başlangıçta tüpte $16^3$ adet bakteri olduğuna göre, **$4$ saat sonunda** tüpteki bakteri sayısının bilimsel gösterimi hangisidir?",
       options: [
         { key: "A", text: "$1{,}048576 \\times 10^6$" },
@@ -826,27 +868,57 @@ const ACADEMY_MODULES_DATA = {
         { key: "D", text: "$2{,}048 \\times 10^6$" }
       ],
       correctAnswer: "A",
-      hint: "4 saat = 240 dakika. 240 / 30 = 8 defa ikiye katlanacaktır. Toplam = Başlangıç x 2^8.",
+      hint: "4 saat = 240 dakika. 240 / 30 = 8 defa ikiye katlanır. Sonuç: Başlangıç x 2^8.",
       explanation: `
         <div class="space-y-3">
           <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
-          <p>1. Başlangıçtaki bakteri sayısı: $16^3 = (2^4)^3 = 2^{12}$</p>
-          <p>2. $4$ saat $= 240$ dakika. Bölünme sayısı $= 240 / 30 = 8$ defadır.</p>
-          <p>3. Son durumdaki bakteri sayısı:</p>
-          <p>$$2^{12} \\cdot 2^8 = 2^{20} = 1\\,048\\,576$$</p>
-          <p>4. Bilimsel gösterim kuralı ($1 \\le |a| < 10$):</p>
-          <p>$$1\\,048\\,576 = 1{,}048576 \\times 10^6$$</p>
-          <p class="text-pink-400 font-bold">Doğru Cevap: A ($1{,}048576 \\times 10^6$)</p>
+          <p>1. Başlangıçtaki bakteri: $16^3 = (2^4)^3 = 2^{12}$</p>
+          <p>2. 4 saatte bölünme sayısı: $240 / 30 = 8$ defadır.</p>
+          <p>3. Son durum: $2^{12} \\cdot 2^8 = 2^{20} = 1\\,048\\,576$</p>
+          <p>4. Bilimsel gösterim: $1{,}048576 \\times 10^6$ olur.</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: A ($1{,}048576 \\times 10^6$)</p>
         </div>
       `
     },
-    // Kareköklü İfadeler
+    {
+      id: "q-us-03",
+      unit: "uslu-ifadeler",
+      unitName: "Üslü İfadeler",
+      level: 3,
+      type: "cikmis",
+      typeName: "🔴 3. Seviye: LGS Gerçek Çıkmış Soru & Şampiyonluk",
+      source: "MEB LGS Gerçek Çıkmış Soru",
+      questionText: "Bir kenar uzunluğu $5^4 \\text{ cm}$ olan kare şeklindeki bir kağıt, kenarlarının orta noktalarından katlanarak her adımda alanı yarıya inmektedir. Bu kağıt art arda $6$ defa katlandığında elde edilen son şeklin alanı kaç santimetrekaredir?",
+      options: [
+        { key: "A", text: "$\\frac{5^8}{64}$" },
+        { key: "B", text: "$\\frac{5^8}{32}$" },
+        { key: "C", text: "$\\frac{5^4}{64}$" },
+        { key: "D", text: "$\\frac{5^4}{32}$" }
+      ],
+      correctAnswer: "A",
+      hint: "Başlangıçtaki alan = (5^4)^2 = 5^8. Her katlamada 2'ye bölünür, 6 defa katlama 2^6'ya bölmektir.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB LGS Çözüm Açıklaması:</p>
+          <p>1. Başlangıç alanı: $(5^4)^2 = 5^8 \\text{ cm}^2$</p>
+          <p>2. $6$ defa yarıya inmesi: $\\frac{5^8}{2^6}$ anlamına gelir.</p>
+          <p>3. $2^6 = 64$ olduğundan son alan $\\frac{5^8}{64} \\text{ cm}^2$ bulunur.</p>
+          <p class="text-pink-400 font-bold">Doğru Cevap: A ($\\frac{5^8}{64}$)</p>
+        </div>
+      `
+    },
+
+    // =========================================================================
+    // 3. ÜNİTE: KAREKÖKLÜ İFADELER
+    // =========================================================================
     {
       id: "q-kk-01",
       unit: "karekoklu-ifadeler",
       unitName: "Kareköklü İfadeler",
-      type: "kazanim",
-      typeName: "Kazanım Testi",
+      level: 1,
+      type: "isinma",
+      typeName: "🟢 1. Seviye: Temel Isınma & Kazanım Testi",
+      source: "MEB Kazanım Kavrama Testi",
       questionText: "$\\sqrt{108} - \\sqrt{48} + \\sqrt{27}$ işleminin sonucu aşağıdakilerden hangisidir?",
       options: [
         { key: "A", text: "$3\\sqrt{3}$" },
@@ -855,17 +927,13 @@ const ACADEMY_MODULES_DATA = {
         { key: "D", text: "$7\\sqrt{3}$" }
       ],
       correctAnswer: "B",
-      hint: "Tüm köklü sayıları a√3 biçiminde kök dışına çıkarın.",
+      hint: "Tüm sayıları a√3 biçiminde kök dışına çıkarın.",
       explanation: `
         <div class="space-y-3">
           <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
-          <p>1. Sayıları $a\\sqrt{b}$ biçiminde yazalım:</p>
-          <p>• $\\sqrt{108} = \\sqrt{36 \\cdot 3} = 6\\sqrt{3}$</p>
-          <p>• $\\sqrt{48} = \\sqrt{16 \\cdot 3} = 4\\sqrt{3}$</p>
-          <p>• $\\sqrt{27} = \\sqrt{9 \\cdot 3} = 3\\sqrt{3}$</p>
-          <p>2. İşlemi yapalım:</p>
-          <p>$$6\\sqrt{3} - 4\\sqrt{3} + 3\\sqrt{3} = (6 - 4 + 3)\\sqrt{3} = 5\\sqrt{3}$$</p>
-          <p class="text-pink-400 font-bold">Doğru Cevap: B ($5\\sqrt{3}$)</p>
+          <p>• $\\sqrt{108} = 6\\sqrt{3}$, $\\sqrt{48} = 4\\sqrt{3}$, $\\sqrt{27} = 3\\sqrt{3}$</p>
+          <p>• $(6 - 4 + 3)\\sqrt{3} = 5\\sqrt{3}$ bulunur.</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: B ($5\\sqrt{3}$)</p>
         </div>
       `
     },
@@ -873,8 +941,10 @@ const ACADEMY_MODULES_DATA = {
       id: "q-kk-02",
       unit: "karekoklu-ifadeler",
       unitName: "Kareköklü İfadeler",
-      type: "yeninesil",
-      typeName: "LGS Yeni Nesil",
+      level: 2,
+      type: "ornek",
+      typeName: "🟡 2. Seviye: MEB Beceri Temelli Örnek Soru",
+      source: "MEB LGS Örnek Sorular",
       questionText: "Alanı $180 \\text{ m}^2$ olan kare şeklindeki bir bahçenin etrafına $3$ sıra tel çekilecektir. Telin metresi $10$ TL olduğuna göre, bu iş için **tahmini kaç TL** tel masrafı yapılır? ($\\sqrt{5} \\approx 2{,}2$ alınız)",
       options: [
         { key: "A", text: "1200 TL" },
@@ -883,26 +953,224 @@ const ACADEMY_MODULES_DATA = {
         { key: "D", text: "1800 TL" }
       ],
       correctAnswer: "C",
-      hint: "Bahçenin bir kenarı a = √180 = 6√5 metredir. Çevre = 4a. 3 sıra tel = 3 x Çevre.",
+      hint: "Karenin kenarı a = √180 = 6√5 metre. Çevre = 4a = 24√5. 3 sıra tel = 72√5 metre.",
       explanation: `
         <div class="space-y-3">
           <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
-          <p>1. Karenin bir kenarı: $a = \\sqrt{180} = \\sqrt{36 \\times 5} = 6\\sqrt{5} \\text{ metre}$</p>
-          <p>2. 1 sıra çevre: $4 \\times 6\\sqrt{5} = 24\\sqrt{5} \\text{ metre}$</p>
-          <p>3. 3 sıra tel uzunluğu: $3 \\times 24\\sqrt{5} = 72\\sqrt{5} \\text{ metre}$</p>
-          <p>4. Metre fiyatı 10 TL olduğundan maliyet:</p>
-          <p>$$72\\sqrt{5} \\times 10 = 720\\sqrt{5} \\approx 720 \\times 2{,}2 = 1584 \\text{ TL}$$</p>
-          <p class="text-pink-400 font-bold">Doğru Cevap: C (1584 TL)</p>
+          <p>1. Kenar $= \\sqrt{180} = 6\\sqrt{5} \\text{ m}$</p>
+          <p>2. 3 sıra tel $= 3 \\times (4 \\times 6\\sqrt{5}) = 72\\sqrt{5} \\text{ m}$</p>
+          <p>3. Maliyet $= 72 \\times 2{,}2 \\times 10 = 720 \\times 2{,}2 = 1584 \\text{ TL}$ bulunur.</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: C (1584 TL)</p>
         </div>
       `
     },
-    // Cebirsel İfadeler
+    {
+      id: "q-kk-03",
+      unit: "karekoklu-ifadeler",
+      unitName: "Kareköklü İfadeler",
+      level: 3,
+      type: "cikmis",
+      typeName: "🔴 3. Seviye: LGS Gerçek Çıkmış Soru & Şampiyonluk",
+      source: "MEB LGS Gerçek Çıkmış Soru",
+      questionText: "Sayı doğrusu üzerinde $A$ noktası $4$ sayısına karşılık gelmektedir. $A$ noktasından sağa doğru $\\sqrt{75}$ birim ilerlendiğinde ulaşılan nokta hangi iki ardışık tam sayı arasında yer alır?",
+      options: [
+        { key: "A", text: "11 ile 12" },
+        { key: "B", text: "12 ile 13" },
+        { key: "C", text: "13 ile 14" },
+        { key: "D", text: "14 ile 15" }
+      ],
+      correctAnswer: "B",
+      hint: "√75 sayısının yaklaşık tam sayı değerini belirleyin: √64 < √75 < √81.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB LGS Çözüm Açıklaması:</p>
+          <p>1. $\\sqrt{64} < \\sqrt{75} < \\sqrt{81} \\implies 8 < \\sqrt{75} < 9$ (yaklaşık $8{,}66$).</p>
+          <p>2. $A$ noktası $4$ olduğundan sağa doğru ilerlendiğinde:</p>
+          <p>$$4 + \\sqrt{75} \\implies 4 + (8 \\text{ ile } 9) = 12 \\text{ ile } 13 \\text{ arasında}$$</p>
+          <p class="text-pink-400 font-bold">Doğru Cevap: B (12 ile 13 arasında)</p>
+        </div>
+      `
+    },
+
+    // =========================================================================
+    // 4. ÜNİTE: VERİ ANALİZİ
+    // =========================================================================
+    {
+      id: "q-va-01",
+      unit: "veri-analizi",
+      unitName: "Veri Analizi",
+      level: 1,
+      type: "isinma",
+      typeName: "🟢 1. Seviye: Temel Isınma & Kazanım Testi",
+      source: "MEB Kazanım Kavrama Testi",
+      questionText: "Toplam $720$ kişinin katıldığı bir ankette, katılımcıların $%25$'i lunaparka gitmeyi seçmiştir. Bu veri daire grafiğinde kaç derecelik merkez açı ile gösterilir?",
+      options: [
+        { key: "A", text: "$60^\\circ$" },
+        { key: "B", text: "$90^\\circ$" },
+        { key: "C", text: "$120^\\circ$" },
+        { key: "D", text: "$180^\\circ$" }
+      ],
+      correctAnswer: "B",
+      hint: "Tam açı 360°'dir. %25 çeyreği ifade eder: 360 / 4.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
+          <p>Daire grafiğinin tamamı $360^\\circ$'dir. $%25$ demek $\\frac{1}{4}$ demektir: $360^\\circ \\times \\frac{1}{4} = 90^\\circ$ olur.</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: B ($90^\\circ$)</p>
+        </div>
+      `
+    },
+    {
+      id: "q-va-02",
+      unit: "veri-analizi",
+      unitName: "Veri Analizi",
+      level: 2,
+      type: "ornek",
+      typeName: "🟡 2. Seviye: MEB Beceri Temelli Örnek Soru",
+      source: "MEB LGS Örnek Sorular",
+      questionText: "Bir sınıftaki öğrencilerin kan grupları şöyledir: A grubu $8$ kişi, B grubu $6$ kişi, AB grubu $2$ kişi, 0 grubu $8$ kişi. 0 kan grubunu temsil eden daire diliminin merkez açısı kaç derecedir?",
+      options: [
+        { key: "A", text: "$90^\\circ$" },
+        { key: "B", text: "$100^\\circ$" },
+        { key: "C", text: "$120^\\circ$" },
+        { key: "D", text: "$135^\\circ$" }
+      ],
+      correctAnswer: "C",
+      hint: "Toplam kişi sayısını bulun, 360°'ye oranlayın.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
+          <p>1. Toplam öğrenci $= 8 + 6 + 2 + 8 = 24$ kişidir.</p>
+          <p>2. $24$ kişi $360^\\circ$ ise $1$ kişi $= 360 / 24 = 15^\\circ$'dir.</p>
+          <p>3. 0 grubu $8$ kişi olduğundan $8 \\times 15^\\circ = 120^\\circ$ bulunur.</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: C ($120^\\circ$)</p>
+        </div>
+      `
+    },
+    {
+      id: "q-va-03",
+      unit: "veri-analizi",
+      unitName: "Veri Analizi",
+      level: 3,
+      type: "cikmis",
+      typeName: "🔴 3. Seviye: LGS Gerçek Çıkmış Soru & Şampiyonluk",
+      source: "MEB LGS Gerçek Çıkmış Soru",
+      questionText: "Bir mağazada satılan A, B ve C marka ayakkabıların satış adetleri daire grafiğinde gösterildiğinde merkez açıları sırasıyla $120^\\circ$, $160^\\circ$ ve $80^\\circ$ olmaktadır. B marka ayakkabı A marka ayakkabıdan $20$ adet fazla satıldığına göre bu mağazada toplam kaç adet ayakkabı satılmıştır?",
+      options: [
+        { key: "A", text: "120" },
+        { key: "B", text: "150" },
+        { key: "C", text: "180" },
+        { key: "D", text: "240" }
+      ],
+      correctAnswer: "C",
+      hint: "B ile A arasındaki açı farkı 160° - 120° = 40° olup 20 adede karşılık gelir.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB LGS Çözüm Açıklaması:</p>
+          <p>1. Açı farkı $= 160^\\circ - 120^\\circ = 40^\\circ$</p>
+          <p>2. $40^\\circ$ açı $20$ adede denk geliyorsa, $1$ adet $= 2^\\circ$'dir.</p>
+          <p>3. Toplam $360^\\circ$ olduğuna göre toplam ayakkabı $= 360 / 2 = 180$ adettir.</p>
+          <p class="text-pink-400 font-bold">Doğru Cevap: C (180 adet)</p>
+        </div>
+      `
+    },
+
+    // =========================================================================
+    // 5. ÜNİTE: BASİT OLAYLARIN OLASILIĞI
+    // =========================================================================
+    {
+      id: "q-ol-01",
+      unit: "olasilik",
+      unitName: "Basit Olayların Olasılığı",
+      level: 1,
+      type: "isinma",
+      typeName: "🟢 1. Seviye: Temel Isınma & Kazanım Testi",
+      source: "MEB Kazanım Kavrama Testi",
+      questionText: "Bir torbada $4$ mavi, $5$ kırmızı ve $3$ sarı bilye bulunmaktadır. Rastgele çekilen bir bilyenin sarı olma olasılığı kaçtır?",
+      options: [
+        { key: "A", text: "$\\frac{1}{4}$" },
+        { key: "B", text: "$\\frac{1}{3}$" },
+        { key: "C", text: "$\\frac{5}{12}$" },
+        { key: "D", text: "$\\frac{1}{2}$" }
+      ],
+      correctAnswer: "A",
+      hint: "Olasılık = İstenen durum sayısı / Tüm olası durumların sayısı.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
+          <p>Toplam bilye $= 4 + 5 + 3 = 12$. Sarı bilye sayısı $= 3$.</p>
+          <p>$$\\text{Olasılık} = \\frac{3}{12} = \\frac{1}{4}$$</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: A (1/4)</p>
+        </div>
+      `
+    },
+    {
+      id: "q-ol-02",
+      unit: "olasilik",
+      unitName: "Basit Olayların Olasılığı",
+      level: 2,
+      type: "ornek",
+      typeName: "🟡 2. Seviye: MEB Beceri Temelli Örnek Soru",
+      source: "MEB LGS Örnek Sorular",
+      questionText: "Üzerinde $1$'den $30$'a kadar olan doğal sayıların yazılı olduğu eş kartlardan rastgele biri çekiliyor. Çekilen karttaki sayının bir **tam kare sayı** olma olasılığı kaçtır?",
+      options: [
+        { key: "A", text: "$\\frac{1}{5}$" },
+        { key: "B", text: "$\\frac{1}{6}$" },
+        { key: "C", text: "$\\frac{7}{30}$" },
+        { key: "D", text: "$\\frac{4}{15}$" }
+      ],
+      correctAnswer: "B",
+      hint: "1 ile 30 arasındaki tam kare sayıları listeleyin: 1, 4, 9, 16, 25.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
+          <p>1. Tam kare sayılar: $1, 4, 9, 16, 25$ $\\implies$ Toplam $5$ adet.</p>
+          <p>2. Tüm sayılar: $30$ adet.</p>
+          <p>3. $\\text{Olasılık} = \\frac{5}{30} = \\frac{1}{6}$'dır.</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: B (1/6)</p>
+        </div>
+      `
+    },
+    {
+      id: "q-ol-03",
+      unit: "olasilik",
+      unitName: "Basit Olayların Olasılığı",
+      level: 3,
+      type: "cikmis",
+      typeName: "🔴 3. Seviye: LGS Gerçek Çıkmış Soru & Şampiyonluk",
+      source: "MEB LGS Gerçek Çıkmış Soru",
+      questionText: "Bir kutudaki sarı bilyelerin sayısı mavi bilyelerin sayısının $2$ katı, kırmızı bilyelerin sayısının ise yarısıdır. Bu kutudan rastgele çekilen bir bilyenin **mavi olmama** olasılığı kaçtır?",
+      options: [
+        { key: "A", text: "$\\frac{6}{7}$" },
+        { key: "B", text: "$\\frac{5}{7}$" },
+        { key: "C", text: "$\\frac{3}{7}$" },
+        { key: "D", text: "$\\frac{1}{7}$" }
+      ],
+      correctAnswer: "A",
+      hint: "Mavi = x olsun. Sarı = 2x, Kırmızı = 4x olur. Toplamı bulun.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB LGS Çözüm Açıklaması:</p>
+          <p>1. Mavi $= x$, Sarı $= 2x$, Kırmızı $= 4x$</p>
+          <p>2. Toplam bilye $= x + 2x + 4x = 7x$</p>
+          <p>3. Mavi olma olasılığı $= \\frac{x}{7x} = \\frac{1}{7}$</p>
+          <p>4. Mavi olmama olasılığı $= 1 - \\frac{1}{7} = \\frac{6}{7}$ bulunur.</p>
+          <p class="text-pink-400 font-bold">Doğru Cevap: A (6/7)</p>
+        </div>
+      `
+    },
+
+    // =========================================================================
+    // 6. ÜNİTE: CEBİRSEL İFADELER VE ÖZDEŞLİKLER
+    // =========================================================================
     {
       id: "q-cb-01",
       unit: "cebirsel-ifadeler",
       unitName: "Cebirsel İfadeler ve Özdeşlikler",
-      type: "kazanim",
-      typeName: "Kazanım Testi",
+      level: 1,
+      type: "isinma",
+      typeName: "🟢 1. Seviye: Temel Isınma & Kazanım Testi",
+      source: "MEB Kazanım Kavrama Testi",
       questionText: "$(3x - 4)^2$ ifadesinin özdeşi aşağıdakilerden hangisidir?",
       options: [
         { key: "A", text: "$9x^2 - 16$" },
@@ -915,13 +1183,8 @@ const ACADEMY_MODULES_DATA = {
       explanation: `
         <div class="space-y-3">
           <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
-          <p>1. Tam kare farkı kuralı: $(a - b)^2 = a^2 - 2ab + b^2$</p>
-          <p>2. Burada $a = 3x$ ve $b = 4$ olduğundan:</p>
-          <p>• $a^2 = (3x)^2 = 9x^2$</p>
-          <p>• $-2ab = -2 \\cdot (3x) \\cdot 4 = -24x$</p>
-          <p>• $b^2 = 4^2 = 16$</p>
-          <p>3. Sonuç: $9x^2 - 24x + 16$</p>
-          <p class="text-pink-400 font-bold">Doğru Cevap: C ($9x^2 - 24x + 16$)</p>
+          <p>• $(3x)^2 - 2(3x)(4) + 4^2 = 9x^2 - 24x + 16$</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: C ($9x^2 - 24x + 16$)</p>
         </div>
       `
     },
@@ -929,58 +1192,528 @@ const ACADEMY_MODULES_DATA = {
       id: "q-cb-02",
       unit: "cebirsel-ifadeler",
       unitName: "Cebirsel İfadeler ve Özdeşlikler",
-      type: "yeninesil",
-      typeName: "LGS Yeni Nesil",
+      level: 2,
+      type: "ornek",
+      typeName: "🟡 2. Seviye: MEB Beceri Temelli Örnek Soru",
+      source: "MEB LGS Örnek Sorular",
       questionText: "Bir kenar uzunluğu $2a$ cm olan kare şeklindeki bir kağıt, köşelerinden bir kenar uzunluğu $b$ cm olan 4 adet eş kare parça kesilip atılıyor. Kalan kağıdın santimetrekare cinsinden alanını veren cebirsel ifadenin çarpanlarına ayrılmış hali hangisidir?",
       options: [
         { key: "A", text: "$(2a - b)(2a + b)$" },
-        { key: "B", text: "2$(a - b)(a + b)$" },
-        { key: "C", text: "4$(a - b)(a + b)$" },
+        { key: "B", text: "$2(a - b)(a + b)$" },
+        { key: "C", text: "$4(a - b)(a + b)$" },
         { key: "D", text: "$(2a - 2b)^2$" }
       ],
       correctAnswer: "C",
-      hint: "Büyük Karenin Alanı = (2a)² = 4a². Kesilen 4 karenin alanı = 4 x b² = 4b².",
+      hint: "Büyük alan = 4a², kesilen 4 köşe = 4b². 4a² - 4b² = 4(a² - b²).",
       explanation: `
         <div class="space-y-3">
           <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
-          <p>1. Büyük karenin başlangıçtaki alanı: $(2a)^2 = 4a^2$</p>
-          <p>2. Kesilip atılan 4 köşedeki karelerin toplam alanı: $4 \\cdot b^2 = 4b^2$</p>
-          <p>3. Kalan alan: $4a^2 - 4b^2$</p>
-          <p>4. Ortak çarpan (4) parantezine alıp iki kare farkı uygulayalım:</p>
-          <p>$$4a^2 - 4b^2 = 4(a^2 - b^2) = 4(a - b)(a + b)$$</p>
-          <p class="text-pink-400 font-bold">Doğru Cevap: C ($4(a - b)(a + b)$)</p>
+          <p>1. Başlangıç alanı: $(2a)^2 = 4a^2$</p>
+          <p>2. Kesilen 4 kare: $4 \\cdot b^2 = 4b^2$</p>
+          <p>3. Kalan alan: $4a^2 - 4b^2 = 4(a^2 - b^2) = 4(a - b)(a + b)$</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: C ($4(a - b)(a + b)$)</p>
+        </div>
+      `
+    },
+    {
+      id: "q-cb-03",
+      unit: "cebirsel-ifadeler",
+      unitName: "Cebirsel İfadeler ve Özdeşlikler",
+      level: 3,
+      type: "cikmis",
+      typeName: "🔴 3. Seviye: LGS Gerçek Çıkmış Soru & Şampiyonluk",
+      source: "MEB LGS Gerçek Çıkmış Soru",
+      questionText: "Alanı $(16x^2 - 25) \\text{ cm}^2$ olan dikdörtgen şeklindeki bir kartonun kısa kenarı $(4x - 5)$ cm olduğuna göre bu kartonun çevre uzunluğu kaç santimetredir?",
+      options: [
+        { key: "A", text: "$8x$" },
+        { key: "B", text: "$16x$" },
+        { key: "C", text: "$16x - 10$" },
+        { key: "D", text: "$16x + 10$" }
+      ],
+      correctAnswer: "B",
+      hint: "İki kare farkı: 16x² - 25 = (4x - 5)(4x + 5). Uzun kenar 4x + 5 olur.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB LGS Çözüm Açıklaması:</p>
+          <p>1. $16x^2 - 25 = (4x - 5)(4x + 5)$</p>
+          <p>2. Kısa kenar $(4x - 5)$ olduğundan uzun kenar $(4x + 5)$'tir.</p>
+          <p>3. $\\text{Çevre} = 2 \\cdot [(4x - 5) + (4x + 5)] = 2 \\cdot (8x) = 16x \\text{ cm}$ bulunur.</p>
+          <p class="text-pink-400 font-bold">Doğru Cevap: B ($16x$)</p>
+        </div>
+      `
+    },
+
+    // =========================================================================
+    // 7. ÜNİTE: DOĞRUSAL DENKLEMLER VE EĞİM
+    // =========================================================================
+    {
+      id: "q-dd-01",
+      unit: "dogrusal-denklemler",
+      unitName: "Doğrusal Denklemler & Eğim",
+      level: 1,
+      type: "isinma",
+      typeName: "🟢 1. Seviye: Temel Isınma & Kazanım Testi",
+      source: "MEB Kazanım Kavrama Testi",
+      questionText: "$2x - 3y = 12$ doğrusunun eğimi kaçtır?",
+      options: [
+        { key: "A", text: "$\\frac{2}{3}$" },
+        { key: "B", text: "$-\\frac{2}{3}$" },
+        { key: "C", text: "$\\frac{3}{2}$" },
+        { key: "D", text: "$4$" }
+      ],
+      correctAnswer: "A",
+      hint: "y'yi yalnız bırakın: 3y = 2x - 12 => y = (2/3)x - 4.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
+          <p>$2x - 12 = 3y \\implies y = \\frac{2}{3}x - 4$. $x$'in katsayısı olan $\\frac{2}{3}$ eğimdir.</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: A ($2/3$)</p>
+        </div>
+      `
+    },
+    {
+      id: "q-dd-02",
+      unit: "dogrusal-denklemler",
+      unitName: "Doğrusal Denklemler & Eğim",
+      level: 2,
+      type: "ornek",
+      typeName: "🟡 2. Seviye: MEB Beceri Temelli Örnek Soru",
+      source: "MEB LGS Örnek Sorular",
+      questionText: "Dikey yüksekliği $12$ metre, yatay uzunluğu $20$ metre olan bir tekerlekli sandalye rampasının eğimi yüzde kaçtır?",
+      options: [
+        { key: "A", text: "$\\%50$" },
+        { key: "B", text: "$\\%60$" },
+        { key: "C", text: "$\\%75$" },
+        { key: "D", text: "$\\%80$" }
+      ],
+      correctAnswer: "B",
+      hint: "Eğim = Dikey / Yatay = 12 / 20. Yüzdeye çevirmek için 5 ile genişletin.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
+          <p>$$\\text{Eğim} = \\frac{\\text{Dikey}}{\\text{Yatay}} = \\frac{12}{20} = \\frac{60}{100} = \\%60$$</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: B (%60)</p>
+        </div>
+      `
+    },
+    {
+      id: "q-dd-03",
+      unit: "dogrusal-denklemler",
+      unitName: "Doğrusal Denklemler & Eğim",
+      level: 3,
+      type: "cikmis",
+      typeName: "🔴 3. Seviye: LGS Gerçek Çıkmış Soru & Şampiyonluk",
+      source: "MEB LGS Gerçek Çıkmış Soru",
+      questionText: "İçinde $80$ litre su bulunan A deposundan saatte $4$ litre su boşalmakta, içinde $20$ litre su bulunan B deposuna ise saatte $6$ litre su doldurulmaktadır. Buna göre kaç saat sonra iki depodaki su miktarları birbirine eşit olur?",
+      options: [
+        { key: "A", text: "5 saat" },
+        { key: "B", text: "6 saat" },
+        { key: "C", text: "7 saat" },
+        { key: "D", text: "8 saat" }
+      ],
+      correctAnswer: "B",
+      hint: "Geçen süre x olsun: 80 - 4x = 20 + 6x denklemini çözün.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB LGS Çözüm Açıklaması:</p>
+          <p>1. A deposundaki su: $80 - 4x$</p>
+          <p>2. B deposundaki su: $20 + 6x$</p>
+          <p>3. $80 - 4x = 20 + 6x \\implies 60 = 10x \\implies x = 6 \\text{ saat}$ bulunur.</p>
+          <p class="text-pink-400 font-bold">Doğru Cevap: B (6 saat)</p>
+        </div>
+      `
+    },
+
+    // =========================================================================
+    // 8. ÜNİTE: EŞİTSİZLİKLER
+    // =========================================================================
+    {
+      id: "q-es-01",
+      unit: "esitsizlikler",
+      unitName: "Eşitsizlikler",
+      level: 1,
+      type: "isinma",
+      typeName: "🟢 1. Seviye: Temel Isınma & Kazanım Testi",
+      source: "MEB Kazanım Kavrama Testi",
+      questionText: "$3x - 7 \\le 14$ eşitsizliğini sağlayan en büyük $x$ tam sayısı kaçtır?",
+      options: [
+        { key: "A", text: "6" },
+        { key: "B", text: "7" },
+        { key: "C", text: "8" },
+        { key: "D", text: "9" }
+      ],
+      correctAnswer: "B",
+      hint: "3x ≤ 14 + 7 => 3x ≤ 21 => x ≤ 7.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
+          <p>$3x \\le 21 \\implies x \\le 7$. En büyük tam sayı $7$'dir.</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: B (7)</p>
+        </div>
+      `
+    },
+    {
+      id: "q-es-02",
+      unit: "esitsizlikler",
+      unitName: "Eşitsizlikler",
+      level: 2,
+      type: "ornek",
+      typeName: "🟡 2. Seviye: MEB Beceri Temelli Örnek Soru",
+      source: "MEB LGS Örnek Sorular",
+      questionText: "$-2x + 8 < 20$ eşitsizliğinin çözüm kümesi aşağıdakilerden hangisidir?",
+      options: [
+        { key: "A", text: "$x < -6$" },
+        { key: "B", text: "$x > -6$" },
+        { key: "C", text: "$x > 6$" },
+        { key: "D", text: "$x < 6$" }
+      ],
+      correctAnswer: "B",
+      hint: "Negatif sayıya bölünce eşitsizlik sembolü yön değiştirir!",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
+          <p>$-2x < 12$. Her iki tarafı $-2$'ye bölerken eşitsizlik yön değiştirir: $x > -6$ olur.</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: B ($x > -6$)</p>
+        </div>
+      `
+    },
+    {
+      id: "q-es-03",
+      unit: "esitsizlikler",
+      unitName: "Eşitsizlikler",
+      level: 3,
+      type: "cikmis",
+      typeName: "🔴 3. Seviye: LGS Gerçek Çıkmış Soru & Şampiyonluk",
+      source: "MEB LGS Gerçek Çıkmış Soru",
+      questionText: "Bir kargo şirketi taşıdığı paketler için sabit $25$ TL ve her bir kilogram için $6$ TL ücret almaktadır. Yanındaki $85$ TL ile bu kargo şirketini kullanan bir kişi paketinin ağırlığı tam sayı cinsinden **en fazla kaç kilogram** olabilir?",
+      options: [
+        { key: "A", text: "8 kg" },
+        { key: "B", text: "9 kg" },
+        { key: "C", text: "10 kg" },
+        { key: "D", text: "11 kg" }
+      ],
+      correctAnswer: "C",
+      hint: "25 + 6x ≤ 85 => 6x ≤ 60 => x ≤ 10.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB LGS Çözüm Açıklaması:</p>
+          <p>1. $25 + 6x \\le 85$</p>
+          <p>2. $6x \\le 60 \\implies x \\le 10 \\text{ kg}$'dır.</p>
+          <p class="text-pink-400 font-bold">Doğru Cevap: C (10 kg)</p>
+        </div>
+      `
+    },
+
+    // =========================================================================
+    // 9. ÜNİTE: ÜÇGENLER & PİSAGOR & BENZERLİK
+    // =========================================================================
+    {
+      id: "q-uc-01",
+      unit: "ucgenler",
+      unitName: "Üçgenler & Pisagor",
+      level: 1,
+      type: "isinma",
+      typeName: "🟢 1. Seviye: Temel Isınma & Kazanım Testi",
+      source: "MEB Kazanım Kavrama Testi",
+      questionText: "Kenar uzunlukları $7 \\text{ cm}$ ve $11 \\text{ cm}$ olan bir üçgenin üçüncü kenarının uzunluğu $x$ tam sayı olarak kaç farklı değer alabilir?",
+      options: [
+        { key: "A", text: "11" },
+        { key: "B", text: "13" },
+        { key: "C", text: "15" },
+        { key: "D", text: "17" }
+      ],
+      correctAnswer: "B",
+      hint: "Üçgen eşitsizliği: |11 - 7| < x < 11 + 7 => 4 < x < 18.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
+          <p>$|11 - 7| < x < 11 + 7 \\implies 4 < x < 18$.</p>
+          <p>Tam sayılar: $5, 6, 7, \\dots, 17$ olup $17 - 5 + 1 = 13$ farklı değer alır.</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: B (13 değer)</p>
+        </div>
+      `
+    },
+    {
+      id: "q-uc-02",
+      unit: "ucgenler",
+      unitName: "Üçgenler & Pisagor",
+      level: 2,
+      type: "ornek",
+      typeName: "🟡 2. Seviye: MEB Beceri Temelli Örnek Soru",
+      source: "MEB LGS Örnek Sorular",
+      questionText: "Duvardan $5$ metre uzakta duran $13$ metre uzunluğundaki bir merdivenin duvara değdiği noktanın yerden yüksekliği kaç metredir?",
+      options: [
+        { key: "A", text: "10 m" },
+        { key: "B", text: "11 m" },
+        { key: "C", text: "12 m" },
+        { key: "D", text: "14 m" }
+      ],
+      correctAnswer: "C",
+      hint: "5 - 12 - 13 özel dik üçgenini hatırlayın: 5² + 12² = 13².",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB Çözüm Açıklaması:</p>
+          <p>$5^2 + h^2 = 13^2 \\implies 25 + h^2 = 169 \\implies h^2 = 144 \\implies h = 12 \\text{ m}$.</p>
+          <p class="text-emerald-400 font-bold">Doğru Cevap: C (12 m)</p>
+        </div>
+      `
+    },
+    {
+      id: "q-uc-03",
+      unit: "ucgenler",
+      unitName: "Üçgenler & Pisagor",
+      level: 3,
+      type: "cikmis",
+      typeName: "🔴 3. Seviye: LGS Gerçek Çıkmış Soru & Şampiyonluk",
+      source: "MEB LGS Gerçek Çıkmış Soru",
+      questionText: "Aralarındaki uzaklık $15$ metre olan iki dikey direğin boyları sırasıyla $6$ metre ve $14$ metredir. Bu iki direğin en tepe noktaları arasına gerilen çelik telin uzunluğu en az kaç metredir?",
+      options: [
+        { key: "A", text: "15 m" },
+        { key: "B", text: "17 m" },
+        { key: "C", text: "19 m" },
+        { key: "D", text: "20 m" }
+      ],
+      correctAnswer: "B",
+      hint: "Dikey yükseklik farkı: 14 - 6 = 8 m. Yatay mesafe 15 m. 8-15-17 özel dik üçgeni.",
+      explanation: `
+        <div class="space-y-3">
+          <p class="font-semibold text-white">Adım Adım MEB LGS Çözüm Açıklaması:</p>
+          <p>1. Dikey fark: $14 - 6 = 8 \\text{ m}$</p>
+          <p>2. Yatay mesafe: $15 \\text{ m}$</p>
+          <p>3. $8 - 15 - 17$ özel dik üçgeninden telin uzunluğu $17 \\text{ m}$ bulunur.</p>
+          <p class="text-pink-400 font-bold">Doğru Cevap: B (17 m)</p>
         </div>
       `
     }
   ],
 
-  // 3. MATEMATİK OYUNLARI VERİLERİ
-  games: {
-    rootHunter: [
-      { target: 68, low: 8, high: 9, closerTo: 8, lowSq: 64, highSq: 81, diffLow: 4, diffHigh: 13 },
-      { target: 45, low: 6, high: 7, closerTo: 7, lowSq: 36, highSq: 49, diffLow: 9, diffHigh: 4 },
-      { target: 115, low: 10, high: 11, closerTo: 11, lowSq: 100, highSq: 121, diffLow: 15, diffHigh: 6 },
-      { target: 19, low: 4, high: 5, closerTo: 4, lowSq: 16, highSq: 25, diffLow: 3, diffHigh: 6 },
-      { target: 150, low: 12, high: 13, closerTo: 12, lowSq: 144, highSq: 169, diffLow: 6, diffHigh: 19 },
-      { target: 30, low: 5, high: 6, closerTo: 5, lowSq: 25, highSq: 36, diffLow: 5, diffHigh: 6 },
-      { target: 95, low: 9, high: 10, closerTo: 10, lowSq: 81, highSq: 100, diffLow: 14, diffHigh: 5 },
-      { target: 135, low: 11, high: 12, closerTo: 12, lowSq: 121, highSq: 144, diffLow: 14, diffHigh: 9 },
-      { target: 84, low: 9, high: 10, closerTo: 9, lowSq: 81, highSq: 100, diffLow: 3, diffHigh: 16 },
-      { target: 54, low: 7, high: 8, closerTo: 7, lowSq: 49, highSq: 64, diffLow: 5, diffHigh: 10 }
+  // 3. HER KAZANIM İÇİN ÖĞRENCİ DOSTU TEMALI OYUNLAR (9 ÜNİTE)
+  kazanimGames: [
+    {
+      id: "asal-dedektif",
+      unit: "carpanlar-ve-katlar",
+      unitNo: 1,
+      title: "Asal Dedektif",
+      theme: "🕵️ Gizli Dedektiflik Ofisi",
+      themeIcon: "🔎",
+      badge: "Kademeli Dedektif",
+      url: "/oyunlar/asal-dedektif/index.html",
+      desc: "Gökkuşağı çarpan avı, 91 & 51 tuzak sayıları, aralarında asallık ve LGS şampiyonluk görevleri.",
+      color: "emerald"
+    },
+    {
+      id: "uslerin-savasi",
+      unit: "uslu-ifadeler",
+      unitNo: 2,
+      title: "Üslerin Savaşı",
+      theme: "🚀 Uzay Üssü & 🌊 Deniz & 🌲 Orman",
+      themeIcon: "⚡",
+      badge: "Canlı Dijital Yarışma",
+      url: "/oyunlar/uslerin-savasi/index.html",
+      desc: "Pembe Takım (Kızlar) vs Mavi Takım (Erkekler) canlı sınıf mücadelesi! Akıllı tahta, süre sayaçlı.",
+      color: "amber"
+    },
+    {
+      id: "karekok-madencisi",
+      unit: "karekoklu-ifadeler",
+      unitNo: 3,
+      title: "Karekök Madencisi",
+      theme: "💎 Kristal Madeni & Zindan",
+      themeIcon: "⛏️",
+      badge: "Kristal Keşfi",
+      url: "/oyunlar/karekok-madencisi/index.html",
+      desc: "Tam kare kristallerini kır, yaklaşık değer tünelinde yolunu bul ve a√b işlemlerini tamamla.",
+      color: "purple"
+    },
+    {
+      id: "veri-karnavali",
+      unit: "veri-analizi",
+      unitNo: 4,
+      title: "Veri Karnavalı",
+      theme: "🎪 Lunapark & Dönme Dolap",
+      themeIcon: "🎡",
+      badge: "İstatistik Çarkı",
+      url: "/oyunlar/veri-karnavali/index.html",
+      desc: "Dönme dolap üzerinde daire grafiği açılarını hesapla, balon patlat ve karnaval biletlerini topla.",
+      color: "rose"
+    },
+    {
+      id: "sans-adasi",
+      unit: "olasilik",
+      unitNo: 5,
+      title: "Şans Adası",
+      theme: "🏴‍☠️ Korsan Gemisi & Tropik Ada",
+      themeIcon: "🌴",
+      badge: "Hazine Sandığı",
+      url: "/oyunlar/sans-adasi/index.html",
+      desc: "Olası durumları say, kesin-imkansız olayları tespit et ve korsan sandığındaki altınları kap.",
+      color: "teal"
+    },
+    {
+      id: "cebir-simyacisi",
+      unit: "cebirsel-ifadeler",
+      unitNo: 6,
+      title: "Cebir Simyacısı",
+      theme: "🧪 Büyü Laboratuvarı & İksir",
+      themeIcon: "🔮",
+      badge: "Simya Kazanı",
+      url: "/oyunlar/cebir-simyacisi/index.html",
+      desc: "Tam kare özdeşliklerini ve iki kare farkını iksir kazanında karıştırarak simya gücünü yükselt.",
+      color: "indigo"
+    },
+    {
+      id: "egim-dag",
+      unit: "dogrusal-denklemler",
+      unitNo: 7,
+      title: "Hız Treni Mühendisi",
+      theme: "🎢 Eğim Dağı & Hız Treni",
+      themeIcon: "📐",
+      badge: "Rampa Mühendisi",
+      url: "/oyunlar/egim-dag/index.html",
+      desc: "Koordinat düzleminde tren rampaları inşa et, dikey/yatay eğimleri hatasız kur.",
+      color: "sky"
+    },
+    {
+      id: "adalet-terazisi",
+      unit: "esitsizlikler",
+      unitNo: 8,
+      title: "Adalet Terazisi",
+      theme: "⚖️ Antik Mısır Tapınağı",
+      themeIcon: "🏛️",
+      badge: "Altın Terazi",
+      url: "/oyunlar/adalet-terazisi/index.html",
+      desc: "Negatif sayıya bölerken yön değiştirme kuralını uygula, kefeleri dengele ve tapınağı aç.",
+      color: "yellow"
+    },
+    {
+      id: "piramit-mimari",
+      unit: "ucgenler",
+      unitNo: 9,
+      title: "Piramit Mimarı",
+      theme: "📐 Antik Piramit Geometrisi",
+      themeIcon: "🏛️",
+      badge: "Büyük Mimar",
+      url: "/oyunlar/piramit-mimari/index.html",
+      desc: "Üçgen eşitsizliği sınırlarını koru, 3-4-5 ve 5-12-13 özel dik üçgenleriyle piramidi inşa et.",
+      color: "orange"
+    }
+  ],
+
+  // 4. KAZANIM ETKİNLİKLERİ (BOYAMA, EŞLEŞTİRME, HATA DEDEKTİFİ)
+  activities: {
+    // A) PİKSEL & MOZAİK BOYAMA ETKİNLİKLERİ
+    coloring: [
+      {
+        id: "color-uslu",
+        title: "Üslü İfadeler: Gizemli Mozaik Tablosu",
+        desc: "İşlem sonuçlarına göre kutuları doğru renklere boyayarak gizli piksel resmini açığa çıkarın!",
+        unit: "uslu-ifadeler",
+        palette: [
+          { color: "#ef4444", label: "Kırmızı (Sonuç: 16)", code: "R", match: "16" },
+          { color: "#3b82f6", label: "Mavi (Sonuç: 9)", code: "B", match: "9" },
+          { color: "#eab308", label: "Sarı (Sonuç: 1)", code: "Y", match: "1" },
+          { color: "#10b981", label: "Yeşil (Sonuç: 8)", code: "G", match: "8" }
+        ],
+        grid: [
+          [{ expr: "2^4", code: "R" }, { expr: "(-3)^2", code: "B" }, { expr: "7^0", code: "Y" }, { expr: "2^3", code: "G" }],
+          [{ expr: "4^2", code: "R" }, { expr: "3^2", code: "B" }, { expr: "(-5)^0", code: "Y" }, { expr: "2^3", code: "G" }],
+          [{ expr: "(-4)^2", code: "R" }, { expr: "9^1", code: "B" }, { expr: "1^{10}", code: "Y" }, { expr: "2^3", code: "G" }],
+          [{ expr: "2^4", code: "R" }, { expr: "(-3)^2", code: "B" }, { expr: "100^0", code: "Y" }, { expr: "2^3", code: "G" }]
+        ],
+        worksheetUrl: "/oyunlar/uslu-boyama.html"
+      },
+      {
+        id: "color-asal",
+        title: "Çarpanlar & Katlar: Asal Sayı Renkleri",
+        desc: "Asal sayıları mora, 3'ün katlarını sarıya, tam kare sayıları zümrüt yeşiline boyayın.",
+        unit: "carpanlar-ve-katlar",
+        palette: [
+          { color: "#a855f7", label: "Mor (Asal Sayılar)", code: "P", match: "asal" },
+          { color: "#eab308", label: "Sarı (3'ün Katları)", code: "Y", match: "kat3" },
+          { color: "#10b981", label: "Yeşil (Tam Kareler)", code: "G", match: "tamkare" }
+        ],
+        grid: [
+          [{ expr: "2", code: "P" }, { expr: "3", code: "P" }, { expr: "9", code: "G" }, { expr: "16", code: "G" }],
+          [{ expr: "5", code: "P" }, { expr: "7", code: "P" }, { expr: "12", code: "Y" }, { expr: "25", code: "G" }],
+          [{ expr: "11", code: "P" }, { expr: "13", code: "P" }, { expr: "15", code: "Y" }, { expr: "36", code: "G" }],
+          [{ expr: "17", code: "P" }, { expr: "19", code: "P" }, { expr: "21", code: "Y" }, { expr: "49", code: "G" }]
+        ]
+      }
     ],
-    ebobEkokCards: [
-      { pair: "(12, 18)", type: "EBOB", val: 6, matchId: 1 },
-      { pair: "(12, 18)", type: "EKOK", val: 36, matchId: 2 },
-      { pair: "(15, 20)", type: "EBOB", val: 5, matchId: 3 },
-      { pair: "(15, 20)", type: "EKOK", val: 60, matchId: 4 },
-      { pair: "(8, 12)", type: "EBOB", val: 4, matchId: 5 },
-      { pair: "(8, 12)", type: "EKOK", val: 24, matchId: 6 },
-      { pair: "(9, 15)", type: "EBOB", val: 3, matchId: 7 },
-      { pair: "(9, 15)", type: "EKOK", val: 45, matchId: 8 }
+
+    // B) SÜRÜKLE-BIRAK / DOKUNMATİK EŞLEŞTİRME ETKİNLİKLERİ
+    matching: [
+      {
+        id: "match-denk-uslu",
+        title: "Denk Üslü İfadeleri Eşleştir",
+        unit: "uslu-ifadeler",
+        pairs: [
+          { a: "$2^6$", b: "$4^3$" },
+          { a: "$3^4$", b: "$9^2$" },
+          { a: "$5^3$", b: "$125$" },
+          { a: "$2^8$", b: "$16^2$" },
+          { a: "$10^3$", b: "$1000$" },
+          { a: "$2^{-3}$", b: "$\\frac{1}{8}$" }
+        ]
+      },
+      {
+        id: "match-karekok",
+        title: "Kareköklü İfadeler ve Değerleri",
+        unit: "karekoklu-ifadeler",
+        pairs: [
+          { a: "$\\sqrt{49}$", b: "$7$" },
+          { a: "$\\sqrt{121}$", b: "$11$" },
+          { a: "$\\sqrt{169}$", b: "$13$" },
+          { a: "$\\sqrt{225}$", b: "$15$" },
+          { a: "$\\sqrt{289}$", b: "$17$" },
+          { a: "$\\sqrt{72}$", b: "$6\\sqrt{2}$" }
+        ]
+      },
+      {
+        id: "match-cebir",
+        title: "Cebirsel Özdeşlikler ve Açılımları",
+        unit: "cebirsel-ifadeler",
+        pairs: [
+          { a: "$(x + 3)^2$", b: "$x^2 + 6x + 9$" },
+          { a: "$(x - 4)^2$", b: "$x^2 - 8x + 16$" },
+          { a: "$x^2 - 25$", b: "$(x - 5)(x + 5)$" },
+          { a: "$(2x + 1)^2$", b: "$4x^2 + 4x + 1$" }
+        ]
+      }
+    ],
+
+    // C) HATALI ADIMI BUL DEDEKTİFLİĞİ
+    errorDetective: [
+      {
+        id: "err-01",
+        title: "Üslü İfadelerde Gizli Hata",
+        problem: "$(-2)^4 + (-3)^2 - 2^4$ işleminin çözümü inceleniyor:",
+        steps: [
+          "1. Adım: $(-2)^4 = +16$",
+          "2. Adım: $(-3)^2 = +9$",
+          "3. Adım: $-2^4 = +16$",
+          "4. Adım: $16 + 9 + 16 = 41$"
+        ],
+        errorStep: 3,
+        explanation: "3. Adımda hata yapılmıştır! Parantezsiz $-2^4 = -(2^4) = -16$ olmalıdır. Sonuç: $16 + 9 - 16 = 9$ çıkar."
+      },
+      {
+        id: "err-02",
+        title: "Eşitsizlikte Yön Değiştirme Hatası",
+        problem: "$-3x + 12 < 24$ eşitsizliğinin çözüm adımları:",
+        steps: [
+          "1. Adım: $-3x < 24 - 12$",
+          "2. Adım: $-3x < 12$",
+          "3. Adım: Her iki taraf $-3$'e bölünür: $x < -4$",
+          "4. Adım: Çözüm kümesi: $x < -4$"
+        ],
+        errorStep: 3,
+        explanation: "3. Adımda hata yapılmıştır! Bir eşitsizlik negatif bir sayıya bölündüğünde eşitsizlik yön değiştirmelidir: $x > -4$ olmalıydı."
+      }
     ]
   },
 
-  // 3. MATEMATİK OYUNLARI VERİLERİ (KÖK AVCISI & EBOB-EKOK KARTLARI)
+  // 5. SAYFA İÇİ HIZLI MİNİ OYUNLAR (KÖK AVCISI & EBOB KARTLARI)
   games: {
     rootHunter: [
       { target: 45, low: 6, high: 7, lowSq: 36, highSq: 49, closerTo: 7, diffLow: 9, diffHigh: 4 },
@@ -990,9 +1723,7 @@ const ACADEMY_MODULES_DATA = {
       { target: 30, low: 5, high: 6, lowSq: 25, highSq: 36, closerTo: 5, diffLow: 5, diffHigh: 6 },
       { target: 50, low: 7, high: 8, lowSq: 49, highSq: 64, closerTo: 7, diffLow: 1, diffHigh: 14 },
       { target: 85, low: 9, high: 10, lowSq: 81, highSq: 100, closerTo: 9, diffLow: 4, diffHigh: 15 },
-      { target: 130, low: 11, high: 12, lowSq: 121, highSq: 144, closerTo: 11, diffLow: 9, diffHigh: 14 },
-      { target: 15, low: 3, high: 4, lowSq: 9, highSq: 16, closerTo: 4, diffLow: 6, diffHigh: 1 },
-      { target: 95, low: 9, high: 10, lowSq: 81, highSq: 100, closerTo: 10, diffLow: 14, diffHigh: 5 }
+      { target: 130, low: 11, high: 12, lowSq: 121, highSq: 144, closerTo: 11, diffLow: 9, diffHigh: 14 }
     ],
     ebobEkokCards: [
       { matchId: 1, type: "EBOB", pair: "(12, 18)", val: "6" },
@@ -1006,7 +1737,7 @@ const ACADEMY_MODULES_DATA = {
     ]
   },
 
-  // 4. HEDEF & NET KOÇU PEDAGOJİK REÇETE MATRİSİ
+  // 6. HEDEF & NET KOÇU PEDAGOJİK REÇETE MATRİSİ
   coach: {
     unitAdvice: {
       "carpanlar-ve-katlar": {
@@ -1061,28 +1792,28 @@ const ACADEMY_MODULES_DATA = {
         maxGap: 2,
         title: "Şampiyonlar Ligi: İnce Ayar ve Süre Yönetimi",
         badge: "Zirveye Ulaşmak Üzere",
-        advice: "Harikasın! Hedefine çok yakınsın. Bu aşamada konu eksiğin hemen hemen yok. Deneme sınavlarında soru başına 2 dakika süre sınırını aşmamaya, optik kodlama dikkatine ve dikkatsizlikten giden 1-2 soruyu analiz etmeye odaklan."
+        advice: "Harikasın! Hedefine çok yakınsın. Bu aşamada konu eksiğin hemen hemen yok. Deneme sınavlarında soru başına 2 dakika süre sınırını aşmamaya ve dikkatsizlikten giden 1-2 soruyu analiz etmeye odaklan."
       },
       {
         minGap: 3,
         maxGap: 5,
-        title: "Gelişim Atağı: Yeni Nesil Analiz & Soru Bankası Taraması",
+        title: "Gelişim Atağı: Yeni Nesil Analiz & Soru Bankası",
         badge: "İstikrarlı Yükseliş",
-        advice: "Mevcut temelin oldukça sağlam. Netlerini sıçratacak nokta; uzun paragraflı yeni nesil MEB sorularında verilen görseli ve sayısal verileri doğru eşleştirip soru kökünü ilk okumada anlamaktır. Her gün 1 adet branş denemesi çöz."
+        advice: "Temelin oldukça sağlam. Netlerini sıçratacak nokta; uzun paragraflı yeni nesil MEB sorularında verilen görseli ve sayısal verileri doğru eşleştirip soru kökünü ilk okumada anlamaktır."
       },
       {
         minGap: 6,
         maxGap: 10,
         title: "Stratejik Dönüşüm: Kazanım Pekiştirme & Günlük Rutin",
         badge: "Yüksek Potansiyel",
-        advice: "Hedefine ulaşmak için öncelikle zorlandığın 2 ünitenin konu özetlerini ve püf noktalarını tekrar etmelisin. Önce kolay kazanım testleriyle kavramları oturt, ardından günde en az 20 adet orta ve yeni nesil soru çözerek temponu artır."
+        advice: "Öncelikle zorlandığın 2 ünitenin konu özetlerini tekrar et. Önce kolay kazanım testleriyle kavramları oturt, ardından günde en az 20 adet orta ve yeni nesil soru çöz."
       },
       {
         minGap: 11,
         maxGap: 20,
         title: "Temel Güçlendirme & Adım Adım İlerleme Planı",
         badge: "Yeni Bir Başlangıç",
-        advice: "Önünde harika bir gelişim fırsatı var! Hedefini küçük haftalık parçalara böl (Örn: Her hafta +2 net artışı). Önce temel işlem becerilerini, tam kare sayıları ve formülleri pekiştir. Merve Öğretmen'in Konu Notları modülünü mutlaka her gün incele."
+        advice: "Hedefini küçük haftalık parçalara böl (Örn: Her hafta +2 net artışı). Önce temel işlem becerilerini, tam kare sayıları ve formülleri pekiştir. Merve Öğretmen'in Konu Notları modülünü her gün incele."
       }
     ]
   }

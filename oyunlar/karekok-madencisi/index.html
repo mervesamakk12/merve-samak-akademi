@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Karekök Madencisi: Kristal Zindan Keşfi | Merve Samak Akademi</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&family=Orbitron:wght@700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 20%, #1e1035 0%, #0d0a1a 60%, #05040a 100%);
+      min-height: 100vh;
+      color: #f1f5f9;
+      user-select: none;
+    }
+    .font-fredoka { font-family: 'Fredoka', cursive, sans-serif; }
+    .font-orbitron { font-family: 'Orbitron', sans-serif; }
+    .crystal-glow {
+      box-shadow: 0 0 25px rgba(168, 85, 247, 0.4), inset 0 0 15px rgba(236, 72, 153, 0.2);
+    }
+    .gem-card {
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .gem-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(168, 85, 247, 0.5);
+    }
+    .gem-card:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body class="flex flex-col justify-between min-h-screen p-3 sm:p-5">
+
+  <!-- TOP HUD -->
+  <header class="max-w-5xl mx-auto w-full flex items-center justify-between gap-3 bg-slate-900/90 border border-purple-500/30 p-3 rounded-2xl backdrop-blur-md shadow-xl">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="px-3 py-1.5 rounded-xl bg-purple-900/50 hover:bg-purple-800 text-purple-200 text-xs font-bold border border-purple-500/30 flex items-center gap-1.5 transition-all">
+        <span>◀</span> Portala Dön
+      </a>
+      <div>
+        <span class="text-[10px] text-pink-400 font-bold uppercase tracking-wider block font-fredoka">MERVE SAMAK AKADEMİ</span>
+        <h1 class="text-sm sm:text-base font-extrabold text-white font-fredoka flex items-center gap-1.5">
+          💎 Karekök Madencisi <span id="level-pill" class="text-[10px] px-2 py-0.5 rounded-md bg-purple-500/20 text-purple-300 border border-purple-500/40">Seviye 1</span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="flex items-center gap-2 sm:gap-4 text-xs font-bold">
+      <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-purple-500/20 text-purple-300">
+        Puan: <span id="hud-score" class="text-amber-400 font-extrabold text-sm">0</span>
+      </div>
+      <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-purple-500/20 text-purple-300">
+        Kristal: <span id="hud-crystals" class="text-emerald-400 font-extrabold text-sm">0 💎</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN GAME AREA -->
+  <main class="max-w-4xl mx-auto w-full my-auto py-4">
+    <!-- Game Screen Container -->
+    <div id="game-card" class="bg-slate-900/85 border-2 border-purple-500/40 rounded-3xl p-5 sm:p-8 backdrop-blur-xl crystal-glow relative overflow-hidden">
+      
+      <!-- Progress Bar -->
+      <div class="w-full bg-slate-950/80 h-2.5 rounded-full overflow-hidden mb-6 border border-purple-500/30">
+        <div id="progress-bar" class="bg-gradient-to-r from-purple-500 via-pink-500 to-amber-400 h-full transition-all duration-500" style="width: 10%;"></div>
+      </div>
+
+      <!-- Question Title / Context -->
+      <div class="text-center space-y-2 mb-6">
+        <div id="stage-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/40 text-purple-300 text-xs font-bold">
+          ⛏️ Kristal Damarı Keşfi
+        </div>
+        <h2 id="question-text" class="text-xl sm:text-2xl font-black text-white leading-snug">
+          <!-- JS tarafından doldurulacak -->
+        </h2>
+        <p id="question-sub" class="text-xs sm:text-sm text-purple-300">Doğru kristali seçerek maden katını temizle!</p>
+      </div>
+
+      <!-- Interactive Options Grid -->
+      <div id="options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 my-6">
+        <!-- JS tarafından butonlar render edilir -->
+      </div>
+
+      <!-- Feedback Banner -->
+      <div id="feedback-banner" class="hidden p-4 rounded-2xl border text-center text-sm font-bold space-y-2 animate-fadeIn">
+        <div id="feedback-msg"></div>
+        <div id="feedback-explanation" class="text-xs text-slate-300 font-normal"></div>
+        <button id="next-btn" onclick="nextQuestion()" class="mt-3 px-6 py-2.5 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:brightness-110 text-white font-bold text-xs shadow-lg transition-all">
+          Sonraki Kristale İlerle ➔
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="max-w-4xl mx-auto w-full text-center py-2 text-xs text-slate-400 font-medium">
+    Merve Samak Akademi • 8. Sınıf LGS Kareköklü İfadeler Tematik Eğitsel Oyunu
+  </footer>
+
+  <script>
+    // Audio Synthesizer
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq, type, duration) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+    function playCorrectSound() {
+      playBeep(523.25, 'sine', 0.1);
+      setTimeout(() => playBeep(659.25, 'sine', 0.12), 100);
+      setTimeout(() => playBeep(783.99, 'triangle', 0.25), 200);
+    }
+    function playWrongSound() {
+      playBeep(220, 'sawtooth', 0.2);
+      setTimeout(() => playBeep(180, 'sawtooth', 0.3), 150);
+    }
+
+    // Karekök Soruları Veritabanı
+    const QUESTIONS = [
+      {
+        stage: "Seviye 1: Tam Kare Kristaller",
+        text: "$\\sqrt{144}$ ifadesinin değeri hangi kristal cevherine eşittir?",
+        options: ["11", "12", "14", "16"],
+        correct: 1,
+        exp: "12'nin karesi 144 olduğundan $\\sqrt{144} = 12$'dir."
+      },
+      {
+        stage: "Seviye 1: Tam Kare Kristaller",
+        text: "Alanı $196 \\text{ cm}^2$ olan kare şeklindeki kristal bloğun bir kenar uzunluğu kaç cm'dir?",
+        options: ["13 cm", "14 cm", "16 cm", "18 cm"],
+        correct: 1,
+        exp: "Karenin bir kenarı $a = \\sqrt{196} = 14 \\text{ cm}$'dir."
+      },
+      {
+        stage: "Seviye 2: Yaklaşık Değer Tüneli",
+        text: "$\\sqrt{45}$ sayısı hangi iki ardışık tam sayı arasındadır ve hangisine daha yakındır?",
+        options: [
+          "6 ile 7 arasında, 6'ya daha yakın",
+          "6 ile 7 arasında, 7'ye daha yakın",
+          "5 ile 6 arasında, 6'ya daha yakın",
+          "7 ile 8 arasında, 7'ye daha yakın"
+        ],
+        correct: 1,
+        exp: "$\\sqrt{36} < \\sqrt{45} < \\sqrt{49}$ olduğundan 6 ile 7 arasındadır. 45 sayısı 49'a daha yakın olduğu için 7'ye daha yakındır."
+      },
+      {
+        stage: "Seviye 2: Yaklaşık Değer Tüneli",
+        text: "$\\sqrt{80}$ sayısına en yakın tam sayı aşağıdakilerden hangisidir?",
+        options: ["8", "9", "10", "40"],
+        correct: 1,
+        exp: "$9^2 = 81$ ve $8^2 = 64$'tür. 80 sayısı 81'e sadece 1 uzaklıkta olduğundan en yakın tam sayı 9'dur."
+      },
+      {
+        stage: "Seviye 3: Kök Dışına Çıkarma ($a\\sqrt{b}$)",
+        text: "$\\sqrt{72}$ sayısı $a\\sqrt{b}$ biçiminde en sade nasıl yazılır?",
+        options: ["$2\\sqrt{18}$", "$3\\sqrt{8}$", "$6\\sqrt{2}$", "$4\\sqrt{3}$"],
+        correct: 2,
+        exp: "$\\sqrt{72} = \\sqrt{36 \\times 2} = 6\\sqrt{2}$'dir."
+      },
+      {
+        stage: "Seviye 3: Kök Dışına Çıkarma ($a\\sqrt{b}$)",
+        text: "$4\\sqrt{3}$ ifadesinde katsayı kök içine alındığında kök içi hangi sayı olur?",
+        options: ["$\\sqrt{12}$", "$\\sqrt{24}$", "$\\sqrt{48}$", "$\\sqrt{96}$"],
+        correct: 2,
+        exp: "$4\\sqrt{3} = \\sqrt{4^2 \\times 3} = \\sqrt{16 \\times 3} = \\sqrt{48}$'dir."
+      },
+      {
+        stage: "Seviye 4: LGS Zindan Şampiyonu",
+        text: "$\\sqrt{75} + \\sqrt{48} - \\sqrt{27}$ maden işleminin sonucu kaçtır?",
+        options: ["$6\\sqrt{3}$", "$5\\sqrt{3}$", "$8\\sqrt{3}$", "$4\\sqrt{3}$"],
+        correct: 0,
+        exp: "$\\sqrt{75} = 5\\sqrt{3}$, $\\sqrt{48} = 4\\sqrt{3}$, $\\sqrt{27} = 3\\sqrt{3}$. İfade: $(5 + 4 - 3)\\sqrt{3} = 6\\sqrt{3}$'tür."
+      },
+      {
+        stage: "Seviye 4: LGS Zindan Şampiyonu",
+        text: "$\\sqrt{18} \\cdot \\sqrt{8}$ işleminin sonucu aşağıdakilerden hangisidir?",
+        options: ["10", "12", "14", "24"],
+        correct: 1,
+        exp: "$\\sqrt{18 \\times 8} = \\sqrt{144} = 12$'dir."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let crystals = 0;
+    let answered = false;
+
+    function renderCurrentQuestion() {
+      answered = false;
+      const q = QUESTIONS[currentQ];
+      
+      document.getElementById('stage-badge').innerHTML = `⛏️ ${q.stage}`;
+      document.getElementById('question-text').innerHTML = q.text;
+      document.getElementById('level-pill').innerText = `Soru ${currentQ + 1} / ${QUESTIONS.length}`;
+      
+      const pct = Math.round(((currentQ + 1) / QUESTIONS.length) * 100);
+      document.getElementById('progress-bar').style.width = `${pct}%`;
+
+      const fb = document.getElementById('feedback-banner');
+      fb.classList.add('hidden');
+
+      const grid = document.getElementById('options-grid');
+      grid.innerHTML = q.options.map((opt, i) => `
+        <button onclick="handleSelect(${i})" class="gem-card p-4 sm:p-5 rounded-2xl bg-purple-950/60 border border-purple-500/30 text-white font-bold text-left flex items-center gap-3">
+          <span class="w-8 h-8 rounded-xl bg-purple-900/80 border border-purple-400/40 text-purple-300 flex items-center justify-center text-xs shrink-0 font-fredoka">
+            ${['A', 'B', 'C', 'D'][i]}
+          </span>
+          <span class="text-sm sm:text-base flex-1">${opt}</span>
+        </button>
+      `).join('');
+
+      renderMath();
+    }
+
+    function handleSelect(index) {
+      if (answered) return;
+      answered = true;
+      const q = QUESTIONS[currentQ];
+      const isCorrect = (index === q.correct);
+      const fb = document.getElementById('feedback-banner');
+      const msg = document.getElementById('feedback-msg');
+      const exp = document.getElementById('feedback-explanation');
+
+      fb.classList.remove('hidden');
+
+      if (isCorrect) {
+        playCorrectSound();
+        score += 25;
+        crystals += 1;
+        document.getElementById('hud-score').innerText = score;
+        document.getElementById('hud-crystals').innerText = `${crystals} 💎`;
+        
+        fb.className = "p-4 rounded-2xl border text-center text-sm font-bold space-y-2 bg-emerald-950/80 border-emerald-500 text-emerald-300 animate-fadeIn";
+        msg.innerHTML = "✨ Harika Vuruş! Kristali Kırdın ve Yolu Açtın!";
+        confetti({ particleCount: 35, spread: 60, origin: { y: 0.7 } });
+      } else {
+        playWrongSound();
+        fb.className = "p-4 rounded-2xl border text-center text-sm font-bold space-y-2 bg-rose-950/80 border-rose-500 text-rose-300 animate-fadeIn";
+        msg.innerHTML = `⚠️ Kazman Taşa Çarptı! Doğru Cevap: ${['A', 'B', 'C', 'D'][q.correct]}`;
+      }
+
+      exp.innerHTML = `<strong>Açıklama:</strong> ${q.exp}`;
+      renderMath();
+    }
+
+    function nextQuestion() {
+      currentQ++;
+      if (currentQ < QUESTIONS.length) {
+        renderCurrentQuestion();
+      } else {
+        showGameOver();
+      }
+    }
+
+    function showGameOver() {
+      confetti({ particleCount: 100, spread: 80, origin: { y: 0.6 } });
+      const card = document.getElementById('game-card');
+      card.innerHTML = `
+        <div class="text-center space-y-5 py-6">
+          <div class="text-6xl animate-bounce">🏆</div>
+          <h2 class="text-3xl font-black text-white font-fredoka">Kristal Zindan Temizlendi!</h2>
+          <p class="text-purple-200 text-sm max-w-md mx-auto">
+            Tebrikler Madenci! Kareköklü ifadelerin tam kare değerlerini, yaklaşık değerlerini ve $a\\sqrt{b}$ işlemlerini başarıyla tamamladın.
+          </p>
+          <div class="inline-flex items-center gap-6 p-4 rounded-2xl bg-purple-950/70 border border-purple-500/40">
+            <div>
+              <div class="text-xs text-purple-400">Toplam Puan</div>
+              <div class="text-2xl font-black text-amber-400">${score}</div>
+            </div>
+            <div class="w-px h-8 bg-purple-500/30"></div>
+            <div>
+              <div class="text-xs text-purple-400">Toplanan Kristal</div>
+              <div class="text-2xl font-black text-emerald-400">${crystals} / ${QUESTIONS.length} 💎</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-3 pt-4">
+            <button onclick="location.reload()" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-pink-600 hover:brightness-110 text-white font-bold text-xs shadow-lg transition-all">
+              🔄 Yeniden Oyna
+            </button>
+            <a href="../index.html" class="px-5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-purple-200 font-bold text-xs border border-purple-500/30 transition-all">
+              🎮 Diğer Oyunları Keşfet
+            </a>
+          </div>
+        </div>
+      `;
+      renderMath();
+    }
+
+    function renderMath() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCurrentQuestion();
+    });
+  </script>
+</body>
+</html>

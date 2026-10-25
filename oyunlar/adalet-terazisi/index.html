@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="tr" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Adalet Terazisi: Eşitsizlik Tapınağı | Merve Samak Akademi</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700;800&family=Orbitron:wght@700;800;900&family=Plus+Jakarta+Sans:wght@500;600;700;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- KaTeX -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/katex.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.8/dist/contrib/auto-render.min.js"></script>
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: radial-gradient(circle at 50% 15%, #854d0e 0%, #2e1e05 50%, #0e0a02 100%);
+      min-height: 100vh;
+      color: #fef08a;
+      user-select: none;
+    }
+    .font-fredoka { font-family: 'Fredoka', cursive, sans-serif; }
+    .temple-glow {
+      box-shadow: 0 0 30px rgba(234, 179, 8, 0.4), inset 0 0 20px rgba(245, 158, 11, 0.25);
+    }
+    .scale-card {
+      transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    .scale-card:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(234, 179, 8, 0.5);
+    }
+    .scale-card:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body class="flex flex-col justify-between min-h-screen p-3 sm:p-5">
+
+  <!-- TOP HUD -->
+  <header class="max-w-5xl mx-auto w-full flex items-center justify-between gap-3 bg-slate-900/90 border border-amber-500/30 p-3 rounded-2xl backdrop-blur-md shadow-xl">
+    <div class="flex items-center gap-3">
+      <a href="../index.html" class="px-3 py-1.5 rounded-xl bg-amber-900/40 hover:bg-amber-800 text-amber-200 text-xs font-bold border border-amber-500/30 flex items-center gap-1.5 transition-all">
+        <span>◀</span> Portala Dön
+      </a>
+      <div>
+        <span class="text-[10px] text-amber-400 font-bold uppercase tracking-wider block font-fredoka">MERVE SAMAK AKADEMİ</span>
+        <h1 class="text-sm sm:text-base font-extrabold text-white font-fredoka flex items-center gap-1.5">
+          ⚖️ Adalet Terazisi <span id="level-pill" class="text-[10px] px-2 py-0.5 rounded-md bg-amber-500/20 text-amber-300 border border-amber-500/40">Seviye 1</span>
+        </h1>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <div class="flex items-center gap-2 sm:gap-4 text-xs font-bold">
+      <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-amber-500/20 text-amber-300">
+        Bilgelik: <span id="hud-score" class="text-amber-400 font-extrabold text-sm">0</span>
+      </div>
+      <div class="bg-slate-950/80 px-3 py-1.5 rounded-xl border border-amber-500/20 text-amber-300">
+        Denge: <span id="hud-scales" class="text-amber-300 font-extrabold text-sm">0 ⚖️</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN GAME AREA -->
+  <main class="max-w-4xl mx-auto w-full my-auto py-4">
+    <div id="game-card" class="bg-slate-900/85 border-2 border-amber-500/40 rounded-3xl p-5 sm:p-8 backdrop-blur-xl temple-glow relative overflow-hidden">
+      
+      <!-- Progress Bar -->
+      <div class="w-full bg-slate-950/80 h-2.5 rounded-full overflow-hidden mb-6 border border-amber-500/30">
+        <div id="progress-bar" class="bg-gradient-to-r from-amber-500 via-yellow-400 to-emerald-400 h-full transition-all duration-500" style="width: 15%;"></div>
+      </div>
+
+      <!-- Question Title / Context -->
+      <div class="text-center space-y-2 mb-6">
+        <div id="stage-badge" class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs font-bold">
+          🏛️ Eşitsizlik Dengesi
+        </div>
+        <h2 id="question-text" class="text-xl sm:text-2xl font-black text-white leading-snug">
+          <!-- JS doldurur -->
+        </h2>
+        <p id="question-sub" class="text-xs sm:text-sm text-amber-200">Terazinin dengesini kuracak doğru eşitsizlik çözümünü seç!</p>
+      </div>
+
+      <!-- Interactive Options Grid -->
+      <div id="options-grid" class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4 my-6">
+        <!-- JS render -->
+      </div>
+
+      <!-- Feedback Banner -->
+      <div id="feedback-banner" class="hidden p-4 rounded-2xl border text-center text-sm font-bold space-y-2 animate-fadeIn">
+        <div id="feedback-msg"></div>
+        <div id="feedback-explanation" class="text-xs text-slate-300 font-normal"></div>
+        <button id="next-btn" onclick="nextQuestion()" class="mt-3 px-6 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:brightness-110 text-slate-950 font-black text-xs shadow-lg transition-all">
+          Sonraki Tapınak Kapısına Geç ➔
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="max-w-4xl mx-auto w-full text-center py-2 text-xs text-amber-400/80 font-medium">
+    Merve Samak Akademi • 8. Sınıf LGS Eşitsizlikler Tematik Eğitsel Oyunu
+  </footer>
+
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    function playBeep(freq, type, duration) {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+      gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + duration);
+    }
+    function playCorrectSound() {
+      playBeep(523.25, 'triangle', 0.1);
+      setTimeout(() => playBeep(659.25, 'triangle', 0.12), 100);
+      setTimeout(() => playBeep(1046.5, 'triangle', 0.25), 200);
+    }
+    function playWrongSound() {
+      playBeep(230, 'sawtooth', 0.2);
+      setTimeout(() => playBeep(150, 'sawtooth', 0.3), 150);
+    }
+
+    const QUESTIONS = [
+      {
+        stage: "Seviye 1: Eşitsizlik Sembolü Yerleştirme",
+        text: "\"Bir sınıftaki öğrencilerin yaşları en az 13, en fazla 15'tir.\" ifadesinin matematiksel gösterimi hangisidir?",
+        options: ["$13 < x < 15$", "$13 \\le x \\le 15$", "$13 \\le x < 15$", "$13 < x \\le 15$"],
+        correct: 1,
+        exp: "\"En az\" ve \"en fazla\" sınır değerleri dahil eder ($\\le$ ve $\\ge$). O halde $13 \\le x \\le 15$ olur."
+      },
+      {
+        stage: "Seviye 1: Basit Eşitsizlik Çözümü",
+        text: "$2x - 5 > 9$ eşitsizliğinin çözüm kümesi aşağıdakilerden hangisidir?",
+        options: ["$x > 7$", "$x < 7$", "$x > 2$", "$x \\ge 7$"],
+        correct: 0,
+        exp: "$2x > 9 + 5 \\implies 2x > 14 \\implies x > 7$ bulunur."
+      },
+      {
+        stage: "Seviye 2: Negatif Sayı ile Çarpma Tuzağı (LGS Klasiği)",
+        text: "$-3x + 6 \\le 18$ eşitsizliğinin çözümü aşağıdakilerden hangisidir?",
+        options: [
+          "$x \\le -4$",
+          "$x \\ge -4$",
+          "$x \\ge 4$",
+          "$x \\le 4$"
+        ],
+        correct: 1,
+        exp: "$-3x \\le 12$. Her iki tarafı $-3$'e bölerken **eşitsizlik yön değiştirir**: $x \\ge -4$ olur."
+      },
+      {
+        stage: "Seviye 3: Problem Metnini Eşitsizliğe Çevirme",
+        text: "Bir taksimetre açılışta 30 TL ve gidilen her km için 12 TL yazmaktadır. Cebinde en fazla 150 TL olan bir yolcu en çok kaç tam km yol gidebilir?",
+        options: ["9 km", "10 km", "11 km", "12 km"],
+        correct: 1,
+        exp: "$30 + 12x \\le 150 \\implies 12x \\le 120 \\implies x \\le 10$. En çok $10$ tam km gidebilir."
+      },
+      {
+        stage: "Seviye 4: LGS Şampiyonluk Dengesi",
+        text: "$\\frac{x - 3}{2} < \\frac{x + 1}{3}$ eşitsizliğini sağlayan en büyük $x$ tam sayısı kaçtır?",
+        options: ["$10$", "$11$", "$12$", "$13$"],
+        correct: 0,
+        exp: "İçler dışlar / payda eşitleme (pozitif 6 ile çarpım): $3(x - 3) < 2(x + 1) \\implies 3x - 9 < 2x + 2 \\implies x < 11$. $x$'in en büyük tam sayı değeri $10$'dur."
+      }
+    ];
+
+    let currentQ = 0;
+    let score = 0;
+    let scales = 0;
+    let answered = false;
+
+    function renderCurrentQuestion() {
+      answered = false;
+      const q = QUESTIONS[currentQ];
+      
+      document.getElementById('stage-badge').innerHTML = `🏛️ ${q.stage}`;
+      document.getElementById('question-text').innerHTML = q.text;
+      document.getElementById('level-pill').innerText = `Soru ${currentQ + 1} / ${QUESTIONS.length}`;
+      
+      const pct = Math.round(((currentQ + 1) / QUESTIONS.length) * 100);
+      document.getElementById('progress-bar').style.width = `${pct}%`;
+
+      const fb = document.getElementById('feedback-banner');
+      fb.classList.add('hidden');
+
+      const grid = document.getElementById('options-grid');
+      grid.innerHTML = q.options.map((opt, i) => `
+        <button onclick="handleSelect(${i})" class="scale-card p-4 sm:p-5 rounded-2xl bg-slate-950/70 border border-amber-500/30 text-white font-bold text-left flex items-center gap-3">
+          <span class="w-8 h-8 rounded-xl bg-amber-900/80 border border-amber-400/40 text-amber-300 flex items-center justify-center text-xs shrink-0 font-fredoka">
+            ${['A', 'B', 'C', 'D'][i]}
+          </span>
+          <span class="text-sm sm:text-base flex-1">${opt}</span>
+        </button>
+      `).join('');
+
+      renderMath();
+    }
+
+    function handleSelect(index) {
+      if (answered) return;
+      answered = true;
+      const q = QUESTIONS[currentQ];
+      const isCorrect = (index === q.correct);
+      const fb = document.getElementById('feedback-banner');
+      const msg = document.getElementById('feedback-msg');
+      const exp = document.getElementById('feedback-explanation');
+
+      fb.classList.remove('hidden');
+
+      if (isCorrect) {
+        playCorrectSound();
+        score += 35;
+        scales += 1;
+        document.getElementById('hud-score').innerText = score;
+        document.getElementById('hud-scales').innerText = `${scales} ⚖️`;
+        
+        fb.className = "p-4 rounded-2xl border text-center text-sm font-bold space-y-2 bg-emerald-950/80 border-emerald-500 text-emerald-300 animate-fadeIn";
+        msg.innerHTML = "⚖️ Adalet Terazisi Kusursuz Dengelendi!";
+        confetti({ particleCount: 45, spread: 75, origin: { y: 0.7 } });
+      } else {
+        playWrongSound();
+        fb.className = "p-4 rounded-2xl border text-center text-sm font-bold space-y-2 bg-rose-950/80 border-rose-500 text-rose-300 animate-fadeIn";
+        msg.innerHTML = `⚠️ Denge Bozuldu! Doğru Cevap: ${['A', 'B', 'C', 'D'][q.correct]}`;
+      }
+
+      exp.innerHTML = `<strong>Tapınak Bilgeliği:</strong> ${q.exp}`;
+      renderMath();
+    }
+
+    function nextQuestion() {
+      currentQ++;
+      if (currentQ < QUESTIONS.length) {
+        renderCurrentQuestion();
+      } else {
+        showGameOver();
+      }
+    }
+
+    function showGameOver() {
+      confetti({ particleCount: 140, spread: 95, origin: { y: 0.6 } });
+      const card = document.getElementById('game-card');
+      card.innerHTML = `
+        <div class="text-center space-y-5 py-6">
+          <div class="text-6xl animate-bounce">⚖️</div>
+          <h2 class="text-3xl font-black text-white font-fredoka">Tapınak Bilgesi Unvanı!</h2>
+          <p class="text-amber-200 text-sm max-w-md mx-auto">
+            Tebrikler! Eşitsizliklerin yön değiştirme kurallarını, açık ve kapalı aralıklarını başarıyla uygulayarak Antik Tapınağın tüm kapılarını açtın.
+          </p>
+          <div class="inline-flex items-center gap-6 p-4 rounded-2xl bg-amber-950/70 border border-amber-500/40">
+            <div>
+              <div class="text-xs text-amber-400">Toplam Bilgelik Puanı</div>
+              <div class="text-2xl font-black text-amber-300">${score}</div>
+            </div>
+            <div class="w-px h-8 bg-amber-500/30"></div>
+            <div>
+              <div class="text-xs text-amber-400">Dengelenen Terazi</div>
+              <div class="text-2xl font-black text-yellow-300">${scales} / ${QUESTIONS.length} ⚖️</div>
+            </div>
+          </div>
+          <div class="flex flex-wrap items-center justify-center gap-3 pt-4">
+            <button onclick="location.reload()" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:brightness-110 text-slate-950 font-black text-xs shadow-lg transition-all">
+              🔄 Yeniden Oyna
+            </button>
+            <a href="../index.html" class="px-5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-amber-200 font-bold text-xs border border-amber-500/30 transition-all">
+              🎮 Diğer Oyunları Keşfet
+            </a>
+          </div>
+        </div>
+      `;
+      renderMath();
+    }
+
+    function renderMath() {
+      if (window.renderMathInElement) {
+        renderMathInElement(document.body, {
+          delimiters: [
+            { left: "$$", right: "$$", display: true },
+            { left: "$", right: "$", display: false }
+          ],
+          throwOnError: false
+        });
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCurrentQuestion();
+    });
+  </script>
+</body>
+</html>

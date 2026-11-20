@@ -22,3 +22,6 @@ yarn-error.log*
 .system_generated/
 *.bak
 *.tmp
+
+# Local Kongre Backups
+kongre_backup_*.html

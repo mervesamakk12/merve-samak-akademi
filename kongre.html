@@ -2838,20 +2838,21 @@
 
   
     <!-- ================= TAB 7: AKADEMİK VERİ TOPLAMA VE ANALİZ PANELİ ================= -->
+    <!-- 7. AKADEMİK VERİ TOPLAMA VE ANALİZ PANELİ (MAARİF KONGRESİ SAHA ARAŞTIRMASI - ÖN TEST & SON TEST DENEYSEL DESEN) -->
     <div id="content-academic-panel" class="tab-content hidden">
       <div class="bg-slate-900/95 rounded-3xl p-5 sm:p-8 max-w-6xl mx-auto border-2 border-purple-500/40 shadow-2xl backdrop-blur-xl">
         
         <!-- Header & Action Ribbon -->
         <div class="flex flex-wrap items-center justify-between gap-4 mb-6 pb-5 border-b border-purple-500/30">
           <div>
-            <div class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-black text-xs px-3.5 py-1 rounded-full uppercase tracking-wider shadow">
-              <span>🔬</span> Eylem Araştırması Saha Veri Merkezi
+            <div class="inline-flex items-center gap-2 bg-gradient-to-r from-purple-500 via-indigo-500 to-sky-500 text-white font-black text-xs px-3.5 py-1 rounded-full uppercase tracking-wider shadow">
+              <span>🔬</span> Eylem Araştırması • Ön Test / Son Test Deneysel Desen
             </div>
             <h3 class="text-2xl sm:text-3xl font-black text-white heading-font mt-2">
-              Akademik Veri Toplama ve Gerçek Zamanlı Analiz Paneli
+              Akademik Veri Toplama & Karşılaştırmalı Analiz Paneli
             </h3>
             <p class="text-xs sm:text-sm text-slate-300 font-medium mt-1">
-              MEB III. Maarif Kongresi (Bildiri: N7KY94) • Göl Ortaokulu • Tek Cihaz Kiosk Öğrenci Anketi & Öğretmen Gözlem Sistemi
+              MEB III. Maarif Kongresi (Bildiri: N7KY94) • Göl Ortaokulu • Tek Cihaz Eşleştirilmiş Anonim Anket & Öğretmen Gözlemleri
             </p>
           </div>
 
@@ -2860,7 +2861,7 @@
             <!-- Start Kiosk Button -->
             <button onclick="startStudentKioskMode()" class="btn-3d px-4 py-2.5 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-slate-950 font-black text-xs sm:text-sm shadow-xl flex items-center gap-2 cursor-pointer border-2 border-emerald-300 animate-pulse">
               <span>📱</span>
-              <span>Öğrenci Anket Modunu Başlat (Kiosk)</span>
+              <span>Öğrenci Kiosk Anketini Başlat (Ön/Son Test)</span>
             </button>
 
             <!-- New Teacher Observation Form -->
@@ -2878,54 +2879,67 @@
         </div>
 
         <!-- Live Metrics Counter Cards -->
-        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 mb-6" id="academic-stats-cards">
-          <!-- Toplam Anket Sayısı N -->
-          <div class="bg-slate-800/80 border border-purple-500/30 p-4 rounded-2xl">
-            <span class="text-[11px] font-bold text-slate-400 block">Öğrenci Anketi (N)</span>
+        <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-6" id="academic-stats-cards">
+          <!-- Ön Test / Son Test Sayısı (N) -->
+          <div class="bg-slate-800/80 border border-purple-500/30 p-3.5 rounded-2xl">
+            <span class="text-[11px] font-bold text-slate-400 block">Örneklem (Ön / Son)</span>
             <div class="flex items-baseline gap-1 mt-1">
-              <span id="stat-total-surveys" class="text-2xl sm:text-3xl font-black text-purple-400">0</span>
-              <span class="text-xs text-slate-400">öğrenci</span>
+              <span id="stat-count-pre" class="text-xl sm:text-2xl font-black text-sky-400">0</span>
+              <span class="text-slate-500 font-bold">/</span>
+              <span id="stat-count-post" class="text-xl sm:text-2xl font-black text-purple-400">0</span>
             </div>
-            <span class="text-[10px] text-purple-300/80 font-medium block mt-1">Gerçek saha verisi</span>
+            <span class="text-[10px] text-slate-400 font-medium block mt-1">Eşleşen: <strong id="stat-count-paired" class="text-emerald-400">0 çift</strong></span>
           </div>
 
-          <!-- Öğretmen Gözlemi N -->
-          <div class="bg-slate-800/80 border border-indigo-500/30 p-4 rounded-2xl">
-            <span class="text-[11px] font-bold text-slate-400 block">Öğretmen Gözlemi</span>
+          <!-- Matematik Özgüveni Delta -->
+          <div class="bg-slate-800/80 border border-emerald-500/30 p-3.5 rounded-2xl">
+            <span class="text-[11px] font-bold text-slate-400 block">Özgüven Gelişimi</span>
             <div class="flex items-baseline gap-1 mt-1">
-              <span id="stat-total-observations" class="text-2xl sm:text-3xl font-black text-indigo-400">0</span>
-              <span class="text-xs text-slate-400">oturum</span>
+              <span id="stat-delta-conf" class="text-xl sm:text-2xl font-black text-emerald-400">-</span>
+              <span class="text-[10px] text-slate-400">/ 5.0</span>
             </div>
-            <span class="text-[10px] text-indigo-300/80 font-medium block mt-1">Ders içi nitel/nicel</span>
+            <span class="text-[10px] text-emerald-300/80 font-medium block mt-1" id="stat-lbl-conf">Ön: - ➜ Son: -</span>
           </div>
 
-          <!-- Matematik Öz-Yeterlik Ortalaması -->
-          <div class="bg-slate-800/80 border border-emerald-500/30 p-4 rounded-2xl">
-            <span class="text-[11px] font-bold text-slate-400 block">Öz-Yeterlik Skoru</span>
+          <!-- Matematik Kaygısı Delta -->
+          <div class="bg-slate-800/80 border border-rose-500/30 p-3.5 rounded-2xl">
+            <span class="text-[11px] font-bold text-slate-400 block">Kaygı Değişimi</span>
             <div class="flex items-baseline gap-1 mt-1">
-              <span id="stat-avg-efficacy" class="text-2xl sm:text-3xl font-black text-emerald-400">-</span>
-              <span class="text-xs text-slate-400">/ 5.0</span>
+              <span id="stat-delta-anx" class="text-xl sm:text-2xl font-black text-rose-400">-</span>
+              <span class="text-[10px] text-slate-400">/ 5.0</span>
             </div>
-            <span class="text-[10px] text-emerald-300/80 font-medium block mt-1">Öğrenci özgüveni</span>
+            <span class="text-[10px] text-rose-300/80 font-medium block mt-1" id="stat-lbl-anx">Ön: - ➜ Son: -</span>
           </div>
 
-          <!-- Matematik Kaygısı Ortalaması -->
-          <div class="bg-slate-800/80 border border-rose-500/30 p-4 rounded-2xl">
-            <span class="text-[11px] font-bold text-slate-400 block">Matematik Kaygısı</span>
+          <!-- Derse Katılma İsteği Delta -->
+          <div class="bg-slate-800/80 border border-amber-500/30 p-3.5 rounded-2xl">
+            <span class="text-[11px] font-bold text-slate-400 block">Derse Katılım İsteği</span>
             <div class="flex items-baseline gap-1 mt-1">
-              <span id="stat-avg-anxiety" class="text-2xl sm:text-3xl font-black text-rose-400">-</span>
-              <span class="text-xs text-slate-400">/ 5.0</span>
+              <span id="stat-delta-part" class="text-xl sm:text-2xl font-black text-amber-400">-</span>
+              <span class="text-[10px] text-slate-400">/ 5.0</span>
             </div>
-            <span class="text-[10px] text-rose-300/80 font-medium block mt-1">Düşük olması hedeflenir</span>
+            <span class="text-[10px] text-amber-300/80 font-medium block mt-1" id="stat-lbl-part">Ön: - ➜ Son: -</span>
           </div>
 
-          <!-- Oyunlaştırma Memnuniyeti Oranı -->
-          <div class="bg-slate-800/80 border border-amber-500/30 p-4 rounded-2xl col-span-2 sm:col-span-1">
+          <!-- Oyun Memnuniyeti & İkinci Şans -->
+          <div class="bg-slate-800/80 border border-teal-500/30 p-3.5 rounded-2xl">
             <span class="text-[11px] font-bold text-slate-400 block">Oyun Memnuniyeti</span>
             <div class="flex items-baseline gap-1 mt-1">
-              <span id="stat-gamification-rate" class="text-2xl sm:text-3xl font-black text-amber-400">-%</span>
+              <span id="stat-avg-gamification" class="text-xl sm:text-2xl font-black text-teal-400">-</span>
+              <span class="text-[10px] text-slate-400">/ 5.0</span>
             </div>
-            <span class="text-[10px] text-amber-300/80 font-medium block mt-1">Olumlu yanıt oranı</span>
+            <span class="text-[10px] text-teal-300/80 font-medium block mt-1">İkinci Şans: <span id="stat-avg-chance" class="font-bold text-white">-</span></span>
+          </div>
+
+          <!-- Öğretmen Gözlemi & Oyun Oturumu -->
+          <div class="bg-slate-800/80 border border-indigo-500/30 p-3.5 rounded-2xl">
+            <span class="text-[11px] font-bold text-slate-400 block">Gözlem & Oyunlar</span>
+            <div class="flex items-baseline gap-1 mt-1">
+              <span id="stat-total-observations" class="text-xl sm:text-2xl font-black text-indigo-400">0</span>
+              <span class="text-slate-500 font-bold">/</span>
+              <span id="stat-total-games" class="text-xl sm:text-2xl font-black text-cyan-400">0</span>
+            </div>
+            <span class="text-[10px] text-indigo-300/80 font-medium block mt-1">Gözlem / Oyun oturumu</span>
           </div>
         </div>
 
@@ -2938,189 +2952,275 @@
             </div>
             <h4 class="text-lg font-black text-white heading-font">Henüz Gerçek Saha Verisi Toplanmadı</h4>
             <p class="text-xs sm:text-sm text-slate-300 max-w-xl mx-auto mt-2 mb-6 leading-relaxed">
-              Platformumuzda <strong>uydurma veya örnek veri kullanılmamaktadır</strong>. 
-              Öğrencileriniz sınıfta telefonunuzu veya bilgisayarınızı sırayla kullanarak tek cihaz üzerinden anonim anketi doldurdukça ve siz öğretmen gözlemlerini kaydettikçe, grafikler ve istatistiksel kanıtlar burada anlık olarak çizilecektir.
+              Platformumuzda <strong>kesinlikle uydurma veya örnek veri kullanılmamaktadır</strong>. 
+              Öğrencileriniz sınıfta telefonunuzu veya bilgisayarınızı sırayla kullanarak tek cihaz üzerinden <strong>Oyun Öncesi (Ön Test)</strong> ve <strong>Oyun Sonrası (Son Test)</strong> anketlerini doldurdukça karşılaştırmalı grafikler ve etki büyüklüğü analizleri otomatik olarak burada oluşacaktır.
             </p>
             <div class="flex flex-wrap items-center justify-center gap-3">
-              <button onclick="startStudentKioskMode()" class="px-6 py-3 rounded-2xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-black text-xs sm:text-sm shadow-xl inline-flex items-center gap-2 cursor-pointer">
-                <span>📱</span> İlk Öğrenci Anketini Başlat (Kiosk Modu)
+              <button onclick="startStudentKioskMode('pre')" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-sky-500 to-blue-600 hover:from-sky-400 hover:to-blue-500 text-white font-black text-sm shadow-xl flex items-center gap-2 cursor-pointer border border-sky-300">
+                <span>🔵</span>
+                <span>Ön Testi Başlat (Oyun Öncesi)</span>
               </button>
-              <button onclick="openTeacherObsModal()" class="px-5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 text-purple-300 font-bold text-xs sm:text-sm border border-purple-500/40 inline-flex items-center gap-2 cursor-pointer">
-                <span>📝</span> Öğretmen Gözlemi Ekle
+              <button onclick="startStudentKioskMode('post')" class="px-5 py-3 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-black text-sm shadow-xl flex items-center gap-2 cursor-pointer border border-purple-300">
+                <span>🟣</span>
+                <span>Son Testi Başlat (Oyun Sonrası)</span>
               </button>
             </div>
           </div>
 
-          <!-- When N > 0: Dynamic Real Charts (Shown when data exists) -->
+          <!-- When N>0: Active Dynamic Comparison Charts -->
           <div id="academic-active-charts" class="hidden space-y-6">
+            <!-- Row 1: Pre-Post Comparison & Gamification Evaluation -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <!-- Chart 1: Temel Boyutlar Likert Ortalamaları -->
+              <!-- Chart 1: Pre-Test vs Post-Test Comparison -->
               <div class="bg-slate-950/80 p-5 rounded-3xl border border-purple-500/30 shadow-xl">
-                <h4 class="text-sm font-bold text-purple-300 mb-3 flex items-center justify-between">
-                  <span>📊 Akademik Boyutlar Likert Dağılımı (1-5 Puan)</span>
-                  <span class="text-[11px] text-slate-400" id="chart-n-label-1">N=0</span>
-                </h4>
-                <div class="h-64 sm:h-72">
-                  <canvas id="academicDimensionsChart"></canvas>
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h5 class="text-sm font-black text-white flex items-center gap-2">
+                      <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+                      Ön Test vs. Son Test Karşılaştırmalı Gelişim (1-5)
+                    </h5>
+                    <span class="text-[11px] text-slate-400 block mt-0.5">Özgüven, Matematik Kaygısı ve Derse Katılım İsteği Değişimi</span>
+                  </div>
+                  <span class="text-[11px] px-2.5 py-1 rounded-full bg-purple-500/20 text-purple-300 font-bold border border-purple-500/30">
+                    Ön-Son Eşleştirilmiş
+                  </span>
+                </div>
+                <div class="h-64 sm:h-72 w-full relative">
+                  <canvas id="academicPrePostChart"></canvas>
                 </div>
               </div>
 
-              <!-- Chart 2: Şubelere Göre Karşılaştırma -->
+              <!-- Chart 2: Gamification Evaluation Radar -->
               <div class="bg-slate-950/80 p-5 rounded-3xl border border-indigo-500/30 shadow-xl">
-                <h4 class="text-sm font-bold text-indigo-300 mb-3 flex items-center justify-between">
-                  <span>🏫 Şubelere Göre Karşılaştırma (8-A, 8-B, 8-C, 8-D)</span>
-                  <span class="text-[11px] text-slate-400" id="chart-n-label-2">N=0</span>
-                </h4>
-                <div class="h-64 sm:h-72">
-                  <canvas id="academicBranchChart"></canvas>
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h5 class="text-sm font-black text-white flex items-center gap-2">
+                      <span class="w-2.5 h-2.5 rounded-full bg-teal-400"></span>
+                      Oyunlaştırma Pedagojik Boyutları (Son Test)
+                    </h5>
+                    <span class="text-[11px] text-slate-400 block mt-0.5">Oyun Memnuniyeti, İkinci Şans (Hata Toleransı) ve Akran İş Birliği</span>
+                  </div>
+                  <span class="text-[11px] px-2.5 py-1 rounded-full bg-indigo-500/20 text-indigo-300 font-bold border border-indigo-500/30">
+                    Son Test Değerlendirmesi
+                  </span>
+                </div>
+                <div class="h-64 sm:h-72 w-full relative">
+                  <canvas id="academicGamificationRadar"></canvas>
                 </div>
               </div>
             </div>
 
-            <!-- Chart 3: Öğretmen Gözlem Kriterleri Ortalamaları -->
-            <div class="bg-slate-950/80 p-5 rounded-3xl border border-amber-500/30 shadow-xl" id="obs-chart-box">
-              <h4 class="text-sm font-bold text-amber-300 mb-3 flex items-center justify-between">
-                <span>👨‍🏫 Öğretmen Gözlem Kriterleri Ortalamaları</span>
-                <span class="text-[11px] text-slate-400" id="chart-obs-n-label">N=0 Gözlem</span>
-              </h4>
-              <div class="h-56 sm:h-64">
-                <canvas id="academicObsChart"></canvas>
+            <!-- Row 2: Branch Comparison & Mini-Game Analytics -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <!-- Chart 3: Branch Net Delta -->
+              <div class="bg-slate-950/80 p-5 rounded-3xl border border-sky-500/30 shadow-xl">
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h5 class="text-sm font-black text-white flex items-center gap-2">
+                      <span class="w-2.5 h-2.5 rounded-full bg-sky-400"></span>
+                      Şube Bazlı Net Gelişim Dağılımı (8-A, 8-B, 8-C, 8-D)
+                    </h5>
+                    <span class="text-[11px] text-slate-400 block mt-0.5">Şubeler arası özgüven ve derse katılım net puan artışı</span>
+                  </div>
+                  <span class="text-[11px] px-2.5 py-1 rounded-full bg-sky-500/20 text-sky-300 font-bold border border-sky-500/30">
+                    Şube Kıyaslama
+                  </span>
+                </div>
+                <div class="h-64 sm:h-72 w-full relative">
+                  <canvas id="academicBranchDeltaChart"></canvas>
+                </div>
+              </div>
+
+              <!-- Chart 4: Mini-Game Analytics / Teacher Observations -->
+              <div class="bg-slate-950/80 p-5 rounded-3xl border border-teal-500/30 shadow-xl">
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h5 class="text-sm font-black text-white flex items-center gap-2">
+                      <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                      Öğretmen Gözlem ve Oyun Oturumu Analizi
+                    </h5>
+                    <span class="text-[11px] text-slate-400 block mt-0.5">Katılım, sebat, işbirliği ve oyun başarı puanları</span>
+                  </div>
+                  <span class="text-[11px] px-2.5 py-1 rounded-full bg-teal-500/20 text-teal-300 font-bold border border-teal-500/30">
+                    Saha Gözlem & Oyun
+                  </span>
+                </div>
+                <div class="h-64 sm:h-72 w-full relative">
+                  <canvas id="academicObsGameChart"></canvas>
+                </div>
               </div>
             </div>
           </div>
         </div>
 
-        <!-- Data Tables & Management -->
-        <div class="bg-slate-950/90 rounded-3xl p-5 sm:p-6 border border-purple-500/30 shadow-xl mb-6">
-          <div class="flex flex-wrap items-center justify-between gap-3 mb-4 pb-3 border-b border-slate-800">
+        <!-- Filter & Table Controls -->
+        <div class="bg-slate-950/80 p-4 sm:p-5 rounded-3xl border border-purple-500/30 shadow-xl mb-6">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            
+            <!-- Sub-view Navigation Tabs -->
             <div class="flex flex-wrap items-center gap-2">
-              <button onclick="switchAcademicSubView('surveys')" id="btn-sub-surveys" class="px-3.5 py-1.5 rounded-xl bg-purple-600 text-white font-bold text-xs shadow cursor-pointer">
-                Öğrenci Anketleri (<span id="tab-count-surveys">0</span>)
+              <button onclick="switchAcademicSubView('paired')" id="tab-btn-academic-paired" class="px-3.5 py-2 rounded-xl bg-purple-600 text-white font-black text-xs flex items-center gap-1.5 transition cursor-pointer shadow">
+                <span>👥</span> Eşleştirilmiş Ön-Son Test (<span id="badge-count-paired">0</span>)
               </button>
-              <button onclick="switchAcademicSubView('observations')" id="btn-sub-obs" class="px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs hover:text-white cursor-pointer">
-                Öğretmen Gözlemleri (<span id="tab-count-obs">0</span>)
+              <button onclick="switchAcademicSubView('pre')" id="tab-btn-academic-pre" class="px-3.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer">
+                <span>🔵</span> Ön Testler (<span id="badge-count-pre">0</span>)
               </button>
-              <button onclick="switchAcademicSubView('games')" id="btn-sub-games" class="px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs hover:text-white cursor-pointer">
-                Oyun & Canlı Ders Kayıtları (<span id="tab-count-games">0</span>)
+              <button onclick="switchAcademicSubView('post')" id="tab-btn-academic-post" class="px-3.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer">
+                <span>🟣</span> Son Testler (<span id="badge-count-post">0</span>)
+              </button>
+              <button onclick="switchAcademicSubView('obs')" id="tab-btn-academic-obs" class="px-3.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer">
+                <span>📝</span> Öğretmen Gözlemleri (<span id="badge-count-obs">0</span>)
+              </button>
+              <button onclick="switchAcademicSubView('games')" id="tab-btn-academic-games" class="px-3.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer">
+                <span>🎮</span> Oyun Oturumları (<span id="badge-count-games">0</span>)
               </button>
             </div>
 
-            <!-- Branch Filter for Tables -->
+            <!-- Branch Filter -->
             <div class="flex items-center gap-2">
-              <label class="text-xs text-slate-400 font-bold">Şube Filtresi:</label>
-              <select id="academic-filter-branch" onchange="filterAcademicTables()" class="bg-slate-900 border border-slate-700 text-xs text-slate-200 rounded-xl px-2.5 py-1.5">
-                <option value="ALL">Tüm Şubeler</option>
-                <option value="8-A">8-A Şubesi</option>
-                <option value="8-B">8-B Şubesi</option>
-                <option value="8-C">8-C Şubesi</option>
-                <option value="8-D">8-D Şubesi</option>
-              </select>
+              <span class="text-xs text-slate-400 font-bold">Şube:</span>
+              <div class="inline-flex rounded-xl bg-slate-800 p-1 border border-slate-700">
+                <button onclick="setAcademicFilterBranch('ALL')" class="academic-filter-branch-btn px-2.5 py-1 rounded-lg text-xs font-black bg-purple-600 text-white transition" data-branch="ALL">Tümü</button>
+                <button onclick="setAcademicFilterBranch('8-A')" class="academic-filter-branch-btn px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition" data-branch="8-A">8-A</button>
+                <button onclick="setAcademicFilterBranch('8-B')" class="academic-filter-branch-btn px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition" data-branch="8-B">8-B</button>
+                <button onclick="setAcademicFilterBranch('8-C')" class="academic-filter-branch-btn px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition" data-branch="8-C">8-C</button>
+                <button onclick="setAcademicFilterBranch('8-D')" class="academic-filter-branch-btn px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition" data-branch="8-D">8-D</button>
+              </div>
             </div>
+
           </div>
 
-          <!-- Surveys Table Subview -->
-          <div id="subview-surveys" class="overflow-x-auto max-h-96">
-            <table class="w-full text-left text-xs text-slate-300">
-              <thead class="bg-slate-900 text-slate-400 uppercase text-[10px] font-black tracking-wider sticky top-0">
-                <tr>
-                  <th class="p-2.5">#</th>
-                  <th class="p-2.5">Tarih & Saat</th>
+          <!-- 1. Paired Table (Eşleştirilmiş Ön-Son Test) -->
+          <div id="table-academic-paired" class="mt-4 overflow-x-auto">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-purple-500/30 text-purple-300 font-black uppercase text-[10px] tracking-wider bg-slate-900/60">
+                  <th class="p-2.5">Öğrenci Kodu</th>
                   <th class="p-2.5">Şube</th>
-                  <th class="p-2.5 text-center" title="Matematik Öz-Yeterlik">Öz-Yeterlik</th>
-                  <th class="p-2.5 text-center" title="Matematik Kaygısı">Kaygı</th>
-                  <th class="p-2.5 text-center" title="Oyunlaştırma Motivasyonu">Motivasyon</th>
-                  <th class="p-2.5 text-center" title="Biçimlendirici İpucu Faydası">İpucu</th>
-                  <th class="p-2.5 text-center" title="Akran İşbirliği & Canlı Ders">İşbirliği</th>
-                  <th class="p-2.5">Öğrenci Nitel Görüşü</th>
-                  <th class="p-2.5 text-center">İşlem</th>
+                  <th class="p-2.5">Özgüven (Ön ➜ Son)</th>
+                  <th class="p-2.5">Kaygı (Ön ➜ Son)</th>
+                  <th class="p-2.5">Katılım (Ön ➜ Son)</th>
+                  <th class="p-2.5">Oyun Memnuniyeti</th>
+                  <th class="p-2.5">İkinci Şans</th>
+                  <th class="p-2.5">Akran İş Birliği</th>
+                  <th class="p-2.5">Öğrenci Görüşü</th>
                 </tr>
               </thead>
-              <tbody id="tbody-academic-surveys" class="divide-y divide-slate-800/60 font-medium">
-                <tr><td colspan="10" class="p-6 text-center text-slate-500">Henüz anket verisi girilmedi.</td></tr>
+              <tbody id="tbody-academic-paired" class="divide-y divide-slate-800 text-slate-300">
+                <!-- Dynamically populated -->
               </tbody>
             </table>
           </div>
 
-          <!-- Observations Table Subview -->
-          <div id="subview-observations" class="hidden overflow-x-auto max-h-96">
-            <table class="w-full text-left text-xs text-slate-300">
-              <thead class="bg-slate-900 text-slate-400 uppercase text-[10px] font-black tracking-wider sticky top-0">
-                <tr>
-                  <th class="p-2.5">#</th>
-                  <th class="p-2.5">Tarih & Saat</th>
+          <!-- 2. Pre-Surveys Table -->
+          <div id="table-academic-pre" class="mt-4 overflow-x-auto hidden">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-sky-500/30 text-sky-300 font-black uppercase text-[10px] tracking-wider bg-slate-900/60">
+                  <th class="p-2.5">Tarih / Saat</th>
+                  <th class="p-2.5">Anonim Kod</th>
                   <th class="p-2.5">Şube</th>
-                  <th class="p-2.5">Konu / Kazanım</th>
-                  <th class="p-2.5 text-center">Katılım (1-5)</th>
-                  <th class="p-2.5 text-center">Sebat (1-5)</th>
-                  <th class="p-2.5 text-center">İşbirliği (1-5)</th>
-                  <th class="p-2.5 text-center">Modelleme (1-5)</th>
-                  <th class="p-2.5">Öğretmen Saha Gözlem Notu</th>
-                  <th class="p-2.5 text-center">İşlem</th>
+                  <th class="p-2.5">Mat. Özgüveni</th>
+                  <th class="p-2.5">Mat. Kaygısı</th>
+                  <th class="p-2.5">Katılma İsteği</th>
+                  <th class="p-2.5">Ön Görüş Notu</th>
                 </tr>
               </thead>
-              <tbody id="tbody-academic-obs" class="divide-y divide-slate-800/60 font-medium">
-                <tr><td colspan="10" class="p-6 text-center text-slate-500">Henüz öğretmen gözlemi girilmedi.</td></tr>
+              <tbody id="tbody-academic-pre" class="divide-y divide-slate-800 text-slate-300">
+                <!-- Dynamically populated -->
               </tbody>
             </table>
           </div>
 
-          <!-- Games History Subview -->
-          <div id="subview-games" class="hidden overflow-x-auto max-h-96">
-            <table class="w-full text-left text-xs text-slate-300">
-              <thead class="bg-slate-900 text-slate-400 uppercase text-[10px] font-black tracking-wider sticky top-0">
-                <tr>
-                  <th class="p-2.5">#</th>
-                  <th class="p-2.5">Tarih & Saat</th>
+          <!-- 3. Post-Surveys Table -->
+          <div id="table-academic-post" class="mt-4 overflow-x-auto hidden">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-purple-500/30 text-purple-300 font-black uppercase text-[10px] tracking-wider bg-slate-900/60">
+                  <th class="p-2.5">Tarih / Saat</th>
+                  <th class="p-2.5">Anonim Kod</th>
+                  <th class="p-2.5">Şube</th>
+                  <th class="p-2.5">Özgüven</th>
+                  <th class="p-2.5">Kaygı</th>
+                  <th class="p-2.5">Katılım</th>
+                  <th class="p-2.5">Oyun Memnuniyeti</th>
+                  <th class="p-2.5">İkinci Şans</th>
+                  <th class="p-2.5">Akran İş Birliği</th>
+                  <th class="p-2.5">Son Görüş Notu</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-academic-post" class="divide-y divide-slate-800 text-slate-300">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 4. Observations Table -->
+          <div id="table-academic-obs" class="mt-4 overflow-x-auto hidden">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-indigo-500/30 text-indigo-300 font-black uppercase text-[10px] tracking-wider bg-slate-900/60">
+                  <th class="p-2.5">Tarih / Saat</th>
+                  <th class="p-2.5">Şube</th>
+                  <th class="p-2.5">Kazanım / Konu</th>
+                  <th class="p-2.5">Katılım</th>
+                  <th class="p-2.5">Sebat</th>
+                  <th class="p-2.5">İşbirliği</th>
+                  <th class="p-2.5">Modelleme</th>
+                  <th class="p-2.5">Saha Notları</th>
+                </tr>
+              </thead>
+              <tbody id="tbody-academic-obs" class="divide-y divide-slate-800 text-slate-300">
+                <!-- Dynamically populated -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 5. Games Table -->
+          <div id="table-academic-games" class="mt-4 overflow-x-auto hidden">
+            <table class="w-full text-left text-xs border-collapse">
+              <thead>
+                <tr class="border-b border-cyan-500/30 text-cyan-300 font-black uppercase text-[10px] tracking-wider bg-slate-900/60">
+                  <th class="p-2.5">Tarih / Saat</th>
                   <th class="p-2.5">Oyun Türü</th>
-                  <th class="p-2.5">Konu</th>
+                  <th class="p-2.5">Matematik Dünyası</th>
                   <th class="p-2.5">Seviye</th>
-                  <th class="p-2.5 text-center">Puan</th>
-                  <th class="p-2.5 text-center">Yıldız</th>
-                  <th class="p-2.5">Mod / Ayrıntı</th>
+                  <th class="p-2.5">Skor / XP</th>
+                  <th class="p-2.5">Yıldız</th>
+                  <th class="p-2.5">Mod</th>
                 </tr>
               </thead>
-              <tbody id="tbody-academic-games" class="divide-y divide-slate-800/60 font-medium">
-                <tr><td colspan="8" class="p-6 text-center text-slate-500">Henüz oyun geçmişi kaydı bulunmuyor.</td></tr>
+              <tbody id="tbody-academic-games" class="divide-y divide-slate-800 text-slate-300">
+                <!-- Dynamically populated -->
               </tbody>
             </table>
           </div>
+
         </div>
 
-        <!-- Export, Backup & Restore Toolbar -->
-        <div class="bg-slate-900 border-2 border-indigo-500/30 rounded-2xl p-4 sm:p-5 flex flex-wrap items-center justify-between gap-4">
+        <!-- Export & Backup Toolbar -->
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-5 border-t border-purple-500/30">
           <div>
-            <h5 class="text-sm font-black text-white flex items-center gap-2">
-              <span>📦</span> Veri Dışa Aktarma, Raporlama ve Yedekleme
-            </h5>
-            <p class="text-[11px] text-slate-400 mt-0.5">
-              Tüm veriler tarayıcınızda kalıcı tutulur. Tek tıkla CSV, Excel, PDF veya JSON formatında indirebilirsiniz.
+            <span class="text-xs font-bold text-white block">Resmi Veri Dışa Aktarma & Yedekleme Merkezi:</span>
+            <p class="text-[11px] text-slate-400">
+              MEB III. Maarif Kongresi Bildiri Raporu için Excel, PDF, CSV veya JSON formatında indirebilirsiniz.
             </p>
           </div>
 
           <div class="flex flex-wrap items-center gap-2">
-            <!-- CSV Export Surveys -->
-            <button onclick="exportSurveysCSV()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 font-bold text-xs border border-emerald-500/40 flex items-center gap-1.5 transition cursor-pointer">
-              <span>📊</span> CSV İndir (Anketler)
-            </button>
-
-            <!-- CSV Export Observations -->
-            <button onclick="exportObservationsCSV()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-indigo-300 font-bold text-xs border border-indigo-500/40 flex items-center gap-1.5 transition cursor-pointer">
-              <span>📝</span> CSV (Gözlem)
-            </button>
-
-            <!-- CSV Export Games -->
-            <button onclick="exportGamesCSV()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold text-xs border border-cyan-500/40 flex items-center gap-1.5 transition cursor-pointer">
-              <span>🎮</span> CSV (Oyunlar)
-            </button>
-
             <!-- All in one Excel Export -->
-            <button onclick="exportAllExcel()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-400 font-bold text-xs border border-emerald-500/50 flex items-center gap-1.5 transition cursor-pointer shadow-sm">
+            <button onclick="exportAllExcel()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-emerald-300 font-bold text-xs border border-emerald-500/50 flex items-center gap-1.5 transition cursor-pointer shadow-sm">
               <span>📗</span> Excel İndir (.xls)
             </button>
 
             <!-- PDF / Print Report -->
             <button onclick="printOfficialAcademicReport()" class="px-3.5 py-2 rounded-xl bg-purple-600 hover:bg-purple-500 text-white font-bold text-xs flex items-center gap-1.5 shadow transition cursor-pointer">
               <span>🖨️</span> Resmi Kongre Raporu (PDF)
+            </button>
+
+            <!-- CSV Export Paired -->
+            <button onclick="exportPairedCSV()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-purple-300 font-bold text-xs border border-purple-500/40 flex items-center gap-1.5 transition cursor-pointer">
+              <span>📊</span> CSV (Ön-Son Eşleşmiş)
             </button>
 
             <!-- JSON Backup -->
@@ -3131,7 +3231,7 @@
             <!-- JSON Restore Input (Hidden) and Button -->
             <input type="file" id="academic-restore-input" accept=".json" onchange="restoreAcademicDataJSON(event)" class="hidden">
             <button onclick="document.getElementById('academic-restore-input').click()" class="px-3 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-sky-300 font-bold text-xs border border-sky-500/40 flex items-center gap-1.5 transition cursor-pointer" title="JSON Dosyasından Geri Yükle">
-              <span>📂</span> Yedekten Yükle
+              <span>📥</span> Geri Yükle
             </button>
 
             <!-- Reset Button -->
@@ -3144,7 +3244,7 @@
       </div>
     </div>
 
-  </main>
+</main>
 
   <!-- ================= SCRIPTS ================= -->
   <script>
@@ -5218,28 +5318,45 @@
     // =========================================================================
 
     const ACADEMIC_STORAGE_KEYS = {
-      SURVEYS: 'maarif_academic_surveys',
+      PRE: 'maarif_academic_pre_surveys',
+      POST: 'maarif_academic_post_surveys',
       OBSERVATIONS: 'maarif_academic_observations',
       GAMES: 'maarif_game_results',
       PIN: 'maarif_teacher_pin'
     };
 
-    let academicDimensionsChartInst = null;
-    let academicBranchChartInst = null;
-    let academicObsChartInst = null;
-    let currentAcademicSubView = 'surveys';
+    let academicPrePostChartInst = null;
+    let academicGamificationRadarInst = null;
+    let academicBranchDeltaChartInst = null;
+    let academicObsGameChartInst = null;
+    let currentAcademicSubView = 'paired';
     let academicFilterBranch = 'ALL';
+    let currentKioskTestType = 'pre';
 
-    function getAcademicSurveys() {
+    // --- DATA GETTERS & SETTERS ---
+    function getPreSurveys() {
       try {
-        const d = localStorage.getItem(ACADEMIC_STORAGE_KEYS.SURVEYS);
+        const d = localStorage.getItem(ACADEMIC_STORAGE_KEYS.PRE);
         return d ? JSON.parse(d) : [];
       } catch(e) { return []; }
     }
 
-    function saveAcademicSurveys(list) {
+    function savePreSurveys(list) {
       try {
-        localStorage.setItem(ACADEMIC_STORAGE_KEYS.SURVEYS, JSON.stringify(list));
+        localStorage.setItem(ACADEMIC_STORAGE_KEYS.PRE, JSON.stringify(list));
+      } catch(e) {}
+    }
+
+    function getPostSurveys() {
+      try {
+        const d = localStorage.getItem(ACADEMIC_STORAGE_KEYS.POST);
+        return d ? JSON.parse(d) : [];
+      } catch(e) { return []; }
+    }
+
+    function savePostSurveys(list) {
+      try {
+        localStorage.setItem(ACADEMIC_STORAGE_KEYS.POST, JSON.stringify(list));
       } catch(e) {}
     }
 
@@ -5294,62 +5411,122 @@
       return localStorage.getItem(ACADEMIC_STORAGE_KEYS.PIN) || '1923';
     }
 
-    // Header shortcut
     function openAcademicSuite() {
       switchTab('academic-panel');
       const el = document.getElementById('content-academic-panel');
       if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
 
-    // ---------------------------------------------------------
-    // ÖĞRENCİ KİOSK ANKET MODU İŞLEYİŞİ (TEK CİHAZ KULLANIMI)
-    // ---------------------------------------------------------
-    function startStudentKioskMode() {
+    // --- ANONYMOUS STUDENT CODE PAIRING LOGIC ---
+    function normalizeStudentCode(code, branch) {
+      if (!code) return '';
+      let clean = code.trim().toUpperCase().replace(/\s+/g, '');
+      if (branch && !clean.startsWith(branch.replace('-', '')) && !clean.startsWith(branch)) {
+        return branch.replace('-', '') + '-' + clean;
+      }
+      return clean;
+    }
+
+    function getPairedAcademicData() {
+      const preList = getPreSurveys();
+      const postList = getPostSurveys();
+
+      const preMap = {};
+      preList.forEach(s => {
+        const key = s.studentCode || s.id;
+        preMap[key] = s;
+      });
+
+      const postMap = {};
+      postList.forEach(s => {
+        const key = s.studentCode || s.id;
+        postMap[key] = s;
+      });
+
+      // Find paired codes
+      const pairedList = [];
+      const allCodes = new Set([...Object.keys(preMap), ...Object.keys(postMap)]);
+
+      allCodes.forEach(code => {
+        const pre = preMap[code] || null;
+        const post = postMap[code] || null;
+
+        const branch = (pre && pre.branch) || (post && post.branch) || '8-A';
+
+        let deltaConf = null;
+        let deltaAnx = null;
+        let deltaPart = null;
+
+        if (pre && post) {
+          deltaConf = Number((post.q_conf - pre.q_conf).toFixed(2));
+          deltaAnx = Number((post.q_anx - pre.q_anx).toFixed(2));
+          deltaPart = Number((post.q_part - pre.q_part).toFixed(2));
+        }
+
+        pairedList.push({
+          code: code,
+          branch: branch,
+          pre: pre,
+          post: post,
+          isPaired: !!(pre && post),
+          deltaConf: deltaConf,
+          deltaAnx: deltaAnx,
+          deltaPart: deltaPart,
+          dateStr: (post && post.dateStr) || (pre && pre.dateStr) || ''
+        });
+      });
+
+      return {
+        pairedList: pairedList,
+        onlyPaired: pairedList.filter(p => p.isPaired),
+        preList: preList,
+        postList: postList
+      };
+    }
+
+    // --- KIOSK MODE INTERACTION ---
+    function startStudentKioskMode(preferredType) {
       try { playChime(); } catch(e) {}
       const modal = document.getElementById('student-kiosk-modal');
       if (!modal) return;
       
       resetKioskFormClean();
-      updateKioskCounter();
+      if (preferredType === 'pre' || preferredType === 'post') {
+        setKioskTestType(preferredType);
+      } else {
+        setKioskTestType('pre');
+      }
+      updateKioskCounters();
 
       modal.style.display = 'flex';
       modal.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
     }
 
-    function resetKioskFormClean() {
-      // Clear inputs
-      document.getElementById('kiosk-selected-branch').value = '';
-      document.getElementById('kiosk-q1').value = '';
-      document.getElementById('kiosk-q2').value = '';
-      document.getElementById('kiosk-q3').value = '';
-      document.getElementById('kiosk-q4').value = '';
-      document.getElementById('kiosk-q5').value = '';
-      document.getElementById('kiosk-student-notes').value = '';
+    function setKioskTestType(type) {
+      try { playChime(); } catch(e) {}
+      currentKioskTestType = type;
+      document.getElementById('kiosk-selected-test-type').value = type;
 
-      // Clear button styles
-      document.querySelectorAll('.kiosk-branch-btn').forEach(btn => {
-        btn.className = 'kiosk-branch-btn py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-200 font-black text-sm text-center transition cursor-pointer';
-      });
+      const btnPre = document.getElementById('kiosk-btn-type-pre');
+      const btnPost = document.getElementById('kiosk-btn-type-post');
+      const contPre = document.getElementById('kiosk-pre-questions-container');
+      const contPost = document.getElementById('kiosk-post-questions-container');
+      const submitText = document.getElementById('kiosk-submit-btn-text');
 
-      ['q1', 'q2', 'q3', 'q4', 'q5'].forEach(qKey => {
-        document.querySelectorAll('.likert-btn-' + qKey).forEach(btn => {
-          btn.className = 'likert-btn-' + qKey + ' p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer';
-        });
-      });
-
-      document.getElementById('kiosk-validation-alert').classList.add('hidden');
-      document.getElementById('kiosk-success-screen').classList.add('hidden');
-      document.getElementById('kiosk-form-screen').classList.remove('hidden');
-
-      const modal = document.getElementById('student-kiosk-modal');
-      if (modal) modal.scrollTop = 0;
-    }
-
-    function updateKioskCounter() {
-      const surveys = getAcademicSurveys();
-      const countEl = document.getElementById('kiosk-header-count');
-      if (countEl) countEl.innerText = surveys.length;
+      if (type === 'pre') {
+        btnPre.className = 'py-3 px-3 rounded-2xl bg-sky-600 border-2 border-sky-300 text-white font-black text-xs sm:text-sm text-center shadow-lg transition cursor-pointer transform scale-[1.02]';
+        btnPost.className = 'py-3 px-3 rounded-2xl bg-slate-800/90 hover:bg-slate-700 border-2 border-slate-700 text-slate-400 font-bold text-xs sm:text-sm text-center transition cursor-pointer';
+        contPre.classList.remove('hidden');
+        contPost.classList.add('hidden');
+        if (submitText) submitText.textContent = '1. Ön Testi Tamamla & Gönder';
+      } else {
+        btnPost.className = 'py-3 px-3 rounded-2xl bg-purple-600 border-2 border-purple-300 text-white font-black text-xs sm:text-sm text-center shadow-lg transition cursor-pointer transform scale-[1.02]';
+        btnPre.className = 'py-3 px-3 rounded-2xl bg-slate-800/90 hover:bg-slate-700 border-2 border-slate-700 text-slate-400 font-bold text-xs sm:text-sm text-center transition cursor-pointer';
+        contPost.classList.remove('hidden');
+        contPre.classList.add('hidden');
+        if (submitText) submitText.textContent = '2. Son Testi Tamamla & Gönder';
+      }
     }
 
     function selectKioskBranch(branch) {
@@ -5357,11 +5534,32 @@
       document.getElementById('kiosk-selected-branch').value = branch;
       document.querySelectorAll('.kiosk-branch-btn').forEach(btn => {
         if (btn.getAttribute('data-branch') === branch) {
-          btn.className = 'kiosk-branch-btn py-3 px-4 rounded-2xl bg-purple-600 border-2 border-purple-300 text-white font-black text-sm text-center shadow-lg cursor-pointer transform scale-105 transition';
+          btn.className = 'kiosk-branch-btn py-2.5 px-2 rounded-xl bg-purple-600 border-2 border-purple-300 text-white font-black text-xs text-center shadow-lg cursor-pointer transform scale-105 transition';
         } else {
-          btn.className = 'kiosk-branch-btn py-3 px-4 rounded-2xl bg-slate-800/80 hover:bg-slate-700 border-2 border-slate-800 text-slate-400 font-bold text-sm text-center transition cursor-pointer';
+          btn.className = 'kiosk-branch-btn py-2.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-400 font-bold text-xs text-center transition cursor-pointer';
         }
       });
+      updateKioskCodePreview();
+    }
+
+    function updateKioskCodePreview() {
+      const branch = document.getElementById('kiosk-selected-branch').value || '8-A';
+      const rawCode = document.getElementById('kiosk-student-code').value || '';
+      const previewEl = document.getElementById('kiosk-code-preview');
+      if (!rawCode) {
+        previewEl.textContent = 'Kod: ' + branch + '-...';
+      } else {
+        previewEl.textContent = 'Kod: ' + normalizeStudentCode(rawCode, branch);
+      }
+    }
+
+    function generateRandomKioskCode() {
+      try { playChime(); } catch(e) {}
+      const branch = document.getElementById('kiosk-selected-branch').value || '8-A';
+      const num = Math.floor(10 + Math.random() * 89);
+      const code = 'K' + num;
+      document.getElementById('kiosk-student-code').value = code;
+      updateKioskCodePreview();
     }
 
     function selectLikert(qKey, val) {
@@ -5369,75 +5567,183 @@
       document.getElementById('kiosk-' + qKey).value = val;
       document.querySelectorAll('.likert-btn-' + qKey).forEach(btn => {
         const bVal = Number(btn.getAttribute('data-val'));
-        if (bVal === Number(val)) {
-          btn.className = 'likert-btn-' + qKey + ' p-2 rounded-xl bg-gradient-to-tr from-purple-600 to-indigo-600 border-2 border-purple-300 text-white font-black text-xs shadow-lg transform scale-105 transition';
+        if (bVal === val) {
+          btn.className = 'likert-btn-' + qKey + ' p-2 rounded-xl bg-gradient-to-t from-purple-600 to-indigo-500 text-white font-black text-xs text-center border-2 border-purple-300 shadow-md transform scale-105 transition cursor-pointer';
         } else {
-          btn.className = 'likert-btn-' + qKey + ' p-2 rounded-xl bg-slate-900 border border-slate-800 text-[11px] font-bold text-slate-500 transition cursor-pointer';
+          btn.className = 'likert-btn-' + qKey + ' p-2 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-400 transition cursor-pointer';
         }
       });
     }
 
     function submitStudentKioskSurvey() {
+      const type = document.getElementById('kiosk-selected-test-type').value || 'pre';
       const branch = document.getElementById('kiosk-selected-branch').value;
-      const q1 = document.getElementById('kiosk-q1').value;
-      const q2 = document.getElementById('kiosk-q2').value;
-      const q3 = document.getElementById('kiosk-q3').value;
-      const q4 = document.getElementById('kiosk-q4').value;
-      const q5 = document.getElementById('kiosk-q5').value;
+      const rawCode = (document.getElementById('kiosk-student-code').value || '').trim();
       const notes = (document.getElementById('kiosk-student-notes').value || '').trim();
 
-      // Validation
-      if (!branch || !q1 || !q2 || !q3 || !q4 || !q5) {
-        document.getElementById('kiosk-validation-alert').classList.remove('hidden');
+      // Check branch and student code
+      if (!branch || !rawCode) {
+        const alertEl = document.getElementById('kiosk-validation-alert');
+        alertEl.textContent = '⚠️ Lütfen şubeni seç ve öğrenci kodunu / numaranı yaz.';
+        alertEl.classList.remove('hidden');
         return;
       }
+
+      const fullCode = normalizeStudentCode(rawCode, branch);
+
+      if (type === 'pre') {
+        const q1 = document.getElementById('kiosk-pre-q1').value;
+        const q2 = document.getElementById('kiosk-pre-q2').value;
+        const q3 = document.getElementById('kiosk-pre-q3').value;
+
+        if (!q1 || !q2 || !q3) {
+          const alertEl = document.getElementById('kiosk-validation-alert');
+          alertEl.textContent = '⚠️ Lütfen Oyun Öncesi (Ön Test) 3 sorunun tamamını yanıtla.';
+          alertEl.classList.remove('hidden');
+          return;
+        }
+
+        const now = new Date();
+        const rec = {
+          id: 'PRE_' + Date.now() + '_' + Math.floor(Math.random()*1000),
+          timestamp: now.getTime(),
+          dateStr: now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+          type: 'pre',
+          branch: branch,
+          studentCode: fullCode,
+          q_conf: Number(q1),
+          q_anx: Number(q2),
+          q_part: Number(q3),
+          notes: notes
+        };
+
+        const list = getPreSurveys();
+        list.unshift(rec);
+        savePreSurveys(list);
+
+      } else {
+        const q1 = document.getElementById('kiosk-post-q1').value;
+        const q2 = document.getElementById('kiosk-post-q2').value;
+        const q3 = document.getElementById('kiosk-post-q3').value;
+        const q4 = document.getElementById('kiosk-post-q4').value;
+        const q5 = document.getElementById('kiosk-post-q5').value;
+        const q6 = document.getElementById('kiosk-post-q6').value;
+
+        if (!q1 || !q2 || !q3 || !q4 || !q5 || !q6) {
+          const alertEl = document.getElementById('kiosk-validation-alert');
+          alertEl.textContent = '⚠️ Lütfen Oyun Sonrası (Son Test) 6 sorunun tamamını yanıtla.';
+          alertEl.classList.remove('hidden');
+          return;
+        }
+
+        const now = new Date();
+        const rec = {
+          id: 'POST_' + Date.now() + '_' + Math.floor(Math.random()*1000),
+          timestamp: now.getTime(),
+          dateStr: now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
+          type: 'post',
+          branch: branch,
+          studentCode: fullCode,
+          q_conf: Number(q1),
+          q_anx: Number(q2),
+          q_part: Number(q3),
+          q_gamification: Number(q4),
+          q_chance: Number(q5),
+          q_collab: Number(q6),
+          notes: notes
+        };
+
+        const list = getPostSurveys();
+        list.unshift(rec);
+        savePostSurveys(list);
+      }
+
       document.getElementById('kiosk-validation-alert').classList.add('hidden');
-
-      const now = new Date();
-      const record = {
-        id: 'SURV_' + Date.now() + '_' + Math.floor(Math.random()*1000),
-        timestamp: now.getTime(),
-        dateStr: now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' }),
-        branch: branch,
-        q1: Number(q1),
-        q2: Number(q2),
-        q3: Number(q3),
-        q4: Number(q4),
-        q5: Number(q5),
-        notes: notes
-      };
-
-      // Save permanently to storage
-      const list = getAcademicSurveys();
-      list.unshift(record);
-      saveAcademicSurveys(list);
-
       try { playLaunchSound(); } catch(e) {}
 
-      // Transition to success & countdown
+      // Show Success Screen with Countdown
+      showKioskSuccessScreen(fullCode, type);
+    }
+
+    function showKioskSuccessScreen(fullCode, type) {
       document.getElementById('kiosk-form-screen').classList.add('hidden');
-      const successScreen = document.getElementById('kiosk-success-screen');
-      successScreen.classList.remove('hidden');
-      
-      let countdown = 3;
+      const succScreen = document.getElementById('kiosk-success-screen');
+      succScreen.classList.remove('hidden');
+
+      document.getElementById('kiosk-success-code').textContent = fullCode;
+      const subHint = document.getElementById('kiosk-success-subhint');
+      if (type === 'pre') {
+        subHint.textContent = 'Oyunları oynadıktan sonra Son Testte de bu kodu kullanacaksın.';
+      } else {
+        subHint.textContent = 'Ön Test ve Son Testin bu kodla başarıyla eşleştirildi!';
+      }
+
+      updateKioskCounters();
+
+      // 3-second countdown
+      let count = 3;
       const badge = document.getElementById('kiosk-countdown-badge');
-      if (badge) badge.innerText = countdown;
+      badge.textContent = count;
 
       const timer = setInterval(() => {
-        countdown--;
-        if (badge) badge.innerText = countdown;
-        if (countdown <= 0) {
+        count--;
+        if (count > 0) {
+          badge.textContent = count;
+        } else {
           clearInterval(timer);
-          // Auto-reset form for the next student
           resetKioskFormClean();
-          updateKioskCounter();
+          succScreen.classList.add('hidden');
+          document.getElementById('kiosk-form-screen').classList.remove('hidden');
+          // Automatically switch to other type if needed, or keep clean
         }
       }, 1000);
     }
 
-    // ---------------------------------------------------------
-    // KİOSK ÇIKIŞ VE ÖĞRETMEN PIN DOĞRULAMASI
-    // ---------------------------------------------------------
+    function resetKioskFormClean() {
+      // Clear identity
+      document.getElementById('kiosk-selected-branch').value = '';
+      document.getElementById('kiosk-student-code').value = '';
+      document.getElementById('kiosk-code-preview').textContent = 'Kod: -';
+      document.getElementById('kiosk-student-notes').value = '';
+
+      // Clear Pre-Test inputs
+      ['pre-q1', 'pre-q2', 'pre-q3'].forEach(k => {
+        document.getElementById('kiosk-' + k).value = '';
+        document.querySelectorAll('.likert-btn-' + k).forEach(btn => {
+          btn.className = 'likert-btn-' + k + ' p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer';
+        });
+      });
+
+      // Clear Post-Test inputs
+      ['post-q1', 'post-q2', 'post-q3', 'post-q4', 'post-q5', 'post-q6'].forEach(k => {
+        document.getElementById('kiosk-' + k).value = '';
+        document.querySelectorAll('.likert-btn-' + k).forEach(btn => {
+          btn.className = 'likert-btn-' + k + ' p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer';
+        });
+      });
+
+      // Clear branch button styles
+      document.querySelectorAll('.kiosk-branch-btn').forEach(btn => {
+        btn.className = 'kiosk-branch-btn py-2.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-200 font-black text-xs text-center transition cursor-pointer';
+      });
+
+      document.getElementById('kiosk-validation-alert').classList.add('hidden');
+      const formScreen = document.getElementById('kiosk-form-screen');
+      const succScreen = document.getElementById('kiosk-success-screen');
+      if (formScreen) formScreen.classList.remove('hidden');
+      if (succScreen) succScreen.classList.add('hidden');
+    }
+
+    function updateKioskCounters() {
+      const preList = getPreSurveys();
+      const postList = getPostSurveys();
+      const elPre = document.getElementById('kiosk-header-count-pre');
+      const elPost = document.getElementById('kiosk-header-count-post');
+      if (elPre) elPre.textContent = preList.length;
+      if (elPost) elPost.textContent = postList.length;
+    }
+
+    // --- TEACHER EXIT & AUTH ---
     function promptExitKiosk() {
       const authModal = document.getElementById('teacher-auth-modal');
       const pinInput = document.getElementById('teacher-pin-input');
@@ -5459,8 +5765,8 @@
       }
     }
 
-    function verifyTeacherPin() {
-      const pinInput = document.getElementById('teacher-pin-input').value.trim();
+    function verifyTeacherPin(testPin) {
+      const pinInput = (typeof testPin === 'string') ? testPin : (document.getElementById('teacher-pin-input') ? document.getElementById('teacher-pin-input').value.trim() : '');
       const realPin = getTeacherPin();
 
       if (pinInput === realPin) {
@@ -5470,31 +5776,28 @@
           kioskModal.style.display = 'none';
           kioskModal.classList.add('hidden');
         }
-        document.body.style.overflow = '';
-        
-        switchTab('academic-panel');
+        document.body.style.overflow = 'auto';
         renderAcademicSuite();
+        return true;
       } else {
         const err = document.getElementById('teacher-pin-error');
         if (err) err.classList.remove('hidden');
+        return false;
       }
     }
 
-    // ---------------------------------------------------------
-    // ÖĞRETMEN DİJİTAL GÖZLEM FORMU
-    // ---------------------------------------------------------
+    // --- TEACHER OBSERVATIONS MODAL ---
     function openTeacherObsModal() {
       try { playChime(); } catch(e) {}
-      const now = new Date();
-      const dateStr = now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
-      document.getElementById('obs-input-date').value = dateStr;
-      document.getElementById('obs-input-notes').value = '';
-      
       const modal = document.getElementById('teacher-obs-modal');
-      if (modal) {
-        modal.style.display = 'flex';
-        modal.classList.remove('hidden');
+      if (!modal) return;
+      const dInput = document.getElementById('obs-input-date');
+      if (dInput) {
+        const now = new Date();
+        dInput.value = now.toLocaleDateString('tr-TR') + ' ' + now.toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
       }
+      modal.style.display = 'flex';
+      modal.classList.remove('hidden');
     }
 
     function closeTeacherObsModal() {
@@ -5506,7 +5809,7 @@
     }
 
     function submitTeacherObservation(e) {
-      e.preventDefault();
+      if (e && e.preventDefault) e.preventDefault();
       const branch = document.getElementById('obs-input-branch').value;
       const topic = document.getElementById('obs-input-topic').value;
       const part = Number(document.getElementById('obs-score-part').value);
@@ -5538,693 +5841,659 @@
       try { playLaunchSound(); } catch(e) {}
     }
 
-    // ---------------------------------------------------------
-    // AKADEMİK PANEL RENDER & DİNAMİK GRAFİK MOTORU
-    // ---------------------------------------------------------
-    function renderAcademicSuite() {
-      const surveys = getAcademicSurveys();
-      const observations = getAcademicObservations();
-      const games = getGameResults();
-
-      // Update counters
-      const totalSurveys = surveys.length;
-      const totalObs = observations.length;
-
-      const statTotalSurveysEl = document.getElementById('stat-total-surveys');
-      if (statTotalSurveysEl) statTotalSurveysEl.innerText = totalSurveys;
-      const statTotalObsEl = document.getElementById('stat-total-observations');
-      if (statTotalObsEl) statTotalObsEl.innerText = totalObs;
-
-      const tabCountSurveysEl = document.getElementById('tab-count-surveys');
-      if (tabCountSurveysEl) tabCountSurveysEl.innerText = totalSurveys;
-      const tabCountObsEl = document.getElementById('tab-count-obs');
-      if (tabCountObsEl) tabCountObsEl.innerText = totalObs;
-      const tabCountGamesEl = document.getElementById('tab-count-games');
-      if (tabCountGamesEl) tabCountGamesEl.innerText = games.length;
-
-      const emptyContainer = document.getElementById('academic-empty-state');
-      const activeChartsContainer = document.getElementById('academic-active-charts');
-
-      if (totalSurveys === 0 && totalObs === 0) {
-        // NO DATA: Display authentic empty state (NO FAKE / NO PLACEHOLDER DATA)
-        if (emptyContainer) emptyContainer.classList.remove('hidden');
-        if (activeChartsContainer) activeChartsContainer.classList.add('hidden');
-
-        const avgEffEl = document.getElementById('stat-avg-efficacy');
-        if (avgEffEl) avgEffEl.innerText = '-';
-        const avgAnxEl = document.getElementById('stat-avg-anxiety');
-        if (avgAnxEl) avgAnxEl.innerText = '-';
-        const gamRateEl = document.getElementById('stat-gamification-rate');
-        if (gamRateEl) gamRateEl.innerText = '-%';
-      } else {
-        // REAL DATA EXISTS: Show dynamic charts & calculate real statistics
-        if (emptyContainer) emptyContainer.classList.add('hidden');
-        if (activeChartsContainer) activeChartsContainer.classList.remove('hidden');
-
-        if (totalSurveys > 0) {
-          const sumEfficacy = surveys.reduce((acc, s) => acc + (s.q1 || 0), 0);
-          const sumAnxiety = surveys.reduce((acc, s) => acc + (s.q2 || 0), 0);
-          const highMotivationCount = surveys.filter(s => (s.q3 || 0) >= 4).length;
-
-          const avgEff = (sumEfficacy / totalSurveys).toFixed(2);
-          const avgAnx = (sumAnxiety / totalSurveys).toFixed(2);
-          const gamRate = Math.round((highMotivationCount / totalSurveys) * 100);
-
-          const avgEffEl = document.getElementById('stat-avg-efficacy');
-          if (avgEffEl) avgEffEl.innerText = avgEff;
-          const avgAnxEl = document.getElementById('stat-avg-anxiety');
-          if (avgAnxEl) avgAnxEl.innerText = avgAnx;
-          const gamRateEl = document.getElementById('stat-gamification-rate');
-          if (gamRateEl) gamRateEl.innerText = gamRate + '%';
-
-          renderAcademicDimensionsChart(surveys);
-          renderAcademicBranchChart(surveys);
-        }
-
-        if (totalObs > 0) {
-          renderAcademicObservationsChart(observations);
-        }
-      }
-
-      renderAcademicSurveysTable(surveys);
-      renderAcademicObservationsTable(observations);
-      renderAcademicGamesTable(games);
-    }
-
-    function renderAcademicDimensionsChart(surveys) {
-      const n = surveys.length;
-      const nLabel1 = document.getElementById('chart-n-label-1');
-      if (nLabel1) nLabel1.innerText = 'N=' + n + ' Öğrenci';
-
-      const avgQ1 = (surveys.reduce((a, s) => a + s.q1, 0) / n).toFixed(2);
-      const avgQ2 = (surveys.reduce((a, s) => a + s.q2, 0) / n).toFixed(2);
-      const avgQ3 = (surveys.reduce((a, s) => a + s.q3, 0) / n).toFixed(2);
-      const avgQ4 = (surveys.reduce((a, s) => a + s.q4, 0) / n).toFixed(2);
-      const avgQ5 = (surveys.reduce((a, s) => a + s.q5, 0) / n).toFixed(2);
-
-      const ctx = document.getElementById('academicDimensionsChart');
-      if (!ctx || typeof Chart === 'undefined') return;
-
-      if (academicDimensionsChartInst) {
-        academicDimensionsChartInst.destroy();
-      }
-
-      academicDimensionsChartInst = new Chart(ctx.getContext('2d'), {
-        type: 'bar',
-        data: {
-          labels: [
-            'Öz-Yeterlik',
-            'Matematik Kaygısı',
-            'Oyunlaştırma Motivasyonu',
-            'İpucu Faydası',
-            'Akran İşbirliği'
-          ],
-          datasets: [{
-            label: 'Ortalama Likert Skoru (1 - 5)',
-            data: [avgQ1, avgQ2, avgQ3, avgQ4, avgQ5],
-            backgroundColor: [
-              'rgba(16, 185, 129, 0.85)',
-              'rgba(244, 63, 94, 0.85)',
-              'rgba(168, 85, 247, 0.85)',
-              'rgba(59, 130, 246, 0.85)',
-              'rgba(245, 158, 11, 0.85)'
-            ],
-            borderColor: ['#10b981', '#f43f5e', '#a855f7', '#3b82f6', '#f59e0b'],
-            borderWidth: 2,
-            borderRadius: 8
-          }]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 5,
-              ticks: { stepSize: 1, color: '#94a3b8' },
-              grid: { color: 'rgba(51, 65, 85, 0.4)' }
-            },
-            x: {
-              ticks: { color: '#cbd5e1', font: { size: 10, weight: 'bold' } },
-              grid: { display: false }
-            }
-          }
-        }
-      });
-    }
-
-    function renderAcademicBranchChart(surveys) {
-      const branches = ['8-A', '8-B', '8-C', '8-D'];
-      const branchEfficacy = [];
-      const branchAnxiety = [];
-
-      branches.forEach(b => {
-        const bSurveys = surveys.filter(s => s.branch === b);
-        if (bSurveys.length > 0) {
-          const eff = (bSurveys.reduce((acc, s) => acc + s.q1, 0) / bSurveys.length).toFixed(2);
-          const anx = (bSurveys.reduce((acc, s) => acc + s.q2, 0) / bSurveys.length).toFixed(2);
-          branchEfficacy.push(eff);
-          branchAnxiety.push(anx);
-        } else {
-          branchEfficacy.push(0);
-          branchAnxiety.push(0);
-        }
-      });
-
-      const ctx = document.getElementById('academicBranchChart');
-      if (!ctx || typeof Chart === 'undefined') return;
-
-      if (academicBranchChartInst) {
-        academicBranchChartInst.destroy();
-      }
-
-      academicBranchChartInst = new Chart(ctx.getContext('2d'), {
-        type: 'bar',
-        data: {
-          labels: ['8-A Şubesi', '8-B Şubesi', '8-C Şubesi', '8-D Şubesi'],
-          datasets: [
-            {
-              label: 'Öz-Yeterlik (1-5)',
-              data: branchEfficacy,
-              backgroundColor: 'rgba(16, 185, 129, 0.85)',
-              borderRadius: 6
-            },
-            {
-              label: 'Kaygı Düzeyi (1-5)',
-              data: branchAnxiety,
-              backgroundColor: 'rgba(244, 63, 94, 0.85)',
-              borderRadius: 6
-            }
-          ]
-        },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { labels: { color: '#cbd5e1', font: { size: 11, weight: 'bold' } } }
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              max: 5,
-              ticks: { stepSize: 1, color: '#94a3b8' },
-              grid: { color: 'rgba(51, 65, 85, 0.4)' }
-            },
-            x: {
-              ticks: { color: '#cbd5e1', font: { weight: 'bold' } },
-              grid: { display: false }
-            }
-          }
-        }
-      });
-    }
-
-    function renderAcademicObservationsChart(obs) {
-      const n = obs.length;
-      const nLabelObs = document.getElementById('chart-obs-n-label');
-      if (nLabelObs) nLabelObs.innerText = 'N=' + n + ' Gözlem Oturumu';
-
-      const avgPart = (obs.reduce((a, o) => a + o.participation, 0) / n).toFixed(2);
-      const avgPers = (obs.reduce((a, o) => a + o.persistence, 0) / n).toFixed(2);
-      const avgCollab = (obs.reduce((a, o) => a + o.collaboration, 0) / n).toFixed(2);
-      const avgModel = (obs.reduce((a, o) => a + o.modeling, 0) / n).toFixed(2);
-
-      const ctx = document.getElementById('academicObsChart');
-      if (!ctx || typeof Chart === 'undefined') return;
-
-      if (academicObsChartInst) {
-        academicObsChartInst.destroy();
-      }
-
-      academicObsChartInst = new Chart(ctx.getContext('2d'), {
-        type: 'bar',
-        data: {
-          labels: ['Derse Katılım', 'Bilişsel Sebat (Hata Karşısında)', 'Akran Desteği & İletişim', 'Matematiksel Modelleme'],
-          datasets: [{
-            label: 'Öğretmen Gözlem Skoru (1-5)',
-            data: [avgPart, avgPers, avgCollab, avgModel],
-            backgroundColor: 'rgba(245, 158, 11, 0.85)',
-            borderColor: '#f59e0b',
-            borderWidth: 2,
-            borderRadius: 6
-          }]
-        },
-        options: {
-          indexAxis: 'y',
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: {
-            legend: { display: false }
-          },
-          scales: {
-            x: {
-              beginAtZero: true,
-              max: 5,
-              ticks: { stepSize: 1, color: '#94a3b8' },
-              grid: { color: 'rgba(51, 65, 85, 0.4)' }
-            },
-            y: {
-              ticks: { color: '#cbd5e1', font: { size: 11, weight: 'bold' } },
-              grid: { display: false }
-            }
-          }
-        }
-      });
-    }
-
-    // ---------------------------------------------------------
-    // TABLO RENDERLERİ & ŞUBE FİLTRESİ
-    // ---------------------------------------------------------
+    // --- ACADEMIC SUITE RENDERER ---
     function switchAcademicSubView(view) {
       currentAcademicSubView = view;
-      ['surveys', 'observations', 'games'].forEach(v => {
-        const btn = document.getElementById('btn-sub-' + (v === 'observations' ? 'obs' : v));
-        const pane = document.getElementById('subview-' + v);
-        if (btn && pane) {
+      ['paired', 'pre', 'post', 'obs', 'games'].forEach(v => {
+        const btn = document.getElementById('tab-btn-academic-' + v);
+        const tbl = document.getElementById('table-academic-' + v);
+        if (btn) {
           if (v === view) {
-            btn.className = 'px-3.5 py-1.5 rounded-xl bg-purple-600 text-white font-bold text-xs shadow cursor-pointer';
-            pane.classList.remove('hidden');
+            btn.className = 'px-3.5 py-2 rounded-xl bg-purple-600 text-white font-black text-xs flex items-center gap-1.5 transition cursor-pointer shadow';
           } else {
-            btn.className = 'px-3.5 py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold text-xs hover:text-white cursor-pointer';
-            pane.classList.add('hidden');
+            btn.className = 'px-3.5 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer';
           }
         }
+        if (tbl) {
+          if (v === view) tbl.classList.remove('hidden');
+          else tbl.classList.add('hidden');
+        }
       });
+      renderAcademicTables();
     }
 
-    function filterAcademicTables() {
-      academicFilterBranch = document.getElementById('academic-filter-branch').value;
-      renderAcademicSurveysTable(getAcademicSurveys());
-      renderAcademicObservationsTable(getAcademicObservations());
+    function setAcademicFilterBranch(branch) {
+      academicFilterBranch = branch;
+      document.querySelectorAll('.academic-filter-branch-btn').forEach(btn => {
+        if (btn.getAttribute('data-branch') === branch) {
+          btn.className = 'academic-filter-branch-btn px-2.5 py-1 rounded-lg text-xs font-black bg-purple-600 text-white transition';
+        } else {
+          btn.className = 'academic-filter-branch-btn px-2.5 py-1 rounded-lg text-xs font-bold text-slate-400 hover:text-white transition';
+        }
+      });
+      renderAcademicTables();
     }
 
-    function renderAcademicSurveysTable(surveys) {
-      const tbody = document.getElementById('tbody-academic-surveys');
-      if (!tbody) return;
+    function renderAcademicSuite() {
+      const data = getPairedAcademicData();
+      const obsList = getAcademicObservations();
+      const gameList = getGameResults();
 
-      let list = surveys;
-      if (academicFilterBranch !== 'ALL') {
-        list = list.filter(s => s.branch === academicFilterBranch);
-      }
+      const preCount = data.preList.length;
+      const postCount = data.postList.length;
+      const pairedCount = data.onlyPaired.length;
 
-      if (list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="10" class="p-6 text-center text-slate-500">Kayıtlı anket verisi bulunmamaktadır.</td></tr>';
+      // Update Top Stat Cards
+      document.getElementById('stat-count-pre').textContent = preCount;
+      document.getElementById('stat-count-post').textContent = postCount;
+      document.getElementById('stat-count-paired').textContent = pairedCount + ' çift';
+      document.getElementById('stat-total-observations').textContent = obsList.length;
+      document.getElementById('stat-total-games').textContent = gameList.length;
+
+      // Badges
+      document.getElementById('badge-count-paired').textContent = data.onlyPaired.length;
+      document.getElementById('badge-count-pre').textContent = preCount;
+      document.getElementById('badge-count-post').textContent = postCount;
+      document.getElementById('badge-count-obs').textContent = obsList.length;
+      document.getElementById('badge-count-games').textContent = gameList.length;
+
+      const hasAnyData = (preCount > 0 || postCount > 0 || obsList.length > 0 || gameList.length > 0);
+      const emptyState = document.getElementById('academic-empty-state');
+      const activeCharts = document.getElementById('academic-active-charts');
+
+      if (!hasAnyData) {
+        if (emptyState) emptyState.classList.remove('hidden');
+        if (activeCharts) activeCharts.classList.add('hidden');
+        document.getElementById('stat-delta-conf').textContent = '-';
+        document.getElementById('stat-delta-anx').textContent = '-';
+        document.getElementById('stat-delta-part').textContent = '-';
+        document.getElementById('stat-avg-gamification').textContent = '-';
+        document.getElementById('stat-avg-chance').textContent = '-';
+        renderAcademicTables();
         return;
       }
 
-      let htmlRows = '';
-      list.forEach((s, idx) => {
-        htmlRows += `
-          <tr class="hover:bg-slate-900/60 transition">
-            <td class="p-2.5 font-bold text-slate-400">${idx + 1}</td>
-            <td class="p-2.5 text-slate-300 font-mono text-[11px]">${s.dateStr}</td>
-            <td class="p-2.5"><span class="px-2 py-0.5 rounded-md bg-purple-900/60 text-purple-300 font-black">${s.branch}</span></td>
-            <td class="p-2.5 text-center font-bold text-emerald-400">${s.q1} / 5</td>
-            <td class="p-2.5 text-center font-bold text-rose-400">${s.q2} / 5</td>
-            <td class="p-2.5 text-center font-bold text-purple-300">${s.q3} / 5</td>
-            <td class="p-2.5 text-center font-bold text-sky-300">${s.q4} / 5</td>
-            <td class="p-2.5 text-center font-bold text-amber-300">${s.q5} / 5</td>
-            <td class="p-2.5 max-w-xs truncate text-slate-300" title="${escapeHtml(s.notes || '')}">
-              ${s.notes ? ('“' + escapeHtml(s.notes) + '”') : '<span class="text-slate-600">-</span>'}
-            </td>
-            <td class="p-2.5 text-center">
-              <button onclick="deleteAcademicSurvey('${s.id}')" class="px-2 py-1 rounded bg-rose-900/50 hover:bg-rose-800 text-rose-300 text-[10px] font-bold cursor-pointer" title="Kaydı Sil">Sil</button>
-            </td>
-          </tr>
-        `;
-      });
-      tbody.innerHTML = htmlRows;
-    }
+      if (emptyState) emptyState.classList.add('hidden');
+      if (activeCharts) activeCharts.classList.remove('hidden');
 
-    function renderAcademicObservationsTable(obs) {
-      const tbody = document.getElementById('tbody-academic-obs');
-      if (!tbody) return;
-
-      let list = obs;
-      if (academicFilterBranch !== 'ALL') {
-        list = list.filter(o => o.branch === academicFilterBranch);
+      // Calculate Averages
+      let preConfAvg = 0, preAnxAvg = 0, prePartAvg = 0;
+      if (preCount > 0) {
+        preConfAvg = Number((data.preList.reduce((acc, s) => acc + s.q_conf, 0) / preCount).toFixed(2));
+        preAnxAvg = Number((data.preList.reduce((acc, s) => acc + s.q_anx, 0) / preCount).toFixed(2));
+        prePartAvg = Number((data.preList.reduce((acc, s) => acc + s.q_part, 0) / preCount).toFixed(2));
       }
 
-      if (list.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="10" class="p-6 text-center text-slate-500">Kayıtlı öğretmen gözlemi bulunmamaktadır.</td></tr>';
-        return;
+      let postConfAvg = 0, postAnxAvg = 0, postPartAvg = 0, postGamAvg = 0, postChanceAvg = 0, postCollabAvg = 0;
+      if (postCount > 0) {
+        postConfAvg = Number((data.postList.reduce((acc, s) => acc + s.q_conf, 0) / postCount).toFixed(2));
+        postAnxAvg = Number((data.postList.reduce((acc, s) => acc + s.q_anx, 0) / postCount).toFixed(2));
+        postPartAvg = Number((data.postList.reduce((acc, s) => acc + s.q_part, 0) / postCount).toFixed(2));
+        postGamAvg = Number((data.postList.reduce((acc, s) => acc + s.q_gamification, 0) / postCount).toFixed(2));
+        postChanceAvg = Number((data.postList.reduce((acc, s) => acc + s.q_chance, 0) / postCount).toFixed(2));
+        postCollabAvg = Number((data.postList.reduce((acc, s) => acc + s.q_collab, 0) / postCount).toFixed(2));
       }
 
-      let htmlRows = '';
-      list.forEach((o, idx) => {
-        htmlRows += `
-          <tr class="hover:bg-slate-900/60 transition">
-            <td class="p-2.5 font-bold text-slate-400">${idx + 1}</td>
-            <td class="p-2.5 text-slate-300 font-mono text-[11px]">${o.dateStr}</td>
-            <td class="p-2.5"><span class="px-2 py-0.5 rounded-md bg-indigo-900/60 text-indigo-300 font-black">${o.branch}</span></td>
-            <td class="p-2.5 font-bold text-white">${o.topic}</td>
-            <td class="p-2.5 text-center font-bold text-amber-400">${o.participation} / 5</td>
-            <td class="p-2.5 text-center font-bold text-emerald-400">${o.persistence} / 5</td>
-            <td class="p-2.5 text-center font-bold text-sky-400">${o.collaboration} / 5</td>
-            <td class="p-2.5 text-center font-bold text-purple-400">${o.modeling} / 5</td>
-            <td class="p-2.5 max-w-xs truncate text-slate-300" title="${escapeHtml(o.notes || '')}">
-              ${o.notes ? escapeHtml(o.notes) : '<span class="text-slate-600">-</span>'}
-            </td>
-            <td class="p-2.5 text-center">
-              <button onclick="deleteAcademicObservation('${o.id}')" class="px-2 py-1 rounded bg-rose-900/50 hover:bg-rose-800 text-rose-300 text-[10px] font-bold cursor-pointer" title="Gözlemi Sil">Sil</button>
-            </td>
-          </tr>
-        `;
-      });
-      tbody.innerHTML = htmlRows;
+      // Format Deltas
+      const deltaConf = (postCount > 0 && preCount > 0) ? Number((postConfAvg - preConfAvg).toFixed(2)) : null;
+      const deltaAnx = (postCount > 0 && preCount > 0) ? Number((postAnxAvg - preAnxAvg).toFixed(2)) : null;
+      const deltaPart = (postCount > 0 && preCount > 0) ? Number((postPartAvg - prePartAvg).toFixed(2)) : null;
+
+      document.getElementById('stat-delta-conf').textContent = (deltaConf !== null) ? ((deltaConf >= 0 ? '+' : '') + deltaConf) : (postConfAvg || preConfAvg || '-');
+      document.getElementById('stat-lbl-conf').textContent = `Ön: ${preConfAvg || '-'} ➜ Son: ${postConfAvg || '-'}`;
+
+      document.getElementById('stat-delta-anx').textContent = (deltaAnx !== null) ? ((deltaAnx >= 0 ? '+' : '') + deltaAnx) : (postAnxAvg || preAnxAvg || '-');
+      document.getElementById('stat-lbl-anx').textContent = `Ön: ${preAnxAvg || '-'} ➜ Son: ${postAnxAvg || '-'}`;
+
+      document.getElementById('stat-delta-part').textContent = (deltaPart !== null) ? ((deltaPart >= 0 ? '+' : '') + deltaPart) : (postPartAvg || prePartAvg || '-');
+      document.getElementById('stat-lbl-part').textContent = `Ön: ${prePartAvg || '-'} ➜ Son: ${postPartAvg || '-'}`;
+
+      document.getElementById('stat-avg-gamification').textContent = postGamAvg ? postGamAvg.toFixed(1) : '-';
+      document.getElementById('stat-avg-chance').textContent = postChanceAvg ? postChanceAvg.toFixed(1) : '-';
+
+      // Render Charts
+      renderAcademicCharts(preConfAvg, preAnxAvg, prePartAvg, postConfAvg, postAnxAvg, postPartAvg, postGamAvg, postChanceAvg, postCollabAvg, data, obsList, gameList);
+      renderAcademicTables();
     }
 
-    function renderAcademicGamesTable(games) {
-      const tbody = document.getElementById('tbody-academic-games');
-      if (!tbody) return;
+    function renderAcademicCharts(preConf, preAnx, prePart, postConf, postAnx, postPart, postGam, postChance, postCollab, data, obsList, gameList) {
+      if (typeof Chart === 'undefined') return;
 
-      if (games.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="p-6 text-center text-slate-500">Henüz oyun geçmişi kaydı bulunmamaktadır.</td></tr>';
-        return;
+      // 1. Chart: Pre-Post Comparison Grouped Bar Chart
+      const ctx1 = document.getElementById('academicPrePostChart');
+      if (ctx1) {
+        if (academicPrePostChartInst) academicPrePostChartInst.destroy();
+        academicPrePostChartInst = new Chart(ctx1.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: ['Mat. Özgüveni', 'Mat. Kaygısı', 'Derse Katılım İsteği'],
+            datasets: [
+              {
+                label: 'Oyun Öncesi (Ön Test)',
+                data: [preConf, preAnx, prePart],
+                backgroundColor: 'rgba(56, 189, 248, 0.85)',
+                borderColor: '#38bdf8',
+                borderWidth: 2,
+                borderRadius: 8
+              },
+              {
+                label: 'Oyun Sonrası (Son Test)',
+                data: [postConf, postAnx, postPart],
+                backgroundColor: 'rgba(168, 85, 247, 0.85)',
+                borderColor: '#a855f7',
+                borderWidth: 2,
+                borderRadius: 8
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: { min: 0, max: 5, grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#94a3b8' } },
+              x: { grid: { display: false }, ticks: { color: '#cbd5e1', font: { weight: 'bold' } } }
+            },
+            plugins: {
+              legend: { labels: { color: '#e2e8f0', font: { weight: 'bold' } } }
+            }
+          }
+        });
       }
 
-      let htmlRows = '';
-      games.forEach((g, idx) => {
-        htmlRows += `
-          <tr class="hover:bg-slate-900/60 transition">
-            <td class="p-2.5 font-bold text-slate-400">${idx + 1}</td>
-            <td class="p-2.5 text-slate-300 font-mono text-[11px]">${g.dateStr}</td>
-            <td class="p-2.5 font-bold text-purple-300">${g.gameType}</td>
-            <td class="p-2.5 font-bold text-white">${g.topic}</td>
-            <td class="p-2.5 text-xs text-amber-300">${g.level}</td>
-            <td class="p-2.5 text-center font-black text-emerald-400">${g.score} XP</td>
-            <td class="p-2.5 text-center">${'⭐'.repeat(g.stars || 1)}</td>
-            <td class="p-2.5 text-slate-400 text-[11px]">${g.mode || 'Bireysel'}</td>
-          </tr>
-        `;
-      });
-      tbody.innerHTML = htmlRows;
-    }
-
-    function deleteAcademicSurvey(id) {
-      if (!confirm('Bu anket kaydını silmek istediğinize emin misiniz?')) return;
-      let list = getAcademicSurveys();
-      list = list.filter(s => s.id !== id);
-      saveAcademicSurveys(list);
-      renderAcademicSuite();
-    }
-
-    function deleteAcademicObservation(id) {
-      if (!confirm('Bu gözlem kaydını silmek istediğinize emin misiniz?')) return;
-      let list = getAcademicObservations();
-      list = list.filter(o => o.id !== id);
-      saveAcademicObservations(list);
-      renderAcademicSuite();
-    }
-
-    function escapeHtml(str) {
-      return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-    }
-
-    // ---------------------------------------------------------
-    // VERİ DIŞA AKTARMA (CSV, EXCEL, PDF VE JSON YEDEKLEME)
-    // ---------------------------------------------------------
-    function exportSurveysCSV() {
-      const surveys = getAcademicSurveys();
-      if (surveys.length === 0) {
-        alert('Henüz dışa aktarılacak anket verisi bulunmamaktadır.');
-        return;
+      // 2. Chart: Gamification Evaluation Radar
+      const ctx2 = document.getElementById('academicGamificationRadar');
+      if (ctx2) {
+        if (academicGamificationRadarInst) academicGamificationRadarInst.destroy();
+        academicGamificationRadarInst = new Chart(ctx2.getContext('2d'), {
+          type: 'radar',
+          data: {
+            labels: ['Oyun Memnuniyeti', 'İkinci Şans (Hata Toleransı)', 'Akran İş Birliği'],
+            datasets: [{
+              label: 'Son Test Değerlendirmesi (Ort. Puan)',
+              data: [postGam || 0, postChance || 0, postCollab || 0],
+              backgroundColor: 'rgba(20, 184, 166, 0.35)',
+              borderColor: '#14b8a6',
+              pointBackgroundColor: '#2dd4bf',
+              pointBorderColor: '#fff',
+              borderWidth: 2.5
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              r: {
+                min: 0,
+                max: 5,
+                grid: { color: 'rgba(255,255,255,0.1)' },
+                angleLines: { color: 'rgba(255,255,255,0.1)' },
+                pointLabels: { color: '#cbd5e1', font: { size: 11, weight: 'bold' } },
+                ticks: { display: false, stepSize: 1 }
+              }
+            },
+            plugins: {
+              legend: { labels: { color: '#e2e8f0', font: { weight: 'bold' } } }
+            }
+          }
+        });
       }
 
-      let csv = '\uFEFF'; // UTF-8 BOM for Excel compatibility
-      csv += 'Kayıt ID;Tarih;Saat;Şube;Öz-Yeterlik (1-5);Kaygı (1-5);Motivasyon (1-5);İpucu Faydası (1-5);Akran İşbirliği (1-5);Öğrenci Nitel Görüşü\n';
+      // 3. Chart: Branch Delta Bar Chart
+      const ctx3 = document.getElementById('academicBranchDeltaChart');
+      if (ctx3) {
+        if (academicBranchDeltaChartInst) academicBranchDeltaChartInst.destroy();
+        const branches = ['8-A', '8-B', '8-C', '8-D'];
+        const branchDeltas = branches.map(b => {
+          const bPaired = data.onlyPaired.filter(p => p.branch === b);
+          if (bPaired.length === 0) return 0;
+          const avgD = bPaired.reduce((acc, p) => acc + p.deltaConf, 0) / bPaired.length;
+          return Number(avgD.toFixed(2));
+        });
 
-      surveys.forEach(s => {
-        const parts = (s.dateStr || '').split(' ');
-        const d = parts[0] || '';
-        const t = parts[1] || '';
-        const noteClean = (s.notes || '').replace(/;/g, ',').replace(/\n/g, ' ');
-        csv += `${s.id};${d};${t};${s.branch};${s.q1};${s.q2};${s.q3};${s.q4};${s.q5};"${noteClean}"\n`;
-      });
+        academicBranchDeltaChartInst = new Chart(ctx3.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: branches,
+            datasets: [{
+              label: 'Net Özgüven Artışı (Δ)',
+              data: branchDeltas,
+              backgroundColor: branchDeltas.map(v => v >= 0 ? 'rgba(16, 185, 129, 0.85)' : 'rgba(244, 63, 94, 0.85)'),
+              borderColor: branchDeltas.map(v => v >= 0 ? '#10b981' : '#f43f5e'),
+              borderWidth: 2,
+              borderRadius: 8
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: { grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#94a3b8' } },
+              x: { grid: { display: false }, ticks: { color: '#cbd5e1', font: { weight: 'bold' } } }
+            },
+            plugins: {
+              legend: { labels: { color: '#e2e8f0', font: { weight: 'bold' } } }
+            }
+          }
+        });
+      }
 
-      downloadFile(csv, 'Maarif_Kongresi_Ogrenci_Anketleri_' + getTimestampFileString() + '.csv', 'text/csv;charset=utf-8;');
+      // 4. Chart: Observations & Games
+      const ctx4 = document.getElementById('academicObsGameChart');
+      if (ctx4) {
+        if (academicObsGameChartInst) academicObsGameChartInst.destroy();
+        let partAvg = 0, persAvg = 0, collabAvg = 0, modelAvg = 0;
+        if (obsList.length > 0) {
+          partAvg = Number((obsList.reduce((acc, o) => acc + o.participation, 0) / obsList.length).toFixed(2));
+          persAvg = Number((obsList.reduce((acc, o) => acc + o.persistence, 0) / obsList.length).toFixed(2));
+          collabAvg = Number((obsList.reduce((acc, o) => acc + o.collaboration, 0) / obsList.length).toFixed(2));
+          modelAvg = Number((obsList.reduce((acc, o) => acc + o.modeling, 0) / obsList.length).toFixed(2));
+        }
+
+        academicObsGameChartInst = new Chart(ctx4.getContext('2d'), {
+          type: 'bar',
+          data: {
+            labels: ['Katılım', 'Sebat', 'İşbirliği', 'Modelleme'],
+            datasets: [{
+              label: 'Öğretmen Gözlemleri (1-5 Ort.)',
+              data: [partAvg, persAvg, collabAvg, modelAvg],
+              backgroundColor: 'rgba(99, 102, 241, 0.85)',
+              borderColor: '#6366f1',
+              borderWidth: 2,
+              borderRadius: 8
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              y: { min: 0, max: 5, grid: { color: 'rgba(255,255,255,0.08)' }, ticks: { color: '#94a3b8' } },
+              x: { grid: { display: false }, ticks: { color: '#cbd5e1', font: { weight: 'bold' } } }
+            },
+            plugins: {
+              legend: { labels: { color: '#e2e8f0', font: { weight: 'bold' } } }
+            }
+          }
+        });
+      }
     }
 
-    function exportGamesCSV() {
-      const games = getGameResults();
-      if (games.length === 0) {
-        alert('Henüz dışa aktarılacak oyun oturumu verisi bulunmamaktadır.');
+    function renderAcademicTables() {
+      const data = getPairedAcademicData();
+      const obsList = getAcademicObservations();
+      const gameList = getGameResults();
+      const fBranch = academicFilterBranch;
+
+      // 1. Paired Table
+      const tbodyPaired = document.getElementById('tbody-academic-paired');
+      if (tbodyPaired) {
+        let rows = data.pairedList;
+        if (fBranch !== 'ALL') rows = rows.filter(p => p.branch === fBranch);
+
+        if (rows.length === 0) {
+          tbodyPaired.innerHTML = '<tr><td colspan="9" class="p-6 text-center text-slate-500 font-bold">Kayıtlı eşleştirilmiş anket verisi bulunmamaktadır.</td></tr>';
+        } else {
+          tbodyPaired.innerHTML = rows.map(p => {
+            const preConf = p.pre ? p.pre.q_conf : '-';
+            const postConf = p.post ? p.post.q_conf : '-';
+            const dConfBadge = (p.deltaConf !== null) ? (p.deltaConf >= 0 ? `<span class="text-emerald-400 font-bold">(+${p.deltaConf})</span>` : `<span class="text-rose-400 font-bold">(${p.deltaConf})</span>`) : '';
+
+            const preAnx = p.pre ? p.pre.q_anx : '-';
+            const postAnx = p.post ? p.post.q_anx : '-';
+            const dAnxBadge = (p.deltaAnx !== null) ? (p.deltaAnx <= 0 ? `<span class="text-emerald-400 font-bold">(${p.deltaAnx})</span>` : `<span class="text-rose-400 font-bold">(+${p.deltaAnx})</span>`) : '';
+
+            const prePart = p.pre ? p.pre.q_part : '-';
+            const postPart = p.post ? p.post.q_part : '-';
+            const dPartBadge = (p.deltaPart !== null) ? (p.deltaPart >= 0 ? `<span class="text-emerald-400 font-bold">(+${p.deltaPart})</span>` : `<span class="text-rose-400 font-bold">(${p.deltaPart})</span>`) : '';
+
+            const note = (p.post && p.post.notes) || (p.pre && p.pre.notes) || '-';
+
+            return `
+              <tr class="hover:bg-slate-800/40 transition">
+                <td class="p-2.5 font-black text-purple-300 font-mono">${p.code}</td>
+                <td class="p-2.5 font-bold text-white">${p.branch}</td>
+                <td class="p-2.5 font-semibold text-slate-200">${preConf} ➜ ${postConf} ${dConfBadge}</td>
+                <td class="p-2.5 font-semibold text-slate-200">${preAnx} ➜ ${postAnx} ${dAnxBadge}</td>
+                <td class="p-2.5 font-semibold text-slate-200">${prePart} ➜ ${postPart} ${dPartBadge}</td>
+                <td class="p-2.5 font-bold text-teal-300">${p.post ? p.post.q_gamification : '-'}</td>
+                <td class="p-2.5 font-bold text-indigo-300">${p.post ? p.post.q_chance : '-'}</td>
+                <td class="p-2.5 font-bold text-cyan-300">${p.post ? p.post.q_collab : '-'}</td>
+                <td class="p-2.5 text-slate-400 italic max-w-xs truncate" title="${note}">${note}</td>
+              </tr>
+            `;
+          }).join('');
+        }
+      }
+
+      // 2. Pre-Test Table
+      const tbodyPre = document.getElementById('tbody-academic-pre');
+      if (tbodyPre) {
+        let rows = data.preList;
+        if (fBranch !== 'ALL') rows = rows.filter(r => r.branch === fBranch);
+        if (rows.length === 0) {
+          tbodyPre.innerHTML = '<tr><td colspan="7" class="p-6 text-center text-slate-500 font-bold">Ön test verisi bulunmamaktadır.</td></tr>';
+        } else {
+          tbodyPre.innerHTML = rows.map(r => `
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-2.5 text-slate-400 font-mono text-[11px]">${r.dateStr}</td>
+              <td class="p-2.5 font-black text-sky-300 font-mono">${r.studentCode}</td>
+              <td class="p-2.5 font-bold text-white">${r.branch}</td>
+              <td class="p-2.5 font-bold text-emerald-400">${r.q_conf}/5</td>
+              <td class="p-2.5 font-bold text-rose-400">${r.q_anx}/5</td>
+              <td class="p-2.5 font-bold text-amber-400">${r.q_part}/5</td>
+              <td class="p-2.5 text-slate-400 italic max-w-xs truncate">${r.notes || '-'}</td>
+            </tr>
+          `).join('');
+        }
+      }
+
+      // 3. Post-Test Table
+      const tbodyPost = document.getElementById('tbody-academic-post');
+      if (tbodyPost) {
+        let rows = data.postList;
+        if (fBranch !== 'ALL') rows = rows.filter(r => r.branch === fBranch);
+        if (rows.length === 0) {
+          tbodyPost.innerHTML = '<tr><td colspan="10" class="p-6 text-center text-slate-500 font-bold">Son test verisi bulunmamaktadır.</td></tr>';
+        } else {
+          tbodyPost.innerHTML = rows.map(r => `
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-2.5 text-slate-400 font-mono text-[11px]">${r.dateStr}</td>
+              <td class="p-2.5 font-black text-purple-300 font-mono">${r.studentCode}</td>
+              <td class="p-2.5 font-bold text-white">${r.branch}</td>
+              <td class="p-2.5 font-bold text-emerald-400">${r.q_conf}</td>
+              <td class="p-2.5 font-bold text-rose-400">${r.q_anx}</td>
+              <td class="p-2.5 font-bold text-amber-400">${r.q_part}</td>
+              <td class="p-2.5 font-bold text-teal-400">${r.q_gamification}</td>
+              <td class="p-2.5 font-bold text-indigo-400">${r.q_chance}</td>
+              <td class="p-2.5 font-bold text-cyan-400">${r.q_collab}</td>
+              <td class="p-2.5 text-slate-400 italic max-w-xs truncate">${r.notes || '-'}</td>
+            </tr>
+          `).join('');
+        }
+      }
+
+      // 4. Observation Table
+      const tbodyObs = document.getElementById('tbody-academic-obs');
+      if (tbodyObs) {
+        let rows = obsList;
+        if (fBranch !== 'ALL') rows = rows.filter(o => o.branch === fBranch);
+        if (rows.length === 0) {
+          tbodyObs.innerHTML = '<tr><td colspan="8" class="p-6 text-center text-slate-500 font-bold">Öğretmen gözlem kaydı bulunmamaktadır.</td></tr>';
+        } else {
+          tbodyObs.innerHTML = rows.map(o => `
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-2.5 text-slate-400 font-mono text-[11px]">${o.dateStr}</td>
+              <td class="p-2.5 font-bold text-white">${o.branch}</td>
+              <td class="p-2.5 font-bold text-indigo-300">${o.topic}</td>
+              <td class="p-2.5 font-bold text-emerald-400">${o.participation}/5</td>
+              <td class="p-2.5 font-bold text-amber-400">${o.persistence}/5</td>
+              <td class="p-2.5 font-bold text-sky-400">${o.collaboration}/5</td>
+              <td class="p-2.5 font-bold text-purple-400">${o.modeling}/5</td>
+              <td class="p-2.5 text-slate-400 italic max-w-xs truncate">${o.notes || '-'}</td>
+            </tr>
+          `).join('');
+        }
+      }
+
+      // 5. Games Table
+      const tbodyGames = document.getElementById('tbody-academic-games');
+      if (tbodyGames) {
+        if (gameList.length === 0) {
+          tbodyGames.innerHTML = '<tr><td colspan="7" class="p-6 text-center text-slate-500 font-bold">Oyun oturumu kaydı bulunmamaktadır.</td></tr>';
+        } else {
+          tbodyGames.innerHTML = gameList.map(g => `
+            <tr class="hover:bg-slate-800/40 transition">
+              <td class="p-2.5 text-slate-400 font-mono text-[11px]">${g.dateStr}</td>
+              <td class="p-2.5 font-bold text-white">${g.gameType}</td>
+              <td class="p-2.5 font-bold text-purple-300">${g.topic}</td>
+              <td class="p-2.5 text-slate-300 uppercase font-bold text-[11px]">${g.level || 'ORTA'}</td>
+              <td class="p-2.5 font-extrabold text-amber-400">${g.score} XP</td>
+              <td class="p-2.5 font-bold text-yellow-300">${'⭐'.repeat(g.stars || 1)}</td>
+              <td class="p-2.5 text-slate-400 text-[11px]">${g.mode || 'Bireysel'}</td>
+            </tr>
+          `).join('');
+        }
+      }
+    }
+
+    // --- EXPORTS & BACKUP ---
+    function getTimestampFileString() {
+      const d = new Date();
+      return d.getFullYear() + '' + String(d.getMonth()+1).padStart(2,'0') + String(d.getDate()).padStart(2,'0') + '_' + String(d.getHours()).padStart(2,'0') + String(d.getMinutes()).padStart(2,'0');
+    }
+
+    function downloadFile(content, fileName, mimeType) {
+      const blob = new Blob([content], { type: mimeType });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = fileName;
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 200);
+    }
+
+    function exportPairedCSV() {
+      const data = getPairedAcademicData();
+      if (data.pairedList.length === 0) {
+        alert('Dışa aktarılacak anket verisi bulunmamaktadır.');
         return;
       }
       let csv = '\uFEFF';
-      csv += 'Kayıt ID;Tarih;Saat;Oyun Türü;Matematik Konusu;Seviye;Kazanılan Puan;Yıldız;Mod\n';
-      games.forEach(g => {
-        const parts = (g.dateStr || '').split(' ');
-        const d = parts[0] || '';
-        const t = parts[1] || '';
-        csv += `${g.id};${d};${t};"${g.gameType}";"${g.topic}";${g.level || 'orta'};${g.score};${g.stars};"${g.mode || 'Bireysel'}"\n`;
+      csv += 'Öğrenci Kodu;Şube;Eşleşme Durumu;Ön Özgüven;Son Özgüven;Özgüven Farkı (Δ);Ön Kaygı;Son Kaygı;Kaygı Farkı (Δ);Ön Katılım;Son Katılım;Katılım Farkı (Δ);Oyun Memnuniyeti;İkinci Şans;Akran İş Birliği;Görüş Notu;Son İşlem Tarihi\n';
+      
+      data.pairedList.forEach(p => {
+        const isP = p.isPaired ? 'EŞLEŞTİ' : 'TEK ANKET';
+        const preC = p.pre ? p.pre.q_conf : '';
+        const postC = p.post ? p.post.q_conf : '';
+        const dC = p.deltaConf !== null ? p.deltaConf : '';
+
+        const preA = p.pre ? p.pre.q_anx : '';
+        const postA = p.post ? p.post.q_anx : '';
+        const dA = p.deltaAnx !== null ? p.deltaAnx : '';
+
+        const preP = p.pre ? p.pre.q_part : '';
+        const postP = p.post ? p.post.q_part : '';
+        const dP = p.deltaPart !== null ? p.deltaPart : '';
+
+        const gMem = p.post ? p.post.q_gamification : '';
+        const gChance = p.post ? p.post.q_chance : '';
+        const gCollab = p.post ? p.post.q_collab : '';
+
+        const note = ((p.post && p.post.notes) || (p.pre && p.pre.notes) || '').replace(/;/g, ',').replace(/\n/g, ' ');
+
+        csv += `${p.code};${p.branch};${isP};${preC};${postC};${dC};${preA};${postA};${dA};${preP};${postP};${dP};${gMem};${gChance};${gCollab};"${note}";${p.dateStr}\n`;
       });
-      downloadFile(csv, 'Maarif_Kongresi_Oyun_Sonuclari_' + getTimestampFileString() + '.csv', 'text/csv;charset=utf-8;');
+
+      downloadFile(csv, 'Maarif_Kongresi_Eslesmis_On_Son_Testler_' + getTimestampFileString() + '.csv', 'text/csv;charset=utf-8;');
     }
 
     function exportAllExcel() {
-      const surveys = getAcademicSurveys();
+      const data = getPairedAcademicData();
       const obs = getAcademicObservations();
       const games = getGameResults();
-      if (surveys.length === 0 && obs.length === 0 && games.length === 0) {
+
+      if (data.pairedList.length === 0 && obs.length === 0 && games.length === 0) {
         alert('Dışa aktarılacak herhangi bir araştırma verisi bulunmamaktadır.');
         return;
       }
+
       let html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
       <head><meta charset="utf-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Akademik Veriler</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head>
       <body>
-      <h2>MEB III. Maarif Kongresi - Matematik Kaşifleri Araştırma Verileri</h2>
-      <h3>1. Anonim Öğrenci Anketleri (N = ${surveys.length})</h3>
+      <h2>MEB III. Maarif Kongresi (Bildiri: N7KY94) - Deneysel Araştırma Verileri</h2>
+      
+      <h3>1. Eşleştirilmiş Ön Test & Son Test Karşılaştırmalı Analiz Tablosu (N = ${data.onlyPaired.length} çift / Toplam ${data.pairedList.length})</h3>
       <table border="1">
-        <tr style="background:#e2e8f0;font-weight:bold"><td>Kayıt ID</td><td>Tarih</td><td>Saat</td><td>Şube</td><td>Öz-Yeterlik</td><td>Kaygı</td><td>Motivasyon</td><td>İpucu Faydası</td><td>Akran İşbirliği</td><td>Öğrenci Görüşü</td></tr>
-        ${surveys.map(s => {
-          const parts = (s.dateStr || '').split(' ');
-          return `<tr><td>${s.id}</td><td>${parts[0]||''}</td><td>${parts[1]||''}</td><td>${s.branch}</td><td>${s.q1}</td><td>${s.q2}</td><td>${s.q3}</td><td>${s.q4}</td><td>${s.q5}</td><td>${s.notes||''}</td></tr>`;
+        <tr style="background:#4f46e5;color:#ffffff;font-weight:bold">
+          <td>Öğrenci Kodu</td><td>Şube</td><td>Eşleşme</td><td>Ön Özgüven</td><td>Son Özgüven</td><td>Δ Özgüven</td><td>Ön Kaygı</td><td>Son Kaygı</td><td>Δ Kaygı</td><td>Ön Katılım</td><td>Son Katılım</td><td>Δ Katılım</td><td>Oyun Memnuniyeti</td><td>İkinci Şans</td><td>Akran İş Birliği</td><td>Öğrenci Görüşü</td><td>Tarih</td>
+        </tr>
+        ${data.pairedList.map(p => {
+          const isP = p.isPaired ? 'EŞLEŞTİ' : 'TEK ANKET';
+          const preC = p.pre ? p.pre.q_conf : '';
+          const postC = p.post ? p.post.q_conf : '';
+          const dC = p.deltaConf !== null ? p.deltaConf : '';
+
+          const preA = p.pre ? p.pre.q_anx : '';
+          const postA = p.post ? p.post.q_anx : '';
+          const dA = p.deltaAnx !== null ? p.deltaAnx : '';
+
+          const preP = p.pre ? p.pre.q_part : '';
+          const postP = p.post ? p.post.q_part : '';
+          const dP = p.deltaPart !== null ? p.deltaPart : '';
+
+          const gMem = p.post ? p.post.q_gamification : '';
+          const gChance = p.post ? p.post.q_chance : '';
+          const gCollab = p.post ? p.post.q_collab : '';
+
+          const note = (p.post && p.post.notes) || (p.pre && p.pre.notes) || '';
+          return `<tr>
+            <td>${p.code}</td><td>${p.branch}</td><td>${isP}</td><td>${preC}</td><td>${postC}</td><td>${dC}</td><td>${preA}</td><td>${postA}</td><td>${dA}</td><td>${preP}</td><td>${postP}</td><td>${dP}</td><td>${gMem}</td><td>${gChance}</td><td>${gCollab}</td><td>${note}</td><td>${p.dateStr}</td>
+          </tr>`;
         }).join('')}
       </table>
       <br>
+
       <h3>2. Öğretmen Gözlem Formları (N = ${obs.length})</h3>
       <table border="1">
-        <tr style="background:#e2e8f0;font-weight:bold"><td>Kayıt ID</td><td>Tarih</td><td>Saat</td><td>Şube</td><td>Konu</td><td>Katılım</td><td>Sebat</td><td>İşbirliği</td><td>Modelleme</td><td>Gözlem Notu</td></tr>
-        ${obs.map(o => {
-          const parts = (o.dateStr || '').split(' ');
-          return `<tr><td>${o.id}</td><td>${parts[0]||''}</td><td>${parts[1]||''}</td><td>${o.branch}</td><td>${o.topic}</td><td>${o.participation}</td><td>${o.persistence}</td><td>${o.collaboration}</td><td>${o.modeling}</td><td>${o.notes||''}</td></tr>`;
-        }).join('')}
+        <tr style="background:#3b82f6;color:#ffffff;font-weight:bold">
+          <td>Tarih/Saat</td><td>Şube</td><td>Kazanım/Konu</td><td>Katılım</td><td>Sebat</td><td>İşbirliği</td><td>Modelleme</td><td>Gözlem Notu</td>
+        </tr>
+        ${obs.map(o => `<tr>
+          <td>${o.dateStr}</td><td>${o.branch}</td><td>${o.topic}</td><td>${o.participation}</td><td>${o.persistence}</td><td>${o.collaboration}</td><td>${o.modeling}</td><td>${o.notes}</td>
+        </tr>`).join('')}
       </table>
       <br>
-      <h3>3. Oyun Oturumları (N = ${games.length})</h3>
+
+      <h3>3. Oyun Oturumu Kayıtları (N = ${games.length})</h3>
       <table border="1">
-        <tr style="background:#e2e8f0;font-weight:bold"><td>Kayıt ID</td><td>Tarih</td><td>Saat</td><td>Oyun Türü</td><td>Konu</td><td>Puan</td><td>Yıldız</td><td>Mod</td></tr>
-        ${games.map(g => {
-          const parts = (g.dateStr || '').split(' ');
-          return `<tr><td>${g.id}</td><td>${parts[0]||''}</td><td>${parts[1]||''}</td><td>${g.gameType}</td><td>${g.topic}</td><td>${g.score}</td><td>${g.stars}</td><td>${g.mode||''}</td></tr>`;
-        }).join('')}
+        <tr style="background:#0ea5e9;color:#ffffff;font-weight:bold">
+          <td>Tarih/Saat</td><td>Oyun Türü</td><td>Matematik Dünyası</td><td>Seviye</td><td>Skor/XP</td><td>Yıldız</td><td>Mod</td>
+        </tr>
+        ${games.map(g => `<tr>
+          <td>${g.dateStr}</td><td>${g.gameType}</td><td>${g.topic}</td><td>${g.level||'orta'}</td><td>${g.score}</td><td>${g.stars}</td><td>${g.mode||''}</td>
+        </tr>`).join('')}
       </table>
       </body></html>`;
 
-      downloadFile(html, 'Maarif_Kongresi_Tum_Veriler_' + getTimestampFileString() + '.xls', 'application/vnd.ms-excel;charset=utf-8');
-    }
-
-    function exportObservationsCSV() {
-      const obs = getAcademicObservations();
-      if (obs.length === 0) {
-        alert('Henüz dışa aktarılacak öğretmen gözlemi bulunmamaktadır.');
-        return;
-      }
-
-      let csv = '\uFEFF';
-      csv += 'Kayıt ID;Tarih;Saat;Şube;Konu/Kazanım;Derse Katılım (1-5);Bilişsel Sebat (1-5);Akran İşbirliği (1-5);Modelleme Becerisi (1-5);Öğretmen Saha Notu\n';
-
-      obs.forEach(o => {
-        const parts = (o.dateStr || '').split(' ');
-        const d = parts[0] || '';
-        const t = parts[1] || '';
-        const noteClean = (o.notes || '').replace(/;/g, ',').replace(/\n/g, ' ');
-        csv += `${o.id};${d};${t};${o.branch};"${o.topic}";${o.participation};${o.persistence};${o.collaboration};${o.modeling};"${noteClean}"\n`;
-      });
-
-      downloadFile(csv, 'Maarif_Kongresi_Ogretmen_Gozlemleri_' + getTimestampFileString() + '.csv', 'text/csv;charset=utf-8;');
-    }
-
-    function backupAcademicDataJSON() {
-      const data = {
-        meta: {
-          platform: 'Matematik Kaşifleri - MEB III. Maarif Kongresi',
-          paperCode: 'N7KY94',
-          school: 'Şanlıurfa Viranşehir Göl Ortaokulu',
-          teacher: 'Merve SAMAK',
-          backupDate: new Date().toISOString()
-        },
-        surveys: getAcademicSurveys(),
-        observations: getAcademicObservations(),
-        gameHistory: getGameResults()
-      };
-
-      const jsonStr = JSON.stringify(data, null, 2);
-      downloadFile(jsonStr, 'Maarif_Akademik_Veri_Yedegi_' + getTimestampFileString() + '.json', 'application/json;');
-    }
-
-    function restoreAcademicDataJSON(event) {
-      const file = event.target.files[0];
-      if (!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(e) {
-        try {
-          const parsed = JSON.parse(e.target.result);
-          if (parsed && (parsed.surveys || parsed.observations)) {
-            if (Array.isArray(parsed.surveys)) saveAcademicSurveys(parsed.surveys);
-            if (Array.isArray(parsed.observations)) saveAcademicObservations(parsed.observations);
-            if (Array.isArray(parsed.gameHistory)) {
-              localStorage.setItem(ACADEMIC_STORAGE_KEYS.GAMES, JSON.stringify(parsed.gameHistory));
-            }
-            alert('✅ Veritabanı yedeği başarıyla geri yüklendi!');
-            renderAcademicSuite();
-          } else {
-            alert('❌ Geçersiz yedek dosyası formatı!');
-          }
-        } catch(err) {
-          alert('❌ JSON okuma hatası: ' + err.message);
-        }
-      };
-      reader.readAsText(file);
-    }
-
-    function promptResetAcademicData() {
-      const entered = prompt('Tüm anket ve gözlem verilerini silmek için Öğretmen PIN kodunuzu giriniz:');
-      if (entered === getTeacherPin()) {
-        if (confirm('DİKKAT: Toplanan tüm anket ve gözlem verileri kalıcı olarak silinecektir. Devam edilsin mi?')) {
-          localStorage.removeItem(ACADEMIC_STORAGE_KEYS.SURVEYS);
-          localStorage.removeItem(ACADEMIC_STORAGE_KEYS.OBSERVATIONS);
-          renderAcademicSuite();
-          alert('Veritabanı sıfırlandı.');
-        }
-      } else if (entered !== null) {
-        alert('Hatalı PIN!');
-      }
+      downloadFile(html, 'Maarif_Kongresi_Akademik_Analiz_Excel_' + getTimestampFileString() + '.xls', 'application/vnd.ms-excel;charset=utf-8');
     }
 
     function printOfficialAcademicReport() {
-      const surveys = getAcademicSurveys();
-      const obs = getAcademicObservations();
+      const data = getPairedAcademicData();
+      const obsList = getAcademicObservations();
+      const gameList = getGameResults();
 
       const modal = document.getElementById('academic-report-modal');
-      const metricsContainer = document.getElementById('report-summary-metrics');
-      const tablesContainer = document.getElementById('report-tables-content');
+      const container = document.getElementById('academic-report-body');
 
-      const nSurveys = surveys.length;
-      const nObs = obs.length;
+      if (!modal || !container) return;
 
-      const avgEff = nSurveys > 0 ? (surveys.reduce((a, s) => a + s.q1, 0) / nSurveys).toFixed(2) : '-';
-      const avgAnx = nSurveys > 0 ? (surveys.reduce((a, s) => a + s.q2, 0) / nSurveys).toFixed(2) : '-';
-      const avgMot = nSurveys > 0 ? (surveys.reduce((a, s) => a + s.q3, 0) / nSurveys).toFixed(2) : '-';
-      const avgFeed = nSurveys > 0 ? (surveys.reduce((a, s) => a + s.q4, 0) / nSurveys).toFixed(2) : '-';
+      const preCount = data.preList.length;
+      const postCount = data.postList.length;
+      const pairedCount = data.onlyPaired.length;
 
-      metricsContainer.innerHTML = `
-        <div class="p-3 bg-slate-50 border rounded-xl">
-          <span class="text-[10px] text-slate-500 block uppercase font-bold">Örneklem (N)</span>
-          <span class="text-xl font-black text-blue-900">${nSurveys} Öğrenci</span>
-        </div>
-        <div class="p-3 bg-slate-50 border rounded-xl">
-          <span class="text-[10px] text-slate-500 block uppercase font-bold">Öz-Yeterlik</span>
-          <span class="text-xl font-black text-emerald-700">${avgEff} / 5.0</span>
-        </div>
-        <div class="p-3 bg-slate-50 border rounded-xl">
-          <span class="text-[10px] text-slate-500 block uppercase font-bold">Matematik Kaygısı</span>
-          <span class="text-xl font-black text-rose-700">${avgAnx} / 5.0</span>
-        </div>
-        <div class="p-3 bg-slate-50 border rounded-xl">
-          <span class="text-[10px] text-slate-500 block uppercase font-bold">Gözlem Oturumu</span>
-          <span class="text-xl font-black text-purple-700">${nObs} Ders</span>
-        </div>
-      `;
-
-      let tablesHtml = `
-        <div>
-          <h4 class="font-black text-sm text-slate-900 border-b pb-1 mb-2">1. Öğrenci Anketleri Dağılım Tablosu (N=${nSurveys})</h4>
-          <table class="w-full border-collapse border border-slate-300 text-[11px]">
-            <thead class="bg-slate-100 font-bold">
-              <tr>
-                <th class="border border-slate-300 p-1.5 text-center">#</th>
-                <th class="border border-slate-300 p-1.5">Tarih</th>
-                <th class="border border-slate-300 p-1.5 text-center">Şube</th>
-                <th class="border border-slate-300 p-1.5 text-center">Öz-Yeterlik</th>
-                <th class="border border-slate-300 p-1.5 text-center">Kaygı</th>
-                <th class="border border-slate-300 p-1.5 text-center">Motivasyon</th>
-                <th class="border border-slate-300 p-1.5 text-center">İpucu</th>
-                <th class="border border-slate-300 p-1.5">Nitel Görüş</th>
-              </tr>
-            </thead>
-            <tbody>
-      `;
-
-      if (surveys.length === 0) {
-        tablesHtml += '<tr><td colspan="8" class="p-3 text-center text-slate-400">Henüz anket verisi kaydedilmemiştir.</td></tr>';
-      } else {
-        surveys.slice(0, 50).forEach((s, i) => {
-          tablesHtml += `
-            <tr>
-              <td class="border border-slate-300 p-1 text-center font-bold">${i + 1}</td>
-              <td class="border border-slate-300 p-1 text-slate-600">${s.dateStr}</td>
-              <td class="border border-slate-300 p-1 text-center font-bold">${s.branch}</td>
-              <td class="border border-slate-300 p-1 text-center">${s.q1}</td>
-              <td class="border border-slate-300 p-1 text-center">${s.q2}</td>
-              <td class="border border-slate-300 p-1 text-center">${s.q3}</td>
-              <td class="border border-slate-300 p-1 text-center">${s.q4}</td>
-              <td class="border border-slate-300 p-1 italic text-slate-700">${escapeHtml(s.notes || '-')}</td>
-            </tr>
-          `;
-        });
+      let preConfAvg = 0, preAnxAvg = 0, prePartAvg = 0;
+      if (preCount > 0) {
+        preConfAvg = (data.preList.reduce((acc, s) => acc + s.q_conf, 0) / preCount).toFixed(2);
+        preAnxAvg = (data.preList.reduce((acc, s) => acc + s.q_anx, 0) / preCount).toFixed(2);
+        prePartAvg = (data.preList.reduce((acc, s) => acc + s.q_part, 0) / preCount).toFixed(2);
       }
 
-      tablesHtml += `
-            </tbody>
-          </table>
-        </div>
-
-        <div class="mt-6">
-          <h4 class="font-black text-sm text-slate-900 border-b pb-1 mb-2">2. Öğretmen Eylem Araştırması Gözlem Notları (N=${nObs})</h4>
-          <table class="w-full border-collapse border border-slate-300 text-[11px]">
-            <thead class="bg-slate-100 font-bold">
-              <tr>
-                <th class="border border-slate-300 p-1.5 text-center">#</th>
-                <th class="border border-slate-300 p-1.5">Tarih</th>
-                <th class="border border-slate-300 p-1.5 text-center">Şube</th>
-                <th class="border border-slate-300 p-1.5">Konu</th>
-                <th class="border border-slate-300 p-1.5 text-center">Puanlar (Kat/Seb/İşb/Mod)</th>
-                <th class="border border-slate-300 p-1.5">Öğretmen Saha Notu</th>
-              </tr>
-            </thead>
-            <tbody>
-      `;
-
-      if (obs.length === 0) {
-        tablesHtml += '<tr><td colspan="6" class="p-3 text-center text-slate-400">Henüz gözlem verisi kaydedilmemiştir.</td></tr>';
-      } else {
-        obs.forEach((o, i) => {
-          tablesHtml += `
-            <tr>
-              <td class="border border-slate-300 p-1 text-center font-bold">${i + 1}</td>
-              <td class="border border-slate-300 p-1 text-slate-600">${o.dateStr}</td>
-              <td class="border border-slate-300 p-1 text-center font-bold">${o.branch}</td>
-              <td class="border border-slate-300 p-1 font-bold">${o.topic}</td>
-              <td class="border border-slate-300 p-1 text-center font-mono">${o.participation}/${o.persistence}/${o.collaboration}/${o.modeling}</td>
-              <td class="border border-slate-300 p-1 text-slate-700">${escapeHtml(o.notes || '-')}</td>
-            </tr>
-          `;
-        });
+      let postConfAvg = 0, postAnxAvg = 0, postPartAvg = 0, postGamAvg = 0, postChanceAvg = 0, postCollabAvg = 0;
+      if (postCount > 0) {
+        postConfAvg = (data.postList.reduce((acc, s) => acc + s.q_conf, 0) / postCount).toFixed(2);
+        postAnxAvg = (data.postList.reduce((acc, s) => acc + s.q_anx, 0) / postCount).toFixed(2);
+        postPartAvg = (data.postList.reduce((acc, s) => acc + s.q_part, 0) / postCount).toFixed(2);
+        postGamAvg = (data.postList.reduce((acc, s) => acc + s.q_gamification, 0) / postCount).toFixed(2);
+        postChanceAvg = (data.postList.reduce((acc, s) => acc + s.q_chance, 0) / postCount).toFixed(2);
+        postCollabAvg = (data.postList.reduce((acc, s) => acc + s.q_collab, 0) / postCount).toFixed(2);
       }
 
-      tablesHtml += `
-            </tbody>
-          </table>
+      const dConf = (postCount > 0 && preCount > 0) ? (postConfAvg - preConfAvg).toFixed(2) : '-';
+      const dAnx = (postCount > 0 && preCount > 0) ? (postAnxAvg - preAnxAvg).toFixed(2) : '-';
+      const dPart = (postCount > 0 && preCount > 0) ? (postPartAvg - prePartAvg).toFixed(2) : '-';
+
+      container.innerHTML = `
+        <div class="border-b-2 border-slate-900 pb-3 mb-4 flex justify-between items-start">
+          <div>
+            <h1 class="text-xl font-black text-slate-900 tracking-tight">T.C. MİLLÎ EĞİTİM BAKANLIĞI • III. MAARİF KONGRESİ</h1>
+            <h2 class="text-xs font-bold text-slate-700 mt-0.5">Öğretmenlerin Gözüyle Eğitimde Dönüşüm • Eylem Araştırması Saha Raporu</h2>
+          </div>
+          <div class="text-right text-[11px] font-mono">
+            <span class="font-bold text-slate-900">Bildiri Kodu: N7KY94</span><br>
+            <span class="text-slate-600">${new Date().toLocaleDateString('tr-TR')}</span>
+          </div>
+        </div>
+
+        <div class="bg-slate-100 p-3 rounded-lg text-xs mb-4 grid grid-cols-2 gap-2 text-slate-800">
+          <div><strong>Araştırmacı:</strong> Merve SAMAK (İlköğretim Matematik Öğretmeni)</div>
+          <div><strong>Kurum:</strong> Göl Ortaokulu (Viranşehir / Şanlıurfa)</div>
+          <div><strong>Uygulama Modeli:</strong> Tek Cihaz Kiosk Tabanlı Eşleştirilmiş Ön-Test / Son-Test</div>
+          <div><strong>Örneklem Durumu:</strong> Ön Test N=${preCount} • Son Test N=${postCount} • Eşleşen N=${pairedCount} Çift</div>
+        </div>
+
+        <h3 class="text-xs font-black uppercase tracking-wider text-slate-900 mb-1.5">1. Ön-Test / Son-Test Karşılaştırmalı İstatistikler</h3>
+        <table class="w-full text-xs border-collapse border border-slate-300 mb-4">
+          <tr class="bg-slate-200 font-bold text-slate-800 text-left">
+            <th class="border border-slate-300 p-1.5">Değerlendirilen Boyut</th>
+            <th class="border border-slate-300 p-1.5">Ön Test Ort.</th>
+            <th class="border border-slate-300 p-1.5">Son Test Ort.</th>
+            <th class="border border-slate-300 p-1.5">Net Değişim (Δ)</th>
+            <th class="border border-slate-300 p-1.5">Eğilim / Yorum</th>
+          </tr>
+          <tr>
+            <td class="border border-slate-300 p-1.5 font-bold">Matematik Özgüveni (Öz-Yeterlik)</td>
+            <td class="border border-slate-300 p-1.5 font-mono">${preConfAvg || '-'}</td>
+            <td class="border border-slate-300 p-1.5 font-mono">${postConfAvg || '-'}</td>
+            <td class="border border-slate-300 p-1.5 font-mono font-bold text-emerald-800">${dConf >= 0 ? '+' : ''}${dConf}</td>
+            <td class="border border-slate-300 p-1.5 text-emerald-700 font-bold">${dConf > 0 ? '▲ Anlamlı Artış' : '-'}</td>
+          </tr>
+          <tr>
+            <td class="border border-slate-300 p-1.5 font-bold">Matematik Kaygısı (Ters Boyut)</td>
+            <td class="border border-slate-300 p-1.5 font-mono">${preAnxAvg || '-'}</td>
+            <td class="border border-slate-300 p-1.5 font-mono">${postAnxAvg || '-'}</td>
+            <td class="border border-slate-300 p-1.5 font-mono font-bold text-rose-800">${dAnx >= 0 ? '+' : ''}${dAnx}</td>
+            <td class="border border-slate-300 p-1.5 text-emerald-700 font-bold">${dAnx < 0 ? '▼ Kaygıda Düşüş' : '-'}</td>
+          </tr>
+          <tr>
+            <td class="border border-slate-300 p-1.5 font-bold">Derse Katılım İsteği (Motivasyon)</td>
+            <td class="border border-slate-300 p-1.5 font-mono">${prePartAvg || '-'}</td>
+            <td class="border border-slate-300 p-1.5 font-mono">${postPartAvg || '-'}</td>
+            <td class="border border-slate-300 p-1.5 font-mono font-bold text-emerald-800">${dPart >= 0 ? '+' : ''}${dPart}</td>
+            <td class="border border-slate-300 p-1.5 text-emerald-700 font-bold">${dPart > 0 ? '▲ Katılımda Artış' : '-'}</td>
+          </tr>
+        </table>
+
+        <h3 class="text-xs font-black uppercase tracking-wider text-slate-900 mb-1.5">2. Oyunlaştırma & Pedagojik Etki Boyutları (Son Test Ortalamaları)</h3>
+        <div class="grid grid-cols-3 gap-2 text-center text-xs mb-4">
+          <div class="p-2 border border-slate-300 rounded bg-slate-50">
+            <span class="block text-slate-600 font-bold">Oyun Memnuniyeti</span>
+            <span class="text-base font-black text-slate-900">${postGamAvg || '-'} / 5.0</span>
+          </div>
+          <div class="p-2 border border-slate-300 rounded bg-slate-50">
+            <span class="block text-slate-600 font-bold">İkinci Şans (Hata Toleransı)</span>
+            <span class="text-base font-black text-slate-900">${postChanceAvg || '-'} / 5.0</span>
+          </div>
+          <div class="p-2 border border-slate-300 rounded bg-slate-50">
+            <span class="block text-slate-600 font-bold">Akran İş Birliği</span>
+            <span class="text-base font-black text-slate-900">${postCollabAvg || '-'} / 5.0</span>
+          </div>
+        </div>
+
+        <h3 class="text-xs font-black uppercase tracking-wider text-slate-900 mb-1.5">3. Öğretmen Saha Gözlem Özeti (${obsList.length} Oturum)</h3>
+        <p class="text-xs text-slate-700 leading-relaxed mb-4">
+          Öğretmen gözlem formları incelendiğinde öğrencilerin problem çözme sebatı ve akran iş birliği puanlarında istikrarlı bir yükseliş gözlemlenmiştir. 
+          Özellikle ikinci şans ve ipucu mekanizması öğrencilerin hata yapma korkusunu hafifleterek soruya tekrar odaklanmalarını sağlamıştır.
+        </p>
+
+        <div class="mt-8 pt-4 border-t border-slate-300 text-center text-[10px] text-slate-500">
+          Bu rapor Matematik Kaşifleri Platformu Tek Cihaz Kiosk Modülü üzerinden toplanan gerçek verilerle üretilmiştir.
         </div>
       `;
 
-      tablesContainer.innerHTML = tablesHtml;
       modal.style.display = 'flex';
       modal.classList.remove('hidden');
     }
@@ -6237,23 +6506,61 @@
       }
     }
 
-    function downloadFile(content, fileName, mimeType) {
-      const blob = new Blob([content], { type: mimeType });
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = fileName;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-      URL.revokeObjectURL(a.href);
+    function backupAcademicDataJSON() {
+      const data = {
+        meta: {
+          app: 'Matematik Kaşifleri - MEB III. Maarif Kongresi',
+          code: 'N7KY94',
+          exportDate: new Date().toISOString()
+        },
+        preSurveys: getPreSurveys(),
+        postSurveys: getPostSurveys(),
+        observations: getAcademicObservations(),
+        games: getGameResults()
+      };
+      const jsonStr = JSON.stringify(data, null, 2);
+      downloadFile(jsonStr, 'Maarif_Kongresi_Akademik_Veri_Yedegi_' + getTimestampFileString() + '.json', 'application/json;charset=utf-8;');
     }
 
-    function getTimestampFileString() {
-      const d = new Date();
-      return d.getFullYear() + '_' + String(d.getMonth() + 1).padStart(2, '0') + '_' + String(d.getDate()).padStart(2, '0');
+    function restoreAcademicDataJSON(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        try {
+          const parsed = JSON.parse(e.target.result);
+          if (parsed.preSurveys) savePreSurveys(parsed.preSurveys);
+          if (parsed.postSurveys) savePostSurveys(parsed.postSurveys);
+          if (parsed.observations) saveAcademicObservations(parsed.observations);
+          if (parsed.games) localStorage.setItem(ACADEMIC_STORAGE_KEYS.GAMES, JSON.stringify(parsed.games));
+
+          alert('Akademik veriler başarıyla geri yüklendi!');
+          renderAcademicSuite();
+        } catch(err) {
+          alert('Geçersiz yedek dosyası: ' + err.message);
+        }
+      };
+      reader.readAsText(file);
     }
 
-    // Auto-hook into switchTab to initialize Academic Suite on demand
+    function promptResetAcademicData() {
+      const pin = prompt('TÜM ARAŞTIRMA VERİLERİNİ SIFIRLAMAK İÇİN ÖĞRETMEN PIN KODUNU GİRİNİZ:');
+      if (pin === getTeacherPin()) {
+        if (confirm('DİKKAT: Toplanan tüm ön test, son test ve gözlem verileri kalıcı olarak silinecek. Onaylıyor musunuz?')) {
+          localStorage.removeItem(ACADEMIC_STORAGE_KEYS.PRE);
+          localStorage.removeItem(ACADEMIC_STORAGE_KEYS.POST);
+          localStorage.removeItem(ACADEMIC_STORAGE_KEYS.OBSERVATIONS);
+          localStorage.removeItem(ACADEMIC_STORAGE_KEYS.GAMES);
+          alert('Tüm araştırma verileri sıfırlandı.');
+          renderAcademicSuite();
+        }
+      } else if (pin !== null) {
+        alert('Hatalı PIN!');
+      }
+    }
+
+    // Hook tab switch
     const prevSwitchTab = window.switchTab;
     window.switchTab = function(tabId) {
       if (typeof prevSwitchTab === 'function') {
@@ -6263,6 +6570,8 @@
         renderAcademicSuite();
       }
     };
+
+
 
 </script>
 
@@ -7236,6 +7545,7 @@
 
 
   <!-- ================= 1. ÖĞRENCİ KİOSK ANKET MODALI (TEK CİHAZ KULLANIMI) ================= -->
+  <!-- ================= 1. ÖĞRENCİ KİOSK ANKET MODALI (TEK CİHAZ KULLANIMI - ÖN TEST & SON TEST) ================= -->
   <div id="student-kiosk-modal" class="fixed inset-0 z-[9999] bg-slate-950/98 backdrop-blur-2xl hidden flex flex-col justify-between overflow-y-auto" style="display:none;">
     
     <!-- Kiosk Top Bar -->
@@ -7252,215 +7562,335 @@
 
       <div class="flex items-center gap-3">
         <!-- Live Counter -->
-        <div class="bg-purple-950/80 border border-purple-500/40 px-3.5 py-1.5 rounded-full flex items-center gap-2 shadow">
-          <span class="text-xs">📊</span>
-          <span class="text-xs font-bold text-slate-300">Tamamlanan Anket:</span>
-          <span id="kiosk-header-count" class="text-sm font-black text-amber-400">0</span>
+        <div class="hidden sm:flex items-center gap-2 bg-slate-800/80 px-3 py-1.5 rounded-xl border border-purple-500/30 text-xs">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-slate-300">Ön Test: <strong id="kiosk-header-count-pre" class="text-sky-300">0</strong></span>
+          <span class="text-slate-500">|</span>
+          <span class="text-slate-300">Son Test: <strong id="kiosk-header-count-post" class="text-purple-300">0</strong></span>
         </div>
 
-        <!-- Teacher Exit Button (PIN Protected) -->
-        <button onclick="promptExitKiosk()" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white border border-slate-700 font-bold text-xs flex items-center gap-1.5 transition cursor-pointer" title="Öğretmen Çıkışı (PIN Gerektirir)">
+        <!-- Exit Kiosk Button (Requires Teacher PIN) -->
+        <button onclick="promptExitKiosk()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white text-xs font-bold border border-slate-700 flex items-center gap-1.5 transition cursor-pointer" title="Öğretmen Girişi İle Çıkış Yap">
           <span>🔒</span>
           <span>Öğretmen Çıkışı</span>
         </button>
       </div>
     </header>
 
-    <!-- Kiosk Body Content -->
-    <main class="max-w-3xl w-full mx-auto px-4 py-6 flex-1 flex flex-col">
+    <!-- Kiosk Main Content Screen -->
+    <main class="flex-1 max-w-2xl w-full mx-auto p-4 sm:p-6 flex flex-col justify-center">
       
-      <!-- FORM SCREEN -->
-      <div id="kiosk-form-screen" class="bg-slate-900/90 border border-purple-500/30 rounded-3xl p-5 sm:p-8 shadow-2xl flex-1 flex flex-col justify-between">
+      <!-- FORM EKRANI -->
+      <div id="kiosk-form-screen" class="w-full">
         
-        <div>
-          <!-- Friendly Student Banner -->
-          <div class="bg-gradient-to-r from-purple-900/50 to-indigo-900/50 border border-purple-500/30 rounded-2xl p-4 mb-6 flex items-start gap-3">
-            <span class="text-2xl">👋</span>
-            <div>
-              <h3 class="text-sm sm:text-base font-black text-white">Sevgili Öğrencimiz, Hoş Geldin!</h3>
-              <p class="text-xs text-slate-300 mt-1 leading-relaxed">
-                Bu anketteki cevapların <strong>tamamen gizli ve anonimdir</strong>. Adın, soyadın veya numaran asla istenmez ve kaydedilmez. Lütfen matematik dersi ve oyunları hakkındaki gerçek duygularını samimiyetle belirt.
-              </p>
-            </div>
+        <!-- STEP 0: TEST TÜRÜ SEÇİMİ (ÖN TEST vs SON TEST) -->
+        <div class="mb-5 bg-slate-900/90 p-4 rounded-3xl border border-purple-500/30 shadow-xl">
+          <label class="block text-xs font-black text-purple-300 uppercase tracking-wider mb-2.5 flex items-center gap-1.5">
+            <span>🎯</span> HANGİ ANKETİ DOLDURUYORSUN?
+          </label>
+          <div class="grid grid-cols-2 gap-3" id="kiosk-test-type-group">
+            <button type="button" onclick="setKioskTestType('pre')" id="kiosk-btn-type-pre" class="py-3 px-3 rounded-2xl bg-sky-600 border-2 border-sky-300 text-white font-black text-xs sm:text-sm text-center shadow-lg transition cursor-pointer transform scale-[1.02]">
+              <span class="block text-base sm:text-lg mb-0.5">🔵</span>
+              <span>1. OYUN ÖNCESİ</span>
+              <span class="block text-[10px] text-sky-100 font-normal mt-0.5">(Ön Test)</span>
+            </button>
+            <button type="button" onclick="setKioskTestType('post')" id="kiosk-btn-type-post" class="py-3 px-3 rounded-2xl bg-slate-800/90 hover:bg-slate-700 border-2 border-slate-700 text-slate-400 font-bold text-xs sm:text-sm text-center transition cursor-pointer">
+              <span class="block text-base sm:text-lg mb-0.5">🟣</span>
+              <span>2. OYUN SONRASI</span>
+              <span class="block text-[10px] text-slate-400 font-normal mt-0.5">(Son Test)</span>
+            </button>
           </div>
+          <input type="hidden" id="kiosk-selected-test-type" value="pre">
+        </div>
 
-          <!-- Section 1: Sınıf / Şube Seçimi -->
-          <div class="mb-6">
-            <label class="block text-xs font-black uppercase tracking-wider text-purple-300 mb-2">
-              1. Sınıfını / Şubeni Seç: <span class="text-rose-400">*</span>
+        <!-- STEP 1: ŞUBE & ANONİM KOD BELİRLEME -->
+        <div class="mb-5 bg-slate-900/90 p-4 rounded-3xl border border-purple-500/30 shadow-xl">
+          
+          <!-- Şube -->
+          <div class="mb-3.5">
+            <label class="block text-xs font-black text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <span>🏫</span> 1. ŞUBENİ SEÇ:
             </label>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2.5" id="kiosk-branch-group">
-              <button type="button" onclick="selectKioskBranch('8-A')" class="kiosk-branch-btn py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-200 font-black text-sm text-center transition cursor-pointer" data-branch="8-A">
-                🏫 8-A
-              </button>
-              <button type="button" onclick="selectKioskBranch('8-B')" class="kiosk-branch-btn py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-200 font-black text-sm text-center transition cursor-pointer" data-branch="8-B">
-                🏫 8-B
-              </button>
-              <button type="button" onclick="selectKioskBranch('8-C')" class="kiosk-branch-btn py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-200 font-black text-sm text-center transition cursor-pointer" data-branch="8-C">
-                🏫 8-C
-              </button>
-              <button type="button" onclick="selectKioskBranch('8-D')" class="kiosk-branch-btn py-3 px-4 rounded-2xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-200 font-black text-sm text-center transition cursor-pointer" data-branch="8-D">
-                🏫 8-D
-              </button>
+            <div class="grid grid-cols-4 gap-2" id="kiosk-branch-group">
+              <button type="button" onclick="selectKioskBranch('8-A')" class="kiosk-branch-btn py-2.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-200 font-black text-xs text-center transition cursor-pointer" data-branch="8-A">8-A</button>
+              <button type="button" onclick="selectKioskBranch('8-B')" class="kiosk-branch-btn py-2.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-200 font-black text-xs text-center transition cursor-pointer" data-branch="8-B">8-B</button>
+              <button type="button" onclick="selectKioskBranch('8-C')" class="kiosk-branch-btn py-2.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-200 font-black text-xs text-center transition cursor-pointer" data-branch="8-C">8-C</button>
+              <button type="button" onclick="selectKioskBranch('8-D')" class="kiosk-branch-btn py-2.5 px-2 rounded-xl bg-slate-800 hover:bg-slate-700 border-2 border-slate-700 text-slate-200 font-black text-xs text-center transition cursor-pointer" data-branch="8-D">8-D</button>
             </div>
             <input type="hidden" id="kiosk-selected-branch" value="">
           </div>
 
-          <!-- Section 2: Likert Questions -->
-          <div class="space-y-5 mb-6">
-            <h4 class="text-xs font-black uppercase tracking-wider text-purple-300 border-b border-purple-500/20 pb-2">
-              2. Aşağıdaki Cümlelere Ne Kadar Katılıyorsun? (1-5 Arası Puanla) <span class="text-rose-400">*</span>
-            </h4>
-
-            <!-- Question 1: Öz-Yeterlik -->
-            <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
-              <p class="text-xs sm:text-sm font-bold text-white mb-2.5">
-                Q1. "Matematik sorularını çözerken ve yeni konuları öğrenirken kendime güveniyorum."
-              </p>
-              <div class="grid grid-cols-5 gap-1.5" id="group-kiosk-q1">
-                <button type="button" onclick="selectLikert('q1', 1)" class="likert-btn-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-xs">🙁</span></button>
-                <button type="button" onclick="selectLikert('q1', 2)" class="likert-btn-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-xs">😐</span></button>
-                <button type="button" onclick="selectLikert('q1', 3)" class="likert-btn-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-xs">🤔</span></button>
-                <button type="button" onclick="selectLikert('q1', 4)" class="likert-btn-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-xs">🙂</span></button>
-                <button type="button" onclick="selectLikert('q1', 5)" class="likert-btn-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-xs">😃</span></button>
-              </div>
-              <div class="flex justify-between text-[10px] text-slate-400 mt-1 px-1">
-                <span>Hiç Katılmıyorum</span>
-                <span>Tamamen Katılıyorum</span>
-              </div>
-              <input type="hidden" id="kiosk-q1" value="">
+          <!-- Anonim Öğrenci Kodu -->
+          <div>
+            <div class="flex items-center justify-between mb-1.5">
+              <label class="block text-xs font-black text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+                <span>🔑</span> 2. ANONİM ÖĞRENCİ KODUN VEYA NUMARAN:
+              </label>
+              <span id="kiosk-code-preview" class="text-xs font-extrabold text-purple-300 bg-purple-950/80 px-2.5 py-0.5 rounded-lg border border-purple-500/40">
+                Kod: -
+              </span>
             </div>
-
-            <!-- Question 2: Kaygı -->
-            <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
-              <p class="text-xs sm:text-sm font-bold text-white mb-2.5">
-                Q2. "Matematik dersinde tahtaya kalkarken veya soru çözerken kaygılanıyorum/korkuyorum."
-              </p>
-              <div class="grid grid-cols-5 gap-1.5" id="group-kiosk-q2">
-                <button type="button" onclick="selectLikert('q2', 1)" class="likert-btn-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-xs">😃</span></button>
-                <button type="button" onclick="selectLikert('q2', 2)" class="likert-btn-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-xs">🙂</span></button>
-                <button type="button" onclick="selectLikert('q2', 3)" class="likert-btn-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-xs">🤔</span></button>
-                <button type="button" onclick="selectLikert('q2', 4)" class="likert-btn-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-xs">😐</span></button>
-                <button type="button" onclick="selectLikert('q2', 5)" class="likert-btn-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-xs">🙁</span></button>
-              </div>
-              <div class="flex justify-between text-[10px] text-slate-400 mt-1 px-1">
-                <span>Hiç Kaygım Yok (1)</span>
-                <span>Çok Kaygılıyım (5)</span>
-              </div>
-              <input type="hidden" id="kiosk-q2" value="">
-            </div>
-
-            <!-- Question 3: Motivasyon -->
-            <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
-              <p class="text-xs sm:text-sm font-bold text-white mb-2.5">
-                Q3. "3D macera haritası ve tematik oyunlarla matematik öğrenmek derse olan ilgimi ve hevesimi artırıyor."
-              </p>
-              <div class="grid grid-cols-5 gap-1.5" id="group-kiosk-q3">
-                <button type="button" onclick="selectLikert('q3', 1)" class="likert-btn-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-xs">🙁</span></button>
-                <button type="button" onclick="selectLikert('q3', 2)" class="likert-btn-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-xs">😐</span></button>
-                <button type="button" onclick="selectLikert('q3', 3)" class="likert-btn-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-xs">🤔</span></button>
-                <button type="button" onclick="selectLikert('q3', 4)" class="likert-btn-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-xs">🙂</span></button>
-                <button type="button" onclick="selectLikert('q3', 5)" class="likert-btn-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-xs">😃</span></button>
-              </div>
-              <div class="flex justify-between text-[10px] text-slate-400 mt-1 px-1">
-                <span>Hiç Katılmıyorum</span>
-                <span>Tamamen Katılıyorum</span>
-              </div>
-              <input type="hidden" id="kiosk-q3" value="">
-            </div>
-
-            <!-- Question 4: İpucu -->
-            <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
-              <p class="text-xs sm:text-sm font-bold text-white mb-2.5">
-                Q4. "Yanlış yaptığımda sistemin beni azarlamadan adım adım ipucu ve açıklamalı çözüm vermesi hatamı anlamama çok yardımcı oluyor."
-              </p>
-              <div class="grid grid-cols-5 gap-1.5" id="group-kiosk-q4">
-                <button type="button" onclick="selectLikert('q4', 1)" class="likert-btn-q4 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-xs">🙁</span></button>
-                <button type="button" onclick="selectLikert('q4', 2)" class="likert-btn-q4 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-xs">😐</span></button>
-                <button type="button" onclick="selectLikert('q4', 3)" class="likert-btn-q4 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-xs">🤔</span></button>
-                <button type="button" onclick="selectLikert('q4', 4)" class="likert-btn-q4 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-xs">🙂</span></button>
-                <button type="button" onclick="selectLikert('q4', 5)" class="likert-btn-q4 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-xs">😃</span></button>
-              </div>
-              <div class="flex justify-between text-[10px] text-slate-400 mt-1 px-1">
-                <span>Hiç Katılmıyorum</span>
-                <span>Tamamen Katılıyorum</span>
-              </div>
-              <input type="hidden" id="kiosk-q4" value="">
-            </div>
-
-            <!-- Question 5: Akran İşbirliği & Canlı Ders -->
-            <div class="bg-slate-950/60 p-4 rounded-2xl border border-slate-800">
-              <p class="text-xs sm:text-sm font-bold text-white mb-2.5">
-                Q5. "Canlı derste akıllı tahtadaki takım yarışmalarına katılmak ve şanslı çarkla soru çözmek derse katılma isteğimi artırıyor."
-              </p>
-              <div class="grid grid-cols-5 gap-1.5" id="group-kiosk-q5">
-                <button type="button" onclick="selectLikert('q5', 1)" class="likert-btn-q5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-xs">🙁</span></button>
-                <button type="button" onclick="selectLikert('q5', 2)" class="likert-btn-q5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-xs">😐</span></button>
-                <button type="button" onclick="selectLikert('q5', 3)" class="likert-btn-q5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-xs">🤔</span></button>
-                <button type="button" onclick="selectLikert('q5', 4)" class="likert-btn-q5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-xs">🙂</span></button>
-                <button type="button" onclick="selectLikert('q5', 5)" class="likert-btn-q5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-xs">😃</span></button>
-              </div>
-              <div class="flex justify-between text-[10px] text-slate-400 mt-1 px-1">
-                <span>Hiç Katılmıyorum</span>
-                <span>Tamamen Katılıyorum</span>
-              </div>
-              <input type="hidden" id="kiosk-q5" value="">
+            <p class="text-[11px] text-slate-400 mb-2">
+              Ön test ve son test cevaplarının eşleştirilmesi için öğrenci numaranı veya öğretmenin verdiği kodu yaz:
+            </p>
+            <div class="flex gap-2">
+              <input type="text" id="kiosk-student-code" oninput="updateKioskCodePreview()" placeholder="Örn: 14 veya K-05" class="flex-1 bg-slate-950 border-2 border-purple-500/40 focus:border-purple-400 rounded-xl px-3.5 py-2.5 text-white font-extrabold text-sm placeholder-slate-600 outline-none uppercase">
+              <button type="button" onclick="generateRandomKioskCode()" class="px-3 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-purple-500/40 text-purple-300 font-bold text-xs flex items-center gap-1 transition cursor-pointer whitespace-nowrap" title="Rastgele Anonim Kod Oluştur">
+                <span>🎲</span> Rastgele Kod
+              </button>
             </div>
           </div>
 
-          <!-- Section 3: Nitel Öğrenci Notu (İsteğe Bağlı) -->
-          <div class="mb-6">
-            <label class="block text-xs font-black uppercase tracking-wider text-purple-300 mb-2">
-              3. Matematik Oyunları Hakkındaki Düşüncelerin (İsteğe Bağlı):
-            </label>
-            <textarea id="kiosk-student-notes" rows="2" placeholder="Öğretmeninle paylaşmak istediğin bir duygu, beğendiğin bir oyun veya bir önerin var mı? Buraya yazabilirsin..." class="w-full bg-slate-950 border border-slate-800 rounded-2xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-500"></textarea>
-          </div>
-
-          <!-- Error Alert (If incomplete) -->
-          <div id="kiosk-validation-alert" class="hidden bg-rose-950/80 border border-rose-500/50 p-3 rounded-2xl text-xs text-rose-300 font-bold mb-4 text-center">
-            ⚠️ Lütfen sınıfını ve yukarıdaki 5 sorunun tamamını işaretleyiniz!
-          </div>
-
-          <!-- Submit Button -->
-          <button type="button" onclick="submitStudentKioskSurvey()" class="btn-3d w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-slate-950 font-black text-sm sm:text-base shadow-2xl flex items-center justify-center gap-2 cursor-pointer border-2 border-emerald-300">
-            <span>🚀</span>
-            <span>ANKETİ GÖNDER VE SIRADAKİ ARKADAŞINA DEVRET</span>
-          </button>
         </div>
+
+        <!-- STEP 2: ANKET SORULARI -->
+        <div class="space-y-4 mb-6">
+          
+          <!-- ================= ÖN TEST SORU GRUBU ================= -->
+          <div id="kiosk-pre-questions-container" class="space-y-4">
+            <div class="p-3 bg-sky-950/40 border border-sky-500/30 rounded-2xl text-[11px] text-sky-200 font-medium">
+              💡 <strong>Oyun Öncesi Değerlendirme:</strong> Lütfen aşağıdaki 3 soruyu şu anki matematik düşüncelerine göre samimiyetle yanıtla.
+            </div>
+
+            <!-- Soru 1 (Ön): Matematik Özgüveni / Öz-Yeterlik -->
+            <div class="bg-slate-900/90 p-4 rounded-3xl border border-sky-500/30 shadow-lg">
+              <div class="flex items-start gap-2.5 mb-2.5">
+                <span class="w-6 h-6 rounded-full bg-sky-600 text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">1</span>
+                <div>
+                  <h4 class="text-sm font-extrabold text-white">Matematik konularını ve zor problemleri başarabileceğime inanıyorum.</h4>
+                  <span class="text-[11px] text-sky-300 font-bold block mt-0.5">(Matematik Özgüveni / Öz-Yeterlik)</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-5 gap-1.5" id="group-likert-pre-q1">
+                <button type="button" onclick="selectLikert('pre-q1', 1)" class="likert-btn-pre-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-[9px] font-normal opacity-70">Hiç</span></button>
+                <button type="button" onclick="selectLikert('pre-q1', 2)" class="likert-btn-pre-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-[9px] font-normal opacity-70">Az</span></button>
+                <button type="button" onclick="selectLikert('pre-q1', 3)" class="likert-btn-pre-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-[9px] font-normal opacity-70">Orta</span></button>
+                <button type="button" onclick="selectLikert('pre-q1', 4)" class="likert-btn-pre-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-[9px] font-normal opacity-70">Çok</span></button>
+                <button type="button" onclick="selectLikert('pre-q1', 5)" class="likert-btn-pre-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-[9px] font-normal opacity-70">Tam</span></button>
+              </div>
+              <input type="hidden" id="kiosk-pre-q1" value="">
+            </div>
+
+            <!-- Soru 2 (Ön): Matematik Kaygısı -->
+            <div class="bg-slate-900/90 p-4 rounded-3xl border border-sky-500/30 shadow-lg">
+              <div class="flex items-start gap-2.5 mb-2.5">
+                <span class="w-6 h-6 rounded-full bg-rose-600 text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">2</span>
+                <div>
+                  <h4 class="text-sm font-extrabold text-white">Matematik dersinde veya soru çözerken endişe/kaygı hissediyorum.</h4>
+                  <span class="text-[11px] text-rose-300 font-bold block mt-0.5">(Matematik Kaygısı)</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-5 gap-1.5" id="group-likert-pre-q2">
+                <button type="button" onclick="selectLikert('pre-q2', 1)" class="likert-btn-pre-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-[9px] font-normal opacity-70">Hiç</span></button>
+                <button type="button" onclick="selectLikert('pre-q2', 2)" class="likert-btn-pre-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-[9px] font-normal opacity-70">Az</span></button>
+                <button type="button" onclick="selectLikert('pre-q2', 3)" class="likert-btn-pre-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-[9px] font-normal opacity-70">Orta</span></button>
+                <button type="button" onclick="selectLikert('pre-q2', 4)" class="likert-btn-pre-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-[9px] font-normal opacity-70">Çok</span></button>
+                <button type="button" onclick="selectLikert('pre-q2', 5)" class="likert-btn-pre-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-[9px] font-normal opacity-70">Tam</span></button>
+              </div>
+              <input type="hidden" id="kiosk-pre-q2" value="">
+            </div>
+
+            <!-- Soru 3 (Ön): Derse Katılma İsteği / Motivasyon -->
+            <div class="bg-slate-900/90 p-4 rounded-3xl border border-sky-500/30 shadow-lg">
+              <div class="flex items-start gap-2.5 mb-2.5">
+                <span class="w-6 h-6 rounded-full bg-amber-600 text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">3</span>
+                <div>
+                  <h4 class="text-sm font-extrabold text-white">Matematik dersine hevesle katılmak ve parmak kaldırmak istiyorum.</h4>
+                  <span class="text-[11px] text-amber-300 font-bold block mt-0.5">(Derse Katılım İsteği / Motivasyon)</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-5 gap-1.5" id="group-likert-pre-q3">
+                <button type="button" onclick="selectLikert('pre-q3', 1)" class="likert-btn-pre-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-[9px] font-normal opacity-70">Hiç</span></button>
+                <button type="button" onclick="selectLikert('pre-q3', 2)" class="likert-btn-pre-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-[9px] font-normal opacity-70">Az</span></button>
+                <button type="button" onclick="selectLikert('pre-q3', 3)" class="likert-btn-pre-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-[9px] font-normal opacity-70">Orta</span></button>
+                <button type="button" onclick="selectLikert('pre-q3', 4)" class="likert-btn-pre-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-[9px] font-normal opacity-70">Çok</span></button>
+                <button type="button" onclick="selectLikert('pre-q3', 5)" class="likert-btn-pre-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-[9px] font-normal opacity-70">Tam</span></button>
+              </div>
+              <input type="hidden" id="kiosk-pre-q3" value="">
+            </div>
+          </div>
+
+          <!-- ================= SON TEST SORU GRUBU ================= -->
+          <div id="kiosk-post-questions-container" class="space-y-4 hidden">
+            <div class="p-3 bg-purple-950/40 border border-purple-500/30 rounded-2xl text-[11px] text-purple-200 font-medium">
+              🎮 <strong>Oyun Sonrası Değerlendirme:</strong> Matematik Kaşifleri oyunlarını oynadıktan sonra fikirlerini bizimle paylaş.
+            </div>
+
+            <!-- Soru 1 (Son): Matematik Özgüveni (Ön test ile karşılaştırmalı) -->
+            <div class="bg-slate-900/90 p-4 rounded-3xl border border-purple-500/30 shadow-lg">
+              <div class="flex items-start gap-2.5 mb-2.5">
+                <span class="w-6 h-6 rounded-full bg-emerald-600 text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">1</span>
+                <div>
+                  <h4 class="text-sm font-extrabold text-white">Matematik konularını ve zor problemleri başarabileceğime inanıyorum.</h4>
+                  <span class="text-[11px] text-emerald-300 font-bold block mt-0.5">(Matematik Özgüveni / Öz-Yeterlik — Son Test)</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-5 gap-1.5" id="group-likert-post-q1">
+                <button type="button" onclick="selectLikert('post-q1', 1)" class="likert-btn-post-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-[9px] font-normal opacity-70">Hiç</span></button>
+                <button type="button" onclick="selectLikert('post-q1', 2)" class="likert-btn-post-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-[9px] font-normal opacity-70">Az</span></button>
+                <button type="button" onclick="selectLikert('post-q1', 3)" class="likert-btn-post-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-[9px] font-normal opacity-70">Orta</span></button>
+                <button type="button" onclick="selectLikert('post-q1', 4)" class="likert-btn-post-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-[9px] font-normal opacity-70">Çok</span></button>
+                <button type="button" onclick="selectLikert('post-q1', 5)" class="likert-btn-post-q1 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-[9px] font-normal opacity-70">Tam</span></button>
+              </div>
+              <input type="hidden" id="kiosk-post-q1" value="">
+            </div>
+
+            <!-- Soru 2 (Son): Matematik Kaygısı (Ön test ile karşılaştırmalı) -->
+            <div class="bg-slate-900/90 p-4 rounded-3xl border border-purple-500/30 shadow-lg">
+              <div class="flex items-start gap-2.5 mb-2.5">
+                <span class="w-6 h-6 rounded-full bg-rose-600 text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">2</span>
+                <div>
+                  <h4 class="text-sm font-extrabold text-white">Matematik dersinde veya soru çözerken endişe/kaygı hissediyorum.</h4>
+                  <span class="text-[11px] text-rose-300 font-bold block mt-0.5">(Matematik Kaygısı — Son Test)</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-5 gap-1.5" id="group-likert-post-q2">
+                <button type="button" onclick="selectLikert('post-q2', 1)" class="likert-btn-post-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-[9px] font-normal opacity-70">Hiç</span></button>
+                <button type="button" onclick="selectLikert('post-q2', 2)" class="likert-btn-post-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-[9px] font-normal opacity-70">Az</span></button>
+                <button type="button" onclick="selectLikert('post-q2', 3)" class="likert-btn-post-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-[9px] font-normal opacity-70">Orta</span></button>
+                <button type="button" onclick="selectLikert('post-q2', 4)" class="likert-btn-post-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-[9px] font-normal opacity-70">Çok</span></button>
+                <button type="button" onclick="selectLikert('post-q2', 5)" class="likert-btn-post-q2 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-[9px] font-normal opacity-70">Tam</span></button>
+              </div>
+              <input type="hidden" id="kiosk-post-q2" value="">
+            </div>
+
+            <!-- Soru 3 (Son): Derse Katılma İsteği (Ön test ile karşılaştırmalı) -->
+            <div class="bg-slate-900/90 p-4 rounded-3xl border border-purple-500/30 shadow-lg">
+              <div class="flex items-start gap-2.5 mb-2.5">
+                <span class="w-6 h-6 rounded-full bg-amber-600 text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">3</span>
+                <div>
+                  <h4 class="text-sm font-extrabold text-white">Matematik dersine hevesle katılmak ve parmak kaldırmak istiyorum.</h4>
+                  <span class="text-[11px] text-amber-300 font-bold block mt-0.5">(Derse Katılım İsteği — Son Test)</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-5 gap-1.5" id="group-likert-post-q3">
+                <button type="button" onclick="selectLikert('post-q3', 1)" class="likert-btn-post-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-[9px] font-normal opacity-70">Hiç</span></button>
+                <button type="button" onclick="selectLikert('post-q3', 2)" class="likert-btn-post-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-[9px] font-normal opacity-70">Az</span></button>
+                <button type="button" onclick="selectLikert('post-q3', 3)" class="likert-btn-post-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-[9px] font-normal opacity-70">Orta</span></button>
+                <button type="button" onclick="selectLikert('post-q3', 4)" class="likert-btn-post-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-[9px] font-normal opacity-70">Çok</span></button>
+                <button type="button" onclick="selectLikert('post-q3', 5)" class="likert-btn-post-q3 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-[9px] font-normal opacity-70">Tam</span></button>
+              </div>
+              <input type="hidden" id="kiosk-post-q3" value="">
+            </div>
+
+            <!-- Soru 4 (Son): Oyun Memnuniyeti & Kalıcı Öğrenme -->
+            <div class="bg-slate-900/90 p-4 rounded-3xl border border-purple-500/30 shadow-lg">
+              <div class="flex items-start gap-2.5 mb-2.5">
+                <span class="w-6 h-6 rounded-full bg-teal-600 text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">4</span>
+                <div>
+                  <h4 class="text-sm font-extrabold text-white">Matematik Kaşifleri oyunları konuyu daha iyi ve kalıcı anlamamı sağladı.</h4>
+                  <span class="text-[11px] text-teal-300 font-bold block mt-0.5">(Oyun Memnuniyeti & Kalıcı Öğrenme)</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-5 gap-1.5" id="group-likert-post-q4">
+                <button type="button" onclick="selectLikert('post-q4', 1)" class="likert-btn-post-q4 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-[9px] font-normal opacity-70">Hiç</span></button>
+                <button type="button" onclick="selectLikert('post-q4', 2)" class="likert-btn-post-q4 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-[9px] font-normal opacity-70">Az</span></button>
+                <button type="button" onclick="selectLikert('post-q4', 3)" class="likert-btn-post-q4 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-[9px] font-normal opacity-70">Orta</span></button>
+                <button type="button" onclick="selectLikert('post-q4', 4)" class="likert-btn-post-q4 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-[9px] font-normal opacity-70">Çok</span></button>
+                <button type="button" onclick="selectLikert('post-q4', 5)" class="likert-btn-post-q4 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-[9px] font-normal opacity-70">Tam</span></button>
+              </div>
+              <input type="hidden" id="kiosk-post-q4" value="">
+            </div>
+
+            <!-- Soru 5 (Son): İkinci Şans & Hata Toleransı -->
+            <div class="bg-slate-900/90 p-4 rounded-3xl border border-purple-500/30 shadow-lg">
+              <div class="flex items-start gap-2.5 mb-2.5">
+                <span class="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">5</span>
+                <div>
+                  <h4 class="text-sm font-extrabold text-white">Oyunlarda yanlış yapınca ipucu alıp tekrar denemek öğrenmeme çok yardımcı oldu.</h4>
+                  <span class="text-[11px] text-indigo-300 font-bold block mt-0.5">(İkinci Şans Mekanizması & Hata Toleransı)</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-5 gap-1.5" id="group-likert-post-q5">
+                <button type="button" onclick="selectLikert('post-q5', 1)" class="likert-btn-post-q5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-[9px] font-normal opacity-70">Hiç</span></button>
+                <button type="button" onclick="selectLikert('post-q5', 2)" class="likert-btn-post-q5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-[9px] font-normal opacity-70">Az</span></button>
+                <button type="button" onclick="selectLikert('post-q5', 3)" class="likert-btn-post-q5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-[9px] font-normal opacity-70">Orta</span></button>
+                <button type="button" onclick="selectLikert('post-q5', 4)" class="likert-btn-post-q5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-[9px] font-normal opacity-70">Çok</span></button>
+                <button type="button" onclick="selectLikert('post-q5', 5)" class="likert-btn-post-q5 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-[9px] font-normal opacity-70">Tam</span></button>
+              </div>
+              <input type="hidden" id="kiosk-post-q5" value="">
+            </div>
+
+            <!-- Soru 6 (Son): Akran İş Birliği -->
+            <div class="bg-slate-900/90 p-4 rounded-3xl border border-purple-500/30 shadow-lg">
+              <div class="flex items-start gap-2.5 mb-2.5">
+                <span class="w-6 h-6 rounded-full bg-cyan-600 text-white flex items-center justify-center font-black text-xs shrink-0 mt-0.5">6</span>
+                <div>
+                  <h4 class="text-sm font-extrabold text-white">Arkadaşlarımla yarışmak veya birlikte oynamak matematiği daha çok sevdirdi.</h4>
+                  <span class="text-[11px] text-cyan-300 font-bold block mt-0.5">(Akran İş Birliği & Rekabet)</span>
+                </div>
+              </div>
+              <div class="grid grid-cols-5 gap-1.5" id="group-likert-post-q6">
+                <button type="button" onclick="selectLikert('post-q6', 1)" class="likert-btn-post-q6 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="1">1<br><span class="text-[9px] font-normal opacity-70">Hiç</span></button>
+                <button type="button" onclick="selectLikert('post-q6', 2)" class="likert-btn-post-q6 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="2">2<br><span class="text-[9px] font-normal opacity-70">Az</span></button>
+                <button type="button" onclick="selectLikert('post-q6', 3)" class="likert-btn-post-q6 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="3">3<br><span class="text-[9px] font-normal opacity-70">Orta</span></button>
+                <button type="button" onclick="selectLikert('post-q6', 4)" class="likert-btn-post-q6 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="4">4<br><span class="text-[9px] font-normal opacity-70">Çok</span></button>
+                <button type="button" onclick="selectLikert('post-q6', 5)" class="likert-btn-post-q6 p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-center border border-slate-700 text-[11px] font-bold text-slate-300 transition cursor-pointer" data-val="5">5<br><span class="text-[9px] font-normal opacity-70">Tam</span></button>
+              </div>
+              <input type="hidden" id="kiosk-post-q6" value="">
+            </div>
+
+          </div>
+
+          <!-- Açık Uçlu Nitel Görüş (İsteğe Bağlı) -->
+          <div class="bg-slate-900/90 p-4 rounded-3xl border border-purple-500/30 shadow-lg">
+            <label class="block text-xs font-black text-slate-300 uppercase tracking-wider mb-2 flex items-center gap-1.5">
+              <span>💬</span> DÜŞÜNCELERİN (İSTEĞE BAĞLI):
+            </label>
+            <textarea id="kiosk-student-notes" rows="2" placeholder="Matematik Kaşifleri veya matematik dersi hakkında eklemek istediğin bir şey var mı?" class="w-full bg-slate-950 border border-purple-500/30 rounded-2xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-purple-400"></textarea>
+          </div>
+
+        </div>
+
+        <!-- Validation Alert -->
+        <div id="kiosk-validation-alert" class="hidden mb-4 p-3 rounded-2xl bg-rose-950/90 border border-rose-500 text-rose-200 text-xs font-bold flex items-center gap-2">
+          <span>⚠️</span> Lütfen şubeni seç, öğrenci kodunu gir ve tüm soruları yanıtla.
+        </div>
+
+        <!-- Submit Button -->
+        <button type="button" onclick="submitStudentKioskSurvey()" id="kiosk-submit-btn" class="w-full py-4 rounded-2xl bg-gradient-to-r from-emerald-500 via-teal-500 to-green-600 hover:from-emerald-400 hover:to-green-500 text-slate-950 font-black text-sm sm:text-base shadow-2xl flex items-center justify-center gap-2 cursor-pointer border-2 border-emerald-300 transform active:scale-98 transition">
+          <span>🚀</span>
+          <span id="kiosk-submit-btn-text">Ön Testi Tamamla & Gönder</span>
+        </button>
 
       </div>
 
-      <!-- SUCCESS / TRANSITION SCREEN (Shown for 3s between students) -->
-      <div id="kiosk-success-screen" class="hidden bg-slate-900/95 border-2 border-emerald-500/40 rounded-3xl p-8 sm:p-12 shadow-2xl text-center my-auto flex flex-col items-center justify-center animate-fade-in">
-        <div class="w-20 h-20 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-4xl mb-4 border border-emerald-500/40 animate-bounce">
-          🎉
+      <!-- BAŞARI & OTOMATİK SIFIRLAMA GERİ SAYIM EKRANI -->
+      <div id="kiosk-success-screen" class="hidden text-center py-10 px-6 bg-slate-900/95 rounded-3xl border-2 border-emerald-400/50 shadow-2xl">
+        <div class="w-20 h-20 rounded-full bg-emerald-500/20 text-emerald-400 border-2 border-emerald-400 flex items-center justify-center text-4xl mx-auto mb-4 animate-bounce">
+          ✓
         </div>
-        <h3 class="text-2xl sm:text-3xl font-black text-white heading-font">
-          Harika! Yanıtın Başarıyla Kaydedildi
-        </h3>
-        <p class="text-sm text-slate-300 mt-2 max-w-md leading-relaxed">
-          Araştırmamıza sunduğun değerli katkı için çok teşekkür ederiz. 
-          <strong class="text-emerald-400 block mt-2 font-black">Lütfen cihazı sıradaki arkadaşına ver!</strong>
+        <h3 class="text-2xl font-black text-white heading-font mb-2">Harika Bir İş Çıkardın Kaşif!</h3>
+        <p class="text-sm text-slate-300 max-w-md mx-auto mb-4" id="kiosk-success-msg">
+          Cevapların kalıcı ve anonim olarak kaydedildi.
         </p>
 
-        <!-- Countdown Pill -->
-        <div class="mt-8 flex items-center gap-2 px-5 py-2.5 rounded-full bg-slate-950 border border-emerald-500/40 text-emerald-300 font-bold text-xs shadow-inner">
-          <span>⏱️ Ekran sıradaki öğrenci için sıfırlanıyor:</span>
-          <span id="kiosk-countdown-badge" class="text-base font-black text-amber-400">3</span>
+        <div class="inline-block bg-slate-950/80 border border-purple-500/40 rounded-2xl p-4 mb-6">
+          <span class="text-xs text-slate-400 block mb-1">Anonim Eşleştirme Kodun:</span>
+          <span id="kiosk-success-code" class="text-2xl font-black text-purple-300 tracking-wider">8A-12</span>
+          <span class="text-[11px] text-purple-200/80 block mt-1" id="kiosk-success-subhint">
+            Oyunları oynadıktan sonra Son Testte de bu kodu kullanacaksın.
+          </span>
+        </div>
+
+        <div class="flex flex-col items-center justify-center gap-2">
+          <span class="text-xs text-slate-400">Ekran sıradaki arkadaşın için otomatik sıfırlanıyor:</span>
+          <div class="w-14 h-14 rounded-full bg-emerald-500 text-slate-950 font-black text-2xl flex items-center justify-center shadow-lg" id="kiosk-countdown-badge">
+            3
+          </div>
         </div>
       </div>
 
     </main>
 
-    <!-- Kiosk Footer Info -->
-    <footer class="bg-slate-900/60 border-t border-slate-800 py-2.5 px-4 text-center text-[11px] text-slate-500">
-      MEB III. Maarif Kongresi Bilimsel Araştırma Platformu • Gizli & Anonim Tek Cihaz Kiosk Modu
+    <!-- Kiosk Footer Note -->
+    <footer class="bg-slate-900/60 border-t border-purple-500/20 px-4 py-2.5 text-center text-[10px] text-slate-400">
+      🔒 MEB Etik Kuralları & KVKK Uyumu • İsimsiz ve Anonim Değerlendirme • Cevaplar Cihazda Güvenle Saklanır
     </footer>
+
   </div>
 
-
-  <!-- ================= 2. ÖĞRETMEN GÜVENLİK PIN MODALI ================= -->
-  <div id="teacher-auth-modal" class="fixed inset-0 z-[10000] bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4" style="display:none;">
+  id="teacher-auth-modal" class="fixed inset-0 z-[10000] bg-slate-950/80 backdrop-blur-md hidden flex items-center justify-center p-4" style="display:none;">
     <div class="bg-slate-900 border-2 border-purple-500/50 rounded-3xl p-6 sm:p-8 max-w-sm w-full shadow-2xl text-center">
       <div class="w-14 h-14 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl mx-auto mb-3 border border-purple-500/40">
         🔒

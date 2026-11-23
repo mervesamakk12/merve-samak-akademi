@@ -42,6 +42,13 @@
 
   <!-- Özel Stiller -->
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs) {
+        for (var r of regs) r.unregister();
+      }).catch(function() {});
+    }
+  </script>
 </head>
 <body class="min-h-screen flex flex-col selection:bg-pink-500 selection:text-white relative bg-gradient-subtle">
   <!-- III. MAARIF KONGRESI BILDIRI DUYURU BANT -->

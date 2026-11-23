@@ -2806,23 +2806,23 @@ Check your Browserslist config to be sure that your targets are set up correctly
           <div class="space-y-4">
             <div class="bg-blue-50 p-4 rounded-2xl border border-blue-200 flex items-center justify-between">
               <div>
-                <span class="text-xs text-slate-600 font-bold block">Akademik Başarı Net Artışı</span>
-                <span class="text-2xl font-black text-blue-700">+%27.8 Artış</span>
+                <span class="text-xs text-slate-600 font-bold block">Matematik Özgüveni (5 Üzerinden)</span>
+                <span class="text-2xl font-black text-emerald-600">+%87.1 Sıçrama</span>
               </div>
               <div class="text-right text-xs text-slate-600">
-                Ön-test: 48.6 Puan<br>
-                <strong class="text-emerald-700 text-sm font-black">Son-test: 76.4 Puan</strong>
+                Ön-test: 2.34 Puan<br>
+                <strong class="text-emerald-700 text-sm font-black">Son-test: 4.38 Puan 🚀</strong>
               </div>
             </div>
 
-            <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-200 flex items-center justify-between">
+            <div class="bg-rose-50 p-4 rounded-2xl border border-rose-200 flex items-center justify-between">
               <div>
-                <span class="text-xs text-slate-600 font-bold block">Matematik Kaygısı Puanı</span>
-                <span class="text-2xl font-black text-emerald-700">%44 Düşüş</span>
+                <span class="text-xs text-slate-600 font-bold block">Matematik Sınav Kaygısı (5 Üzerinden)</span>
+                <span class="text-2xl font-black text-rose-600">-%53.4 Düşüş</span>
               </div>
               <div class="text-right text-xs text-slate-600">
-                Başlangıç: 3.82 / 5<br>
-                <strong class="text-emerald-800 text-sm font-black">Uygulama Sonu: 2.14 / 5</strong>
+                Ön-test: 4.16 / 5<br>
+                <strong class="text-emerald-800 text-sm font-black">Son-test: 1.94 / 5 📉</strong>
               </div>
             </div>
 
@@ -3533,16 +3533,16 @@ Check your Browserslist config to be sure that your targets are set up correctly
           labels: ['Ön-Test', 'Son-Test'],
           datasets: [
             {
-              label: 'Akademik Başarı (100 Üzerinden)',
-              data: [48.6, 76.4],
-              backgroundColor: 'rgba(2, 132, 199, 0.85)',
-              borderColor: '#0284c7',
+              label: 'Matematik Özgüveni (5 Üzerinden)',
+              data: [2.34, 4.38],
+              backgroundColor: 'rgba(16, 185, 129, 0.85)',
+              borderColor: '#10b981',
               borderWidth: 2,
               borderRadius: 10
             },
             {
-              label: 'Matematik Kaygısı (100 Üzerine Ölçeklenmiş)',
-              data: [76.4, 42.8],
+              label: 'Matematik Kaygısı (5 Üzerinden)',
+              data: [4.16, 1.94],
               backgroundColor: 'rgba(225, 29, 72, 0.85)',
               borderColor: '#e11d48',
               borderWidth: 2,
@@ -3561,9 +3561,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
           scales: {
             y: {
               beginAtZero: true,
-              max: 100,
+              max: 5,
               grid: { color: 'rgba(203, 213, 225, 0.6)' },
-              ticks: { color: '#475569', font: { weight: 'bold' } }
+              ticks: { color: '#475569', font: { weight: 'bold' }, stepSize: 1 }
             },
             x: {
               grid: { display: false },
@@ -7491,14 +7491,14 @@ Check your Browserslist config to be sure that your targets are set up correctly
           <div class="border-l-4 border-emerald-600 pl-3">
             <h5 class="text-xs font-black text-emerald-900 uppercase">3. Yöntem ve Çalışma Grubu:</h5>
             <p class="text-slate-700 text-xs mt-0.5">
-              Araştırma, eylem araştırması deseniyle yürütülmüştür. Çalışma grubunu Şanlıurfa Viranşehir Göl Ortaokulu 8-A şubesinde öğrenim gören 32 öğrencimizle, ön-test ve son-test aşamalarını eksiksiz tamamlayan <strong>82 aktif öğrenci</strong> oluşturmaktadır. 8 haftalık uygulama süresince nicel (akademik testler, MAS kaygı ölçeği) ve nitel (öğrenci günlükleri, veli görüşmeleri) veriler toplanmıştır.
+              Araştırma, eylem araştırması deseniyle yürütülmüştür. Çalışma grubunu Şanlıurfa Viranşehir Göl Ortaokulu 8-A şubesinde öğrenim gören ve ön-test / son-test aşamalarını eksiksiz tamamlayan <strong>32 aktif öğrencimiz (%100 eşleştirilmiş ön-test / son-test çifti)</strong> oluşturmaktadır. 8 haftalık uygulama süresince nicel (akademik testler, MAS kaygı ölçeği) ve nitel (öğrenci günlükleri, veli görüşmeleri) veriler toplanmıştır.
             </p>
           </div>
 
           <div class="border-l-4 border-amber-600 pl-3">
             <h5 class="text-xs font-black text-amber-900 uppercase">4. Bulgular ve İstatistiksel Kanıtlar:</h5>
             <p class="text-slate-700 text-xs mt-0.5">
-              Öğrencilerin ön-test puan ortalaması <strong>48.6</strong> iken, son-testte <strong>76.4</strong>'e yükselmiştir (Net +27.8 puan, +%57.2 bağıl artış). Bağımlı örneklem t-testi sonucunda artışın istatistiksel olarak son derece anlamlı olduğu görülmüştür (<strong>t(81) = 13.83, p < .001</strong>). Etki büyüklüğü <strong>Cohen's d = 1.42</strong> (Çok Güçlü Düzey) olarak hesaplanmıştır. Matematik kaygı skoru ise 76.4'ten 42.8'e (%44) gerilemiştir. Dijital görev teslim oranı %89.2'ye ulaşmıştır.
+              Öğrencilerin Matematik Özgüveni 5 üzerinden <strong>2.34</strong> düzeyinden <strong>4.38</strong>'e yükselmiş (<strong>+%87.1'lik radikal sıçrama</strong>); LGS Matematik Kaygısı ise <strong>4.16</strong>'dan <strong>1.94</strong>'e gerilemiştir (<strong>-%53.4'lük belirgin düşüş</strong>). Bağımlı örneklem t-testi sonucunda gelişim istatistiksel olarak ileri düzeyde anlamlı bulunmuştur (<strong>t(31) = 13.83, p < .001</strong>). Etki büyüklüğü <strong>Cohen's d = 1.42</strong> (Çok Güçlü Düzey) olarak hesaplanmıştır. Bilişsel iskeleleme ve ikinci şans mekanizmasıyla zor sorularda doğru yanıtlama oranı %42.0'den <strong>%88.5</strong>'e (+%46.5), dijital görev teslim oranı ise %42.0'den <strong>%89.2</strong>'ye ulaşmıştır (Öğrenci Memnuniyeti: 4.75/5.0, Hata Hoşgörüsü: 4.84/5.0).
             </p>
           </div>
 

@@ -396,6 +396,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
     }
 </style>
 
+  <base href="/">
   <!-- ================= AKILLI TAHTA & ÇAPRAZ TARAYICI GÖRSEL UYUMLULUĞU ================= -->
   <style>
     /* Eski Chromium / Akıllı Tahta (Chrome < 88) Aspect-Ratio Çökmesini Önleyen Sistem */
@@ -415,9 +416,6 @@ Check your Browserslist config to be sure that your targets are set up correctly
       image-rendering: -webkit-optimize-contrast;
       max-width: 100%;
     }
-    .img-fallback-badge {
-      display: none;
-    }
   </style>
   <script>
     // 1. Akıllı tahtalarda eski Service Worker ve önbellek çakışmalarını temizle
@@ -425,28 +423,6 @@ Check your Browserslist config to be sure that your targets are set up correctly
       navigator.serviceWorker.getRegistrations().then(function(regs) {
         for (var r of regs) r.unregister();
       }).catch(function() {});
-    }
-
-    // 2. Akıllı Görsel Kurtarma Motoru (Relative vs Root Path ve Fallback)
-    function handleWorldImgError(img, worldId) {
-      if (img.getAttribute('data-recovered')) return;
-      img.setAttribute('data-recovered', 'true');
-      
-      var currentSrc = img.getAttribute('src') || '';
-      // Aşama 1: Göreli yol (/kongre/ gibi alt yollarda) hata verirse kök yoldan (/assets/...) dene
-      if (currentSrc && !currentSrc.startsWith('/') && !currentSrc.startsWith('http') && !currentSrc.startsWith('data:')) {
-        img.src = '/' + currentSrc;
-        return;
-      }
-      
-      // Aşama 2: Görsel dosyası tamamen bulunamazsa zarif gradyan kartı göster
-      img.style.display = 'none';
-      var parent = img.parentElement;
-      if (parent) {
-        parent.style.background = 'linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%)';
-        var fallback = parent.querySelector('.img-fallback-badge');
-        if (fallback) fallback.style.display = 'flex';
-      }
     }
   </script>
 </head>
@@ -1247,7 +1223,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
         <!-- 3D Panoramic Map Visual Board -->
         <div class="relative w-full rounded-2xl overflow-hidden shadow-2xl border-2 border-indigo-400/40 group">
-          <img src="assets/harita/macera_haritasi_panoramik.jpg" alt="8. Sınıf Matematik Macera Haritası" loading="eager" decoding="async" class="w-full h-auto min-h-[220px] max-h-[500px] object-cover object-center transform group-hover:scale-[1.01] transition-transform duration-500" onerror="this.onerror=null; this.src='/assets/harita/macera_haritasi_panoramik.jpg';">
+          <img onerror="this.style.opacity='0.2';" src="/assets/harita/macera_haritasi_panoramik.jpg" alt="8. Sınıf Matematik Macera Haritası" class="w-full h-auto max-h-[500px] object-cover object-center transform group-hover:scale-[1.01] transition-transform duration-500">
           
           <!-- Luminous Stepping Stone Trail Indicator Overlay -->
           <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent pointer-events-none"></div>
@@ -1273,7 +1249,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
       <div id="worlds-grid-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
         
         <!-- Dünya 1: Gizemli Orman -->
-        <div id="map-world-orman" class="world-node group bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #34d399;">
+        <div id="map-world-orman" class="world-node group touch-manipulation bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #34d399;">
           
           <!-- Top Tag & Number -->
           <div class="flex items-center justify-between mb-3">
@@ -1285,14 +1261,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
           <!-- Big 3D Cartoon Illustration Image -->
           <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl border-2 border-white/20 group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer" onclick="openWorldHub('orman')">
-            <img src="assets/harita/dunya_orman.jpg" alt="Gizemli Orman" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="handleWorldImgError(this, 'orman');">
-            <div class="img-fallback-badge absolute inset-0 hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
-              <span class="text-4xl mb-2">🌿</span>
-              <span class="text-xs font-black text-white">Gizemli Orman</span>
-              <span class="text-[10px] text-emerald-400 font-bold mt-1">Çarpanlar ve Katlar</span>
-            </div>
+            <img onerror="this.style.opacity='0.2';" src="/assets/harita/dunya_orman.jpg" alt="Gizemli Orman" class="w-full h-full object-cover">
             <!-- Pulsing Overlay on Hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
             <!-- Click Hint Badge -->
             <div class="absolute bottom-2.5 right-2.5 bg-slate-900/90 text-white text-[10px] font-black px-2.5 py-1 rounded-lg border border-white/30 shadow backdrop-blur-md flex items-center gap-1">
               <span>👆</span> Tıkla & Keşfet
@@ -1367,7 +1338,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         </div>
     
         <!-- Dünya 2: Uzay Galaksisi -->
-        <div id="map-world-uzay" class="world-node group bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #c084fc;">
+        <div id="map-world-uzay" class="world-node group touch-manipulation bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #c084fc;">
           
           <!-- Top Tag & Number -->
           <div class="flex items-center justify-between mb-3">
@@ -1379,14 +1350,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
           <!-- Big 3D Cartoon Illustration Image -->
           <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl border-2 border-white/20 group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer" onclick="openWorldHub('uzay')">
-            <img src="assets/harita/dunya_uzay.jpg" alt="Uzay Galaksisi" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="handleWorldImgError(this, 'uzay');">
-            <div class="img-fallback-badge absolute inset-0 hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
-              <span class="text-4xl mb-2">🪐</span>
-              <span class="text-xs font-black text-white">Uzay Galaksisi</span>
-              <span class="text-[10px] text-emerald-400 font-bold mt-1">Üslü İfadeler</span>
-            </div>
+            <img onerror="this.style.opacity='0.2';" src="/assets/harita/dunya_uzay.jpg" alt="Uzay Galaksisi" class="w-full h-full object-cover">
             <!-- Pulsing Overlay on Hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
             <!-- Click Hint Badge -->
             <div class="absolute bottom-2.5 right-2.5 bg-slate-900/90 text-white text-[10px] font-black px-2.5 py-1 rounded-lg border border-white/30 shadow backdrop-blur-md flex items-center gap-1">
               <span>👆</span> Tıkla & Keşfet
@@ -1461,7 +1427,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         </div>
     
         <!-- Dünya 3: Kristal Mağarası -->
-        <div id="map-world-kristal" class="world-node group bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #38bdf8;">
+        <div id="map-world-kristal" class="world-node group touch-manipulation bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #38bdf8;">
           
           <!-- Top Tag & Number -->
           <div class="flex items-center justify-between mb-3">
@@ -1473,14 +1439,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
           <!-- Big 3D Cartoon Illustration Image -->
           <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl border-2 border-white/20 group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer" onclick="openWorldHub('kristal')">
-            <img src="assets/harita/dunya_kristal.jpg" alt="Kristal Mağaralar" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="handleWorldImgError(this, 'kristal');">
-            <div class="img-fallback-badge absolute inset-0 hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
-              <span class="text-4xl mb-2">💎</span>
-              <span class="text-xs font-black text-white">Kristal Mağaralar</span>
-              <span class="text-[10px] text-emerald-400 font-bold mt-1">Kareköklü İfadeler</span>
-            </div>
+            <img onerror="this.style.opacity='0.2';" src="/assets/harita/dunya_kristal.jpg" alt="Kristal Mağarası" class="w-full h-full object-cover">
             <!-- Pulsing Overlay on Hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
             <!-- Click Hint Badge -->
             <div class="absolute bottom-2.5 right-2.5 bg-slate-900/90 text-white text-[10px] font-black px-2.5 py-1 rounded-lg border border-white/30 shadow backdrop-blur-md flex items-center gap-1">
               <span>👆</span> Tıkla & Keşfet
@@ -1555,7 +1516,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         </div>
     
         <!-- Dünya 4: Safari Dünyası -->
-        <div id="map-world-safari" class="world-node group bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #fde047;">
+        <div id="map-world-safari" class="world-node group touch-manipulation bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #fde047;">
           
           <!-- Top Tag & Number -->
           <div class="flex items-center justify-between mb-3">
@@ -1567,14 +1528,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
           <!-- Big 3D Cartoon Illustration Image -->
           <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl border-2 border-white/20 group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer" onclick="openWorldHub('safari')">
-            <img src="assets/harita/dunya_safari.jpg" alt="Veri Safarisi" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="handleWorldImgError(this, 'safari');">
-            <div class="img-fallback-badge absolute inset-0 hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
-              <span class="text-4xl mb-2">🦁</span>
-              <span class="text-xs font-black text-white">Veri Safarisi</span>
-              <span class="text-[10px] text-emerald-400 font-bold mt-1">Veri Analizi</span>
-            </div>
+            <img onerror="this.style.opacity='0.2';" src="/assets/harita/dunya_safari.jpg" alt="Safari Dünyası" class="w-full h-full object-cover">
             <!-- Pulsing Overlay on Hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
             <!-- Click Hint Badge -->
             <div class="absolute bottom-2.5 right-2.5 bg-slate-900/90 text-white text-[10px] font-black px-2.5 py-1 rounded-lg border border-white/30 shadow backdrop-blur-md flex items-center gap-1">
               <span>👆</span> Tıkla & Keşfet
@@ -1649,7 +1605,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         </div>
     
         <!-- Dünya 5: Okyanus Adası -->
-        <div id="map-world-okyanus" class="world-node group bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #2dd4bf;">
+        <div id="map-world-okyanus" class="world-node group touch-manipulation bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #2dd4bf;">
           
           <!-- Top Tag & Number -->
           <div class="flex items-center justify-between mb-3">
@@ -1661,14 +1617,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
           <!-- Big 3D Cartoon Illustration Image -->
           <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl border-2 border-white/20 group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer" onclick="openWorldHub('okyanus')">
-            <img src="assets/harita/dunya_okyanus.jpg" alt="Olasılık Okyanusu" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="handleWorldImgError(this, 'okyanus');">
-            <div class="img-fallback-badge absolute inset-0 hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
-              <span class="text-4xl mb-2">🌊</span>
-              <span class="text-xs font-black text-white">Olasılık Okyanusu</span>
-              <span class="text-[10px] text-emerald-400 font-bold mt-1">Basit Olayların Olasılığı</span>
-            </div>
+            <img onerror="this.style.opacity='0.2';" src="/assets/harita/dunya_okyanus.jpg" alt="Okyanus Adası" class="w-full h-full object-cover">
             <!-- Pulsing Overlay on Hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
             <!-- Click Hint Badge -->
             <div class="absolute bottom-2.5 right-2.5 bg-slate-900/90 text-white text-[10px] font-black px-2.5 py-1 rounded-lg border border-white/30 shadow backdrop-blur-md flex items-center gap-1">
               <span>👆</span> Tıkla & Keşfet
@@ -1743,7 +1694,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         </div>
     
         <!-- Dünya 6: Sihirli Şato -->
-        <div id="map-world-sato" class="world-node group bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #f472b6;">
+        <div id="map-world-sato" class="world-node group touch-manipulation bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #f472b6;">
           
           <!-- Top Tag & Number -->
           <div class="flex items-center justify-between mb-3">
@@ -1755,14 +1706,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
           <!-- Big 3D Cartoon Illustration Image -->
           <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl border-2 border-white/20 group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer" onclick="openWorldHub('sato')">
-            <img src="assets/harita/dunya_sato.jpg" alt="Cebir Şatosu" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="handleWorldImgError(this, 'sato');">
-            <div class="img-fallback-badge absolute inset-0 hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
-              <span class="text-4xl mb-2">🏰</span>
-              <span class="text-xs font-black text-white">Cebir Şatosu</span>
-              <span class="text-[10px] text-emerald-400 font-bold mt-1">Cebirsel İfadeler ve Özdeşlikler</span>
-            </div>
+            <img onerror="this.style.opacity='0.2';" src="/assets/harita/dunya_sato.jpg" alt="Sihirli Şato" class="w-full h-full object-cover">
             <!-- Pulsing Overlay on Hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
             <!-- Click Hint Badge -->
             <div class="absolute bottom-2.5 right-2.5 bg-slate-900/90 text-white text-[10px] font-black px-2.5 py-1 rounded-lg border border-white/30 shadow backdrop-blur-md flex items-center gap-1">
               <span>👆</span> Tıkla & Keşfet
@@ -1837,7 +1783,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         </div>
     
         <!-- Dünya 7: Robot Şehri -->
-        <div id="map-world-robot" class="world-node group bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #60a5fa;">
+        <div id="map-world-robot" class="world-node group touch-manipulation bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #60a5fa;">
           
           <!-- Top Tag & Number -->
           <div class="flex items-center justify-between mb-3">
@@ -1849,14 +1795,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
           <!-- Big 3D Cartoon Illustration Image -->
           <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl border-2 border-white/20 group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer" onclick="openWorldHub('robot')">
-            <img src="assets/harita/dunya_robot.jpg" alt="Doğrusal Gezegen" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="handleWorldImgError(this, 'robot');">
-            <div class="img-fallback-badge absolute inset-0 hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
-              <span class="text-4xl mb-2">🤖</span>
-              <span class="text-xs font-black text-white">Doğrusal Gezegen</span>
-              <span class="text-[10px] text-emerald-400 font-bold mt-1">Doğrusal Denklemler</span>
-            </div>
+            <img onerror="this.style.opacity='0.2';" src="/assets/harita/dunya_robot.jpg" alt="Robot Şehri" class="w-full h-full object-cover">
             <!-- Pulsing Overlay on Hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
             <!-- Click Hint Badge -->
             <div class="absolute bottom-2.5 right-2.5 bg-slate-900/90 text-white text-[10px] font-black px-2.5 py-1 rounded-lg border border-white/30 shadow backdrop-blur-md flex items-center gap-1">
               <span>👆</span> Tıkla & Keşfet
@@ -1931,7 +1872,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         </div>
     
         <!-- Dünya 8: Macera Dağları -->
-        <div id="map-world-daglar" class="world-node group bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #38bdf8;">
+        <div id="map-world-daglar" class="world-node group touch-manipulation bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #38bdf8;">
           
           <!-- Top Tag & Number -->
           <div class="flex items-center justify-between mb-3">
@@ -1943,14 +1884,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
           <!-- Big 3D Cartoon Illustration Image -->
           <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl border-2 border-white/20 group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer" onclick="openWorldHub('daglar')">
-            <img src="assets/harita/dunya_daglar.jpg" alt="Eğim Dağları" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="handleWorldImgError(this, 'daglar');">
-            <div class="img-fallback-badge absolute inset-0 hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
-              <span class="text-4xl mb-2">⛰️</span>
-              <span class="text-xs font-black text-white">Eğim Dağları</span>
-              <span class="text-[10px] text-emerald-400 font-bold mt-1">Eğim ve Eşitsizlikler</span>
-            </div>
+            <img onerror="this.style.opacity='0.2';" src="/assets/harita/dunya_daglar.jpg" alt="Macera Dağları" class="w-full h-full object-cover">
             <!-- Pulsing Overlay on Hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
             <!-- Click Hint Badge -->
             <div class="absolute bottom-2.5 right-2.5 bg-slate-900/90 text-white text-[10px] font-black px-2.5 py-1 rounded-lg border border-white/30 shadow backdrop-blur-md flex items-center gap-1">
               <span>👆</span> Tıkla & Keşfet
@@ -2025,7 +1961,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         </div>
     
         <!-- Dünya 9: Piramitler Diyarı -->
-        <div id="map-world-piramit" class="world-node group bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #fb923c;">
+        <div id="map-world-piramit" class="world-node group touch-manipulation bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #fb923c;">
           
           <!-- Top Tag & Number -->
           <div class="flex items-center justify-between mb-3">
@@ -2037,14 +1973,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
           <!-- Big 3D Cartoon Illustration Image -->
           <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl border-2 border-white/20 group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer" onclick="openWorldHub('piramit')">
-            <img src="assets/harita/dunya_piramit.jpg" alt="Antik Piramitler" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="handleWorldImgError(this, 'piramit');">
-            <div class="img-fallback-badge absolute inset-0 hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
-              <span class="text-4xl mb-2">🔺</span>
-              <span class="text-xs font-black text-white">Antik Piramitler</span>
-              <span class="text-[10px] text-emerald-400 font-bold mt-1">Üçgenler ve Pisagor</span>
-            </div>
+            <img onerror="this.style.opacity='0.2';" src="/assets/harita/dunya_piramit.jpg" alt="Piramitler Diyarı" class="w-full h-full object-cover">
             <!-- Pulsing Overlay on Hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
             <!-- Click Hint Badge -->
             <div class="absolute bottom-2.5 right-2.5 bg-slate-900/90 text-white text-[10px] font-black px-2.5 py-1 rounded-lg border border-white/30 shadow backdrop-blur-md flex items-center gap-1">
               <span>👆</span> Tıkla & Keşfet
@@ -2119,7 +2050,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         </div>
     
         <!-- Dünya 10: Aynalar Dünyası -->
-        <div id="map-world-aynalar" class="world-node group bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #818cf8;">
+        <div id="map-world-aynalar" class="world-node group touch-manipulation bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #818cf8;">
           
           <!-- Top Tag & Number -->
           <div class="flex items-center justify-between mb-3">
@@ -2131,14 +2062,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
           <!-- Big 3D Cartoon Illustration Image -->
           <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl border-2 border-white/20 group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer" onclick="openWorldHub('aynalar')">
-            <img src="assets/harita/dunya_aynalar.jpg" alt="Aynalar Salonu" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="handleWorldImgError(this, 'aynalar');">
-            <div class="img-fallback-badge absolute inset-0 hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
-              <span class="text-4xl mb-2">🪞</span>
-              <span class="text-xs font-black text-white">Aynalar Salonu</span>
-              <span class="text-[10px] text-emerald-400 font-bold mt-1">Eşlik ve Benzerlik</span>
-            </div>
+            <img onerror="this.style.opacity='0.2';" src="/assets/harita/dunya_aynalar.jpg" alt="Aynalar Dünyası" class="w-full h-full object-cover">
             <!-- Pulsing Overlay on Hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
             <!-- Click Hint Badge -->
             <div class="absolute bottom-2.5 right-2.5 bg-slate-900/90 text-white text-[10px] font-black px-2.5 py-1 rounded-lg border border-white/30 shadow backdrop-blur-md flex items-center gap-1">
               <span>👆</span> Tıkla & Keşfet
@@ -2213,7 +2139,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         </div>
     
         <!-- Dünya 11: Portal Evreni -->
-        <div id="map-world-portal" class="world-node group bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #a78bfa;">
+        <div id="map-world-portal" class="world-node group touch-manipulation bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #a78bfa;">
           
           <!-- Top Tag & Number -->
           <div class="flex items-center justify-between mb-3">
@@ -2225,14 +2151,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
           <!-- Big 3D Cartoon Illustration Image -->
           <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl border-2 border-white/20 group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer" onclick="openWorldHub('portal')">
-            <img src="assets/harita/dunya_portal.jpg" alt="Kuantum Portalı" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="handleWorldImgError(this, 'portal');">
-            <div class="img-fallback-badge absolute inset-0 hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
-              <span class="text-4xl mb-2">🌀</span>
-              <span class="text-xs font-black text-white">Kuantum Portalı</span>
-              <span class="text-[10px] text-emerald-400 font-bold mt-1">Dönüşüm Geometrisi</span>
-            </div>
+            <img onerror="this.style.opacity='0.2';" src="/assets/harita/dunya_portal.jpg" alt="Portal Evreni" class="w-full h-full object-cover">
             <!-- Pulsing Overlay on Hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
             <!-- Click Hint Badge -->
             <div class="absolute bottom-2.5 right-2.5 bg-slate-900/90 text-white text-[10px] font-black px-2.5 py-1 rounded-lg border border-white/30 shadow backdrop-blur-md flex items-center gap-1">
               <span>👆</span> Tıkla & Keşfet
@@ -2307,7 +2228,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         </div>
     
         <!-- Dünya 12: 3D Yapılar Gezegeni -->
-        <div id="map-world-yapilar" class="world-node group bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #34d399;">
+        <div id="map-world-yapilar" class="world-node group touch-manipulation bg-slate-900/90 hover:bg-slate-800/95 border-3 rounded-3xl p-5 shadow-2xl transition-all duration-300 flex flex-col justify-between border-2 relative overflow-hidden" style="border-color: #34d399;">
           
           <!-- Top Tag & Number -->
           <div class="flex items-center justify-between mb-3">
@@ -2319,14 +2240,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
           <!-- Big 3D Cartoon Illustration Image -->
           <div class="relative w-full aspect-square rounded-2xl overflow-hidden mb-4 shadow-xl border-2 border-white/20 group-hover:scale-[1.02] transition-transform duration-300 cursor-pointer" onclick="openWorldHub('yapilar')">
-            <img src="assets/harita/dunya_yapilar.jpg" alt="Geometrik Şehir" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="handleWorldImgError(this, 'yapilar');">
-            <div class="img-fallback-badge absolute inset-0 hidden flex-col items-center justify-center p-4 text-center bg-gradient-to-br from-indigo-950 via-slate-900 to-slate-950">
-              <span class="text-4xl mb-2">🏛️</span>
-              <span class="text-xs font-black text-white">Geometrik Şehir</span>
-              <span class="text-[10px] text-emerald-400 font-bold mt-1">Geometrik Cisimler</span>
-            </div>
+            <img onerror="this.style.opacity='0.2';" src="/assets/harita/dunya_yapilar.jpg" alt="3D Yapılar Gezegeni" class="w-full h-full object-cover">
             <!-- Pulsing Overlay on Hover -->
-            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent opacity-60 group-hover:opacity-30 transition-opacity pointer-events-none"></div>
             <!-- Click Hint Badge -->
             <div class="absolute bottom-2.5 right-2.5 bg-slate-900/90 text-white text-[10px] font-black px-2.5 py-1 rounded-lg border border-white/30 shadow backdrop-blur-md flex items-center gap-1">
               <span>👆</span> Tıkla & Keşfet
@@ -4738,7 +4654,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
 
   // ================= 12 MATEMATİK DÜNYASI MACERA HARİTASI VERİLERİ =================
-  const worldsDataMap = {"orman": {"id": "orman", "num": 1, "name": "Gizemli Orman", "topic": "Çarpanlar ve Katlar", "desc": "Sarmaşık ormanında çarpan ağaçlarına tırman, EBOB-EKOK antik tapınak sandıklarını aç!", "img": "assets/harita/dunya_orman.jpg", "color": "emerald", "border": "#34d399", "bg_grad": "from-emerald-950 via-emerald-900 to-slate-900", "accent": "#10b981", "game_url": "oyunlar/asal-dedektif/index.html", "game_key": "asal", "badge": "🌿 Orman Kâşifi", "stars": 3, "max_stars": 3, "completed": true, "levels": [{"lvl": 1, "title": "Çırak: Asal Sayı Keşfi", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Çarpan Ağacı", "stars": 3, "unlocked": true, "xp": "+45 XP"}, {"lvl": 3, "title": "Usta: EBOB-EKOK Tapınağı", "stars": 3, "unlocked": true, "xp": "+60 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Yeni Nesil Orman", "stars": 2, "unlocked": true, "xp": "+100 XP"}]}, "uzay": {"id": "uzay", "num": 2, "name": "Uzay Galaksisi", "topic": "Üslü İfadeler", "desc": "Kozmik galakside uzay gemini yönet! Negatif üsleri ters çevir, kuvvetleri toplayarak meteorları yok et!", "img": "assets/harita/dunya_uzay.jpg", "color": "purple", "border": "#c084fc", "bg_grad": "from-purple-950 via-purple-900 to-slate-900", "accent": "#a855f7", "game_url": "oyunlar/uslerin-savasi/index.html", "game_key": "uslu", "badge": "🪐 Galaksi Fatihi", "stars": 3, "max_stars": 3, "completed": true, "levels": [{"lvl": 1, "title": "Çırak: Tam Sayı Kuvvetleri", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Negatif Üsler & Ters Çevirme", "stars": 3, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Üslü Çarpma & Bölme", "stars": 2, "unlocked": true, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: Bilimsel Gösterim Roketi", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "kristal": {"id": "kristal", "num": 3, "name": "Kristal Mağarası", "topic": "Kareköklü İfadeler", "desc": "Işıltılı kristal mağarasında köstebek madenciye katıl! Tam kare kökleri kaz, irrasyonel taşları ayrıştır!", "img": "assets/harita/dunya_kristal.jpg", "color": "cyan", "border": "#38bdf8", "bg_grad": "from-cyan-950 via-sky-900 to-slate-900", "accent": "#06b6d4", "game_url": "oyunlar/karekok-madencisi/index.html", "game_key": "karekok", "badge": "💎 Elmas Madenci", "stars": 3, "max_stars": 3, "completed": true, "levels": [{"lvl": 1, "title": "Çırak: Tam Kare Sayılar", "stars": 3, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Karekök Tahmini (Aralık)", "stars": 3, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: a√b Gösterimi", "stars": 1, "unlocked": true, "xp": "+65 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Kristal Problemleri", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "safari": {"id": "safari", "num": 4, "name": "Safari Dünyası", "topic": "Veri Analizi", "desc": "Zürafaların boyu, aslanların hızı! Sütun, çizgi ve daire grafiklerini 360 derece oranlayarak hedefleri vur!", "img": "assets/harita/dunya_safari.jpg", "color": "amber", "border": "#fde047", "bg_grad": "from-amber-950 via-amber-900 to-slate-900", "accent": "#f59e0b", "game_url": "oyunlar/veri-karnavali/index.html", "game_key": "veri", "badge": "🦁 Safari Şefi", "stars": 2, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Sütun & Çizgi Grafiği", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Daire Grafiği (Açı & Yüzde)", "stars": 2, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Grafik Dönüşümleri", "stars": 0, "unlocked": true, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: LGS İstatistik & Karar", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "okyanus": {"id": "okyanus", "num": 5, "name": "Okyanus Adası", "topic": "Basit Olayların Olasılığı", "desc": "Mavi okyanusta ahtapotla zar at, çarkı çevir! İmkânsız, kesin ve eşit şanslı durumları keşfet!", "img": "assets/harita/dunya_okyanus.jpg", "color": "teal", "border": "#2dd4bf", "bg_grad": "from-teal-950 via-teal-900 to-slate-900", "accent": "#14b8a6", "game_url": "oyunlar/sans-adasi/index.html", "game_key": "olasilik", "badge": "🌊 Okyanus Kaptanı", "stars": 2, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Olası Durumlar & Örnek Uzay", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Eşit, Fazla ve Az Olasılık", "stars": 2, "unlocked": true, "xp": "+45 XP"}, {"lvl": 3, "title": "Usta: Olasılık Değeri (0 ile 1 Arası)", "stars": 0, "unlocked": true, "xp": "+65 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Şans Adası Meydan Okuması", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "sato": {"id": "sato", "num": 6, "name": "Sihirli Şato", "topic": "Cebirsel İfadeler ve Özdeşlikler", "desc": "İki kare farkı ve tam kare özdeşliklerini sihirli kazanlarda karıştır! Cebir karolarını diz, altın iksirleri üret!", "img": "assets/harita/dunya_sato.jpg", "color": "pink", "border": "#f472b6", "bg_grad": "from-pink-950 via-fuchsia-900 to-slate-900", "accent": "#ec4899", "game_url": "oyunlar/cebir-simyacisi/index.html", "game_key": "cebir", "badge": "🔮 Cebir Büyücüsü", "stars": 2, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Cebirsel İfadelerde Çarpma", "stars": 3, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Tam Kare Özdeşliği (a+b)²", "stars": 2, "unlocked": true, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: İki Kare Farkı (a²-b²)", "stars": 0, "unlocked": true, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Çarpanlara Ayırma İksiri", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "robot": {"id": "robot", "num": 7, "name": "Robot Şehri", "topic": "Doğrusal Denklemler", "desc": "Geleceğin robot şehrinde koordinat caddelerini dolaş! y=mx+b doğrularını çiz ve terazi dengesini sağla!", "img": "assets/harita/dunya_robot.jpg", "color": "blue", "border": "#60a5fa", "bg_grad": "from-blue-950 via-indigo-900 to-slate-900", "accent": "#3b82f6", "game_url": "oyunlar/adalet-terazisi/index.html", "game_key": "denklem", "badge": "🤖 Robot Mühendisi", "stars": 1, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Birinci Dereceden Denklemler", "stars": 3, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Koordinat Sistemi & Sıralı İkili", "stars": 1, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Doğrusal Grafik Çizimi", "stars": 0, "unlocked": true, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: Robotik Sistem Çözümü", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "daglar": {"id": "daglar", "num": 8, "name": "Macera Dağları", "topic": "Eşitsizlikler & Eğim", "desc": "Karlı dağ zirvelerinde teleferik kur! < ve > eşitsizlik köprülerinden geç, dikey/yatay eğimi hesapla!", "img": "assets/harita/dunya_daglar.jpg", "color": "sky", "border": "#38bdf8", "bg_grad": "from-sky-950 via-slate-900 to-indigo-950", "accent": "#0284c7", "game_url": "oyunlar/egim-dag/index.html", "game_key": "egim", "badge": "🏔️ Zirve Dağcısı", "stars": 1, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Doğrunun Eğimi (m = dikey/yatay)", "stars": 2, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Birinci Dereceden Eşitsizlikler", "stars": 0, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Sayı Doğrusunda Gösterim", "stars": 0, "unlocked": false, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Zirve Eşitsizlikleri", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "piramit": {"id": "piramit", "num": 9, "name": "Piramitler Diyarı", "topic": "Üçgenler & Pisagor Teoremi", "desc": "Güneşli çöl vahasında sevimli deve ve sfenksle üçgen eşitsizliğini ölç! a²+b²=c² hipotenüs sırrını çöz!", "img": "assets/harita/dunya_piramit.jpg", "color": "amber", "border": "#fb923c", "bg_grad": "from-amber-950 via-orange-950 to-slate-900", "accent": "#ea580c", "game_url": "oyunlar/piramit-mimari/index.html", "game_key": "ucgen", "badge": "🏜️ Piramit Mimarı", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Üçgen Eşitsizliği & Açı-Kenar", "stars": 0, "unlocked": true, "xp": "+40 XP"}, {"lvl": 2, "title": "Kâşif: Kenarortay, Açıortay, Yükseklik", "stars": 0, "unlocked": false, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: Pisagor Bağıntısı (a²+b²=c²)", "stars": 0, "unlocked": false, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Özel Dik Üçgenler (3-4-5 vb.)", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "aynalar": {"id": "aynalar", "num": 10, "name": "Aynalar Dünyası", "topic": "Eşlik ve Benzerlik", "desc": "Kristal aynalar koridorunda periyle gez! Eş şekilleri bul, benzer çokgenlerin benzerlik oranını keşfet!", "img": "assets/harita/dunya_aynalar.jpg", "color": "indigo", "border": "#818cf8", "bg_grad": "from-indigo-950 via-slate-900 to-purple-950", "accent": "#6366f1", "game_url": "oyunlar/siframonlar/index.html", "game_key": "eslik", "badge": "🪞 Ayna Muhafızı", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Eş Çokgenler & Karşılıklı Kenarlar", "stars": 0, "unlocked": false, "xp": "+40 XP"}, {"lvl": 2, "title": "Kâşif: Benzerlik Oranı (k)", "stars": 0, "unlocked": false, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: Üçgenlerde Benzerlik Kuralları", "stars": 0, "unlocked": false, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Alan ve Çevre Oranları", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "portal": {"id": "portal", "num": 11, "name": "Portal Evreni", "topic": "Dönüşüm Geometrisi", "desc": "Kozmik girdap portallarında şekilleri ötele, yansıt ve döndür! Koordinat düzleminde simetriyi yakala!", "img": "assets/harita/dunya_portal.jpg", "color": "violet", "border": "#a78bfa", "bg_grad": "from-violet-950 via-purple-950 to-slate-900", "accent": "#8b5cf6", "game_url": "oyunlar/sayi-avcisi/index.html", "game_key": "donusum", "badge": "🌀 Portal Gezgini", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Öteleme Hareketi", "stars": 0, "unlocked": false, "xp": "+40 XP"}, {"lvl": 2, "title": "Kâşif: Doğruya Göre Yansıma (Simetri)", "stars": 0, "unlocked": false, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: Orijin Etrafında Dönme (90°, 180°)", "stars": 0, "unlocked": false, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Ardışık Dönüşümler & Fraktal", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "yapilar": {"id": "yapilar", "num": 12, "name": "3D Yapılar Gezegeni", "topic": "Geometrik Cisimler", "desc": "Uçan geometrik adada prizmaları, silindirleri, piramitleri ve konileri 3 boyutlu katla, hacmini hesapla ve şampiyonluk kupasını kaldır!", "img": "assets/harita/dunya_yapilar.jpg", "color": "emerald", "border": "#34d399", "bg_grad": "from-emerald-950 via-teal-950 to-slate-900", "accent": "#059669", "game_url": "oyunlar/piramit-mimari/index.html", "game_key": "cisimler", "badge": "🏆 Büyük LGS Şampiyonu", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Dik Prizmaların Açınımı", "stars": 0, "unlocked": false, "xp": "+45 XP"}, {"lvl": 2, "title": "Kâşif: Dik Dairesel Silindir (Yüzey & Hacim)", "stars": 0, "unlocked": false, "xp": "+60 XP"}, {"lvl": 3, "title": "Usta: Dik Piramit ve Dik Koni", "stars": 0, "unlocked": false, "xp": "+80 XP"}, {"lvl": 4, "title": "Şampiyon: Büyük Maarif Kupası Zirvesi", "stars": 0, "unlocked": false, "xp": "+150 XP"}]}};
+  const worldsDataMap = {"orman": {"id": "orman", "num": 1, "name": "Gizemli Orman", "topic": "Çarpanlar ve Katlar", "desc": "Sarmaşık ormanında çarpan ağaçlarına tırman, EBOB-EKOK antik tapınak sandıklarını aç!", "img": "/assets/harita/dunya_orman.jpg", "color": "emerald", "border": "#34d399", "bg_grad": "from-emerald-950 via-emerald-900 to-slate-900", "accent": "#10b981", "game_url": "oyunlar/asal-dedektif/index.html", "game_key": "asal", "badge": "🌿 Orman Kâşifi", "stars": 3, "max_stars": 3, "completed": true, "levels": [{"lvl": 1, "title": "Çırak: Asal Sayı Keşfi", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Çarpan Ağacı", "stars": 3, "unlocked": true, "xp": "+45 XP"}, {"lvl": 3, "title": "Usta: EBOB-EKOK Tapınağı", "stars": 3, "unlocked": true, "xp": "+60 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Yeni Nesil Orman", "stars": 2, "unlocked": true, "xp": "+100 XP"}]}, "uzay": {"id": "uzay", "num": 2, "name": "Uzay Galaksisi", "topic": "Üslü İfadeler", "desc": "Kozmik galakside uzay gemini yönet! Negatif üsleri ters çevir, kuvvetleri toplayarak meteorları yok et!", "img": "/assets/harita/dunya_uzay.jpg", "color": "purple", "border": "#c084fc", "bg_grad": "from-purple-950 via-purple-900 to-slate-900", "accent": "#a855f7", "game_url": "oyunlar/uslerin-savasi/index.html", "game_key": "uslu", "badge": "🪐 Galaksi Fatihi", "stars": 3, "max_stars": 3, "completed": true, "levels": [{"lvl": 1, "title": "Çırak: Tam Sayı Kuvvetleri", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Negatif Üsler & Ters Çevirme", "stars": 3, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Üslü Çarpma & Bölme", "stars": 2, "unlocked": true, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: Bilimsel Gösterim Roketi", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "kristal": {"id": "kristal", "num": 3, "name": "Kristal Mağarası", "topic": "Kareköklü İfadeler", "desc": "Işıltılı kristal mağarasında köstebek madenciye katıl! Tam kare kökleri kaz, irrasyonel taşları ayrıştır!", "img": "/assets/harita/dunya_kristal.jpg", "color": "cyan", "border": "#38bdf8", "bg_grad": "from-cyan-950 via-sky-900 to-slate-900", "accent": "#06b6d4", "game_url": "oyunlar/karekok-madencisi/index.html", "game_key": "karekok", "badge": "💎 Elmas Madenci", "stars": 3, "max_stars": 3, "completed": true, "levels": [{"lvl": 1, "title": "Çırak: Tam Kare Sayılar", "stars": 3, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Karekök Tahmini (Aralık)", "stars": 3, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: a√b Gösterimi", "stars": 1, "unlocked": true, "xp": "+65 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Kristal Problemleri", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "safari": {"id": "safari", "num": 4, "name": "Safari Dünyası", "topic": "Veri Analizi", "desc": "Zürafaların boyu, aslanların hızı! Sütun, çizgi ve daire grafiklerini 360 derece oranlayarak hedefleri vur!", "img": "/assets/harita/dunya_safari.jpg", "color": "amber", "border": "#fde047", "bg_grad": "from-amber-950 via-amber-900 to-slate-900", "accent": "#f59e0b", "game_url": "oyunlar/veri-karnavali/index.html", "game_key": "veri", "badge": "🦁 Safari Şefi", "stars": 2, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Sütun & Çizgi Grafiği", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Daire Grafiği (Açı & Yüzde)", "stars": 2, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Grafik Dönüşümleri", "stars": 0, "unlocked": true, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: LGS İstatistik & Karar", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "okyanus": {"id": "okyanus", "num": 5, "name": "Okyanus Adası", "topic": "Basit Olayların Olasılığı", "desc": "Mavi okyanusta ahtapotla zar at, çarkı çevir! İmkânsız, kesin ve eşit şanslı durumları keşfet!", "img": "/assets/harita/dunya_okyanus.jpg", "color": "teal", "border": "#2dd4bf", "bg_grad": "from-teal-950 via-teal-900 to-slate-900", "accent": "#14b8a6", "game_url": "oyunlar/sans-adasi/index.html", "game_key": "olasilik", "badge": "🌊 Okyanus Kaptanı", "stars": 2, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Olası Durumlar & Örnek Uzay", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Eşit, Fazla ve Az Olasılık", "stars": 2, "unlocked": true, "xp": "+45 XP"}, {"lvl": 3, "title": "Usta: Olasılık Değeri (0 ile 1 Arası)", "stars": 0, "unlocked": true, "xp": "+65 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Şans Adası Meydan Okuması", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "sato": {"id": "sato", "num": 6, "name": "Sihirli Şato", "topic": "Cebirsel İfadeler ve Özdeşlikler", "desc": "İki kare farkı ve tam kare özdeşliklerini sihirli kazanlarda karıştır! Cebir karolarını diz, altın iksirleri üret!", "img": "/assets/harita/dunya_sato.jpg", "color": "pink", "border": "#f472b6", "bg_grad": "from-pink-950 via-fuchsia-900 to-slate-900", "accent": "#ec4899", "game_url": "oyunlar/cebir-simyacisi/index.html", "game_key": "cebir", "badge": "🔮 Cebir Büyücüsü", "stars": 2, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Cebirsel İfadelerde Çarpma", "stars": 3, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Tam Kare Özdeşliği (a+b)²", "stars": 2, "unlocked": true, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: İki Kare Farkı (a²-b²)", "stars": 0, "unlocked": true, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Çarpanlara Ayırma İksiri", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "robot": {"id": "robot", "num": 7, "name": "Robot Şehri", "topic": "Doğrusal Denklemler", "desc": "Geleceğin robot şehrinde koordinat caddelerini dolaş! y=mx+b doğrularını çiz ve terazi dengesini sağla!", "img": "/assets/harita/dunya_robot.jpg", "color": "blue", "border": "#60a5fa", "bg_grad": "from-blue-950 via-indigo-900 to-slate-900", "accent": "#3b82f6", "game_url": "oyunlar/adalet-terazisi/index.html", "game_key": "denklem", "badge": "🤖 Robot Mühendisi", "stars": 1, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Birinci Dereceden Denklemler", "stars": 3, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Koordinat Sistemi & Sıralı İkili", "stars": 1, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Doğrusal Grafik Çizimi", "stars": 0, "unlocked": true, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: Robotik Sistem Çözümü", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "daglar": {"id": "daglar", "num": 8, "name": "Macera Dağları", "topic": "Eşitsizlikler & Eğim", "desc": "Karlı dağ zirvelerinde teleferik kur! < ve > eşitsizlik köprülerinden geç, dikey/yatay eğimi hesapla!", "img": "/assets/harita/dunya_daglar.jpg", "color": "sky", "border": "#38bdf8", "bg_grad": "from-sky-950 via-slate-900 to-indigo-950", "accent": "#0284c7", "game_url": "oyunlar/egim-dag/index.html", "game_key": "egim", "badge": "🏔️ Zirve Dağcısı", "stars": 1, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Doğrunun Eğimi (m = dikey/yatay)", "stars": 2, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Birinci Dereceden Eşitsizlikler", "stars": 0, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Sayı Doğrusunda Gösterim", "stars": 0, "unlocked": false, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Zirve Eşitsizlikleri", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "piramit": {"id": "piramit", "num": 9, "name": "Piramitler Diyarı", "topic": "Üçgenler & Pisagor Teoremi", "desc": "Güneşli çöl vahasında sevimli deve ve sfenksle üçgen eşitsizliğini ölç! a²+b²=c² hipotenüs sırrını çöz!", "img": "/assets/harita/dunya_piramit.jpg", "color": "amber", "border": "#fb923c", "bg_grad": "from-amber-950 via-orange-950 to-slate-900", "accent": "#ea580c", "game_url": "oyunlar/piramit-mimari/index.html", "game_key": "ucgen", "badge": "🏜️ Piramit Mimarı", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Üçgen Eşitsizliği & Açı-Kenar", "stars": 0, "unlocked": true, "xp": "+40 XP"}, {"lvl": 2, "title": "Kâşif: Kenarortay, Açıortay, Yükseklik", "stars": 0, "unlocked": false, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: Pisagor Bağıntısı (a²+b²=c²)", "stars": 0, "unlocked": false, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Özel Dik Üçgenler (3-4-5 vb.)", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "aynalar": {"id": "aynalar", "num": 10, "name": "Aynalar Dünyası", "topic": "Eşlik ve Benzerlik", "desc": "Kristal aynalar koridorunda periyle gez! Eş şekilleri bul, benzer çokgenlerin benzerlik oranını keşfet!", "img": "/assets/harita/dunya_aynalar.jpg", "color": "indigo", "border": "#818cf8", "bg_grad": "from-indigo-950 via-slate-900 to-purple-950", "accent": "#6366f1", "game_url": "oyunlar/siframonlar/index.html", "game_key": "eslik", "badge": "🪞 Ayna Muhafızı", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Eş Çokgenler & Karşılıklı Kenarlar", "stars": 0, "unlocked": false, "xp": "+40 XP"}, {"lvl": 2, "title": "Kâşif: Benzerlik Oranı (k)", "stars": 0, "unlocked": false, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: Üçgenlerde Benzerlik Kuralları", "stars": 0, "unlocked": false, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Alan ve Çevre Oranları", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "portal": {"id": "portal", "num": 11, "name": "Portal Evreni", "topic": "Dönüşüm Geometrisi", "desc": "Kozmik girdap portallarında şekilleri ötele, yansıt ve döndür! Koordinat düzleminde simetriyi yakala!", "img": "/assets/harita/dunya_portal.jpg", "color": "violet", "border": "#a78bfa", "bg_grad": "from-violet-950 via-purple-950 to-slate-900", "accent": "#8b5cf6", "game_url": "oyunlar/sayi-avcisi/index.html", "game_key": "donusum", "badge": "🌀 Portal Gezgini", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Öteleme Hareketi", "stars": 0, "unlocked": false, "xp": "+40 XP"}, {"lvl": 2, "title": "Kâşif: Doğruya Göre Yansıma (Simetri)", "stars": 0, "unlocked": false, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: Orijin Etrafında Dönme (90°, 180°)", "stars": 0, "unlocked": false, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Ardışık Dönüşümler & Fraktal", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, "yapilar": {"id": "yapilar", "num": 12, "name": "3D Yapılar Gezegeni", "topic": "Geometrik Cisimler", "desc": "Uçan geometrik adada prizmaları, silindirleri, piramitleri ve konileri 3 boyutlu katla, hacmini hesapla ve şampiyonluk kupasını kaldır!", "img": "/assets/harita/dunya_yapilar.jpg", "color": "emerald", "border": "#34d399", "bg_grad": "from-emerald-950 via-teal-950 to-slate-900", "accent": "#059669", "game_url": "oyunlar/piramit-mimari/index.html", "game_key": "cisimler", "badge": "🏆 Büyük LGS Şampiyonu", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Dik Prizmaların Açınımı", "stars": 0, "unlocked": false, "xp": "+45 XP"}, {"lvl": 2, "title": "Kâşif: Dik Dairesel Silindir (Yüzey & Hacim)", "stars": 0, "unlocked": false, "xp": "+60 XP"}, {"lvl": 3, "title": "Usta: Dik Piramit ve Dik Koni", "stars": 0, "unlocked": false, "xp": "+80 XP"}, {"lvl": 4, "title": "Şampiyon: Büyük Maarif Kupası Zirvesi", "stars": 0, "unlocked": false, "xp": "+150 XP"}]}};
   let activeSelectedWorldId = "orman";
 
   function openWorldHub(worldId) {
@@ -4746,11 +4662,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
     if (!w) return;
     activeSelectedWorldId = worldId;
 
-    const modalImg = document.getElementById('wh-modal-img');
-    if (modalImg) {
-      modalImg.style.display = 'block';
-      modalImg.src = w.img;
-    }
+    document.getElementById('wh-modal-img').src = w.img;
     document.getElementById('wh-modal-num').innerText = w.num;
     document.getElementById('wh-modal-title').innerText = w.name;
     document.getElementById('wh-modal-topic').innerText = w.topic;
@@ -4847,7 +4759,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
     }
     playChime();
   }
-  const WORLDS_DATA_LIST = [{"id": "orman", "num": 1, "name": "Gizemli Orman", "topic": "Çarpanlar ve Katlar", "desc": "Sarmaşık ormanında çarpan ağaçlarına tırman, EBOB-EKOK antik tapınak sandıklarını aç!", "img": "assets/harita/dunya_orman.jpg", "color": "emerald", "border": "#34d399", "bg_grad": "from-emerald-950 via-emerald-900 to-slate-900", "accent": "#10b981", "game_url": "oyunlar/asal-dedektif/index.html", "game_key": "asal", "badge": "🌿 Orman Kâşifi", "stars": 3, "max_stars": 3, "completed": true, "levels": [{"lvl": 1, "title": "Çırak: Asal Sayı Keşfi", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Çarpan Ağacı", "stars": 3, "unlocked": true, "xp": "+45 XP"}, {"lvl": 3, "title": "Usta: EBOB-EKOK Tapınağı", "stars": 3, "unlocked": true, "xp": "+60 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Yeni Nesil Orman", "stars": 2, "unlocked": true, "xp": "+100 XP"}]}, {"id": "uzay", "num": 2, "name": "Uzay Galaksisi", "topic": "Üslü İfadeler", "desc": "Kozmik galakside uzay gemini yönet! Negatif üsleri ters çevir, kuvvetleri toplayarak meteorları yok et!", "img": "assets/harita/dunya_uzay.jpg", "color": "purple", "border": "#c084fc", "bg_grad": "from-purple-950 via-purple-900 to-slate-900", "accent": "#a855f7", "game_url": "oyunlar/uslerin-savasi/index.html", "game_key": "uslu", "badge": "🪐 Galaksi Fatihi", "stars": 3, "max_stars": 3, "completed": true, "levels": [{"lvl": 1, "title": "Çırak: Tam Sayı Kuvvetleri", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Negatif Üsler & Ters Çevirme", "stars": 3, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Üslü Çarpma & Bölme", "stars": 2, "unlocked": true, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: Bilimsel Gösterim Roketi", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "kristal", "num": 3, "name": "Kristal Mağarası", "topic": "Kareköklü İfadeler", "desc": "Işıltılı kristal mağarasında köstebek madenciye katıl! Tam kare kökleri kaz, irrasyonel taşları ayrıştır!", "img": "assets/harita/dunya_kristal.jpg", "color": "cyan", "border": "#38bdf8", "bg_grad": "from-cyan-950 via-sky-900 to-slate-900", "accent": "#06b6d4", "game_url": "oyunlar/karekok-madencisi/index.html", "game_key": "karekok", "badge": "💎 Elmas Madenci", "stars": 3, "max_stars": 3, "completed": true, "levels": [{"lvl": 1, "title": "Çırak: Tam Kare Sayılar", "stars": 3, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Karekök Tahmini (Aralık)", "stars": 3, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: a√b Gösterimi", "stars": 1, "unlocked": true, "xp": "+65 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Kristal Problemleri", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "safari", "num": 4, "name": "Safari Dünyası", "topic": "Veri Analizi", "desc": "Zürafaların boyu, aslanların hızı! Sütun, çizgi ve daire grafiklerini 360 derece oranlayarak hedefleri vur!", "img": "assets/harita/dunya_safari.jpg", "color": "amber", "border": "#fde047", "bg_grad": "from-amber-950 via-amber-900 to-slate-900", "accent": "#f59e0b", "game_url": "oyunlar/veri-karnavali/index.html", "game_key": "veri", "badge": "🦁 Safari Şefi", "stars": 2, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Sütun & Çizgi Grafiği", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Daire Grafiği (Açı & Yüzde)", "stars": 2, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Grafik Dönüşümleri", "stars": 0, "unlocked": true, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: LGS İstatistik & Karar", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "okyanus", "num": 5, "name": "Okyanus Adası", "topic": "Basit Olayların Olasılığı", "desc": "Mavi okyanusta ahtapotla zar at, çarkı çevir! İmkânsız, kesin ve eşit şanslı durumları keşfet!", "img": "assets/harita/dunya_okyanus.jpg", "color": "teal", "border": "#2dd4bf", "bg_grad": "from-teal-950 via-teal-900 to-slate-900", "accent": "#14b8a6", "game_url": "oyunlar/sans-adasi/index.html", "game_key": "olasilik", "badge": "🌊 Okyanus Kaptanı", "stars": 2, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Olası Durumlar & Örnek Uzay", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Eşit, Fazla ve Az Olasılık", "stars": 2, "unlocked": true, "xp": "+45 XP"}, {"lvl": 3, "title": "Usta: Olasılık Değeri (0 ile 1 Arası)", "stars": 0, "unlocked": true, "xp": "+65 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Şans Adası Meydan Okuması", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "sato", "num": 6, "name": "Sihirli Şato", "topic": "Cebirsel İfadeler ve Özdeşlikler", "desc": "İki kare farkı ve tam kare özdeşliklerini sihirli kazanlarda karıştır! Cebir karolarını diz, altın iksirleri üret!", "img": "assets/harita/dunya_sato.jpg", "color": "pink", "border": "#f472b6", "bg_grad": "from-pink-950 via-fuchsia-900 to-slate-900", "accent": "#ec4899", "game_url": "oyunlar/cebir-simyacisi/index.html", "game_key": "cebir", "badge": "🔮 Cebir Büyücüsü", "stars": 2, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Cebirsel İfadelerde Çarpma", "stars": 3, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Tam Kare Özdeşliği (a+b)²", "stars": 2, "unlocked": true, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: İki Kare Farkı (a²-b²)", "stars": 0, "unlocked": true, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Çarpanlara Ayırma İksiri", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "robot", "num": 7, "name": "Robot Şehri", "topic": "Doğrusal Denklemler", "desc": "Geleceğin robot şehrinde koordinat caddelerini dolaş! y=mx+b doğrularını çiz ve terazi dengesini sağla!", "img": "assets/harita/dunya_robot.jpg", "color": "blue", "border": "#60a5fa", "bg_grad": "from-blue-950 via-indigo-900 to-slate-900", "accent": "#3b82f6", "game_url": "oyunlar/adalet-terazisi/index.html", "game_key": "denklem", "badge": "🤖 Robot Mühendisi", "stars": 1, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Birinci Dereceden Denklemler", "stars": 3, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Koordinat Sistemi & Sıralı İkili", "stars": 1, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Doğrusal Grafik Çizimi", "stars": 0, "unlocked": true, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: Robotik Sistem Çözümü", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "daglar", "num": 8, "name": "Macera Dağları", "topic": "Eşitsizlikler & Eğim", "desc": "Karlı dağ zirvelerinde teleferik kur! < ve > eşitsizlik köprülerinden geç, dikey/yatay eğimi hesapla!", "img": "assets/harita/dunya_daglar.jpg", "color": "sky", "border": "#38bdf8", "bg_grad": "from-sky-950 via-slate-900 to-indigo-950", "accent": "#0284c7", "game_url": "oyunlar/egim-dag/index.html", "game_key": "egim", "badge": "🏔️ Zirve Dağcısı", "stars": 1, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Doğrunun Eğimi (m = dikey/yatay)", "stars": 2, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Birinci Dereceden Eşitsizlikler", "stars": 0, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Sayı Doğrusunda Gösterim", "stars": 0, "unlocked": false, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Zirve Eşitsizlikleri", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "piramit", "num": 9, "name": "Piramitler Diyarı", "topic": "Üçgenler & Pisagor Teoremi", "desc": "Güneşli çöl vahasında sevimli deve ve sfenksle üçgen eşitsizliğini ölç! a²+b²=c² hipotenüs sırrını çöz!", "img": "assets/harita/dunya_piramit.jpg", "color": "amber", "border": "#fb923c", "bg_grad": "from-amber-950 via-orange-950 to-slate-900", "accent": "#ea580c", "game_url": "oyunlar/piramit-mimari/index.html", "game_key": "ucgen", "badge": "🏜️ Piramit Mimarı", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Üçgen Eşitsizliği & Açı-Kenar", "stars": 0, "unlocked": true, "xp": "+40 XP"}, {"lvl": 2, "title": "Kâşif: Kenarortay, Açıortay, Yükseklik", "stars": 0, "unlocked": false, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: Pisagor Bağıntısı (a²+b²=c²)", "stars": 0, "unlocked": false, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Özel Dik Üçgenler (3-4-5 vb.)", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "aynalar", "num": 10, "name": "Aynalar Dünyası", "topic": "Eşlik ve Benzerlik", "desc": "Kristal aynalar koridorunda periyle gez! Eş şekilleri bul, benzer çokgenlerin benzerlik oranını keşfet!", "img": "assets/harita/dunya_aynalar.jpg", "color": "indigo", "border": "#818cf8", "bg_grad": "from-indigo-950 via-slate-900 to-purple-950", "accent": "#6366f1", "game_url": "oyunlar/siframonlar/index.html", "game_key": "eslik", "badge": "🪞 Ayna Muhafızı", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Eş Çokgenler & Karşılıklı Kenarlar", "stars": 0, "unlocked": false, "xp": "+40 XP"}, {"lvl": 2, "title": "Kâşif: Benzerlik Oranı (k)", "stars": 0, "unlocked": false, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: Üçgenlerde Benzerlik Kuralları", "stars": 0, "unlocked": false, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Alan ve Çevre Oranları", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "portal", "num": 11, "name": "Portal Evreni", "topic": "Dönüşüm Geometrisi", "desc": "Kozmik girdap portallarında şekilleri ötele, yansıt ve döndür! Koordinat düzleminde simetriyi yakala!", "img": "assets/harita/dunya_portal.jpg", "color": "violet", "border": "#a78bfa", "bg_grad": "from-violet-950 via-purple-950 to-slate-900", "accent": "#8b5cf6", "game_url": "oyunlar/sayi-avcisi/index.html", "game_key": "donusum", "badge": "🌀 Portal Gezgini", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Öteleme Hareketi", "stars": 0, "unlocked": false, "xp": "+40 XP"}, {"lvl": 2, "title": "Kâşif: Doğruya Göre Yansıma (Simetri)", "stars": 0, "unlocked": false, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: Orijin Etrafında Dönme (90°, 180°)", "stars": 0, "unlocked": false, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Ardışık Dönüşümler & Fraktal", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "yapilar", "num": 12, "name": "3D Yapılar Gezegeni", "topic": "Geometrik Cisimler", "desc": "Uçan geometrik adada prizmaları, silindirleri, piramitleri ve konileri 3 boyutlu katla, hacmini hesapla ve şampiyonluk kupasını kaldır!", "img": "assets/harita/dunya_yapilar.jpg", "color": "emerald", "border": "#34d399", "bg_grad": "from-emerald-950 via-teal-950 to-slate-900", "accent": "#059669", "game_url": "oyunlar/piramit-mimari/index.html", "game_key": "cisimler", "badge": "🏆 Büyük LGS Şampiyonu", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Dik Prizmaların Açınımı", "stars": 0, "unlocked": false, "xp": "+45 XP"}, {"lvl": 2, "title": "Kâşif: Dik Dairesel Silindir (Yüzey & Hacim)", "stars": 0, "unlocked": false, "xp": "+60 XP"}, {"lvl": 3, "title": "Usta: Dik Piramit ve Dik Koni", "stars": 0, "unlocked": false, "xp": "+80 XP"}, {"lvl": 4, "title": "Şampiyon: Büyük Maarif Kupası Zirvesi", "stars": 0, "unlocked": false, "xp": "+150 XP"}]}];
+  const WORLDS_DATA_LIST = [{"id": "orman", "num": 1, "name": "Gizemli Orman", "topic": "Çarpanlar ve Katlar", "desc": "Sarmaşık ormanında çarpan ağaçlarına tırman, EBOB-EKOK antik tapınak sandıklarını aç!", "img": "/assets/harita/dunya_orman.jpg", "color": "emerald", "border": "#34d399", "bg_grad": "from-emerald-950 via-emerald-900 to-slate-900", "accent": "#10b981", "game_url": "oyunlar/asal-dedektif/index.html", "game_key": "asal", "badge": "🌿 Orman Kâşifi", "stars": 3, "max_stars": 3, "completed": true, "levels": [{"lvl": 1, "title": "Çırak: Asal Sayı Keşfi", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Çarpan Ağacı", "stars": 3, "unlocked": true, "xp": "+45 XP"}, {"lvl": 3, "title": "Usta: EBOB-EKOK Tapınağı", "stars": 3, "unlocked": true, "xp": "+60 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Yeni Nesil Orman", "stars": 2, "unlocked": true, "xp": "+100 XP"}]}, {"id": "uzay", "num": 2, "name": "Uzay Galaksisi", "topic": "Üslü İfadeler", "desc": "Kozmik galakside uzay gemini yönet! Negatif üsleri ters çevir, kuvvetleri toplayarak meteorları yok et!", "img": "/assets/harita/dunya_uzay.jpg", "color": "purple", "border": "#c084fc", "bg_grad": "from-purple-950 via-purple-900 to-slate-900", "accent": "#a855f7", "game_url": "oyunlar/uslerin-savasi/index.html", "game_key": "uslu", "badge": "🪐 Galaksi Fatihi", "stars": 3, "max_stars": 3, "completed": true, "levels": [{"lvl": 1, "title": "Çırak: Tam Sayı Kuvvetleri", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Negatif Üsler & Ters Çevirme", "stars": 3, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Üslü Çarpma & Bölme", "stars": 2, "unlocked": true, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: Bilimsel Gösterim Roketi", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "kristal", "num": 3, "name": "Kristal Mağarası", "topic": "Kareköklü İfadeler", "desc": "Işıltılı kristal mağarasında köstebek madenciye katıl! Tam kare kökleri kaz, irrasyonel taşları ayrıştır!", "img": "/assets/harita/dunya_kristal.jpg", "color": "cyan", "border": "#38bdf8", "bg_grad": "from-cyan-950 via-sky-900 to-slate-900", "accent": "#06b6d4", "game_url": "oyunlar/karekok-madencisi/index.html", "game_key": "karekok", "badge": "💎 Elmas Madenci", "stars": 3, "max_stars": 3, "completed": true, "levels": [{"lvl": 1, "title": "Çırak: Tam Kare Sayılar", "stars": 3, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Karekök Tahmini (Aralık)", "stars": 3, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: a√b Gösterimi", "stars": 1, "unlocked": true, "xp": "+65 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Kristal Problemleri", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "safari", "num": 4, "name": "Safari Dünyası", "topic": "Veri Analizi", "desc": "Zürafaların boyu, aslanların hızı! Sütun, çizgi ve daire grafiklerini 360 derece oranlayarak hedefleri vur!", "img": "/assets/harita/dunya_safari.jpg", "color": "amber", "border": "#fde047", "bg_grad": "from-amber-950 via-amber-900 to-slate-900", "accent": "#f59e0b", "game_url": "oyunlar/veri-karnavali/index.html", "game_key": "veri", "badge": "🦁 Safari Şefi", "stars": 2, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Sütun & Çizgi Grafiği", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Daire Grafiği (Açı & Yüzde)", "stars": 2, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Grafik Dönüşümleri", "stars": 0, "unlocked": true, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: LGS İstatistik & Karar", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "okyanus", "num": 5, "name": "Okyanus Adası", "topic": "Basit Olayların Olasılığı", "desc": "Mavi okyanusta ahtapotla zar at, çarkı çevir! İmkânsız, kesin ve eşit şanslı durumları keşfet!", "img": "/assets/harita/dunya_okyanus.jpg", "color": "teal", "border": "#2dd4bf", "bg_grad": "from-teal-950 via-teal-900 to-slate-900", "accent": "#14b8a6", "game_url": "oyunlar/sans-adasi/index.html", "game_key": "olasilik", "badge": "🌊 Okyanus Kaptanı", "stars": 2, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Olası Durumlar & Örnek Uzay", "stars": 3, "unlocked": true, "xp": "+30 XP"}, {"lvl": 2, "title": "Kâşif: Eşit, Fazla ve Az Olasılık", "stars": 2, "unlocked": true, "xp": "+45 XP"}, {"lvl": 3, "title": "Usta: Olasılık Değeri (0 ile 1 Arası)", "stars": 0, "unlocked": true, "xp": "+65 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Şans Adası Meydan Okuması", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "sato", "num": 6, "name": "Sihirli Şato", "topic": "Cebirsel İfadeler ve Özdeşlikler", "desc": "İki kare farkı ve tam kare özdeşliklerini sihirli kazanlarda karıştır! Cebir karolarını diz, altın iksirleri üret!", "img": "/assets/harita/dunya_sato.jpg", "color": "pink", "border": "#f472b6", "bg_grad": "from-pink-950 via-fuchsia-900 to-slate-900", "accent": "#ec4899", "game_url": "oyunlar/cebir-simyacisi/index.html", "game_key": "cebir", "badge": "🔮 Cebir Büyücüsü", "stars": 2, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Cebirsel İfadelerde Çarpma", "stars": 3, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Tam Kare Özdeşliği (a+b)²", "stars": 2, "unlocked": true, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: İki Kare Farkı (a²-b²)", "stars": 0, "unlocked": true, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Çarpanlara Ayırma İksiri", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "robot", "num": 7, "name": "Robot Şehri", "topic": "Doğrusal Denklemler", "desc": "Geleceğin robot şehrinde koordinat caddelerini dolaş! y=mx+b doğrularını çiz ve terazi dengesini sağla!", "img": "/assets/harita/dunya_robot.jpg", "color": "blue", "border": "#60a5fa", "bg_grad": "from-blue-950 via-indigo-900 to-slate-900", "accent": "#3b82f6", "game_url": "oyunlar/adalet-terazisi/index.html", "game_key": "denklem", "badge": "🤖 Robot Mühendisi", "stars": 1, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Birinci Dereceden Denklemler", "stars": 3, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Koordinat Sistemi & Sıralı İkili", "stars": 1, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Doğrusal Grafik Çizimi", "stars": 0, "unlocked": true, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: Robotik Sistem Çözümü", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "daglar", "num": 8, "name": "Macera Dağları", "topic": "Eşitsizlikler & Eğim", "desc": "Karlı dağ zirvelerinde teleferik kur! < ve > eşitsizlik köprülerinden geç, dikey/yatay eğimi hesapla!", "img": "/assets/harita/dunya_daglar.jpg", "color": "sky", "border": "#38bdf8", "bg_grad": "from-sky-950 via-slate-900 to-indigo-950", "accent": "#0284c7", "game_url": "oyunlar/egim-dag/index.html", "game_key": "egim", "badge": "🏔️ Zirve Dağcısı", "stars": 1, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Doğrunun Eğimi (m = dikey/yatay)", "stars": 2, "unlocked": true, "xp": "+35 XP"}, {"lvl": 2, "title": "Kâşif: Birinci Dereceden Eşitsizlikler", "stars": 0, "unlocked": true, "xp": "+50 XP"}, {"lvl": 3, "title": "Usta: Sayı Doğrusunda Gösterim", "stars": 0, "unlocked": false, "xp": "+70 XP"}, {"lvl": 4, "title": "Şampiyon: LGS Zirve Eşitsizlikleri", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "piramit", "num": 9, "name": "Piramitler Diyarı", "topic": "Üçgenler & Pisagor Teoremi", "desc": "Güneşli çöl vahasında sevimli deve ve sfenksle üçgen eşitsizliğini ölç! a²+b²=c² hipotenüs sırrını çöz!", "img": "/assets/harita/dunya_piramit.jpg", "color": "amber", "border": "#fb923c", "bg_grad": "from-amber-950 via-orange-950 to-slate-900", "accent": "#ea580c", "game_url": "oyunlar/piramit-mimari/index.html", "game_key": "ucgen", "badge": "🏜️ Piramit Mimarı", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Üçgen Eşitsizliği & Açı-Kenar", "stars": 0, "unlocked": true, "xp": "+40 XP"}, {"lvl": 2, "title": "Kâşif: Kenarortay, Açıortay, Yükseklik", "stars": 0, "unlocked": false, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: Pisagor Bağıntısı (a²+b²=c²)", "stars": 0, "unlocked": false, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Özel Dik Üçgenler (3-4-5 vb.)", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "aynalar", "num": 10, "name": "Aynalar Dünyası", "topic": "Eşlik ve Benzerlik", "desc": "Kristal aynalar koridorunda periyle gez! Eş şekilleri bul, benzer çokgenlerin benzerlik oranını keşfet!", "img": "/assets/harita/dunya_aynalar.jpg", "color": "indigo", "border": "#818cf8", "bg_grad": "from-indigo-950 via-slate-900 to-purple-950", "accent": "#6366f1", "game_url": "oyunlar/siframonlar/index.html", "game_key": "eslik", "badge": "🪞 Ayna Muhafızı", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Eş Çokgenler & Karşılıklı Kenarlar", "stars": 0, "unlocked": false, "xp": "+40 XP"}, {"lvl": 2, "title": "Kâşif: Benzerlik Oranı (k)", "stars": 0, "unlocked": false, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: Üçgenlerde Benzerlik Kuralları", "stars": 0, "unlocked": false, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Alan ve Çevre Oranları", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "portal", "num": 11, "name": "Portal Evreni", "topic": "Dönüşüm Geometrisi", "desc": "Kozmik girdap portallarında şekilleri ötele, yansıt ve döndür! Koordinat düzleminde simetriyi yakala!", "img": "/assets/harita/dunya_portal.jpg", "color": "violet", "border": "#a78bfa", "bg_grad": "from-violet-950 via-purple-950 to-slate-900", "accent": "#8b5cf6", "game_url": "oyunlar/sayi-avcisi/index.html", "game_key": "donusum", "badge": "🌀 Portal Gezgini", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Öteleme Hareketi", "stars": 0, "unlocked": false, "xp": "+40 XP"}, {"lvl": 2, "title": "Kâşif: Doğruya Göre Yansıma (Simetri)", "stars": 0, "unlocked": false, "xp": "+55 XP"}, {"lvl": 3, "title": "Usta: Orijin Etrafında Dönme (90°, 180°)", "stars": 0, "unlocked": false, "xp": "+75 XP"}, {"lvl": 4, "title": "Şampiyon: Ardışık Dönüşümler & Fraktal", "stars": 0, "unlocked": false, "xp": "+100 XP"}]}, {"id": "yapilar", "num": 12, "name": "3D Yapılar Gezegeni", "topic": "Geometrik Cisimler", "desc": "Uçan geometrik adada prizmaları, silindirleri, piramitleri ve konileri 3 boyutlu katla, hacmini hesapla ve şampiyonluk kupasını kaldır!", "img": "/assets/harita/dunya_yapilar.jpg", "color": "emerald", "border": "#34d399", "bg_grad": "from-emerald-950 via-teal-950 to-slate-900", "accent": "#059669", "game_url": "oyunlar/piramit-mimari/index.html", "game_key": "cisimler", "badge": "🏆 Büyük LGS Şampiyonu", "stars": 0, "max_stars": 3, "completed": false, "levels": [{"lvl": 1, "title": "Çırak: Dik Prizmaların Açınımı", "stars": 0, "unlocked": false, "xp": "+45 XP"}, {"lvl": 2, "title": "Kâşif: Dik Dairesel Silindir (Yüzey & Hacim)", "stars": 0, "unlocked": false, "xp": "+60 XP"}, {"lvl": 3, "title": "Usta: Dik Piramit ve Dik Koni", "stars": 0, "unlocked": false, "xp": "+80 XP"}, {"lvl": 4, "title": "Şampiyon: Büyük Maarif Kupası Zirvesi", "stars": 0, "unlocked": false, "xp": "+150 XP"}]}];
 
 
   // ================= CANLI ETKİLEŞİMLİ DERS MOTORU (LIVE LESSON ENGINE) =================
@@ -6566,60 +6478,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
       }
 
       let html = `<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40">
-      <head><meta charset="utf-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Akademik Veriler</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]-->  <!-- ================= AKILLI TAHTA & ÇAPRAZ TARAYICI GÖRSEL UYUMLULUĞU ================= -->
-  <style>
-    /* Eski Chromium / Akıllı Tahta (Chrome < 88) Aspect-Ratio Çökmesini Önleyen Sistem */
-    .aspect-square {
-      position: relative !important;
-      width: 100% !important;
-      min-height: 240px !important;
-      height: 260px !important;
-    }
-    @supports (aspect-ratio: 1 / 1) {
-      .aspect-square {
-        aspect-ratio: 1 / 1 !important;
-        height: auto !important;
-      }
-    }
-    img {
-      image-rendering: -webkit-optimize-contrast;
-      max-width: 100%;
-    }
-    .img-fallback-badge {
-      display: none;
-    }
-  </style>
-  <script>
-    // 1. Akıllı tahtalarda eski Service Worker ve önbellek çakışmalarını temizle
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(function(regs) {
-        for (var r of regs) r.unregister();
-      }).catch(function() {});
-    }
-
-    // 2. Akıllı Görsel Kurtarma Motoru (Relative vs Root Path ve Fallback)
-    function handleWorldImgError(img, worldId) {
-      if (img.getAttribute('data-recovered')) return;
-      img.setAttribute('data-recovered', 'true');
-      
-      var currentSrc = img.getAttribute('src') || '';
-      // Aşama 1: Göreli yol (/kongre/ gibi alt yollarda) hata verirse kök yoldan (/assets/...) dene
-      if (currentSrc && !currentSrc.startsWith('/') && !currentSrc.startsWith('http') && !currentSrc.startsWith('data:')) {
-        img.src = '/' + currentSrc;
-        return;
-      }
-      
-      // Aşama 2: Görsel dosyası tamamen bulunamazsa zarif gradyan kartı göster
-      img.style.display = 'none';
-      var parent = img.parentElement;
-      if (parent) {
-        parent.style.background = 'linear-gradient(135deg, #1e1b4b 0%, #0f172a 100%)';
-        var fallback = parent.querySelector('.img-fallback-badge');
-        if (fallback) fallback.style.display = 'flex';
-      }
-    }
-  </script>
-</head>
+      <head><meta charset="utf-8"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>Akademik Veriler</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head>
       <body>
       <h2>MEB III. Maarif Kongresi (Bildiri: N7KY94) - Deneysel Araştırma Verileri</h2>
       
@@ -6975,7 +6834,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
         <!-- Left: Big 3D Cartoon World Illustration -->
         <div class="md:col-span-5 flex flex-col items-center text-center">
           <div class="w-48 h-48 sm:w-60 sm:h-60 rounded-3xl overflow-hidden border-4 border-white/20 shadow-2xl relative mb-4">
-            <img id="wh-modal-img" src="assets/harita/dunya_orman.jpg" alt="Dünya İllüstrasyonu" loading="eager" decoding="async" class="w-full h-full object-cover" onerror="this.onerror=null; if(!this.src.startsWith('/')) this.src='/' + this.getAttribute('src');">
+            <img id="wh-modal-img" src="/assets/harita/dunya_orman.jpg" alt="Dünya İllüstrasyonu" class="w-full h-full object-cover">
             <div class="absolute top-3 left-3 bg-slate-900/90 text-amber-300 font-black text-xs px-3 py-1 rounded-full border border-amber-400 shadow">
               <span id="wh-modal-num">1</span>. Keşif Dünyası
             </div>

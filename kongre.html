@@ -1129,7 +1129,7 @@ Check your Browserslist config to be sure that your targets are set up correctly
           </h2>
           
           <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-4 font-medium max-w-2xl">
-            Doğa, galaktik uzay, kristal mağaralar ve antik piramitler eşliğinde <strong>10 tematik dünyayı</strong> keşfet! 
+            Doğa, galaktik uzay, kristal mağaralar ve antik piramitler eşliğinde <strong>12 Keşif Dünyasını</strong> keşfet! 
             Takıldığın yerde bilişsel ipuçları al, görevleri tamamla ve sınıfının lideri ol!
           </p>
 
@@ -4235,6 +4235,39 @@ Check your Browserslist config to be sure that your targets are set up correctly
 
       updateMiniGameHeader();
       switchMiniGameMode(currentMgMode);
+    }
+
+    
+    // ================= AKILLI TAHTA TAM EKRAN VE MODAL YARDIMCILARI =================
+    function toggleFullScreen() {
+      try {
+        if (!document.fullscreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement) {
+          if (document.documentElement.requestFullscreen) {
+            document.documentElement.requestFullscreen();
+          } else if (document.documentElement.webkitRequestFullscreen) {
+            document.documentElement.webkitRequestFullscreen();
+          } else if (document.documentElement.msRequestFullscreen) {
+            document.documentElement.msRequestFullscreen();
+          }
+        } else {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+          }
+        }
+      } catch (e) {
+        console.warn('Fullscreen geçiş uyarısı:', e);
+      }
+    }
+
+    function handleMiniGameBackdropClick(event) {
+      const modal = document.getElementById('minigame-modal');
+      if (event && modal && event.target === modal) {
+        closeMiniGameModal();
+      }
     }
 
     function closeMiniGameModal() {
@@ -7562,14 +7595,14 @@ Check your Browserslist config to be sure that your targets are set up correctly
           <div class="border-l-4 border-blue-600 pl-3">
             <h5 class="text-xs font-black text-blue-900 uppercase">1. Problem Durumu ve Giriş:</h5>
             <p class="text-slate-700 text-xs mt-0.5">
-              Geleneksel matematik öğretiminde uygulanan sonuç odaklı çoktan seçmeli testler, öğrencilerin kavram yanılgılarını anlık olarak düzeltememekte ve matematik kaygısını artırmaktadır. Kırsal ve dezavantajlı bölgelerde ev ödevi teslim oranlarının düşüklüğü (%42.0) öğrenme kayıplarını derinleştirmektedir.
+              Geleneksel matematik öğretiminde uygulanan sonuç odaklı çoktan seçmeli testler, öğrencilerin kavram yanılgılarını anlık olarak düzeltememekte ve matematik kaygısını artırmaktadır. Sosyoekonomik açıdan dezavantajlı bölgelerde ev ödevi teslim oranlarının düşüklüğü (%42.0) öğrenme kayıplarını derinleştirmektedir.
             </p>
           </div>
 
           <div class="border-l-4 border-indigo-600 pl-3">
             <h5 class="text-xs font-black text-indigo-900 uppercase">2. Araştırmanın Amacı:</h5>
             <p class="text-slate-700 text-xs mt-0.5">
-              Bu eylem araştırmasının amacı; 8. sınıf LGS matematik müfredatını kapsayan 10 farklı tematik oyun dünyası ve 3 kademeli bilişsel ipucu iskeleleme motoru içeren öğretmen tasarımı bir platformun, öğrencilerin akademik başarısı, matematik kaygısı ve görev tamamlama sebatı üzerindeki etkisini incelemektir.
+              Bu eylem araştırmasının amacı; 8. sınıf LGS matematik müfredatını kapsayan 12 Keşif Dünyası ve 3 kademeli bilişsel ipucu iskeleleme motoru içeren öğretmen tasarımı bir platformun, öğrencilerin akademik başarısı, matematik kaygısı ve görev tamamlama sebatı üzerindeki etkisini incelemektir.
             </p>
           </div>
 

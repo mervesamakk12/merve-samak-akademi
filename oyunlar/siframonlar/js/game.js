@@ -990,4 +990,15 @@ class SiframonGame {
 
 window.addEventListener('DOMContentLoaded', () => {
   window.game = new SiframonGame();
+
+  // URL Seviye Parametresi Desteği (Kolay: 1, Orta: 2, Zor: 3, LGS: 4)
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const lvl = parseInt(params.get('level'), 10);
+    if (lvl === 2 && typeof window.game.startLevel2 === 'function') window.game.startLevel2();
+    else if (lvl === 3 && typeof window.game.startLevel3 === 'function') window.game.startLevel3();
+    else if (lvl === 4 && typeof window.game.startLevel4 === 'function') window.game.startLevel4();
+    else if (lvl === 1 && typeof window.game.startLevel1 === 'function') window.game.startLevel1();
+  } catch(e) {}
+
 });

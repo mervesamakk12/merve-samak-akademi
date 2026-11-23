@@ -63,6 +63,16 @@ class MathArenaGame {
       }
     };
 
+    
+    // URL Seviye Parametresi Desteği (Kolay: 1, Orta: 2, Zor: 3, LGS: 4)
+    try {
+      const params = new URLSearchParams(window.location.search);
+      const lvl = parseInt(params.get('level'), 10);
+      if (lvl && lvl >= 1 && lvl <= 4) {
+        this.state.currentLevelNum = lvl;
+      }
+    } catch(e) {}
+
     this.init();
   }
 

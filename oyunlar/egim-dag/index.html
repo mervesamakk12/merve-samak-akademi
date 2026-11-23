@@ -313,7 +313,18 @@
     }
 
     window.addEventListener('DOMContentLoaded', () => {
-      renderCurrentQuestion();
+      
+    // URL Seviye Parametresi Desteği (Kolay: 1, Orta: 2, Zor: 3, LGS: 4)
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      const targetLvl = parseInt(urlParams.get('level'), 10);
+      if (targetLvl && targetLvl >= 1 && targetLvl <= 4) {
+        const qIdx = QUESTIONS.findIndex(q => q.stage && (q.stage.includes(`Seviye ${targetLvl}`) || q.stage.includes(`${targetLvl}.`)));
+        if (qIdx !== -1) currentQ = qIdx;
+      }
+    } catch(e) {}
+
+    renderCurrentQuestion();
     });
   </script>
 </body>

@@ -4693,9 +4693,9 @@ Check your Browserslist config to be sure that your targets are set up correctly
     }
 
     // Mini-games onclick
-    document.getElementById('wh-mg-balloon').setAttribute('onclick', "openMiniGame('balloon', '" + w.game_key + "')");
-    document.getElementById('wh-mg-maze').setAttribute('onclick', "openMiniGame('maze', '" + w.game_key + "')");
-    document.getElementById('wh-mg-memory').setAttribute('onclick', "openMiniGame('memory', '" + w.game_key + "')");
+    document.getElementById('wh-mg-balloon').setAttribute('onclick', "closeWorldHub(); openMiniGame('balloon', '" + w.game_key + "')");
+    document.getElementById('wh-mg-maze').setAttribute('onclick', "closeWorldHub(); openMiniGame('maze', '" + w.game_key + "')");
+    document.getElementById('wh-mg-memory').setAttribute('onclick', "closeWorldHub(); openMiniGame('memory', '" + w.game_key + "')");
 
     const modal = document.getElementById('world-hub-modal');
     modal.classList.remove('hidden');
@@ -4717,17 +4717,22 @@ Check your Browserslist config to be sure that your targets are set up correctly
   function launchWorldLevel(lvl) {
     const w = worldsDataMap[activeSelectedWorldId];
     if (!w) return;
+    const lvlData = (w.levels && w.levels[lvl - 1]) ? w.levels[lvl - 1] : null;
+    if (lvlData && lvlData.unlocked === false) {
+      alert('Bu seviye henüz açılmadı! Önceki seviyeleri tamamlayarak XP kazanmalısın.');
+      return;
+    }
     try { playLaunchSound(); } catch(e) {}
     
-    // Level mapping: 1 -> easy (Kolay), 2 -> medium (Orta), 3 -> hard (Zor), 4 -> lgs (LGS)
-    const levelMap = { 1: 'easy', 2: 'medium', 3: 'hard', 4: 'lgs' };
-    const levelKey = levelMap[lvl] || 'easy';
-    
-    // Close World Hub modal first
+    // Close World Hub modal
     closeWorldHub();
     
-    // Open the interactive Mini-Game in the selected level immediately!
-    openMiniGame('balloon', w.game_key, levelKey);
+    // Yönlendirme: Konuya ait çoktan seçmeli test & oyun modülüne seviye parametresiyle git
+    let target = w.game_url;
+    if (lvl) {
+      target += (target.includes('?') ? '&' : '?') + 'level=' + lvl;
+    }
+    window.location.href = target;
   }
 
   function filterMapPeriod(period) {
